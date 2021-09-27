@@ -1,7 +1,7 @@
 # dineta-crm
  Dineta.crm
 
-##How to install
+## How to install
 
 1) Clone repository
 2) Inside your local repository run command: composer install
