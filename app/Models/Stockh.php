@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Stockh extends Model
 {
-    use UpdateCreatedModifiedUserIdColumns,IdNextRecord;
+    use UpdateCreatedModifiedUserIdColumns, IdNextRecord;
 
     protected $table = 't_stockh';
 

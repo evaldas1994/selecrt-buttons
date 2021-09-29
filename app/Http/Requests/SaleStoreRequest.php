@@ -6,7 +6,7 @@ use App\Models\Stockh;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StockhStoreRequest extends FormRequest
+class SaleStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ class StockhStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
 
     /**
@@ -27,16 +27,16 @@ class StockhStoreRequest extends FormRequest
     {
         $rules = [
             'f_id' => 'required|unique:t_stockh|max:20',
-            'f_op' => ['required',Rule::in(Stockh::$opTypes)],
+            //'f_op' => ['required', Rule::in(Stockh::$opTypes)],
             'f_groupid' => 'max:20',
             'f_docdate' => 'required|date',
             'f_opdate' => 'datetime',
             'f_userid' => 'max:20',
             'f_docno' => 'required|max:20',
             'f_blankno' => 'max:50',
-            'f_storeid2' => 'max:20',
-            'f_partnerid1' => 'max:20',
-            'f_partnerid2' => 'max:20',
+            'f_storeid1' => 'required|max:20',
+            'f_partnerid1' => 'required|max:20',
+            //'f_partnerid2' => 'required|max:20',
             'f_description' => 'max:500',
             'f_templateid' => 'max:20',
             'f_method' => 'required|integer',
@@ -66,7 +66,9 @@ class StockhStoreRequest extends FormRequest
             'f_imp_doc_id' => 'max:20',
         ];
 
-
+        if($this->has('f_partnerid1') && $this->missing('f_partnerid2')){
+            $this->merge(['f_partnerid2']);
+        }
 
         return $rules;
     }

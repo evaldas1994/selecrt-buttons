@@ -2,24 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaleStoreRequest;
 use App\Http\Requests\StockhStoreRequest;
-use App\Models\Sales;
 use App\Models\Stockh;
 use App\Repositories\Interfaces\StockhRepositoryInterface;
+use App\Services\Stockh\SaleService;
 use Illuminate\Http\Request;
+
 
 class SaleController extends Controller
 {
-    private $stockhRepository;
+    private $saleService;
 
-    public function __construct(StockhRepositoryInterface $stockhRepository)
+    public function __construct()
     {
-        $this->stockhRepository = $stockhRepository;
+        $this->saleService = new SaleService(Stockh::class);
     }
 
     public function index()
     {
-        $sales = Stockh::sales()->with(['stockd'])->select('f_docno', 'f_id')->paginate(25);
+       $sales = Stockh::sales()->with(['stockd:f_hid'])->select('f_docno', 'f_id')->paginate(25);
+        //$sales = $this->saleService->all(['f_docno', 'f_id'],['stockd']);
         return view('sale.index', compact('sales'));
     }
 
@@ -42,8 +45,7 @@ class SaleController extends Controller
      */
     public function store( Request $request)
     {
-        $this->stockhRepository->create($request->input());
-        dd($request->all());
+        $this->saleService->create($request->input());
     }
 
     /**
