@@ -36,6 +36,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ route('vats.index') }}">PVM</a></li>
+                                <li><a class="dropdown-item" href="{{ route('units.index') }}">Units</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">

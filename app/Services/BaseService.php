@@ -67,7 +67,7 @@ class BaseService
      *
      * @return bool
      */
-    public function update(int $modelId, array $payload): bool
+    public function update(int|string $modelId, array $payload): bool
     {
         $model = $this->findById($modelId);
 
