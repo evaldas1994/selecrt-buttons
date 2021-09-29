@@ -21,5 +21,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('vats', \App\Http\Controllers\VatController::class);
     Route::resource('sales', \App\Http\Controllers\SaleController::class);
+    Route::resource('units', \App\Http\Controllers\UnitController::class);
 });
 
