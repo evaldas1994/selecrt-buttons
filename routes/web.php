@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,16 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('vats', \App\Http\Controllers\Vat::class);
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resource('vats', \App\Http\Controllers\VatController::class);
     Route::resource('sales', \App\Http\Controllers\SaleController::class);
-
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
