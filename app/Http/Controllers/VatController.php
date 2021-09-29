@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\VatStoreRequest;
-use App\Repositories\Interfaces\VatRepositoryInterface;
+use App\Models\Vat;
+use App\Services\VatService;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
-class Vat extends Controller
+class VatController extends Controller
 {
-    private $vatRepository;
+    private VatService $vatService;
 
-    public function __construct(VatRepositoryInterface $vatRepository)
+    public function __construct()
     {
-        $this->vatRepository = $vatRepository;
+        $this->vatService = new VatService(Vat::class);
     }
 
     /**
@@ -22,15 +24,15 @@ class Vat extends Controller
      */
     public function index()
     {
-        return $this->vatRepository->all();
+        return $this->vatService->all();
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         return view('vat.testas.create');
     }
@@ -44,7 +46,7 @@ class Vat extends Controller
      */
     public function store(VatStoreRequest $request)
     {
-        $this->vatRepository->create($request->input());
+        $this->vatService->create($request->input());
 
         return redirect()->route('vats.index');
     }
@@ -100,6 +102,5 @@ class Vat extends Controller
 
     public function confirm($id)
     {
-
     }
 }
