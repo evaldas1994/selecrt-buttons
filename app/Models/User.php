@@ -59,4 +59,9 @@ class User extends Authenticatable
      * @var string|null
      */
     const UPDATED_AT = 'f_modified_date';
+
+    public function params()
+    {
+        return $this->hasMany(UserParam::class, 'f_userid', 'f_id');
+    }
 }
