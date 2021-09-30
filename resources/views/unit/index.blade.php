@@ -2,12 +2,8 @@
 
 @section('content')
     <div class="container">
-        @for ($i = 0; $i < count($units); $i++)
-            <p><a href="{{ route('units.show', $units[$i]->f_id) }}"> The current value is {{ $units[$i]->f_id }} </a></p>
-        @endfor
+        @foreach($units as $unit)
+            <p><a href="{{ route('units.show', $unit->f_id) }}">{{ $unit->f_id }} </a></p>
+        @endforeach
     </div>
-
-
-
-
 @endsection
