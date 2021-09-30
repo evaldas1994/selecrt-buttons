@@ -22,7 +22,7 @@ class UnitController extends Controller
      *
      * @return View
      */
-    public function index(): View
+    public function index()
     {
         $units = $this->unitService->all();
 
@@ -34,7 +34,7 @@ class UnitController extends Controller
      *
      * @return View
      */
-    public function create(): View
+    public function create()
     {
         return view('unit.create');
     }
@@ -45,7 +45,7 @@ class UnitController extends Controller
      * @param UnitRequest $request
      * @return RedirectResponse
      */
-    public function store(UnitRequest $request): RedirectResponse
+    public function store(UnitRequest $request)
     {
         $this->unitService->create($request->input());
 
@@ -55,12 +55,12 @@ class UnitController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param $f_id
+     * @param $id
      * @return View
      */
-    public function show($f_id): View
+    public function show($id)
     {
-        $unit = $this->unitService->findById($f_id);
+        $unit = $this->unitService->findById($id);
 
         return view('unit.show', compact('unit'));
     }
@@ -68,12 +68,12 @@ class UnitController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $f_id
+     * @param $id
      * @return View
      */
-    public function edit($f_id): View
+    public function edit($id)
     {
-        $unit = $this->unitService->findById($f_id);
+        $unit = $this->unitService->findById($id);
 
         return view('unit.edit', compact('unit'));
     }
@@ -82,12 +82,12 @@ class UnitController extends Controller
      * Update the specified resource in storage.
      *
      * @param UnitRequest $request
-     * @param $f_id
+     * @param $id
      * @return RedirectResponse
      */
-    public function update(UnitRequest $request, $f_id): RedirectResponse
+    public function update(UnitRequest $request, $id)
     {
-        $this->unitService->update($f_id, $request->input());
+        $this->unitService->update($id, $request->input());
 
         return redirect()->route('units.index');
     }
@@ -95,12 +95,12 @@ class UnitController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $f_id
+     * @param $id
      * @return RedirectResponse
      */
-    public function destroy($f_id): RedirectResponse
+    public function destroy($id)
     {
-        $this->unitService->destroy($f_id);
+        $this->unitService->destroy($id);
 
         return redirect()->route('units.index');
     }
