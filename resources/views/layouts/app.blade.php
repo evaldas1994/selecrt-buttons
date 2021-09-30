@@ -36,7 +36,8 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ route('vats.index') }}">PVM</a></li>
-                                <li><a class="dropdown-item" href="{{ route('units.index') }}">Units</a></li>
+                                <li><a class="dropdown-item" href="{{ route('units.index') }}">Matavimo vienetai</a></li>
+                                <li><a class="dropdown-item" href="{{ route('stocks.index') }}">Prekės / Paslaugos</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
