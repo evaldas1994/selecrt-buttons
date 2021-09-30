@@ -22,5 +22,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('vats', \App\Http\Controllers\VatController::class);
     Route::resource('sales', \App\Http\Controllers\SaleController::class);
     Route::resource('units', \App\Http\Controllers\UnitController::class);
+    Route::resource('stocks', \App\Http\Controllers\StockController::class);
 });
 
