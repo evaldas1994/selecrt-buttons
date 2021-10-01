@@ -38,6 +38,7 @@
                                 <li><a class="dropdown-item" href="{{ route('vats.index') }}">PVM</a></li>
                                 <li><a class="dropdown-item" href="{{ route('units.index') }}">Matavimo vienetai</a></li>
                                 <li><a class="dropdown-item" href="{{ route('stocks.index') }}">Prekės / Paslaugos</a></li>
+                                <li><a class="dropdown-item" href="{{ route('stores.index') }}">Sandėliai</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
