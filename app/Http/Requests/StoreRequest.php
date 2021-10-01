@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
         $id = $this->route()->parameter('store');
 
         return [
-            'f_id' => 'string|required|max:20|unique:t_stock,f_id,' .$id. ',f_id',
+            'f_id' => 'string|required|max:20|unique:t_store,f_id,' .$id. ',f_id',
             'f_name' => 'string|max:500|nullable',
             'f_name2' => 'string|max:100|nullable',
             'f_address' => 'string|max:100|nullable',
