@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\R2Request;
+use App\Http\Requests\R2StoreUpdateRequest;
 use App\Models\R1;
 use App\Models\R2;
 use App\Services\R1Service;
@@ -46,10 +46,10 @@ class R2Controller extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param R2Request $request
+     * @param R2StoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(R2Request $request)
+    public function store(R2StoreUpdateRequest $request)
     {
         $this->r2Service->create(($request->input()));
 
@@ -85,11 +85,11 @@ class R2Controller extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param R2Request $request
+     * @param R2StoreUpdateRequest $request
      * @param  $id
      * @return RedirectResponse
      */
-    public function update(R2Request $request, $id)
+    public function update(R2StoreUpdateRequest $request, $id)
     {
         $this->r2Service->update($id, $request->input());
 

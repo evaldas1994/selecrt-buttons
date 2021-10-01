@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\R8;
 use Illuminate\View\View;
 use App\Services\R8Service;
-use App\Http\Requests\R8Request;
+use App\Http\Requests\R8StoreUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 
 class R8Controller extends Controller
@@ -42,10 +42,10 @@ class R8Controller extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param R8Request $request
+     * @param R8StoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(R8Request $request)
+    public function store(R8StoreUpdateRequest $request)
     {
         $this->r8Service->create(($request->input()));
 
@@ -81,11 +81,11 @@ class R8Controller extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param R8Request $request
+     * @param R8StoreUpdateRequest $request
      * @param  $id
      * @return RedirectResponse
      */
-    public function update(R8Request $request, $id)
+    public function update(R8StoreUpdateRequest $request, $id)
     {
         $this->r8Service->update($id, $request->input());
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\R6;
 use Illuminate\View\View;
 use App\Services\R6Service;
-use App\Http\Requests\R6Request;
+use App\Http\Requests\R6StoreUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 
 class R6Controller extends Controller
@@ -42,10 +42,10 @@ class R6Controller extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param R6Request $request
+     * @param R6StoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(R6Request $request)
+    public function store(R6StoreUpdateRequest $request)
     {
         $this->r6Service->create(($request->input()));
 
@@ -81,11 +81,11 @@ class R6Controller extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param R6Request $request
+     * @param R6StoreUpdateRequest $request
      * @param  $id
      * @return RedirectResponse
      */
-    public function update(R6Request $request, $id)
+    public function update(R6StoreUpdateRequest $request, $id)
     {
         $this->r6Service->update($id, $request->input());
 

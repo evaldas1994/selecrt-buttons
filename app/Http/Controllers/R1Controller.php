@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\R1;
 use Illuminate\View\View;
 use App\Services\R1Service;
-use App\Http\Requests\R1Request;
+use App\Http\Requests\R1StoreUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 
 class R1Controller extends Controller
@@ -42,10 +42,10 @@ class R1Controller extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param R1Request $request
+     * @param R1StoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(R1Request $request)
+    public function store(R1StoreUpdateRequest $request)
     {
         $this->r1Service->create(($request->input()));
 
@@ -81,11 +81,11 @@ class R1Controller extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param R1Request $request
+     * @param R1StoreUpdateRequest $request
      * @param  $id
      * @return RedirectResponse
      */
-    public function update(R1Request $request, $id)
+    public function update(R1StoreUpdateRequest $request, $id)
     {
         $this->r1Service->update($id, $request->input());
 

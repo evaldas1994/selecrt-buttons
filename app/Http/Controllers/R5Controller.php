@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\R5Request;
+use App\Http\Requests\R5StoreUpdateRequest;
 use App\Models\R5;
 use App\Services\R5Service;
 use Illuminate\Http\RedirectResponse;
@@ -43,10 +43,10 @@ class R5Controller extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param R5Request $request
+     * @param R5StoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(R5Request $request)
+    public function store(R5StoreUpdateRequest $request)
     {
         $this->R5Service->create(($request->input()));
 
@@ -82,11 +82,11 @@ class R5Controller extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param R5Request $request
+     * @param R5StoreUpdateRequest $request
      * @param  $id
      * @return RedirectResponse
      */
-    public function update(R5Request $request, $id)
+    public function update(R5StoreUpdateRequest $request, $id)
     {
         $this->R5Service->update($id, $request->input());
 

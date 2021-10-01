@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\R3Request;
+use App\Http\Requests\R3StoreUpdateRequest;
 use App\Models\R3;
 use App\Services\R3Service;
 use Illuminate\Http\RedirectResponse;
@@ -43,10 +43,10 @@ class R3Controller extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param R3Request $request
+     * @param R3StoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(R3Request $request)
+    public function store(R3StoreUpdateRequest $request)
     {
         $this->R3Service->create(($request->input()));
 
@@ -82,11 +82,11 @@ class R3Controller extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param R3Request $request
+     * @param R3StoreUpdateRequest $request
      * @param  $id
      * @return RedirectResponse
      */
-    public function update(R3Request $request, $id)
+    public function update(R3StoreUpdateRequest $request, $id)
     {
         $this->R3Service->update($id, $request->input());
 

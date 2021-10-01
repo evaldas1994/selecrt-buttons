@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\R7;
 use Illuminate\View\View;
 use App\Services\R7Service;
-use App\Http\Requests\R7Request;
+use App\Http\Requests\R7StoreUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 
 class R7Controller extends Controller
@@ -42,10 +42,10 @@ class R7Controller extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param R7Request $request
+     * @param R7StoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(R7Request $request)
+    public function store(R7StoreUpdateRequest $request)
     {
         $this->r7Service->create(($request->input()));
 
@@ -81,11 +81,11 @@ class R7Controller extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param R7Request $request
+     * @param R7StoreUpdateRequest $request
      * @param  $id
      * @return RedirectResponse
      */
-    public function update(R7Request $request, $id)
+    public function update(R7StoreUpdateRequest $request, $id)
     {
         $this->r7Service->update($id, $request->input());
 

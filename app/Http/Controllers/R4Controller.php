@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\R4Request;
+use App\Http\Requests\R4StoreUpdateRequest;
 use App\Models\R4;
 use App\Services\R4Service;
 use Illuminate\Http\RedirectResponse;
@@ -43,10 +43,10 @@ class R4Controller extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param R4Request $request
+     * @param R4StoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(R4Request $request)
+    public function store(R4StoreUpdateRequest $request)
     {
         $this->R4Service->create(($request->input()));
 
@@ -82,11 +82,11 @@ class R4Controller extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param R4Request $request
+     * @param R4StoreUpdateRequest $request
      * @param  $id
      * @return RedirectResponse
      */
-    public function update(R4Request $request, $id)
+    public function update(R4StoreUpdateRequest $request, $id)
     {
         $this->R4Service->update($id, $request->input());
 
