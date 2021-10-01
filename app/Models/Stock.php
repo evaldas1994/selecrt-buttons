@@ -161,4 +161,12 @@ class Stock extends Model
     {
         return $this->hasOne(Vat::class, 'f_id', 'f_vatid');
     }
+
+    /**
+     * Get the stock's currency.
+     */
+    public function Cur()
+    {
+        return $this->hasOne(Cur::class, 'f_id', 'f_curid');
+    }
 }

@@ -185,7 +185,9 @@
             <div class="mb-3">
                 <label for="f_curid" class="form-label">Valiuta</label>
                 <select name="f_curid" id="f_curid">
-                    <option value="EUR">EUR</option>
+                    @foreach($curs as $cur)
+                        <option value="{{ $cur->f_id }}">{{ $cur->f_name }}</option>
+                    @endforeach
                 </select>
             </div>
 

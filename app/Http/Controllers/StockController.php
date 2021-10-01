@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cur;
 use App\Models\Stock;
 use App\Models\Unit;
 use App\Models\Vat;
+use App\Services\CurService;
 use App\Services\UnitService;
 use App\Services\VatService;
 use Illuminate\View\View;
@@ -47,7 +49,10 @@ class StockController extends Controller
         $vatService = new VatService(Vat::class);
         $vats = $vatService->all();
 
-        return view('stock.create', compact('units', 'vats'));
+        $curService = new CurService(Cur::class);
+        $curs = $curService->all();
+
+        return view('stock.create', compact('units', 'vats', 'curs'));
     }
 
     /**
@@ -71,7 +76,7 @@ class StockController extends Controller
      */
     public function show($id)
     {
-        $stock =   $this->stockService->findById($id);
+        $stock = $this->stockService->findById($id);
 
         return view('stock.show', compact('stock'));
     }
@@ -92,7 +97,10 @@ class StockController extends Controller
         $vatService = new VatService(Vat::class);
         $vats = $vatService->all();
 
-        return view('stock.edit', compact('stock', 'units', 'vats'));
+        $curService = new CurService(Cur::class);
+        $curs = $curService->all();
+
+        return view('stock.edit', compact('stock', 'units', 'vats', 'curs'));
     }
 
     /**
