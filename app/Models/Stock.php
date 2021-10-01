@@ -145,4 +145,20 @@ class Stock extends Model
      * @var string|null
      */
     const UPDATED_AT = 'f_modified_date';
+
+    /**
+     * Get the stock's unit.
+     */
+    public function Unit()
+    {
+        return $this->hasOne(Unit::class, 'f_id', 'f_unitid');
+    }
+
+    /**
+     * Get the stock's vat.
+     */
+    public function Vat()
+    {
+        return $this->hasOne(Vat::class, 'f_id', 'f_vatid');
+    }
 }
