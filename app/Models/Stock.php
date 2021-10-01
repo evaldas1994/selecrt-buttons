@@ -149,7 +149,7 @@ class Stock extends Model
     /**
      * Get the stock's unit.
      */
-    public function Unit()
+    public function unit()
     {
         return $this->hasOne(Unit::class, 'f_id', 'f_unitid');
     }
@@ -157,7 +157,7 @@ class Stock extends Model
     /**
      * Get the stock's vat.
      */
-    public function Vat()
+    public function vat()
     {
         return $this->hasOne(Vat::class, 'f_id', 'f_vatid');
     }
@@ -165,7 +165,7 @@ class Stock extends Model
     /**
      * Get the stock's currency.
      */
-    public function Cur()
+    public function cur()
     {
         return $this->hasOne(Cur::class, 'f_id', 'f_curid');
     }
