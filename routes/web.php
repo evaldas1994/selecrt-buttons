@@ -26,5 +26,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('stores', \App\Http\Controllers\StoreController::class);
     Route::resource('r1s', \App\Http\Controllers\R1Controller::class);
     Route::resource('r2s', \App\Http\Controllers\R2Controller::class);
+    Route::resource('r3s', \App\Http\Controllers\R3Controller::class);
+    Route::resource('r4s', \App\Http\Controllers\R4Controller::class);
+    Route::resource('r5s', \App\Http\Controllers\R5Controller::class);
+    Route::resource('r6s', \App\Http\Controllers\R6Controller::class);
+    Route::resource('r7s', \App\Http\Controllers\R7Controller::class);
+    Route::resource('r8s', \App\Http\Controllers\R8Controller::class);
 });
 
