@@ -15,12 +15,12 @@
 
             <div class="mb-3">
                 <label for="f_name" class="form-label">Pavadinimas</label>
-                <input type="text" class="form-control" name="f_name">
+                <input type="text" class="form-control" name="f_name" value="{{ $stock->f_name }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_name2" class="form-label">Pavadinimas 2</label>
-                <input type="text" class="form-control" name="f_name2">
+                <input type="text" class="form-control" name="f_name2" value="{{ $stock->f_name2 }}">
             </div>
 
             <div  class="mb-3">
@@ -34,7 +34,7 @@
                 <label for="f_groupid" class="form-label">Mat. vnt.</label>
                 <select name="f_unitid" id="f_unitid">
                     @foreach($units as $unit)
-                        <option value="{{ $unit->f_id }}">{{ $unit->f_name }}</option>
+                        <option value="{{ $unit->f_id }}" {{ $stock->f_unitid === $unit->f_id ? 'selected' : '' }}>{{ $unit->f_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -48,42 +48,42 @@
 
             <div class="mb-3">
                 <label for="f_pack_quant" class="form-label">Kiekis pakuotėje</label>
-                <input type="text" class="form-control" name="f_pack_quant" value=0.0000>
+                <input type="text" class="form-control" name="f_pack_quant" value="{{ $stock->f_pack_quant }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_volume" class="form-label">Tūris</label>
-                <input type="text" class="form-control" name="f_volume" value=0.0000>
+                <input type="text" class="form-control" name="f_volume" value="{{ $stock->f_volume }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_weight" class="form-label">Svoris</label>
-                <input type="text" class="form-control" name="f_weight" value=0.0000>
+                <input type="text" class="form-control" name="f_weight" value="{{ $stock->f_weight }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_min_quant" class="form-label">Min. kiekis</label>
-                <input type="text" class="form-control" name="f_min_quant" value=0.0000>
+                <input type="text" class="form-control" name="f_min_quant" value="{{ $stock->f_min_quant }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_valid_days" class="form-label">Galioja dienų</label>
-                <input type="text" class="form-control" name="f_valid_days" value=0>
+                <input type="text" class="form-control" name="f_valid_days" value="{{ $stock->f_valid_days }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_valid_date" class="form-label">Galioja iki</label>
-                <input type="text" class="form-control" name="f_valid_date">
+                <input type="text" class="form-control" name="f_valid_date" value="{{ $stock->f_valid_date }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_packing" class="form-label">Fasuotė</label>
-                <input type="text" class="form-control" name="f_packing">
+                <input type="text" class="form-control" name="f_packing" value="{{ $stock->f_packing }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_originating" class="form-label">Kilmės šalis</label>
-                <input type="text" class="form-control" name="f_originating">
+                <input type="text" class="form-control" name="f_originating" value="{{ $stock->f_originating }}">
             </div>
 
             <div  class="mb-3">
@@ -95,27 +95,27 @@
 
             <div class="mb-3">
                 <label for="f_price_sale1" class="form-label">Pardavimo kaina 1</label>
-                <input type="text" class="form-control" name="f_price_sale1" value=0.0000>
+                <input type="text" class="form-control" name="f_price_sale1" value="{{ $stock->f_price_sale1 }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_price_sale2" class="form-label">Pardavimo kaina 2</label>
-                <input type="text" class="form-control" name="f_price_sale2" value=0.0000>
+                <input type="text" class="form-control" name="f_price_sale2" value="{{ $stock->f_price_sale2 }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_price_sale3" class="form-label">Pardavimo kaina 3</label>
-                <input type="text" class="form-control" name="f_price_sale3" value=0.0000>
+                <input type="text" class="form-control" name="f_price_sale3" value="{{ $stock->f_price_sale3 }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_price_sale4" class="form-label">Pardavimo kaina 4</label>
-                <input type="text" class="form-control" name="f_price_sale4" value=0.0000>
+                <input type="text" class="form-control" name="f_price_sale4" value="{{ $stock->f_price_sale4 }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_price_sale5" class="form-label">Pardavimo kaina 5</label>
-                <input type="text" class="form-control" name="f_price_sale5" value=0.0000>
+                <input type="text" class="form-control" name="f_price_sale5" value="{{ $stock->f_price_sale5 }}">
             </div>
 
             <div  class="mb-3">
@@ -127,19 +127,19 @@
 
             <div class="mb-3">
                 <label for="f_price_purch" class="form-label">Pirk. kaina</label>
-                <input type="text" class="form-control" name="f_price_purch" value=0.0000>
+                <input type="text" class="form-control" name="f_price_purch" value="{{ $stock->f_price_purch }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_vat_perc" class="form-label">PVM proc.</label>
-                <input type="text" class="form-control" name="f_vat_perc" value=21.00>
+                <input type="text" class="form-control" name="f_vat_perc" value="{{ $stock->f_vat_perc }}">
             </div>
 
             <div  class="mb-3">
                 <label for="f_vatid" class="form-label">PVM kodas</label>
                 <select name="f_vatid" id="f_vatid">
                     @foreach($vats as $vat)
-                        <option value="{{ $vat->f_id }}">{{ $vat->f_name }}</option>
+                        <option value="{{ $vat->f_id }}" {{ $stock->f_vatid === $vat->f_id ? 'selected' : '' }}>{{ $vat->f_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -153,12 +153,12 @@
 
             <div class="mb-3">
                 <label for="f_partner_discount" class="form-label">Tiekėjo nuolaida</label>
-                <input type="text" class="form-control" name="f_partner_discount" value=0.0000>
+                <input type="text" class="form-control" name="f_partner_discount" value="{{ $stock->f_partner_discount }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_gross_weight" class="form-label">Svoris (bruto)</label>
-                <input type="text" class="form-control" name="f_gross_weight" value=0.0000>
+                <input type="text" class="form-control" name="f_gross_weight" value="{{ $stock->f_gross_weight }}">
             </div>
 
             <div  class="mb-3">
@@ -170,17 +170,17 @@
 
             <div class="mb-3">
                 <label for="f_weightsign">Sveriama</label>
-                <input type="checkbox" value=1 id="f_weightsign" name="f_weightsign">
+                <input type="checkbox" value=1 id="f_weightsign" name="f_weightsign" {{ $stock->f_weightsign ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_product">Gaminama</label>
-                <input type="checkbox" value=1 id="f_product" name="f_product">
+                <input type="checkbox" value=1 id="f_product" name="f_product" {{ $stock->f_product ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_scalesign">Siųsti į svarstykles</label>
-                <input type="checkbox" value=1 id="f_scalesign" name="f_scalesign">
+                <input type="checkbox" value=1 id="f_scalesign" name="f_scalesign" {{ $stock->f_scalesign ? 'checked' : '' }}>
             </div>
 
             <div  class="mb-3">
@@ -193,13 +193,12 @@
             <div  class="mb-3">
                 <label for="f_partnerid" class="form-label">Tiekejo kodas</label>
                 <select name="f_partnerid" id="f_partnerid">
-                    {{--                    <option value="104547">104547</option>--}}
                 </select>
             </div>
 
             <div class="mb-3">
                 <label for="f_code" class="form-label">Tiekejo kodas</label>
-                <input type="text" class="form-control" name="f_code">
+                <input type="text" class="form-control" name="f_code" value="{{ $stock->f_code }}">
             </div>
 
             <div  class="mb-3">
@@ -217,64 +216,64 @@
 
             <div class="mb-3">
                 <label for="f_stock_text1" class="form-label">Etiketės aprašymas 1</label>
-                <input type="text" class="form-control" name="f_stock_text1">
+                <input type="text" class="form-control" name="f_stock_text1" value="{{ $stock->f_stock_text1 }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_stock_text2" class="form-label">Etiketės aprašymas 2</label>
-                <input type="text" class="form-control" name="f_stock_text2">
+                <input type="text" class="form-control" name="f_stock_text2" value="{{ $stock->f_stock_text2 }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_stock_text3" class="form-label">Etiketės aprašymas 3</label>
-                <input type="text" class="form-control" name="f_stock_text3">
+                <input type="text" class="form-control" name="f_stock_text3" value="{{ $stock->f_stock_text3 }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_empty_pack">Tuščia pakuotė</label>
-                <input type="checkbox" value=1 id="f_empty_pack" name="f_empty_pack">
+                <input type="checkbox" value=1 id="f_empty_pack" name="f_empty_pack" {{ $stock->f_empty_pack ? 'checked' : '' }}>
             </div>
 
             <h1> Papildomas </h1>
 
             <div class="mb-3">
                 <label for="f_f1" class="form-label">Laukas1</label>
-                <input type="text" class="form-control" name="f_f1">
+                <input type="text" class="form-control" name="f_f1" value="{{ $stock->f_f1 }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_f2" class="form-label">Laukas2</label>
-                <input type="text" class="form-control" name="f_f2">
+                <input type="text" class="form-control" name="f_f2" value="{{ $stock->f_f2 }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_f3" class="form-label">Laukas3</label>
-                <input type="text" class="form-control" name="f_f3">
+                <input type="text" class="form-control" name="f_f3" value="{{ $stock->f_f3 }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_f4" class="form-label">Laukas4</label>
-                <input type="text" class="form-control" name="f_f4">
+                <input type="text" class="form-control" name="f_f4" value="{{ $stock->f_f4 }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_f5" class="form-label">Laukas5</label>
-                <input type="text" class="form-control" name="f_f5">
+                <input type="text" class="form-control" name="f_f5" value="{{ $stock->f_f5 }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_height" class="form-label">Aukstis</label>
-                <input type="text" class="form-control" name="f_height" value=0.0000>
+                <input type="text" class="form-control" name="f_height" value="{{ $stock->f_height }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_width" class="form-label">Plotis</label>
-                <input type="text" class="form-control" name="f_width" value=0.0000>
+                <input type="text" class="form-control" name="f_width" value="{{ $stock->f_width }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_length" class="form-label">Ilgis</label>
-                <input type="text" class="form-control" name="f_length" value=0.0000>
+                <input type="text" class="form-control" name="f_length" value="{{ $stock->f_length }}">
             </div>
 
             <div  class="mb-3">
@@ -334,76 +333,76 @@
 
             <div class="mb-3">
                 <label for="f_quantity" class="form-label">Kiekis paletėje</label>
-                <input type="text" class="form-control" name="f_quantity" value=0.0000>
+                <input type="text" class="form-control" name="f_quantity" value="{{ $stock->f_quantity }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_mark1">Požymis 1</label>
-                <input type="checkbox" value=1 id="f_mark1" name="f_mark1">
+                <input type="checkbox" value=1 id="f_mark1" name="f_mark1" {{ $stock->f_mark1 ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_mark2">Požymis 2</label>
-                <input type="checkbox" value=1 id="f_mark2" name="f_mark2">
+                <input type="checkbox" value=1 id="f_mark2" name="f_mark2" {{ $stock->f_mark2 ? 'checked' : '' }}>
             </div>
             <div class="mb-3">
                 <label for="f_mark3">Požymis 3</label>
-                <input type="checkbox" value=1 id="f_mark3" name="f_mark3">
+                <input type="checkbox" value=1 id="f_mark3" name="f_mark3" {{ $stock->f_mark3 ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_mark4">Požymis 4</label>
-                <input type="checkbox" value=1 id="f_mark4" name="f_mark4">
+                <input type="checkbox" value=1 id="f_mark4" name="f_mark4" {{ $stock->f_mark4 ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_mark5">Požymis 5</label>
-                <input type="checkbox" value=1 id="f_mark5" name="f_mark5">
+                <input type="checkbox" value=1 id="f_mark5" name="f_mark5" {{ $stock->f_mark5 ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_mark6">Požymis 6</label>
-                <input type="checkbox" value=1 id="f_mark6" name="f_mark6">
+                <input type="checkbox" value=1 id="f_mark6" name="f_mark6" {{ $stock->f_mark6 ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_mark7">Požymis 7</label>
-                <input type="checkbox" value=1 id="f_mark7" name="f_mark7">
+                <input type="checkbox" value=1 id="f_mark7" name="f_mark7" {{ $stock->f_mark7 ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_mark8">Požymis 8</label>
-                <input type="checkbox" value=1 id="f_mark8" name="f_mark8">
+                <input type="checkbox" value=1 id="f_mark8" name="f_mark8" {{ $stock->f_mark8 ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_locked">Blokuota</label>
-                <input type="checkbox" value=1 id="f_locked" name="f_locked">
+                <input type="checkbox" value=1 id="f_locked" name="f_locked" {{ $stock->f_locked ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_sales_block">Blokuoti pardavimams</label>
-                <input type="checkbox" value=1 id="f_sales_block" name="f_sales_block">
+                <input type="checkbox" value=1 id="f_sales_block" name="f_sales_block" {{ $stock->f_sales_block ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_purch_block">Blokuoti Pikimams</label>
-                <input type="checkbox" value=1 id="f_purch_block" name="f_purch_block">
+                <input type="checkbox" value=1 id="f_purch_block" name="f_purch_block" {{ $stock->f_purch_block ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_order_block">Blokuoti Užsakymams</label>
-                <input type="checkbox" value=1 id="f_order_block" name="f_order_block">
+                <input type="checkbox" value=1 id="f_order_block" name="f_order_block" {{ $stock->f_order_block ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_catalog_item">Įtraukti į katalogą</label>
-                <input type="checkbox" value=1 id="f_catalog_item" name="f_catalog_item">
+                <input type="checkbox" value=1 id="f_catalog_item" name="f_catalog_item" {{ $stock->f_catalog_item ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_disp_priority" class="form-label">Prioritetas kataloge</label>
-                <input type="text" class="form-control" name="f_disp_priority" value=0>
+                <input type="text" class="form-control" name="f_disp_priority" value="{{ $stock->f_disp_priority }}">
             </div>
 
 
@@ -411,23 +410,22 @@
 
             <div class="mb-3">
                 <label for="f_gpais_i">Pirkimas</label>
-                <input type="checkbox" value=1 id="f_gpais_i" name="f_gpais_i">
+                <input type="checkbox" value=1 id="f_gpais_i" name="f_gpais_i" {{ $stock->f_gpais_i ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_gpais_a">Pardavimas</label>
-                <input type="checkbox" value=1 id="f_gpais_a" name="f_gpais_a">
+                <input type="checkbox" value=1 id="f_gpais_a" name="f_gpais_a" {{ $stock->f_gpais_a ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_gpais_n">Nurašymas</label>
-                <input type="checkbox" value=1 id="f_gpais_n" name="f_gpais_n">
+                <input type="checkbox" value=1 id="f_gpais_n" name="f_gpais_n" {{ $stock->f_gpais_n ? 'checked' : '' }}>
             </div>
 
             <div  class="mb-3">
                 <label for="f_pack_type" class="form-label">Gpais pakuotės tipas:</label>
                 <select name="f_pack_type" id="f_pack_type">
-                    {{--                    <option value=1>NULL</option>--}}
                 </select>
             </div>
 
@@ -440,37 +438,37 @@
 
             <div class="mb-3">
                 <label for="f_ignor_gross_wight">Ignoruoti Bruto svorį</label>
-                <input type="checkbox" value=1 id="f_ignor_gross_wight" name="f_ignor_gross_wight">
+                <input type="checkbox" value=1 id="f_ignor_gross_wight" name="f_ignor_gross_wight" {{ $stock->f_ignor_gross_wight ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_prevent_manual_entry">Rankinio (barkodo) įvedimo draudimas</label>
-                <input type="checkbox" value=1 id="f_prevent_manual_entry" name="f_prevent_manual_entry">
+                <input type="checkbox" value=1 id="f_prevent_manual_entry" name="f_prevent_manual_entry" {{ $stock->f_prevent_manual_entry ? 'checked' : '' }}>
             </div>
 
             <div class="mb-3">
                 <label for="f_diviation_percentage" class="form-label">Paklaidos toleravimo %</label>
-                <input type="text" class="form-control" name="f_diviation_percentage">
+                <input type="text" class="form-control" name="f_diviation_percentage" value="{{ $stock->f_diviation_percentage }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_imgurl" class="form-label">Nuotraukos URL</label>
-                <input type="text" class="form-control" name="f_imgurl">
+                <input type="text" class="form-control" name="f_imgurl" value="{{ $stock->f_imgurl }}">
             </div>
 
             <div  class="mb-3" hidden>
                 <label for="f_system1" class="form-label">System1</label>
-                <input type="text" class="form-control" name="f_system1">
+                <input type="text" class="form-control" name="f_system1" value="{{ $stock->f_system1 }}">
             </div>
 
             <div class="mb-3" hidden>
                 <label for="f_system2" class="form-label">System2</label>
-                <input type="text" class="form-control" name="f_system2">
+                <input type="text" class="form-control" name="f_system2" value="{{ $stock->f_system2 }}">
             </div>
 
             <div class="mb-3" hidden>
                 <label for="f_system3" class="form-label">System3</label>
-                <input type="text" class="form-control" name="f_system3">
+                <input type="text" class="form-control" name="f_system3" value="{{ $stock->f_system3 }}">
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>

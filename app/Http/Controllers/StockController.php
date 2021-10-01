@@ -73,7 +73,6 @@ class StockController extends Controller
     {
         $stock =   $this->stockService->findById($id);
 
-
         return view('stock.show', compact('stock'));
     }
 
