@@ -39,6 +39,7 @@
                                 <li><a class="dropdown-item" href="{{ route('units.index') }}">Matavimo vienetai</a></li>
                                 <li><a class="dropdown-item" href="{{ route('stocks.index') }}">Prekės / Paslaugos</a></li>
                                 <li><a class="dropdown-item" href="{{ route('stores.index') }}">Sandėliai</a></li>
+                                <li><a class="dropdown-item" href="{{ route('accounts.index') }}">Sąskaitų planas</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">

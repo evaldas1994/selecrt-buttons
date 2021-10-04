@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StockRequest extends FormRequest
+class StockStoreUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -56,11 +56,11 @@ class StockRequest extends FormRequest
             'f_f3' => 'string|max:1000|nullable',
             'f_f4' => 'string|max:1000|nullable',
             'f_f5' => 'string|max:1000|nullable',
-            'f_r1id' => 'string|max:20|nullable',
-            'f_r2id' => 'string|max:20|nullable',
-            'f_r3id' => 'string|max:20|nullable',
-            'f_r4id' => 'string|max:20|nullable',
-            'f_r5id' => 'string|max:20|nullable',
+            'f_r1id' => 'string|max:20|nullable|exists:t_r1,f_id',
+            'f_r2id' => 'string|max:20|nullable|exists:t_r2,f_id',
+            'f_r3id' => 'string|max:20|nullable|exists:t_r3,f_id',
+            'f_r4id' => 'string|max:20|nullable|exists:t_r4,f_id',
+            'f_r5id' => 'string|max:20|nullable|exists:t_r5,f_id',
             'f_departmentid' => 'string|max:20|nullable',
             'f_personid' => 'string|max:20|nullable',
             'f_projectid' => 'string|max:20|nullable',
