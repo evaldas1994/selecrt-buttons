@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\Cur;
+use App\Models\Person;
 use App\Models\R1;
 use App\Models\R2;
 use App\Models\R3;
@@ -14,6 +15,7 @@ use App\Models\Unit;
 use App\Models\Vat;
 use App\Services\AccountService;
 use App\Services\CurService;
+use App\Services\PersonService;
 use App\Services\R1Service;
 use App\Services\R2Service;
 use App\Services\R3Service;
@@ -82,7 +84,10 @@ class StockController extends Controller
         $accountService = new AccountService(Account::class);
         $accounts = $accountService->all();
 
-        return view('stock.create', compact('units', 'vats', 'curs', 'r1s', 'r2s', 'r3s', 'r4s', 'r5s', 'accounts'));
+        $personService = new PersonService(Person::class);
+        $persons = $personService->all();
+
+        return view('stock.create', compact('units', 'vats', 'curs', 'r1s', 'r2s', 'r3s', 'r4s', 'r5s', 'accounts', 'persons'));
     }
 
     /**
@@ -148,7 +153,10 @@ class StockController extends Controller
         $accountService = new AccountService(Account::class);
         $accounts = $accountService->all();
 
-        return view('stock.edit', compact('stock', 'units', 'vats', 'curs', 'r1s', 'r2s', 'r3s', 'r4s', 'r5s', 'accounts'));
+        $personService = new PersonService(Person::class);
+        $persons = $personService->all();
+
+        return view('stock.edit', compact('stock', 'units', 'vats', 'curs', 'r1s', 'r2s', 'r3s', 'r4s', 'r5s', 'accounts', 'persons'));
     }
 
     /**
