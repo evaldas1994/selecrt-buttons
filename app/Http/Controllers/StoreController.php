@@ -4,7 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreStoreUpdateRequest;
+use App\Models\R1;
+use App\Models\R2;
+use App\Models\R3;
+use App\Models\R4;
+use App\Models\R5;
 use App\Models\Store;
+use App\Services\R1Service;
+use App\Services\R2Service;
+use App\Services\R3Service;
+use App\Services\R4Service;
+use App\Services\R5Service;
 use App\Services\StoreService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -40,7 +50,22 @@ class StoreController extends Controller
      */
     public function create()
     {
-        return view('store.create');
+        $r1Service = new R1Service(R1::class);
+        $r1s = $r1Service->all();
+
+        $r2Service = new R2Service(R2::class);
+        $r2s = $r2Service->all();
+
+        $r3Service = new R3Service(R3::class);
+        $r3s = $r3Service->all();
+
+        $r4Service = new R4Service(R4::class);
+        $r4s = $r4Service->all();
+
+        $r5Service = new R5Service(R5::class);
+        $r5s = $r5Service->all();
+
+        return view('store.create', compact('r1s', 'r2s', 'r3s', 'r4s', 'r5s'));
     }
 
     /**
@@ -79,7 +104,22 @@ class StoreController extends Controller
     {
         $store = $this->storeService->findById($id);
 
-        return view('store.edit', compact('store'));
+        $r1Service = new R1Service(R1::class);
+        $r1s = $r1Service->all();
+
+        $r2Service = new R2Service(R2::class);
+        $r2s = $r2Service->all();
+
+        $r3Service = new R3Service(R3::class);
+        $r3s = $r3Service->all();
+
+        $r4Service = new R4Service(R4::class);
+        $r4s = $r4Service->all();
+
+        $r5Service = new R5Service(R5::class);
+        $r5s = $r5Service->all();
+
+        return view('store.edit', compact('store', 'r1s', 'r2s', 'r3s', 'r4s', 'r5s'));
     }
 
     /**
