@@ -6,7 +6,7 @@ use App\Models\Account;
 use Illuminate\View\View;
 use App\Services\AccountService;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\AccountRequest;
+use App\Http\Requests\AccountStoreUpdateRequest;
 
 class AccountController extends Controller
 {
@@ -42,10 +42,10 @@ class AccountController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param AccountRequest $request
+     * @param AccountStoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(AccountRequest $request)
+    public function store(AccountStoreUpdateRequest $request)
     {
         $this->accountService->create($request->input());
 
@@ -82,11 +82,11 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param AccountRequest $request
+     * @param AccountStoreUpdateRequest $request
      * @param $id
      * @return RedirectResponse
      */
-    public function update(AccountRequest $request, $id)
+    public function update(AccountStoreUpdateRequest $request, $id)
     {
         $this->accountService->update($id, $request->input());
 

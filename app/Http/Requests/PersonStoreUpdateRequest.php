@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AccountRequest extends FormRequest
+class PersonStoreUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,18 +23,16 @@ class AccountRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route()->parameter('account');
+        $id = $this->route()->parameter('person');
 
         return [
-            'f_id' => 'string|required|max:20|unique:t_account,f_id,' .$id. ',f_id',
+            'f_id' => 'string|required|max:20|unique:t_person,f_id,' .$id. ',f_id',
             'f_name' => 'string|max:100|nullable',
-            'f_groupid' => 'string|max:20|nullable',
-            'f_type' => 'string|max:1|required',
-            'f_purpose' => 'string|max:1|required',
+            'f_name2' => 'string|max:100|nullable',
             'f_system1' => 'string|max:100|nullable',
             'f_system2' => 'string|max:100|nullable',
             'f_system3' => 'string|max:100|nullable',
-            'f_vmi_code' => 'string|max:20|nullable',
+            'f_coef' => 'numeric|between:0,9999999999.9999|regex:/^\d+(\.\d{1,4})?$/',
         ];
     }
 }
