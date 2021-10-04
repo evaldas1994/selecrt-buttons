@@ -351,7 +351,9 @@
             <div class="mb-3">
                 <label for="f_projectid" class="form-label">Projektas</label>
                 <select name="f_projectid" id="f_projectid">
-                    {{--                    <option value="1">1</option>--}}
+                    @foreach($projects as $project)
+                        <option value="{{ $project->f_id }}">{{ $project->f_name }}</option>
+                    @endforeach
                 </select>
             </div>
 

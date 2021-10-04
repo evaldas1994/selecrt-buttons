@@ -225,4 +225,12 @@ class Stock extends Model
     {
         return $this->hasOne(Person::class, 'f_id', 'f_personid');
     }
+
+    /**
+     * Get the stock's project.
+     */
+    public function project()
+    {
+        return $this->hasOne(Project::class, 'f_id', 'f_projectid');
+    }
 }

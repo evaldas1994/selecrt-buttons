@@ -63,7 +63,7 @@ class StockStoreUpdateRequest extends FormRequest
             'f_r5id' => 'string|max:20|nullable|exists:t_r5,f_id',
             'f_departmentid' => 'string|max:20|nullable',
             'f_personid' => 'string|max:20|nullable|exists:t_person,f_id',
-            'f_projectid' => 'string|max:20|nullable',
+            'f_projectid' => 'string|max:20|nullable|exists:t_project,f_id',
             'f_min_quant' => 'numeric|between:0,9999999999.9999|regex:/^\d+(\.\d{1,4})?$/|nullable',
             'f_weightsign' => 'boolean',
             'f_product' => 'boolean',
