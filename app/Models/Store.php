@@ -132,4 +132,12 @@ class Store extends Model
     {
         return $this->hasOne(Account::class, 'f_id', 'f_accountid');
     }
+
+    /**
+     * Get the stock's person.
+     */
+    public function person()
+    {
+        return $this->hasOne(Person::class, 'f_id', 'f_personid');
+    }
 }
