@@ -86,7 +86,7 @@ class Store extends Model
     const UPDATED_AT = 'f_modified_date';
 
     /**
-     * Get the stock's register 1.
+     * Get the store's register 1.
      */
     public function r1()
     {
@@ -94,7 +94,7 @@ class Store extends Model
     }
 
     /**
-     * Get the stock's register 2.
+     * Get the store's register 2.
      */
     public function r2()
     {
@@ -102,7 +102,7 @@ class Store extends Model
     }
 
     /**
-     * Get the stock's register 3.
+     * Get the store's register 3.
      */
     public function r3()
     {
@@ -110,7 +110,7 @@ class Store extends Model
     }
 
     /**
-     * Get the stock's register 4.
+     * Get the store's register 4.
      */
     public function r4()
     {
@@ -118,10 +118,18 @@ class Store extends Model
     }
 
     /**
-     * Get the stock's register 5.
+     * Get the store's register 5.
      */
     public function r5()
     {
         return $this->hasOne(R5::class, 'f_id', 'f_r5id');
+    }
+
+    /**
+     * Get the store's account.
+     */
+    public function account()
+    {
+        return $this->hasOne(Account::class, 'f_id', 'f_accountid');
     }
 }

@@ -29,6 +29,9 @@
             <div class="mb-3">
                 <label for="f_accountid" class="form-label">Sąskaita</label>
                 <select name="f_accountid" id="f_accountid">
+                    @foreach($accounts as $account)
+                        <option value="{{ $account->f_id }}">{{ $account->f_name }}</option>
+                    @endforeach
                 </select>
             </div>
 

@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreStoreUpdateRequest;
+use App\Models\Account;
 use App\Models\R1;
 use App\Models\R2;
 use App\Models\R3;
 use App\Models\R4;
 use App\Models\R5;
 use App\Models\Store;
+use App\Services\AccountService;
 use App\Services\R1Service;
 use App\Services\R2Service;
 use App\Services\R3Service;
@@ -65,7 +67,10 @@ class StoreController extends Controller
         $r5Service = new R5Service(R5::class);
         $r5s = $r5Service->all();
 
-        return view('store.create', compact('r1s', 'r2s', 'r3s', 'r4s', 'r5s'));
+        $accountService = new AccountService(Account::class);
+        $accounts = $accountService->all();
+
+        return view('store.create', compact('r1s', 'r2s', 'r3s', 'r4s', 'r5s', 'accounts'));
     }
 
     /**
@@ -119,7 +124,10 @@ class StoreController extends Controller
         $r5Service = new R5Service(R5::class);
         $r5s = $r5Service->all();
 
-        return view('store.edit', compact('store', 'r1s', 'r2s', 'r3s', 'r4s', 'r5s'));
+        $accountService = new AccountService(Account::class);
+        $accounts = $accountService->all();
+
+        return view('store.edit', compact('store', 'r1s', 'r2s', 'r3s', 'r4s', 'r5s', 'accounts'));
     }
 
     /**

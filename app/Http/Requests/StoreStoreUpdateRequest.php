@@ -30,7 +30,7 @@ class StoreStoreUpdateRequest extends FormRequest
             'f_name' => 'string|max:100|nullable',
             'f_name2' => 'string|max:100|nullable',
             'f_address' => 'string|max:100|nullable',
-            'f_accountid' => 'string|max:20|nullable',
+            'f_accountid' => 'string|max:20|nullable|exists:t_account,f_id',
             'f_f1' => 'string|max:1000|nullable',
             'f_f2' => 'string|max:1000|nullable',
             'f_f3' => 'string|max:1000|nullable',
