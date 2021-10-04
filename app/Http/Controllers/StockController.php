@@ -51,6 +51,7 @@ class StockController extends Controller
 
         $curService = new CurService(Cur::class);
         $curs = $curService->all();
+        dd();
 
         return view('stock.create', compact('units', 'vats', 'curs'));
     }
