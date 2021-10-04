@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use App\Models\Cur;
 use App\Models\R1;
 use App\Models\R2;
@@ -11,6 +12,7 @@ use App\Models\R5;
 use App\Models\Stock;
 use App\Models\Unit;
 use App\Models\Vat;
+use App\Services\AccountService;
 use App\Services\CurService;
 use App\Services\R1Service;
 use App\Services\R2Service;
@@ -77,7 +79,10 @@ class StockController extends Controller
         $r5Service = new R5Service(R5::class);
         $r5s = $r5Service->all();
 
-        return view('stock.create', compact('units', 'vats', 'curs', 'r1s', 'r2s', 'r3s', 'r4s', 'r5s'));
+        $accountService = new AccountService(Account::class);
+        $accounts = $accountService->all();
+
+        return view('stock.create', compact('units', 'vats', 'curs', 'r1s', 'r2s', 'r3s', 'r4s', 'r5s', 'accounts'));
     }
 
     /**
@@ -140,7 +145,10 @@ class StockController extends Controller
         $r5Service = new R5Service(R5::class);
         $r5s = $r5Service->all();
 
-        return view('stock.edit', compact('stock', 'units', 'vats', 'curs', 'r1s', 'r2s', 'r3s', 'r4s', 'r5s'));
+        $accountService = new AccountService(Account::class);
+        $accounts = $accountService->all();
+
+        return view('stock.edit', compact('stock', 'units', 'vats', 'curs', 'r1s', 'r2s', 'r3s', 'r4s', 'r5s', 'accounts'));
     }
 
     /**

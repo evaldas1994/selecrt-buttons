@@ -209,4 +209,12 @@ class Stock extends Model
     {
         return $this->hasOne(R5::class, 'f_id', 'f_r5id');
     }
+
+    /**
+     * Get the stock's account.
+     */
+    public function account()
+    {
+        return $this->hasOne(Account::class, 'f_id', 'f_accountid');
+    }
 }
