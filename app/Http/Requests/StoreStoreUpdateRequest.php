@@ -42,7 +42,7 @@ class StoreStoreUpdateRequest extends FormRequest
             'f_r4id' => 'string|max:20|nullable|exists:t_r4,f_id',
             'f_r5id' => 'string|max:20|nullable|exists:t_r5,f_id',
             'f_departmentid' => 'string|max:20|nullable',
-            'f_personid' => 'string|max:20|nullable',
+            'f_personid' => 'string|max:20|nullable|exists:t_person,f_id',
             'f_projectid' => 'string|max:20|nullable',
             'f_system1' => 'string|max:100|nullable',
             'f_system2' => 'string|max:100|nullable',

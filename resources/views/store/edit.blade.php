@@ -122,6 +122,9 @@
             <div class="mb-3">
                 <label for="f_personid" class="form-label">Asmuo</label>
                 <select name="f_personid" id="f_personid">
+                    @foreach($persons as $person)
+                        <option value="{{ $person->f_id }}" {{ $store->f_personid === $person->f_id ? 'selected' : '' }}>{{ $person->f_name }}</option>
+                    @endforeach
                 </select>
             </div>
 
