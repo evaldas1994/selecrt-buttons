@@ -31,6 +31,9 @@
             <div class="mb-3">
                 <label for="f_accountid" class="form-label">Sąskaita</label>
                 <select name="f_accountid" id="f_accountid">
+                    @foreach($accounts as $account)
+                        <option value="{{ $account->f_id }}" {{ $store->f_accountid === $account->f_id ? 'selected' : '' }}>{{ $account->f_name }}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -69,7 +72,7 @@
                 <label for="f_r1id" class="form-label">Galioja iki</label>
                 <select name="f_r1id" id="f_r1id">
                     @foreach($r1s as $r1)
-                        <option value="{{ $r1->f_id }}" {{ $stock->f_r1id === $r1->f_id ? 'selected' : '' }}>{{ $r1->f_name }}</option>
+                        <option value="{{ $r1->f_id }}" {{ $store->f_r1id === $r1->f_id ? 'selected' : '' }}>{{ $r1->f_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -78,7 +81,7 @@
                 <label for="f_r2id" class="form-label">Registras 2</label>
                 <select name="f_r2id" id="f_r2id">
                     @foreach($r2s as $r2)
-                        <option value="{{ $r2->f_id }}" {{ $stock->f_r2id === $r2->f_id ? 'selected' : '' }}>{{ $r2->f_name }}</option>
+                        <option value="{{ $r2->f_id }}" {{ $store->f_r2id === $r2->f_id ? 'selected' : '' }}>{{ $r2->f_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -87,7 +90,7 @@
                 <label for="f_r3id" class="form-label">Registras 3</label>
                 <select name="f_r3id" id="f_r3id">
                     @foreach($r3s as $r3)
-                        <option value="{{ $r3->f_id }}" {{ $stock->f_r3id === $r3->f_id ? 'selected' : '' }}>{{ $r3->f_name }}</option>
+                        <option value="{{ $r3->f_id }}" {{ $store->f_r3id === $r3->f_id ? 'selected' : '' }}>{{ $r3->f_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -96,7 +99,7 @@
                 <label for="f_r4id" class="form-label">Registras 4</label>
                 <select name="f_r4id" id="f_r4id">
                     @foreach($r4s as $r4)
-                        <option value="{{ $r4->f_id }}" {{ $stock->f_r4id === $r4->f_id ? 'selected' : '' }}>{{ $r4->f_name }}</option>
+                        <option value="{{ $r4->f_id }}" {{ $store->f_r4id === $r4->f_id ? 'selected' : '' }}>{{ $r4->f_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -105,7 +108,7 @@
                 <label for="f_r5id" class="form-label">Registras 5</label>
                 <select name="f_r5id" id="f_r5id">
                     @foreach($r5s as $r5)
-                        <option value="{{ $r5->f_id }}" {{ $stock->f_r5id === $r5->f_id ? 'selected' : '' }}>{{ $r5->f_name }}</option>
+                        <option value="{{ $r5->f_id }}" {{ $store->f_r5id === $r5->f_id ? 'selected' : '' }}>{{ $r5->f_name }}</option>
                     @endforeach
                 </select>
             </div>

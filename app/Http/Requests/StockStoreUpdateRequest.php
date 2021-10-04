@@ -50,7 +50,7 @@ class StockStoreUpdateRequest extends FormRequest
             'f_vat_perc' => 'numeric',
             'f_vatid' => 'string|max:20|nullable|required|exists:t_vat,f_id',
             'f_curid' => 'string|max:20|nullable',
-            'f_accountid' => 'string|max:20|nullable',
+            'f_accountid' => 'string|max:20|nullable|exists:t_account,f_id',
             'f_f1' => 'string|max:1000|nullable',
             'f_f2' => 'string|max:1000|nullable',
             'f_f3' => 'string|max:1000|nullable',
