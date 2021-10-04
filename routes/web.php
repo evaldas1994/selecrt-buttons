@@ -33,5 +33,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('r7s', \App\Http\Controllers\R7Controller::class);
     Route::resource('r8s', \App\Http\Controllers\R8Controller::class);
     Route::resource('accounts', \App\Http\Controllers\AccountController::class);
+    Route::resource('persons', \App\Http\Controllers\PersonController::class);
 });
 
