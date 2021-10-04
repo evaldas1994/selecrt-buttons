@@ -169,4 +169,44 @@ class Stock extends Model
     {
         return $this->hasOne(Cur::class, 'f_id', 'f_curid');
     }
+
+    /**
+     * Get the stock's register 1.
+     */
+    public function r1()
+    {
+        return $this->hasOne(R1::class, 'f_id', 'f_r1id');
+    }
+
+    /**
+     * Get the stock's register 2.
+     */
+    public function r2()
+    {
+        return $this->hasOne(R2::class, 'f_id', 'f_r2id');
+    }
+
+    /**
+     * Get the stock's register 3.
+     */
+    public function r3()
+    {
+        return $this->hasOne(R3::class, 'f_id', 'f_r3id');
+    }
+
+    /**
+     * Get the stock's register 4.
+     */
+    public function r4()
+    {
+        return $this->hasOne(R4::class, 'f_id', 'f_r4id');
+    }
+
+    /**
+     * Get the stock's register 5.
+     */
+    public function r5()
+    {
+        return $this->hasOne(R5::class, 'f_id', 'f_r5id');
+    }
 }
