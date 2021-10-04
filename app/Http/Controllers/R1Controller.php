@@ -15,7 +15,6 @@ class R1Controller extends Controller
     public function __construct()
     {
         $this->r1Service = new R1Service(R1::class);
-        dd();
     }
 
     /**
