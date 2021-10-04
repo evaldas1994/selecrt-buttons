@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class StoreStoreUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,8 @@ class StoreRequest extends FormRequest
         $id = $this->route()->parameter('store');
 
         return [
-            'f_id' => 'string|required|max:20|unique:t_stock,f_id,' .$id. ',f_id',
-            'f_name' => 'string|max:500|nullable',
+            'f_id' => 'string|required|max:20|unique:t_store,f_id,' .$id. ',f_id',
+            'f_name' => 'string|max:100|nullable',
             'f_name2' => 'string|max:100|nullable',
             'f_address' => 'string|max:100|nullable',
             'f_accountid' => 'string|max:20|nullable',

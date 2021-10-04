@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreRequest;
+use App\Http\Requests\StoreStoreUpdateRequest;
 use App\Models\Store;
 use App\Services\StoreService;
 use Illuminate\Http\RedirectResponse;
@@ -46,10 +46,10 @@ class StoreController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreRequest $request
+     * @param StoreStoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreRequest $request)
+    public function store(StoreStoreUpdateRequest $request)
     {
         $this->storeService->create(($request->input()));
 
@@ -85,11 +85,11 @@ class StoreController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param StoreRequest $request
+     * @param StoreStoreUpdateRequest $request
      * @param $id
      * @return RedirectResponse
      */
-    public function update(StoreRequest $request, $id)
+    public function update(StoreStoreUpdateRequest $request, $id)
     {
         $this->storeService->update($id, $request->input());
 

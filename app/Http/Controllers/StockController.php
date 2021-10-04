@@ -11,7 +11,7 @@ use App\Services\UnitService;
 use App\Services\VatService;
 use Illuminate\View\View;
 use App\Services\StockService;
-use App\Http\Requests\StockRequest;
+use App\Http\Requests\StockStoreUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 
 class StockController extends Controller
@@ -58,10 +58,10 @@ class StockController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StockRequest $request
+     * @param StockStoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(StockRequest $request)
+    public function store(StockStoreUpdateRequest $request)
     {
         $this->stockService->create($request->input());
 
@@ -106,11 +106,11 @@ class StockController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param StockRequest $request
+     * @param StockStoreUpdateRequest $request
      * @param $id
      * @return RedirectResponse
      */
-    public function update(StockRequest $request, $id)
+    public function update(StockStoreUpdateRequest $request, $id)
     {
         $this->stockService->update($id, $request->input());
 

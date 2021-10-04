@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Unit;
 use Illuminate\View\View;
 use App\Services\UnitService;
-use App\Http\Requests\UnitRequest;
+use App\Http\Requests\UnitStoreUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 
 class UnitController extends Controller
@@ -42,10 +42,10 @@ class UnitController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param UnitRequest $request
+     * @param UnitStoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(UnitRequest $request)
+    public function store(UnitStoreUpdateRequest $request)
     {
         $this->unitService->create($request->input());
 
@@ -81,11 +81,11 @@ class UnitController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UnitRequest $request
+     * @param UnitStoreUpdateRequest $request
      * @param $id
      * @return RedirectResponse
      */
-    public function update(UnitRequest $request, $id)
+    public function update(UnitStoreUpdateRequest $request, $id)
     {
         $this->unitService->update($id, $request->input());
 
