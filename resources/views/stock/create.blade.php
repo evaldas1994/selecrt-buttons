@@ -288,35 +288,45 @@
             <div class="mb-3">
                 <label for="f_r1id" class="form-label">Galioja iki</label>
                 <select name="f_r1id" id="f_r1id">
-                    {{--                    <option value="01">01</option>--}}
+                    @foreach($r1s as $r1)
+                        <option value="{{ $r1->f_id }}">{{ $r1->f_name }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="mb-3">
                 <label for="f_r2id" class="form-label">Registras 2</label>
-                <select name="f_r1id" id="f_r2id">
-                    {{--                    <option value="12">12</option>--}}
+                <select name="f_r2id" id="f_r2id">
+                    @foreach($r2s as $r2)
+                        <option value="{{ $r2->f_id }}">{{ $r2->f_name }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="mb-3">
                 <label for="f_r3id" class="form-label">Registras 3</label>
                 <select name="f_r3id" id="f_r3id">
-                    {{--                    <option value="147">147</option>--}}
+                    @foreach($r3s as $r3)
+                        <option value="{{ $r3->f_id }}">{{ $r3->f_name }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="mb-3">
                 <label for="f_r4id" class="form-label">Registras 4</label>
                 <select name="f_r4id" id="f_r4id">
-                    {{--                    <option value="1">1</option>--}}
+                    @foreach($r4s as $r4)
+                        <option value="{{ $r4->f_id }}">{{ $r4->f_name }}</option>
+                    @endforeach
                 </select>
             </div>
 
             <div class="mb-3">
                 <label for="f_r5id" class="form-label">Registras 5</label>
                 <select name="f_r5id" id="f_r5id">
-                    {{--                    <option value="1">1</option>--}}
+                    @foreach($r5s as $r5)
+                        <option value="{{ $r5->f_id }}">{{ $r5->f_name }}</option>
+                    @endforeach
                 </select>
             </div>
 
