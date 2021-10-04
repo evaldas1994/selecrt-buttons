@@ -19,11 +19,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::resource('vats', \App\Http\Controllers\VatController::class);
-    Route::resource('sales', \App\Http\Controllers\SaleController::class);
-    Route::resource('units', \App\Http\Controllers\UnitController::class);
-    Route::resource('stocks', \App\Http\Controllers\StockController::class);
-    Route::resource('stores', \App\Http\Controllers\StoreController::class);
+    Route::resource('accounts', \App\Http\Controllers\AccountController::class);
     Route::resource('r1s', \App\Http\Controllers\R1Controller::class);
     Route::resource('r2s', \App\Http\Controllers\R2Controller::class);
     Route::resource('r3s', \App\Http\Controllers\R3Controller::class);
@@ -32,6 +28,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('r6s', \App\Http\Controllers\R6Controller::class);
     Route::resource('r7s', \App\Http\Controllers\R7Controller::class);
     Route::resource('r8s', \App\Http\Controllers\R8Controller::class);
-    Route::resource('accounts', \App\Http\Controllers\AccountController::class);
+    Route::resource('sales', \App\Http\Controllers\SaleController::class);
+    Route::resource('stocks', \App\Http\Controllers\StockController::class);
+    Route::resource('stores', \App\Http\Controllers\StoreController::class);
+    Route::resource('system-params', \App\Http\Controllers\ParamController::class);
+    Route::resource('units', \App\Http\Controllers\UnitController::class);
+    Route::resource('user-params', \App\Http\Controllers\UserParamController::class);
+    Route::resource('vats', \App\Http\Controllers\VatController::class);
 });
 
