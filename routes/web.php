@@ -32,9 +32,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('sales', \App\Http\Controllers\SaleController::class);
     Route::resource('stocks', \App\Http\Controllers\StockController::class);
     Route::resource('stores', \App\Http\Controllers\StoreController::class);
-    Route::resource('system-params', \App\Http\Controllers\ParamController::class);
+    Route::resource('system-params', \App\Http\Controllers\Modules\ParamController::class);
     Route::resource('units', \App\Http\Controllers\UnitController::class);
-    Route::resource('user-params', \App\Http\Controllers\UserParamController::class);
+    Route::resource('user-params', \App\Http\Controllers\Modules\UserParamController::class);
     Route::resource('vats', \App\Http\Controllers\Modules\VatController::class);
 });
 

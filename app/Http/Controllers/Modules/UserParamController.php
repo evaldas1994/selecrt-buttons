@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Modules;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ParamController extends Controller
+class UserParamController extends Controller
 {
     /**
      * Display a listing of the resource.
