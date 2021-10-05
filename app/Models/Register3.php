@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
 
-class R3 extends Model
+class Register3 extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
 

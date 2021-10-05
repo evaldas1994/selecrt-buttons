@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('projects', \App\Http\Controllers\ProjectController::class);
     Route::resource('registers1', \App\Http\Controllers\Modules\Register1Controller::class);
     Route::resource('registers2', \App\Http\Controllers\Modules\Register2Controller::class);
-    Route::resource('r3s', \App\Http\Controllers\R3Controller::class);
+    Route::resource('registers3', \App\Http\Controllers\Modules\Register3Controller::class);
     Route::resource('r4s', \App\Http\Controllers\R4Controller::class);
     Route::resource('r5s', \App\Http\Controllers\R5Controller::class);
     Route::resource('r6s', \App\Http\Controllers\R6Controller::class);

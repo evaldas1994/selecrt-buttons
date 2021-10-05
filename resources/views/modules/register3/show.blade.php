@@ -6,9 +6,9 @@
         <p>Pavadinimas: {{ $register->f_name }}</p>
         <p>Pavadinimas 2: {{ $register->f_name2 }}</p>
 
-        <a href="{{ route('r3s.edit', $register->f_id) }}">Edit</a>
+        <a href="{{ route('registers3.edit', $register->f_id) }}">Edit</a>
 
-        <form method="post" action="{{ route('r3s.destroy', $register->f_id) }}">
+        <form method="post" action="{{ route('registers3.destroy', $register->f_id) }}">
             @method('DELETE')
             @csrf
 
