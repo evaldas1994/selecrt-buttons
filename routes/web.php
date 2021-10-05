@@ -21,7 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('accounts', \App\Http\Controllers\AccountController::class);
     Route::resource('projects', \App\Http\Controllers\ProjectController::class);
-    Route::resource('r1s', \App\Http\Controllers\R1Controller::class);
+    Route::resource('registers1', \App\Http\Controllers\Modules\Register1Controller::class);
     Route::resource('registers2', \App\Http\Controllers\Modules\Register2Controller::class);
     Route::resource('r3s', \App\Http\Controllers\R3Controller::class);
     Route::resource('r4s', \App\Http\Controllers\R4Controller::class);
