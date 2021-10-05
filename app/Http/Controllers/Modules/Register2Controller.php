@@ -1,24 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Modules;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\R2StoreUpdateRequest;
-use App\Models\R1;
-use App\Models\R2;
-use App\Services\R1Service;
-use App\Services\R2Service;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use App\Models\Register2;
 use Illuminate\View\View;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use App\Services\Modules\Register2Service;
+use App\Http\Requests\Register2StoreUpdateRequest;
 
-class R2Controller extends Controller
+class Register2Controller extends Controller
 {
     private $r2Service;
 
     public function __construct()
     {
-        $this->r2Service = new R2Service(R2::class);
+        $this->r2Service = new Register2Service(Register2::class);
     }
 
     /**
@@ -30,7 +27,7 @@ class R2Controller extends Controller
     {
         $registers = $this->r2Service->all();
 
-        return view('r2.index', compact('registers'));
+        return view('modules.register2.index', compact('registers'));
     }
 
     /**
@@ -40,20 +37,20 @@ class R2Controller extends Controller
      */
     public function create()
     {
-        return view('r2.create');
+        return view('modules.register2.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param R2StoreUpdateRequest $request
+     * @param Register2StoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(R2StoreUpdateRequest $request)
+    public function store(Register2StoreUpdateRequest $request)
     {
         $this->r2Service->create(($request->input()));
 
-        return redirect()->route('r2s.index');
+        return redirect()->route('registers2.index');
     }
 
     /**
@@ -66,7 +63,7 @@ class R2Controller extends Controller
     {
         $register = $this->r2Service->findById($id);
 
-        return view('r2.show', compact('register'));
+        return view('modules.register2.show', compact('register'));
     }
 
     /**
@@ -79,21 +76,21 @@ class R2Controller extends Controller
     {
         $register = $this->r2Service->findById($id);
 
-        return view('r2.edit', compact('register'));
+        return view('modules.register2.edit', compact('register'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param R2StoreUpdateRequest $request
+     * @param Register2StoreUpdateRequest $request
      * @param  $id
      * @return RedirectResponse
      */
-    public function update(R2StoreUpdateRequest $request, $id)
+    public function update(Register2StoreUpdateRequest $request, $id)
     {
         $this->r2Service->update($id, $request->input());
 
-        return redirect()->route('r2s.index');
+        return redirect()->route('registers2.index');
     }
 
     /**
@@ -106,6 +103,6 @@ class R2Controller extends Controller
     {
         $this->r2Service->destroy($id);
 
-        return redirect()->route('r2s.index');
+        return redirect()->route('registers2.index');
     }
 }
