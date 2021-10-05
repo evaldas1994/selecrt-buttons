@@ -35,6 +35,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('system-params', \App\Http\Controllers\ParamController::class);
     Route::resource('units', \App\Http\Controllers\UnitController::class);
     Route::resource('user-params', \App\Http\Controllers\UserParamController::class);
-    Route::resource('vats', \App\Http\Controllers\VatController::class);
+    Route::resource('vats', \App\Http\Controllers\Modules\VatController::class);
 });
 

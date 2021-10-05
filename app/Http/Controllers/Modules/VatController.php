@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Modules;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\VatStoreRequest;
 use App\Models\Vat;
-use App\Services\VatService;
+use App\Services\Modules\VatService;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class VatController extends Controller
 {
-    private VatService $vatService;
+    private $vatService;
 
     public function __construct()
     {
@@ -32,9 +32,9 @@ class VatController extends Controller
      *
      * @return View
      */
-    public function create(): View
+    public function create()
     {
-        return view('vat.testas.create');
+        return view('modules.vat.create');
     }
 
     /**

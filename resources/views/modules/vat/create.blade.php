@@ -4,8 +4,6 @@
     <div class="container">
         <form method="post" action="{{ route('vats.store') }}">
             @csrf
-
-
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Code</label>
                 <input type="text" class="form-control" name="f_id">

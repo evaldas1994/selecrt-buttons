@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Modules;
+
+use App\Services\BaseService;
 
 /**
  * Created by
