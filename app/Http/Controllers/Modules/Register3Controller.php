@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Register3StoreUpdateRequest;
 use App\Models\Register3;
-use App\Services\Modules\Register3Service;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use App\Services\Modules\Register3Service;
+use App\Http\Requests\Register3StoreUpdateRequest;
 
 class Register3Controller extends Controller
 {
-    private $Register3Service;
+    private $register3Service;
 
     public function __construct()
     {
-        $this->Register3Service = new Register3Service(Register3::class);
+        $this->register3Service = new Register3Service(Register3::class);
     }
 
     /**
@@ -25,7 +25,7 @@ class Register3Controller extends Controller
      */
     public function index()
     {
-        $registers = $this->Register3Service->all();
+        $registers = $this->register3Service->all();
 
         return view('modules.register3.index', compact('registers'));
     }
@@ -48,7 +48,7 @@ class Register3Controller extends Controller
      */
     public function store(Register3StoreUpdateRequest $request)
     {
-        $this->Register3Service->create(($request->input()));
+        $this->register3Service->create(($request->input()));
 
         return redirect()->route('registers3.index');
     }
@@ -61,7 +61,7 @@ class Register3Controller extends Controller
      */
     public function show($id)
     {
-        $register = $this->Register3Service->findById($id);
+        $register = $this->register3Service->findById($id);
 
         return view('modules.register3.show', compact('register'));
     }
@@ -74,7 +74,7 @@ class Register3Controller extends Controller
      */
     public function edit($id)
     {
-        $register = $this->Register3Service->findById($id);
+        $register = $this->register3Service->findById($id);
 
         return view('modules.register3.edit', compact('register'));
     }
@@ -88,7 +88,7 @@ class Register3Controller extends Controller
      */
     public function update(Register3StoreUpdateRequest $request, $id)
     {
-        $this->Register3Service->update($id, $request->input());
+        $this->register3Service->update($id, $request->input());
 
         return redirect()->route('registers3.index');
     }
@@ -101,7 +101,7 @@ class Register3Controller extends Controller
      */
     public function destroy($id)
     {
-        $this->Register3Service->destroy($id);
+        $this->register3Service->destroy($id);
 
         return redirect()->route('registers3.index');
     }
