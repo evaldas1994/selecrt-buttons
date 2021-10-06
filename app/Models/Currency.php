@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Traits\IdToUppercase;
-use App\Traits\UpdateCreatedModifiedUserIdColumns;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
-class Cur extends Model
+class Currency extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
 
@@ -21,7 +21,10 @@ class Cur extends Model
         'f_id',
         'f_name',
         'f_symbol',
-        'f_fraction'
+        'f_fraction',
+        'f_system1',
+        'f_system2',
+        'f_system3',
     ];
 
     /**
