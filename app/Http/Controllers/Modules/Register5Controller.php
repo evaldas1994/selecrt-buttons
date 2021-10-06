@@ -11,11 +11,11 @@ use App\Http\Requests\Register5StoreUpdateRequest;
 
 class Register5Controller extends Controller
 {
-    private $Register5Service;
+    private $register5Service;
 
     public function __construct()
     {
-        $this->Register5Service = new Register5Service(Register5::class);
+        $this->register5Service = new Register5Service(Register5::class);
     }
 
     /**
@@ -25,7 +25,7 @@ class Register5Controller extends Controller
      */
     public function index()
     {
-        $registers = $this->Register5Service->all();
+        $registers = $this->register5Service->all();
 
         return view('modules.register5.index', compact('registers'));
     }
@@ -48,7 +48,7 @@ class Register5Controller extends Controller
      */
     public function store(Register5StoreUpdateRequest $request)
     {
-        $this->Register5Service->create(($request->input()));
+        $this->register5Service->create(($request->input()));
 
         return redirect()->route('registers5.index');
     }
@@ -61,7 +61,7 @@ class Register5Controller extends Controller
      */
     public function show($id)
     {
-        $register = $this->Register5Service->findById($id);
+        $register = $this->register5Service->findById($id);
 
         return view('modules.register5.show', compact('register'));
     }
@@ -74,7 +74,7 @@ class Register5Controller extends Controller
      */
     public function edit($id)
     {
-        $register = $this->Register5Service->findById($id);
+        $register = $this->register5Service->findById($id);
 
         return view('modules.register5.edit', compact('register'));
     }
@@ -88,7 +88,7 @@ class Register5Controller extends Controller
      */
     public function update(Register5StoreUpdateRequest $request, $id)
     {
-        $this->Register5Service->update($id, $request->input());
+        $this->register5Service->update($id, $request->input());
 
         return redirect()->route('registers5.index');
     }
@@ -101,7 +101,7 @@ class Register5Controller extends Controller
      */
     public function destroy($id)
     {
-        $this->Register5Service->destroy($id);
+        $this->register5Service->destroy($id);
 
         return redirect()->route('registers5.index');
     }
