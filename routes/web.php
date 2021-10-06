@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('accounts', \App\Http\Controllers\Modules\AccountController::class);
     Route::resource('currencies', \App\Http\Controllers\Modules\CurrencyController::class);
     Route::resource('partners', \App\Http\Controllers\Modules\PartnerController::class);
+    Route::resource('partnerGroups', \App\Http\Controllers\Modules\PartnerGroupController::class);
     Route::resource('persons', \App\Http\Controllers\Modules\PersonController::class);
     Route::resource('projects', \App\Http\Controllers\Modules\ProjectController::class);
     Route::resource('registers1', \App\Http\Controllers\Modules\Register1Controller::class);
