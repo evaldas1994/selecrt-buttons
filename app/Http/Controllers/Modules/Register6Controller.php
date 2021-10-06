@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Modules;
 
-use App\Models\R6;
+use App\Models\Register6;
 use Illuminate\View\View;
-use App\Services\R6Service;
-use App\Http\Requests\R6StoreUpdateRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use App\Services\Modules\Register6Service;
+use App\Http\Requests\Register6StoreUpdateRequest;
 
-class R6Controller extends Controller
+class Register6Controller extends Controller
 {
     private $r6Service;
 
     public function __construct()
     {
-        $this->r6Service = new R6Service(R6::class);
+        $this->r6Service = new Register6Service(Register6::class);
     }
 
     /**
@@ -26,7 +27,7 @@ class R6Controller extends Controller
     {
         $registers = $this->r6Service->all();
 
-        return view('r6.index', compact('registers'));
+        return view('modules.register6.index', compact('registers'));
     }
 
     /**
@@ -36,20 +37,20 @@ class R6Controller extends Controller
      */
     public function create()
     {
-        return view('r6.create');
+        return view('modules.register6.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param R6StoreUpdateRequest $request
+     * @param Register6StoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(R6StoreUpdateRequest $request)
+    public function store(Register6StoreUpdateRequest $request)
     {
         $this->r6Service->create(($request->input()));
 
-        return redirect()->route('r6s.index');
+        return redirect()->route('registers6.index');
     }
 
     /**
@@ -62,7 +63,7 @@ class R6Controller extends Controller
     {
         $register = $this->r6Service->findById($id);
 
-        return view('r6.show', compact('register'));
+        return view('modules.register6.show', compact('register'));
     }
 
     /**
@@ -75,21 +76,21 @@ class R6Controller extends Controller
     {
         $register = $this->r6Service->findById($id);
 
-        return view('r6.edit', compact('register'));
+        return view('modules.register6.edit', compact('register'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param R6StoreUpdateRequest $request
+     * @param Register6StoreUpdateRequest $request
      * @param  $id
      * @return RedirectResponse
      */
-    public function update(R6StoreUpdateRequest $request, $id)
+    public function update(Register6StoreUpdateRequest $request, $id)
     {
         $this->r6Service->update($id, $request->input());
 
-        return redirect()->route('r6s.index');
+        return redirect()->route('registers6.index');
     }
 
     /**
@@ -102,6 +103,6 @@ class R6Controller extends Controller
     {
         $this->r6Service->destroy($id);
 
-        return redirect()->route('r6s.index');
+        return redirect()->route('registers6.index');
     }
 }
