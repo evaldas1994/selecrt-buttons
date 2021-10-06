@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         @foreach($registers as $register)
-            <p><a href="{{ route('r3s.show', $register->f_id) }}">{{ $register->f_id }} </a></p>
+            <p><a href="{{ route('registers3.show', $register->f_id) }}">{{ $register->f_id }} </a></p>
         @endforeach
     </div>
 @endsection
