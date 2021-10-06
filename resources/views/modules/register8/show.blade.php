@@ -7,9 +7,9 @@
         <p>Pavadinimas 2: {{ $register->f_name2 }}</p>
         <p>Galioja iki: {{ $register->f_valid_date }}</p>
 
-        <a href="{{ route('r8s.edit', $register->f_id) }}">Edit</a>
+        <a href="{{ route('registers8.edit', $register->f_id) }}">Edit</a>
 
-        <form method="post" action="{{ route('r8s.destroy', $register->f_id) }}">
+        <form method="post" action="{{ route('registers8.destroy', $register->f_id) }}">
             @method('DELETE')
             @csrf
 
