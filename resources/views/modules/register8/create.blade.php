@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{ route('r4s.store') }}">
+        <form method="post" action="{{ route('registers8.store') }}">
             @csrf
 
             <div class="mb-3">
@@ -18,6 +18,11 @@
             <div class="mb-3">
                 <label for="f_name2" class="form-label">Pavadinimas 2</label>
                 <input type="text" class="form-control" name="f_name2">
+            </div>
+
+            <div class="mb-3">
+                <label for="f_valid_date" class="form-label">Galioja iki</label>
+                <input type="text" class="form-control" name="f_valid_date">
             </div>
 
             <div  class="mb-3" hidden>

@@ -11,11 +11,11 @@ use App\Http\Requests\Register2StoreUpdateRequest;
 
 class Register2Controller extends Controller
 {
-    private $r2Service;
+    private $register2Service;
 
     public function __construct()
     {
-        $this->r2Service = new Register2Service(Register2::class);
+        $this->register2Service = new Register2Service(Register2::class);
     }
 
     /**
@@ -25,7 +25,7 @@ class Register2Controller extends Controller
      */
     public function index()
     {
-        $registers = $this->r2Service->all();
+        $registers = $this->register2Service->all();
 
         return view('modules.register2.index', compact('registers'));
     }
@@ -48,7 +48,7 @@ class Register2Controller extends Controller
      */
     public function store(Register2StoreUpdateRequest $request)
     {
-        $this->r2Service->create(($request->input()));
+        $this->register2Service->create(($request->input()));
 
         return redirect()->route('registers2.index');
     }
@@ -61,7 +61,7 @@ class Register2Controller extends Controller
      */
     public function show($id)
     {
-        $register = $this->r2Service->findById($id);
+        $register = $this->register2Service->findById($id);
 
         return view('modules.register2.show', compact('register'));
     }
@@ -74,7 +74,7 @@ class Register2Controller extends Controller
      */
     public function edit($id)
     {
-        $register = $this->r2Service->findById($id);
+        $register = $this->register2Service->findById($id);
 
         return view('modules.register2.edit', compact('register'));
     }
@@ -88,7 +88,7 @@ class Register2Controller extends Controller
      */
     public function update(Register2StoreUpdateRequest $request, $id)
     {
-        $this->r2Service->update($id, $request->input());
+        $this->register2Service->update($id, $request->input());
 
         return redirect()->route('registers2.index');
     }
@@ -101,7 +101,7 @@ class Register2Controller extends Controller
      */
     public function destroy($id)
     {
-        $this->r2Service->destroy($id);
+        $this->register2Service->destroy($id);
 
         return redirect()->route('registers2.index');
     }

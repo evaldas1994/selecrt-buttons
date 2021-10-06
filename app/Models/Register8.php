@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
 
-class R4 extends Model
+class Register8 extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
 
-    protected $table = 't_r4';
+    protected $table = 't_r8';
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +27,7 @@ class R4 extends Model
         'f_system1',
         'f_system2',
         'f_system3',
+        'f_valid_date',
     ];
 
     /**

@@ -24,11 +24,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('registers1', \App\Http\Controllers\Modules\Register1Controller::class);
     Route::resource('registers2', \App\Http\Controllers\Modules\Register2Controller::class);
     Route::resource('registers3', \App\Http\Controllers\Modules\Register3Controller::class);
-    Route::resource('r4s', \App\Http\Controllers\R4Controller::class);
+    Route::resource('registers4', \App\Http\Controllers\Modules\Register4Controller::class);
     Route::resource('registers5', \App\Http\Controllers\Modules\Register5Controller::class);
     Route::resource('r6s', \App\Http\Controllers\R6Controller::class);
     Route::resource('r7s', \App\Http\Controllers\R7Controller::class);
-    Route::resource('r8s', \App\Http\Controllers\R8Controller::class);
+    Route::resource('registers8', \App\Http\Controllers\Modules\Register8Controller::class);
     Route::resource('sales', \App\Http\Controllers\SaleController::class);
     Route::resource('stocks', \App\Http\Controllers\StockController::class);
     Route::resource('stores', \App\Http\Controllers\StoreController::class);
