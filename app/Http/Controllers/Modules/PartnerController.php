@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Models\Cur;
+use App\Models\Currency;
 use App\Models\Person;
 use App\Models\Account;
 use App\Models\Partner;
@@ -13,13 +13,13 @@ use App\Models\Register3;
 use App\Models\Register4;
 use Illuminate\View\View;
 use App\Models\Register5;
-use App\Services\CurService;
-use App\Services\PersonService;
-use App\Services\AccountService;
-use App\Services\ProjectService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use App\Services\Modules\PersonService;
+use App\Services\Modules\ProjectService;
+use App\Services\Modules\AccountService;
 use App\Services\Modules\PartnerService;
+use App\Services\Modules\CurrencyService;
 use App\Services\Modules\Register1Service;
 use App\Services\Modules\Register2Service;
 use App\Services\Modules\Register3Service;
@@ -55,7 +55,7 @@ class PartnerController extends Controller
      */
     public function create()
     {
-        $curService = new CurService(Cur::class);
+        $curService = new CurrencyService(Currency::class);
         $curs = $curService->all();
 
         $register1Service = new Register1Service(Register1::class);
@@ -122,7 +122,7 @@ class PartnerController extends Controller
         $partnerService = new partnerService(Partner::class);
         $partner = $partnerService->findById($id);
 
-        $curService = new CurService(Cur::class);
+        $curService = new CurrencyService(Currency::class);
         $curs = $curService->all();
 
         $register1Service = new Register1Service(Register1::class);
