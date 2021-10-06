@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Modules;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\PersonStoreUpdateRequest;
 use App\Models\Person;
-use App\Models\Store;
-use App\Services\PersonService;
-use App\Services\StoreService;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use App\Services\Modules\PersonService;
+use App\Http\Requests\PersonStoreUpdateRequest;
 
 class PersonController extends Controller
 {
@@ -30,7 +27,7 @@ class PersonController extends Controller
     {
         $persons = $this->personService->all();
 
-        return view('person.index', compact('persons'));
+        return view('modules.person.index', compact('persons'));
     }
 
     /**
@@ -40,7 +37,7 @@ class PersonController extends Controller
      */
     public function create()
     {
-        return view('person.create');
+        return view('modules.person.create');
     }
 
     /**
@@ -66,7 +63,7 @@ class PersonController extends Controller
     {
         $person = $this->personService->findById($id);
 
-        return view('person.show', compact('person'));
+        return view('modules.person.show', compact('person'));
     }
 
     /**
@@ -79,7 +76,7 @@ class PersonController extends Controller
     {
         $person = $this->personService->findById($id);
 
-        return view('person.edit', compact('person'));
+        return view('modules.person.edit', compact('person'));
     }
 
     /**
