@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Models\Partner;
 use App\Models\Vat;
 use App\Models\Unit;
 use App\Models\Stock;
 use App\Models\Person;
+use App\Models\Partner;
 use App\Models\Account;
 use App\Models\Project;
 use App\Models\Currency;
-use App\Services\Modules\PartnerService;
 use Illuminate\View\View;
 use App\Models\Register1;
 use App\Models\Register2;
@@ -23,6 +22,7 @@ use App\Services\Modules\UnitService;
 use Illuminate\Http\RedirectResponse;
 use App\Services\Modules\StockService;
 use App\Services\Modules\PersonService;
+use App\Services\Modules\PartnerService;
 use App\Services\Modules\AccountService;
 use App\Services\Modules\ProjectService;
 use App\Services\Modules\CurrencyService;
