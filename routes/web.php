@@ -25,7 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('registers2', \App\Http\Controllers\Modules\Register2Controller::class);
     Route::resource('registers3', \App\Http\Controllers\Modules\Register3Controller::class);
     Route::resource('registers4', \App\Http\Controllers\Modules\Register4Controller::class);
-    Route::resource('r5s', \App\Http\Controllers\R5Controller::class);
+    Route::resource('registers5', \App\Http\Controllers\Modules\Register5Controller::class);
     Route::resource('registers6', \App\Http\Controllers\Modules\Register6Controller::class);
     Route::resource('registers7', \App\Http\Controllers\Modules\Register7Controller::class);
     Route::resource('registers8', \App\Http\Controllers\Modules\Register8Controller::class);
