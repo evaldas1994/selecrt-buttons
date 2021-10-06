@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Modules;
 
 use App\Models\Account;
 use Illuminate\View\View;
-use App\Services\AccountService;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use App\Services\Modules\AccountService;
 use App\Http\Requests\AccountStoreUpdateRequest;
 
 class AccountController extends Controller
@@ -26,7 +27,7 @@ class AccountController extends Controller
     {
         $accounts = $this->accountService->all();
 
-        return view('account.index', compact('accounts'));
+        return view('modules.account.index', compact('accounts'));
     }
 
     /**
@@ -36,7 +37,7 @@ class AccountController extends Controller
      */
     public function create()
     {
-        return view('account.create');
+        return view('modules.account.create');
     }
 
     /**
@@ -62,7 +63,7 @@ class AccountController extends Controller
     {
         $account = $this->accountService->findById($id);
 
-        return view('account.show', compact('account'));
+        return view('modules.account.show', compact('account'));
     }
 
     /**
@@ -75,7 +76,7 @@ class AccountController extends Controller
     {
         $account = $this->accountService->findById($id);
 
-        return view('account.edit', compact('account'));
+        return view('modules.account.edit', compact('account'));
 
     }
 
