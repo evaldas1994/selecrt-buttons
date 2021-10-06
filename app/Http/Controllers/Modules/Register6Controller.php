@@ -11,11 +11,11 @@ use App\Http\Requests\Register6StoreUpdateRequest;
 
 class Register6Controller extends Controller
 {
-    private $r6Service;
+    private $register6Service;
 
     public function __construct()
     {
-        $this->r6Service = new Register6Service(Register6::class);
+        $this->register6Service = new Register6Service(Register6::class);
     }
 
     /**
@@ -25,7 +25,7 @@ class Register6Controller extends Controller
      */
     public function index()
     {
-        $registers = $this->r6Service->all();
+        $registers = $this->register6Service->all();
 
         return view('modules.register6.index', compact('registers'));
     }
@@ -48,7 +48,7 @@ class Register6Controller extends Controller
      */
     public function store(Register6StoreUpdateRequest $request)
     {
-        $this->r6Service->create(($request->input()));
+        $this->register6Service->create(($request->input()));
 
         return redirect()->route('registers6.index');
     }
@@ -61,7 +61,7 @@ class Register6Controller extends Controller
      */
     public function show($id)
     {
-        $register = $this->r6Service->findById($id);
+        $register = $this->register6Service->findById($id);
 
         return view('modules.register6.show', compact('register'));
     }
@@ -74,7 +74,7 @@ class Register6Controller extends Controller
      */
     public function edit($id)
     {
-        $register = $this->r6Service->findById($id);
+        $register = $this->register6Service->findById($id);
 
         return view('modules.register6.edit', compact('register'));
     }
@@ -88,7 +88,7 @@ class Register6Controller extends Controller
      */
     public function update(Register6StoreUpdateRequest $request, $id)
     {
-        $this->r6Service->update($id, $request->input());
+        $this->register6Service->update($id, $request->input());
 
         return redirect()->route('registers6.index');
     }
@@ -101,7 +101,7 @@ class Register6Controller extends Controller
      */
     public function destroy($id)
     {
-        $this->r6Service->destroy($id);
+        $this->register6Service->destroy($id);
 
         return redirect()->route('registers6.index');
     }
