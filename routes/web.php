@@ -20,6 +20,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('accounts', \App\Http\Controllers\AccountController::class);
+    Route::resource('persons', \App\Http\Controllers\Modules\PersonController::class);
     Route::resource('projects', \App\Http\Controllers\ProjectController::class);
     Route::resource('registers1', \App\Http\Controllers\Modules\Register1Controller::class);
     Route::resource('registers2', \App\Http\Controllers\Modules\Register2Controller::class);
