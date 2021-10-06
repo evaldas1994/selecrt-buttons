@@ -11,11 +11,11 @@ use App\Http\Requests\Register4StoreUpdateRequest;
 
 class Register4Controller extends Controller
 {
-    private $Register4Service;
+    private $register4Service;
 
     public function __construct()
     {
-        $this->Register4Service = new Register4Service(Register4::class);
+        $this->register4Service = new Register4Service(Register4::class);
     }
 
     /**
@@ -25,7 +25,7 @@ class Register4Controller extends Controller
      */
     public function index()
     {
-        $registers = $this->Register4Service->all();
+        $registers = $this->register4Service->all();
 
         return view('modules.register4.index', compact('registers'));
     }
@@ -48,7 +48,7 @@ class Register4Controller extends Controller
      */
     public function store(Register4StoreUpdateRequest $request)
     {
-        $this->Register4Service->create(($request->input()));
+        $this->register4Service->create(($request->input()));
 
         return redirect()->route('registers4.index');
     }
@@ -61,7 +61,7 @@ class Register4Controller extends Controller
      */
     public function show($id)
     {
-        $register = $this->Register4Service->findById($id);
+        $register = $this->register4Service->findById($id);
 
         return view('modules.register4.show', compact('register'));
     }
@@ -74,7 +74,7 @@ class Register4Controller extends Controller
      */
     public function edit($id)
     {
-        $register = $this->Register4Service->findById($id);
+        $register = $this->register4Service->findById($id);
 
         return view('modules.register4.edit', compact('register'));
     }
@@ -88,7 +88,7 @@ class Register4Controller extends Controller
      */
     public function update(Register4StoreUpdateRequest $request, $id)
     {
-        $this->Register4Service->update($id, $request->input());
+        $this->register4Service->update($id, $request->input());
 
         return redirect()->route('registers4.index');
     }
@@ -101,7 +101,7 @@ class Register4Controller extends Controller
      */
     public function destroy($id)
     {
-        $this->Register4Service->destroy($id);
+        $this->register4Service->destroy($id);
 
         return redirect()->route('registers4.index');
     }
