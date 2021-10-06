@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Modules;
 
-use App\Models\R7;
+use App\Models\Register7;
 use Illuminate\View\View;
-use App\Services\R7Service;
-use App\Http\Requests\R7StoreUpdateRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use App\Services\Modules\Register7Service;
+use App\Http\Requests\Register7StoreUpdateRequest;
 
-class R7Controller extends Controller
+class Register7Controller extends Controller
 {
     private $r7Service;
 
     public function __construct()
     {
-        $this->r7Service = new R7Service(R7::class);
+        $this->r7Service = new Register7Service(Register7::class);
     }
 
     /**
@@ -26,7 +27,7 @@ class R7Controller extends Controller
     {
         $registers = $this->r7Service->all();
 
-        return view('r7.index', compact('registers'));
+        return view('modules.register7.index', compact('registers'));
     }
 
     /**
@@ -36,20 +37,20 @@ class R7Controller extends Controller
      */
     public function create()
     {
-        return view('r7.create');
+        return view('modules.register7.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param R7StoreUpdateRequest $request
+     * @param Register7StoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(R7StoreUpdateRequest $request)
+    public function store(Register7StoreUpdateRequest $request)
     {
         $this->r7Service->create(($request->input()));
 
-        return redirect()->route('r7s.index');
+        return redirect()->route('registers7.index');
     }
 
     /**
@@ -62,7 +63,7 @@ class R7Controller extends Controller
     {
         $register = $this->r7Service->findById($id);
 
-        return view('r7.show', compact('register'));
+        return view('modules.register7.show', compact('register'));
     }
 
     /**
@@ -75,21 +76,21 @@ class R7Controller extends Controller
     {
         $register = $this->r7Service->findById($id);
 
-        return view('r7.edit', compact('register'));
+        return view('modules.register7.edit', compact('register'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param R7StoreUpdateRequest $request
+     * @param Register7StoreUpdateRequest $request
      * @param  $id
      * @return RedirectResponse
      */
-    public function update(R7StoreUpdateRequest $request, $id)
+    public function update(Register7StoreUpdateRequest $request, $id)
     {
         $this->r7Service->update($id, $request->input());
 
-        return redirect()->route('r7s.index');
+        return redirect()->route('registers7.index');
     }
 
     /**
@@ -102,6 +103,6 @@ class R7Controller extends Controller
     {
         $this->r7Service->destroy($id);
 
-        return redirect()->route('r7s.index');
+        return redirect()->route('registers7.index');
     }
 }
