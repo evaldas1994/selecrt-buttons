@@ -11,11 +11,11 @@ use App\Http\Requests\Register7StoreUpdateRequest;
 
 class Register7Controller extends Controller
 {
-    private $r7Service;
+    private $register7Service;
 
     public function __construct()
     {
-        $this->r7Service = new Register7Service(Register7::class);
+        $this->register7Service = new Register7Service(Register7::class);
     }
 
     /**
@@ -25,7 +25,7 @@ class Register7Controller extends Controller
      */
     public function index()
     {
-        $registers = $this->r7Service->all();
+        $registers = $this->register7Service->all();
 
         return view('modules.register7.index', compact('registers'));
     }
@@ -48,7 +48,7 @@ class Register7Controller extends Controller
      */
     public function store(Register7StoreUpdateRequest $request)
     {
-        $this->r7Service->create(($request->input()));
+        $this->register7Service->create(($request->input()));
 
         return redirect()->route('registers7.index');
     }
@@ -61,7 +61,7 @@ class Register7Controller extends Controller
      */
     public function show($id)
     {
-        $register = $this->r7Service->findById($id);
+        $register = $this->register7Service->findById($id);
 
         return view('modules.register7.show', compact('register'));
     }
@@ -74,7 +74,7 @@ class Register7Controller extends Controller
      */
     public function edit($id)
     {
-        $register = $this->r7Service->findById($id);
+        $register = $this->register7Service->findById($id);
 
         return view('modules.register7.edit', compact('register'));
     }
@@ -88,7 +88,7 @@ class Register7Controller extends Controller
      */
     public function update(Register7StoreUpdateRequest $request, $id)
     {
-        $this->r7Service->update($id, $request->input());
+        $this->register7Service->update($id, $request->input());
 
         return redirect()->route('registers7.index');
     }
@@ -101,7 +101,7 @@ class Register7Controller extends Controller
      */
     public function destroy($id)
     {
-        $this->r7Service->destroy($id);
+        $this->register7Service->destroy($id);
 
         return redirect()->route('registers7.index');
     }
