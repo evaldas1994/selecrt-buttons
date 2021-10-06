@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Modules;
 
 use App\Models\Project;
 use Illuminate\View\View;
-use App\Services\ProjectService;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use App\Services\Modules\ProjectService;
 use App\Http\Requests\ProjectStoreUpdateRequest;
 
 class ProjectController extends Controller
@@ -26,7 +27,7 @@ class ProjectController extends Controller
     {
         $projects = $this->projectService->all();
 
-        return view('project.index', compact('projects'));
+        return view('modules.project.index', compact('projects'));
     }
 
     /**
@@ -36,7 +37,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('project.create');
+        return view('modules.project.create');
     }
 
     /**
@@ -62,7 +63,7 @@ class ProjectController extends Controller
     {
         $project = $this->projectService->findById($id);
 
-        return view('project.show', compact('project'));
+        return view('modules.project.show', compact('project'));
     }
 
     /**
@@ -75,7 +76,7 @@ class ProjectController extends Controller
     {
         $project = $this->projectService->findById($id);
 
-        return view('project.edit', compact('project'));
+        return view('modules.project.edit', compact('project'));
     }
 
     /**
