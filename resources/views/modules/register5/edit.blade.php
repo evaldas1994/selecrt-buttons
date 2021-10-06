@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{ route('r5s.update', $register->f_id) }}">
+        <form method="post" action="{{ route('registers5.update', $register->f_id) }}">
             @method('PATCH')
             @csrf
 
