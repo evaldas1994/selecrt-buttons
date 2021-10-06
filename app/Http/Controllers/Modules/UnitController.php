@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Modules;
 
 use App\Models\Unit;
 use Illuminate\View\View;
-use App\Services\UnitService;
-use App\Http\Requests\UnitStoreUpdateRequest;
+use App\Http\Controllers\Controller;
+use App\Services\Modules\UnitService;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\UnitStoreUpdateRequest;
 
 class UnitController extends Controller
 {
@@ -26,7 +27,7 @@ class UnitController extends Controller
     {
         $units = $this->unitService->all();
 
-        return view('unit.index', compact('units'));
+        return view('modules.unit.index', compact('units'));
     }
 
     /**
@@ -36,7 +37,7 @@ class UnitController extends Controller
      */
     public function create()
     {
-        return view('unit.create');
+        return view('modules.unit.create');
     }
 
     /**
@@ -62,7 +63,7 @@ class UnitController extends Controller
     {
         $unit = $this->unitService->findById($id);
 
-        return view('unit.show', compact('unit'));
+        return view('modules.unit.show', compact('unit'));
     }
 
     /**
@@ -75,7 +76,7 @@ class UnitController extends Controller
     {
         $unit = $this->unitService->findById($id);
 
-        return view('unit.edit', compact('unit'));
+        return view('modules.unit.edit', compact('unit'));
     }
 
     /**
