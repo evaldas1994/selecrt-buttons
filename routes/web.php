@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('registers8', \App\Http\Controllers\Modules\Register8Controller::class);
     Route::resource('sales', \App\Http\Controllers\SaleController::class);
     Route::resource('stocks', \App\Http\Controllers\StockController::class);
-    Route::resource('stores', \App\Http\Controllers\StoreController::class);
+    Route::resource('stores', \App\Http\Controllers\Modules\StoreController::class);
     Route::resource('system-params', \App\Http\Controllers\Modules\ParamController::class);
     Route::resource('units', \App\Http\Controllers\UnitController::class);
     Route::resource('user-params', \App\Http\Controllers\Modules\UserParamController::class);

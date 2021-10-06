@@ -2,31 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreStoreUpdateRequest;
-use App\Models\Account;
+use App\Models\Store;
 use App\Models\Person;
 use App\Models\Project;
-use App\Models\R1;
-use App\Models\R2;
-use App\Models\R3;
-use App\Models\R4;
-use App\Models\R5;
-use App\Models\Store;
-use App\Services\AccountService;
-use App\Services\PersonService;
-use App\Services\ProjectService;
-use App\Services\R1Service;
-use App\Services\R2Service;
-use App\Services\R3Service;
-use App\Services\R4Service;
-use App\Services\R5Service;
-use App\Services\StoreService;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Account;
 use Illuminate\View\View;
+use App\Models\Register1;
+use App\Models\Register2;
+use App\Models\Register3;
+use App\Models\Register4;
+use App\Models\Register5;
+use App\Services\PersonService;
+use App\Services\AccountService;
+use App\Services\ProjectService;
+use Illuminate\Http\RedirectResponse;
+use App\Services\Modules\StoreService;
+use App\Services\Modules\Register1Service;
+use App\Services\Modules\Register2Service;
+use App\Services\Modules\Register3Service;
+use App\Services\Modules\Register4Service;
+use App\Services\Modules\Register5Service;
+use App\Http\Requests\StoreStoreUpdateRequest;
 
 class StoreController extends Controller
 {
-
     private $storeService;
 
     public function __construct()
@@ -53,20 +52,20 @@ class StoreController extends Controller
      */
     public function create()
     {
-        $r1Service = new R1Service(R1::class);
-        $r1s = $r1Service->all();
+        $register1Service = new Register1Service(Register1::class);
+        $registers1 = $register1Service->all();
 
-        $r2Service = new R2Service(R2::class);
-        $r2s = $r2Service->all();
+        $register2Service = new Register2Service(Register2::class);
+        $registers2 = $register2Service->all();
 
-        $r3Service = new R3Service(R3::class);
-        $r3s = $r3Service->all();
+        $register3Service = new Register3Service(Register3::class);
+        $registers3 = $register3Service->all();
 
-        $r4Service = new R4Service(R4::class);
-        $r4s = $r4Service->all();
+        $register4Service = new Register4Service(Register4::class);
+        $registers4 = $register4Service->all();
 
-        $r5Service = new R5Service(R5::class);
-        $r5s = $r5Service->all();
+        $register5Service = new Register5Service(Register5::class);
+        $registers5 = $register5Service->all();
 
         $accountService = new AccountService(Account::class);
         $accounts = $accountService->all();
@@ -77,7 +76,7 @@ class StoreController extends Controller
         $projectService = new ProjectService(Project::class);
         $projects = $projectService->all();
 
-        return view('store.create', compact('r1s', 'r2s', 'r3s', 'r4s', 'r5s', 'accounts', 'persons', 'projects'));
+        return view('store.create', compact('registers1', 'registers2', 'registers3', 'registers4', 'registers5', 'accounts', 'persons', 'projects'));
     }
 
     /**
@@ -116,20 +115,20 @@ class StoreController extends Controller
     {
         $store = $this->storeService->findById($id);
 
-        $r1Service = new R1Service(R1::class);
-        $r1s = $r1Service->all();
+        $register1Service = new Register1Service(Register1::class);
+        $registers1 = $register1Service->all();
 
-        $r2Service = new R2Service(R2::class);
-        $r2s = $r2Service->all();
+        $register2Service = new Register2Service(Register2::class);
+        $registers2 = $register2Service->all();
 
-        $r3Service = new R3Service(R3::class);
-        $r3s = $r3Service->all();
+        $register3Service = new Register3Service(Register3::class);
+        $registers3 = $register3Service->all();
 
-        $r4Service = new R4Service(R4::class);
-        $r4s = $r4Service->all();
+        $register4Service = new Register4Service(Register4::class);
+        $registers4 = $register4Service->all();
 
-        $r5Service = new R5Service(R5::class);
-        $r5s = $r5Service->all();
+        $register5Service = new Register5Service(Register5::class);
+        $registers5 = $register5Service->all();
 
         $accountService = new AccountService(Account::class);
         $accounts = $accountService->all();
@@ -140,7 +139,7 @@ class StoreController extends Controller
         $projectService = new ProjectService(Project::class);
         $projects = $projectService->all();
 
-        return view('store.edit', compact('store', 'r1s', 'r2s', 'r3s', 'r4s', 'r5s', 'accounts', 'persons', 'projects'));
+        return view('store.edit', compact('store', 'registers1', 'registers2', 'registers3', 'registers4', 'registers5', 'accounts', 'persons', 'projects'));
     }
 
     /**
