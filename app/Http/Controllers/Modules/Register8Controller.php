@@ -6,7 +6,7 @@ use App\Models\Register8;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\Registeregister8Service;
+use App\Services\Modules\Register8Service;
 use App\Http\Requests\Register8StoreUpdateRequest;
 
 class Register8Controller extends Controller
@@ -15,7 +15,7 @@ class Register8Controller extends Controller
 
     public function __construct()
     {
-        $this->register8Service = new Registeregister8Service(Register8::class);
+        $this->register8Service = new Register8Service(Register8::class);
     }
 
     /**
