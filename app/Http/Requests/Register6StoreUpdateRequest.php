@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class R6StoreUpdateRequest extends FormRequest
+class Register6StoreUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class R6StoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route()->parameter('r6');
+        $id = $this->route()->parameter('register6');
 
         return [
             'f_id' => 'string|required|max:20|unique:t_r6,f_id,' .$id. ',f_id',
