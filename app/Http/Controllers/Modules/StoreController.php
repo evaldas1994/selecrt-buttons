@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Modules;
 
 use App\Models\Store;
 use App\Models\Person;
@@ -15,6 +15,7 @@ use App\Models\Register5;
 use App\Services\PersonService;
 use App\Services\AccountService;
 use App\Services\ProjectService;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Services\Modules\StoreService;
 use App\Services\Modules\Register1Service;
