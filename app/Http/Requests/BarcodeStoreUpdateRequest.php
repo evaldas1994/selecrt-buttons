@@ -25,10 +25,6 @@ class BarcodeStoreUpdateRequest extends FormRequest
     {
         $id = $this->route()->parameter('barcode');
 
-        $this->input('f_default');
-//        $this->input('f_default');
-//        = request('f_default',0);
-
         return [
             'f_id' => 'string|required|max:20|unique:t_barcode,f_id,' .$id. ',f_id',
             'f_stockid' => 'string|max:20|nullable|exists:t_stock,f_id',
