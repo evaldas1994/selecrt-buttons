@@ -74,9 +74,9 @@ class AccountGroupController extends Controller
      */
     public function edit($id)
     {
-        $account = $this->accountGroupService->findById($id);
+        $accountGroup = $this->accountGroupService->findById($id);
 
-        return view('modules.accountGroup.edit', compact('account'));
+        return view('modules.accountGroup.edit', compact('accountGroup'));
     }
 
     /**
