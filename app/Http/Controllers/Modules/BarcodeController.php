@@ -3,36 +3,12 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Models\Stock;
-use App\Models\Vat;
-use App\Models\Unit;
 use App\Models\Barcode;
-use App\Models\Person;
-use App\Models\Partner;
-use App\Models\Account;
-use App\Models\Project;
-use App\Models\Currency;
-use App\Services\Modules\StockService;
 use Illuminate\View\View;
-use App\Models\Register1;
-use App\Models\Register2;
-use App\Models\Register3;
-use App\Models\Register4;
-use App\Models\Register5;
 use App\Http\Controllers\Controller;
-use App\Services\Modules\VatService;
-use App\Services\Modules\UnitService;
 use Illuminate\Http\RedirectResponse;
+use App\Services\Modules\StockService;
 use App\Services\Modules\BarcodeService;
-use App\Services\Modules\PersonService;
-use App\Services\Modules\PartnerService;
-use App\Services\Modules\AccountService;
-use App\Services\Modules\ProjectService;
-use App\Services\Modules\CurrencyService;
-use App\Services\Modules\Register1Service;
-use App\Services\Modules\Register2Service;
-use App\Services\Modules\Register3Service;
-use App\Services\Modules\Register4Service;
-use App\Services\Modules\Register5Service;
 use App\Http\Requests\BarcodeStoreUpdateRequest;
 
 class BarcodeController extends Controller
@@ -120,7 +96,6 @@ class BarcodeController extends Controller
      */
     public function update(BarcodeStoreUpdateRequest $request, $id)
     {
-//        dd($request->input());
         $this->barcodeService->update($id, $request->input());
 
         return redirect()->route('barcodes.index');
