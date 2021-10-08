@@ -1,0 +1,57 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <form method="post" action="{{ route('banks.update', $bank->f_id) }}">
+            @method('PATCH')
+            @csrf
+
+            <div class="mb-3">
+                <label for="f_id" class="form-label">Kodas</label>
+                <input type="text" class="form-control" name="f_id" value="{{ $bank->f_id }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="f_name" class="form-label">Pavadinimas</label>
+                <input type="text" class="form-control" name="f_name" value="{{ $bank->f_name }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="f_bic" class="form-label">BIC (SWIFT)</label>
+                <input type="text" class="form-control" name="f_bic" value="{{ $bank->f_bic }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="f_code" class="form-label">Įmonės kodas</label>
+                <input type="text" class="form-control" name="f_code" value="{{ $bank->f_code }}">
+            </div>
+
+            <div  class="mb-3" hidden>
+                <label for="f_system1" class="form-label">System1</label>
+                <input type="text" class="form-control" name="f_system1" value="{{ $bank->f_system1 }}">
+            </div>
+
+            <div class="mb-3" hidden>
+                <label for="f_system2" class="form-label">System2</label>
+                <input type="text" class="form-control" name="f_system2" value="{{ $bank->f_system2 }}">
+            </div>
+
+            <div class="mb-3" hidden>
+                <label for="f_system3" class="form-label">System3</label>
+                <input type="text" class="form-control" name="f_system3" value="{{ $bank->f_system3 }}">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+@endsection

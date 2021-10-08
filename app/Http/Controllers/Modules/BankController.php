@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers\Modules;
 
+use App\Models\Bank;
 use App\Models\Stock;
-use App\Models\Barcode;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
+use App\Services\Modules\BankService;
 use Illuminate\Http\RedirectResponse;
 use App\Services\Modules\StockService;
-use App\Services\Modules\BarcodeService;
 use App\Http\Requests\BarcodeStoreUpdateRequest;
 
-class BarcodeController extends Controller
+class BankController extends Controller
 {
-    private $barcodeService;
+    private $bankService;
 
     public function __construct()
     {
-        $this->barcodeService = new BarcodeService(Barcode::class);
+        $this->bankService = new BankService(Bank::class);
     }
 
     /**
@@ -27,9 +27,9 @@ class BarcodeController extends Controller
      */
     public function index()
     {
-        $barcodes = $this->barcodeService->all();
+        $banks = $this->bankService->all();
 
-        return view('modules.barcode.index', compact('barcodes'));
+        return view('modules.bank.index', compact('banks'));
     }
 
     /**
@@ -42,7 +42,7 @@ class BarcodeController extends Controller
         $stockService = new StockService(Stock::class);
         $stocks = $stockService->all();
 
-        return view('modules.barcode.create', compact('stocks'));
+        return view('modules.bank.create', compact('stocks'));
     }
 
     /**
@@ -53,9 +53,9 @@ class BarcodeController extends Controller
      */
     public function store(BarcodeStoreUpdateRequest $request)
     {
-        $this->barcodeService->create($request->input());
+        $this->bankService->create($request->input());
 
-        return redirect()->route('barcodes.index');
+        return redirect()->route('banks.index');
     }
 
     /**
@@ -66,9 +66,9 @@ class BarcodeController extends Controller
      */
     public function show($id)
     {
-        $barcode = $this->barcodeService->findById($id);
+        $bank = $this->bankService->findById($id);
 
-        return view('modules.barcode.show', compact('barcode'));
+        return view('modules.bank.show', compact('bank'));
     }
 
     /**
@@ -79,12 +79,12 @@ class BarcodeController extends Controller
      */
     public function edit($id)
     {
-        $barcode = $this->barcodeService->findById($id);
+        $bank = $this->bankService->findById($id);
 
         $stockService = new StockService(Stock::class);
         $stocks = $stockService->all();
 
-        return view('modules.barcode.edit', compact('barcode', 'stocks'));
+        return view('modules.bank.edit', compact('bank', 'stocks'));
     }
 
     /**
@@ -96,9 +96,9 @@ class BarcodeController extends Controller
      */
     public function update(BarcodeStoreUpdateRequest $request, $id)
     {
-        $this->barcodeService->update($id, $request->input());
+        $this->bankService->update($id, $request->input());
 
-        return redirect()->route('barcodes.index');
+        return redirect()->route('banks.index');
     }
 
     /**
@@ -109,8 +109,8 @@ class BarcodeController extends Controller
      */
     public function destroy($id)
     {
-        $this->barcodeService->destroy($id);
+        $this->bankService->destroy($id);
 
-        return redirect()->route('barcodes.index');
+        return redirect()->route('banks.index');
     }
 }
