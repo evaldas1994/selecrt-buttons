@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('banks', \App\Http\Controllers\Modules\BankController::class);
     Route::resource('bankAccountSystems', \App\Http\Controllers\Modules\BankAccountSystemController::class);
     Route::resource('barcodes', \App\Http\Controllers\Modules\BarcodeController::class);
+    Route::resource('bonuses', \App\Http\Controllers\Modules\BonusController::class);
     Route::resource('currencies', \App\Http\Controllers\Modules\CurrencyController::class);
     Route::resource('departments', \App\Http\Controllers\Modules\DepartmentController::class);
     Route::resource('messages', \App\Http\Controllers\Modules\MessageController::class);
