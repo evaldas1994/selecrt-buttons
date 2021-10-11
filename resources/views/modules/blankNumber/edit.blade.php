@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{ route('blankNos.update', $blankNo->f_id) }}">
+        <form method="post" action="{{ route('blank-numbers.update', $blankNumber->f_id) }}">
             @method('PATCH')
             @csrf
 
@@ -16,16 +16,16 @@
             <div class="mb-3">
                 <label for="f_op" class="form-label">Operacija</label>
                 <select name="f_op" id="f_op">
-                    <option value="P" {{ $blankNo->f_op === 'P' ? 'selected' : '' }}>P - pajamavimas</option>
-                    <option value="N" {{ $blankNo->f_op === 'N' ? 'selected' : '' }}>N - nurašymas</option>
-                    <option value="E" {{ $blankNo->f_op === 'E' ? 'selected' : '' }}>E - perkėlimas</option>
-                    <option value="Y" {{ $blankNo->f_op === 'Y' ? 'selected' : '' }}>Y - gamyba</option>
-                    <option value="T" {{ $blankNo->f_op === 'T' ? 'selected' : '' }}>T - inventorizacija</option>
-                    <option value="A" {{ $blankNo->f_op === 'A' ? 'selected' : '' }}>A - pardavimas</option>
-                    <option value="I" {{ $blankNo->f_op === 'I' ? 'selected' : '' }}>I - pirkimas</option>
-                    <option value="R" {{ $blankNo->f_op === 'R' ? 'selected' : '' }}>R - pardavimo grąžinimas</option>
-                    <option value="Z" {{ $blankNo->f_op === 'Z' ? 'selected' : '' }}>Z - pirkimo grąžinimas</option>
-                    <option value="L" {{ $blankNo->f_op === 'L' ? 'selected' : '' }}>L - logistika</option>
+                    <option value="P" {{ $blankNumber->f_op === 'P' ? 'selected' : '' }}>P - pajamavimas</option>
+                    <option value="N" {{ $blankNumber->f_op === 'N' ? 'selected' : '' }}>N - nurašymas</option>
+                    <option value="E" {{ $blankNumber->f_op === 'E' ? 'selected' : '' }}>E - perkėlimas</option>
+                    <option value="Y" {{ $blankNumber->f_op === 'Y' ? 'selected' : '' }}>Y - gamyba</option>
+                    <option value="T" {{ $blankNumber->f_op === 'T' ? 'selected' : '' }}>T - inventorizacija</option>
+                    <option value="A" {{ $blankNumber->f_op === 'A' ? 'selected' : '' }}>A - pardavimas</option>
+                    <option value="I" {{ $blankNumber->f_op === 'I' ? 'selected' : '' }}>I - pirkimas</option>
+                    <option value="R" {{ $blankNumber->f_op === 'R' ? 'selected' : '' }}>R - pardavimo grąžinimas</option>
+                    <option value="Z" {{ $blankNumber->f_op === 'Z' ? 'selected' : '' }}>Z - pirkimo grąžinimas</option>
+                    <option value="L" {{ $blankNumber->f_op === 'L' ? 'selected' : '' }}>L - logistika</option>
                 </select>
             </div>
 
@@ -33,7 +33,7 @@
                 <label for="f_storeid" class="form-label">Sandėlis</label>
                 <select name="f_storeid" id="f_storeid">
                     @foreach($stores as $store)
-                        <option value="{{ $store->f_id }} {{ $blankNo->f_storeid === $store->f_id ? 'selected' : '' }}">{{ $store->f_name }}</option>
+                        <option value="{{ $store->f_id }} {{ $blankNumber->f_storeid === $store->f_id ? 'selected' : '' }}">{{ $store->f_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -47,10 +47,10 @@
             <div class="mb-3">
                 <label for="f_invoice_register" class="form-label">Sąsk. fakt. registras</label>
                 <select name="f_invoice_register" id="f_invoice_register">
-                    <option value="1" {{ $blankNo->f_op === '1' ? 'selected' : '' }}>1 - neparinkti</option>
-                    <option value="0" {{ $blankNo->f_op === '2' ? 'selected' : '' }}>2 - neregistruoti</option>
-                    <option value="2" {{ $blankNo->f_op === '3' ? 'selected' : '' }}>3 - išrašomų</option>
-                    <option value="3" {{ $blankNo->f_op === '4' ? 'selected' : '' }}>4 - gaunamų</option>
+                    <option value="1" {{ $blankNumber->f_op === '1' ? 'selected' : '' }}>1 - neparinkti</option>
+                    <option value="0" {{ $blankNumber->f_op === '2' ? 'selected' : '' }}>2 - neregistruoti</option>
+                    <option value="2" {{ $blankNumber->f_op === '3' ? 'selected' : '' }}>3 - išrašomų</option>
+                    <option value="3" {{ $blankNumber->f_op === '4' ? 'selected' : '' }}>4 - gaunamų</option>
                 </select>
             </div>
 

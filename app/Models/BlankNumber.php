@@ -7,7 +7,7 @@ use App\Traits\IdToUppercase;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
-class BlankNo extends Model
+class BlankNumber extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns, IdNextRecord;
 

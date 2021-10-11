@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Models\Store;
-use App\Models\BlankNo;
 use Illuminate\View\View;
+use App\Models\BlankNumber;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Services\Modules\StoreService;
-use App\Services\Modules\BlankNoService;
-use App\Http\Requests\BlankNoStoreUpdateRequest;
+use App\Services\Modules\BlankNumberService;
+use App\Http\Requests\BlankNumberStoreUpdateRequest;
 
-class BlankNoController extends Controller
+class BlankNumberController extends Controller
 {
-    private $blankNoService;
+    private $blankNumberService;
 
     public function __construct()
     {
-        $this->blankNoService = new BlankNoService(BlankNo::class);
+        $this->blankNumberService = new BlankNumberService(BlankNumber::class);
     }
 
     /**
@@ -27,9 +27,9 @@ class BlankNoController extends Controller
      */
     public function index()
     {
-        $blankNos = $this->blankNoService->all();
+        $blankNumbers = $this->blankNumberService->all();
 
-        return view('modules.blankNo.index', compact('blankNos'));
+        return view('modules.blankNumber.index', compact('blankNumbers'));
     }
 
     /**
@@ -42,20 +42,20 @@ class BlankNoController extends Controller
         $storeService = new StoreService(Store::class);
         $stores = $storeService->all();
 
-        return view('modules.blankNo.create', compact('stores'));
+        return view('modules.blankNumber.create', compact('stores'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param BlankNoStoreUpdateRequest $request
+     * @param BlankNumberStoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(BlankNoStoreUpdateRequest $request)
+    public function store(BlankNumberStoreUpdateRequest $request)
     {
-        $this->blankNoService->create($request->input());
+        $this->blankNumberService->create($request->input());
 
-        return redirect()->route('blankNos.index');
+        return redirect()->route('blank-numbers.index');
     }
 
     /**
@@ -66,9 +66,9 @@ class BlankNoController extends Controller
      */
     public function show($id)
     {
-        $blankNo = $this->blankNoService->findById($id);
+        $blankNumber = $this->blankNumberService->findById($id);
 
-        return view('modules.blankNo.show', compact('blankNo'));
+        return view('modules.blankNumber.show', compact('blankNumber'));
     }
 
     /**
@@ -79,26 +79,26 @@ class BlankNoController extends Controller
      */
     public function edit($id)
     {
-        $blankNo = $this->blankNoService->findById($id);
+        $blankNumber = $this->blankNumberService->findById($id);
 
         $storeService = new StoreService(Store::class);
         $stores = $storeService->all();
 
-        return view('modules.blankNo.edit', compact('blankNo', 'stores'));
+        return view('modules.blankNumber.edit', compact('blankNumber', 'stores'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param BlankNoStoreUpdateRequest $request
+     * @param BlankNumberStoreUpdateRequest $request
      * @param $id
      * @return RedirectResponse
      */
-    public function update(BlankNoStoreUpdateRequest $request, $id)
+    public function update(BlankNumberStoreUpdateRequest $request, $id)
     {
-        $this->blankNoService->update($id, $request->input());
+        $this->blankNumberService->update($id, $request->input());
 
-        return redirect()->route('blankNos.index');
+        return redirect()->route('blank-numbers.index');
     }
 
     /**
@@ -109,8 +109,8 @@ class BlankNoController extends Controller
      */
     public function destroy($id)
     {
-        $this->blankNoService->destroy($id);
+        $this->blankNumberService->destroy($id);
 
-        return redirect()->route('blankNos.index');
+        return redirect()->route('blank-numbers.index');
     }
 }

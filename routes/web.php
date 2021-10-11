@@ -22,7 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('accounts', \App\Http\Controllers\Modules\AccountController::class);
     Route::resource('banks', \App\Http\Controllers\Modules\BankController::class);
     Route::resource('barcodes', \App\Http\Controllers\Modules\BarcodeController::class);
-    Route::resource('blankNos', \App\Http\Controllers\Modules\BlankNoController::class);
+    Route::resource('blank-numbers', \App\Http\Controllers\Modules\BlankNumberController::class);
     Route::resource('currencies', \App\Http\Controllers\Modules\CurrencyController::class);
     Route::resource('departments', \App\Http\Controllers\Modules\DepartmentController::class);
     Route::resource('messages', \App\Http\Controllers\Modules\MessageController::class);
