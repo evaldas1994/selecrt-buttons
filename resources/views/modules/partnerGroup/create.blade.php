@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{ route('partnerGroups.store') }}">
+        <form method="post" action="{{ route('partner-groups.store') }}">
             @csrf
 
             <div class="mb-3">
