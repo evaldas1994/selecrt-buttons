@@ -50,7 +50,7 @@ class AccountGroupController extends Controller
     {
         $this->accountGroupService->create($request->input());
 
-        return redirect()->route('accountGroups.index');
+        return redirect()->route('account-groups.index');
     }
 
     /**
@@ -90,7 +90,7 @@ class AccountGroupController extends Controller
     {
         $this->accountGroupService->update($id, $request->input());
 
-        return redirect()->route('accountGroups.index');
+        return redirect()->route('account-groups.index');
     }
 
     /**
@@ -103,6 +103,6 @@ class AccountGroupController extends Controller
     {
         $this->accountGroupService->destroy($id);
 
-        return redirect()->route('accountGroups.index');
+        return redirect()->route('account-groups.index');
     }
 }
