@@ -2,30 +2,35 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{ route('partner-groups.store') }}">
+        <form method="post" action="{{ route('bankAccountSystems.store') }}">
             @csrf
 
             <div class="mb-3">
-                <label for="f_id" class="form-label">Kodas</label>
+                <label for="f_id" class="form-label">Sąskaita</label>
                 <input type="text" class="form-control" name="f_id">
             </div>
 
             <div class="mb-3">
-                <label for="f_name" class="form-label">Pavadinimas</label>
+                <label for="f_bankid" class="form-label">Bankas</label>
+                <select name="f_bankid" id="f_bankid">
+                    @foreach($banks as $bank)
+                        <option value="{{ $bank->f_id }}">{{ $bank->f_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="f_name" class="form-label">Komentaras</label>
                 <input type="text" class="form-control" name="f_name">
             </div>
 
             <div class="mb-3">
-                <label for="f_name2" class="form-label">Pavadinimas 2</label>
-                <input type="text" class="form-control" name="f_name2">
+                <label for="f_default">Pagrindinis</label>
+                <input type="hidden" name="f_default" value="0">
+                <input type="checkbox" value="1" id="f_default" name="f_default">
             </div>
 
-            <div class="mb-3">
-                <label for="f_import">Importas</label>
-                <input type="checkbox" value=1 id="f_import" name="f_import">
-            </div>
-
-            <div class="mb-3" hidden>
+            <div  class="mb-3" hidden>
                 <label for="f_system1" class="form-label">System1</label>
                 <input type="text" class="form-control" name="f_system1">
             </div>

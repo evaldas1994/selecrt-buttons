@@ -2,43 +2,38 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{ route('partner-groups.update', $partnerGroup->f_id) }}">
+        <form method="post" action="{{ route('accountGroups.update', $accountGroup->f_id) }}">
             @method('PATCH')
             @csrf
 
             <div class="mb-3">
                 <label for="f_id" class="form-label">Kodas</label>
-                <input type="text" class="form-control" name="f_id" value="{{ $partnerGroup->f_id }}">
+                <input type="text" class="form-control" name="f_id" value="{{ $accountGroup->f_id }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_name" class="form-label">Pavadinimas</label>
-                <input type="text" class="form-control" name="f_name" value="{{ $partnerGroup->f_name }}">
+                <input type="text" class="form-control" name="f_name" value="{{ $accountGroup->f_name }}">
             </div>
 
             <div class="mb-3">
                 <label for="f_name2" class="form-label">Pavadinimas 2</label>
-                <input type="text" class="form-control" name="f_name2" value="{{ $partnerGroup->f_name2 }}">
+                <input type="text" class="form-control" name="f_name2" value="{{ $accountGroup->f_name2 }}">
             </div>
 
-            <div class="mb-3">
-                <label for="f_import">Importas</label>
-                <input type="checkbox" value=1 id="f_import" name="f_import" {{ $partnerGroup->f_import ? 'checked' : '' }}>
-            </div>
-
-            <div class="mb-3" hidden>
+            <div  class="mb-3" hidden>
                 <label for="f_system1" class="form-label">System1</label>
-                <input type="text" class="form-control" name="f_system1" value="{{ $partnerGroup->f_system1 }}">
+                <input type="text" class="form-control" name="f_system1" value="{{ $accountGroup->f_system1 }}">
             </div>
 
             <div class="mb-3" hidden>
                 <label for="f_system2" class="form-label">System2</label>
-                <input type="text" class="form-control" name="f_system2" value="{{ $partnerGroup->f_system2 }}">
+                <input type="text" class="form-control" name="f_system2" value="{{ $accountGroup->f_system2 }}">
             </div>
 
             <div class="mb-3" hidden>
                 <label for="f_system3" class="form-label">System3</label>
-                <input type="text" class="form-control" name="f_system3" value="{{ $partnerGroup->f_system3 }}">
+                <input type="text" class="form-control" name="f_system3" value="{{ $accountGroup->f_system3 }}">
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
