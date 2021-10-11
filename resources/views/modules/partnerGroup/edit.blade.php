@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{ route('partnerGroups.update', $partnerGroup->f_id) }}">
+        <form method="post" action="{{ route('partner-groups.update', $partnerGroup->f_id) }}">
             @method('PATCH')
             @csrf
 

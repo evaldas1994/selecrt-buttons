@@ -50,7 +50,7 @@ class PartnerGroupController extends Controller
     {
         $this->partnerGroupService->create($request->input());
 
-        return redirect()->route('partnerGroups.index');
+        return redirect()->route('partner-groups.index');
     }
 
     /**
@@ -90,7 +90,7 @@ class PartnerGroupController extends Controller
     {
         $this->partnerGroupService->update($id, $request->input());
 
-        return redirect()->route('partnerGroups.index');
+        return redirect()->route('partner-groups.index');
     }
 
     /**
@@ -103,6 +103,6 @@ class PartnerGroupController extends Controller
     {
         $this->partnerGroupService->destroy($id);
 
-        return redirect()->route('partnerGroups.index');
+        return redirect()->route('partner-groups.index');
     }
 }
