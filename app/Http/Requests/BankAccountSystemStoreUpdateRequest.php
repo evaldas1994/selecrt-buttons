@@ -23,7 +23,7 @@ class BankAccountSystemStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route()->parameter('bankAccountSystem');
+        $id = $this->route()->parameter('bank_account_system');
 
         return [
             'f_id' => 'string|required|max:20|unique:t_bankaccount_system,f_id,' .$id. ',f_id',

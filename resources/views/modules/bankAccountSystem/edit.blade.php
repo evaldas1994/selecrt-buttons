@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{ route('bankAccountSystems.update', $bankAccountSystem->f_id) }}">
+        <form method="post" action="{{ route('bank-account-systems.update', $bankAccountSystem->f_id) }}">
             @method('PATCH')
             @csrf
 

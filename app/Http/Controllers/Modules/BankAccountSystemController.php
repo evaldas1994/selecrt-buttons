@@ -57,7 +57,7 @@ class BankAccountSystemController extends Controller
     {
         $this->bankAccountSystemService->create($request->input());
 
-        return redirect()->route('bankAccountSystems.index');
+        return redirect()->route('bank-account-systems.index');
     }
 
     /**
@@ -100,7 +100,7 @@ class BankAccountSystemController extends Controller
     {
         $this->bankAccountSystemService->update($id, $request->input());
 
-        return redirect()->route('bankAccountSystems.index');
+        return redirect()->route('bank-account-systems.index');
     }
 
     /**
@@ -113,6 +113,6 @@ class BankAccountSystemController extends Controller
     {
         $this->bankAccountSystemService->destroy($id);
 
-        return redirect()->route('bankAccountSystems.index');
+        return redirect()->route('bank-account-systems.index');
     }
 }
