@@ -66,4 +66,20 @@ class BlankNumber extends Model
      * @var string|null
      */
     const UPDATED_AT = 'f_modified_date';
+
+    /**
+     * Get the blank number's store.
+     */
+    public function store()
+    {
+        return $this->hasOne(Store::class, 'f_id', 'f_storeid');
+    }
+
+    /**
+     * Get the blank number's counter.
+     */
+    public function counter()
+    {
+        return $this->hasOne(Counter::class, 'f_id', 'f_counterid');
+    }
 }

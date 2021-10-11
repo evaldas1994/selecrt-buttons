@@ -8,7 +8,9 @@
             <div class="mb-3">
                 <label for="f_counterid" class="form-label">Skaitliukas</label>
                 <select name="f_counterid" id="f_counterid">
-                    <option value="PARD2015">PARD2015</option>
+                    @foreach($counters as $counter)
+                        <option value="{{ $counter->f_id }}">{{ $counter->f_id }}</option>
+                    @endforeach
                 </select>
             </div>
 
@@ -47,9 +49,9 @@
                 <label for="f_invoice_register" class="form-label">Sąsk. fakt. registras</label>
                 <select name="f_invoice_register" id="f_invoice_register">
                     <option value="1">1 - neparinkti</option>
-                    <option value="0">2 - neregistruoti</option>
-                    <option value="2">3 - išrašomų</option>
-                    <option value="3">4 - gaunamų</option>
+                    <option value="0">0 - neregistruoti</option>
+                    <option value="2">2 - išrašomų</option>
+                    <option value="3">3 - gaunamų</option>
                 </select>
             </div>
 

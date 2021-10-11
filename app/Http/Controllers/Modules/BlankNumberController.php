@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Models\Store;
+use App\Models\Counter;
 use Illuminate\View\View;
 use App\Models\BlankNumber;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Services\Modules\StoreService;
+use App\Services\Modules\CounterService;
 use App\Services\Modules\BlankNumberService;
 use App\Http\Requests\BlankNumberStoreUpdateRequest;
 
@@ -42,7 +44,10 @@ class BlankNumberController extends Controller
         $storeService = new StoreService(Store::class);
         $stores = $storeService->all();
 
-        return view('modules.blankNumber.create', compact('stores'));
+        $counterService = new CounterService(Counter::class);
+        $counters = $counterService->all();
+
+        return view('modules.blankNumber.create', compact('stores', 'counters'));
     }
 
     /**
@@ -84,7 +89,10 @@ class BlankNumberController extends Controller
         $storeService = new StoreService(Store::class);
         $stores = $storeService->all();
 
-        return view('modules.blankNumber.edit', compact('blankNumber', 'stores'));
+        $counterService = new CounterService(Counter::class);
+        $counters = $counterService->all();
+
+        return view('modules.blankNumber.edit', compact('blankNumber', 'stores', 'counters'));
     }
 
     /**
