@@ -33,7 +33,7 @@
                 <label for="f_storeid" class="form-label">Sandėlis</label>
                 <select name="f_storeid" id="f_storeid">
                     @foreach($stores as $store)
-                        <option value="{{ $store->f_id }} {{ $blankNumber->f_storeid === $store->f_id ? 'selected' : '' }}">{{ $store->f_name }}</option>
+                        <option value="{{ $store->f_id }}" {{ $blankNumber->f_storeid === $store->f_id ? 'selected' : '' }}>{{ $store->f_name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -47,10 +47,10 @@
             <div class="mb-3">
                 <label for="f_invoice_register" class="form-label">Sąsk. fakt. registras</label>
                 <select name="f_invoice_register" id="f_invoice_register">
-                    <option value="1" {{ $blankNumber->f_op === '1' ? 'selected' : '' }}>1 - neparinkti</option>
-                    <option value="0" {{ $blankNumber->f_op === '2' ? 'selected' : '' }}>2 - neregistruoti</option>
-                    <option value="2" {{ $blankNumber->f_op === '3' ? 'selected' : '' }}>3 - išrašomų</option>
-                    <option value="3" {{ $blankNumber->f_op === '4' ? 'selected' : '' }}>4 - gaunamų</option>
+                    <option value=1 {{ $blankNumber->f_invoice_register === 1 ? 'selected' : '' }}>1 - neparinkti</option>
+                    <option value=0 {{ $blankNumber->f_invoice_register === 0 ? 'selected' : '' }}>0 - neregistruoti</option>
+                    <option value=2 {{ $blankNumber->f_invoice_register === 2 ? 'selected' : '' }}>2 - išrašomų</option>
+                    <option value=3 {{ $blankNumber->f_invoice_register === 3 ? 'selected' : '' }}>3 - gaunamų</option>
                 </select>
             </div>
 

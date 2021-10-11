@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{ route('blankNos.store') }}">
+        <form method="post" action="{{ route('blank-numbers.store') }}">
             @csrf
 
             <div class="mb-3">

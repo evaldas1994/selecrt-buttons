@@ -23,8 +23,6 @@ class BlankNumberStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route()->parameter('blankNo');
-
         return [
             'f_counterid' => 'string|max:20|exists:t_counter,f_id',
             'f_op' => 'string|max:1|nullable',
