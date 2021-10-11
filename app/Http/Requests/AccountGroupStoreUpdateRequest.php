@@ -23,7 +23,7 @@ class AccountGroupStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route()->parameter('accountGroup');
+        $id = $this->route()->parameter('account_group');
 
         return [
             'f_id' => 'string|required|max:20|unique:t_accountgroup,f_id,' .$id. ',f_id',

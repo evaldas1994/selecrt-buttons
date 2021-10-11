@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{ route('accountGroups.update', $accountGroup->f_id) }}">
+        <form method="post" action="{{ route('account-groups.update', $accountGroup->f_id) }}">
             @method('PATCH')
             @csrf
 
