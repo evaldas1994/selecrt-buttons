@@ -7,9 +7,9 @@
         <p>Komentaras: {{ $bankAccountSystem->f_name }}</p>
         <p>Pagrindinis: {{ $bankAccountSystem->f_default }}</p>
 
-        <a href="{{ route('bankAccountSystems.edit', $bankAccountSystem->f_id) }}">Edit</a>
+        <a href="{{ route('bank-account-systems.edit', $bankAccountSystem->f_id) }}">Edit</a>
 
-        <form method="post" action="{{ route('bankAccountSystems.destroy', $bankAccountSystem->f_id) }}">
+        <form method="post" action="{{ route('bank-account-systems.destroy', $bankAccountSystem->f_id) }}">
 
             @method('DELETE')
             @csrf
