@@ -12,6 +12,8 @@ class Vat extends Model
 
     protected $table = 't_vat';
 
+    protected $perPage = 10;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -60,6 +62,9 @@ class Vat extends Model
      */
     const UPDATED_AT = 'f_modified_date';
 
-
+    public function vat2()
+    {
+        return $this->hasOne(Vat2::class, 'f_id', 'f_default_vat2_id');
+    }
 
 }

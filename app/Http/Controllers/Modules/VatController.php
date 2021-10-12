@@ -3,38 +3,34 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\VatStoreRequest;
+use App\Http\Requests\VatStoreUpdateRequest;
 use App\Models\Vat;
-use App\Services\Modules\VatService;
-use Illuminate\Http\Request;
+use App\Models\Vat2;
 
 class VatController extends Controller
 {
-    private $vatService;
-
-    public function __construct()
-    {
-        $this->vatService = new VatService(Vat::class);
-    }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
     public function index()
     {
-        return $this->vatService->all();
+        $vats = Vat::simplePaginate();
+        return view('modules.vat.index', compact('vats'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return View
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
     public function create()
     {
-        return view('modules.vat.create');
+        $vat2s = Vat2::select('f_id', 'f_name')->orderBy('f_order')->get();
+
+        return view('modules.vat.create', compact('vat2s'));
     }
 
     /**
@@ -46,9 +42,9 @@ class VatController extends Controller
      */
     public function store(VatStoreRequest $request)
     {
-        $this->vatService->create($request->input());
+        Vat::create($request->validated());
 
-        return redirect()->route('vats.index');
+        return redirect()->route('vats.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
@@ -66,41 +62,44 @@ class VatController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param Vat $vat
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
-    public function edit($id)
+    public function edit(Vat $vat)
     {
-        //
+        $vat2s = Vat2::select('f_id', 'f_name')->orderBy('f_order')->get();
+        return view('modules.vat.edit', compact('vat2s', 'vat'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param VatStoreRequest $request
+     * @param Vat $vat
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(VatStoreRequest $request, Vat $vat)
     {
-        //
+        $vat->update($request->validated());
+        return redirect()->route('vats.index')->withSuccess(trans('global.updated_successfully'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param Vat $vat
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Vat $vat)
     {
-        //
-    }
-
-    public function confirm($id)
-    {
+        try {
+            $vat->delete();
+            return redirect()->route('vats.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('vats.index')->withError(trans('global.delete_failed'));
+        }
     }
 }
