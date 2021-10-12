@@ -21,6 +21,16 @@ if (!function_exists('counter')) {
         )->first()->value;
     }
 }
+
+if (!function_exists('get_counter')) {
+    function get_counter($op, $storeId, $groupId)
+    {
+        return collect(
+            \Illuminate\Support\Facades\DB::select('select get_counter(?,?,?) as value', [$op, $storeId, $groupId])
+        )->first()->value;
+    }
+}
+
 if (!function_exists('setParams')) {
     function setParams()
     {
