@@ -22,7 +22,7 @@
                         <div class="mb-2">
                             <label class="form-label">@lang('modules/vat.f_id')</label>
                             <input type="text"
-                                   class="form-control form-control-sm @error('f_id') is-invalid @enderror"
+                                   class="not-empty form-control form-control-sm @error('f_id') is-invalid @enderror"
                                    name="f_id"
                                    id-pattern
                                    placeholder="@lang('modules/vat.f_id')"
@@ -47,7 +47,7 @@
                             <label class="form-label">@lang('modules/vat.f_vat_perc')</label>
                             <div class="input-group input-group-sm">
                                 <input type="text"
-                                       class="form-control @error('f_vat_perc') is-invalid @enderror"
+                                       class="not-empty form-control @error('f_vat_perc') is-invalid @enderror"
                                        name="f_vat_perc"
                                        min="0"
                                        value="{{ old('f_vat_perc',0) }}"

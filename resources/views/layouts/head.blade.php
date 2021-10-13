@@ -10,4 +10,5 @@
     <link rel="shortcut icon" href="{{ asset('theme/images/favicon.ico') }}" />
     <title>{{ config('app.name', 'Laravel') }}</title>
     <link href="{{ asset('theme/css/light.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
