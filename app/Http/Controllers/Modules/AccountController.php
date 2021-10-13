@@ -4,20 +4,13 @@ namespace App\Http\Controllers\Modules;
 
 use App\Models\Account;
 use Illuminate\View\View;
+use App\Models\AccountGroup;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\AccountService;
 use App\Http\Requests\AccountStoreUpdateRequest;
 
 class AccountController extends Controller
 {
-    private $accountService;
-
-    public function __construct()
-    {
-        $this->accountService = new AccountService(Account::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +18,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $accounts = $this->accountService->all();
+        $accounts = Account::simplePaginate();
 
         return view('modules.account.index', compact('accounts'));
     }
@@ -37,7 +30,9 @@ class AccountController extends Controller
      */
     public function create()
     {
-        return view('modules.account.create');
+        $accountGroups = AccountGroup::select('f_id', 'f_name')->orderBy('f_name')->get();
+
+        return view('modules.account.create', compact('accountGroups'));
     }
 
     /**
@@ -48,50 +43,36 @@ class AccountController extends Controller
      */
     public function store(AccountStoreUpdateRequest $request)
     {
-        $this->accountService->create($request->input());
+        Account::create($request->validated());
 
-        return redirect()->route('accounts.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $account = $this->accountService->findById($id);
-
-        return view('modules.account.show', compact('account'));
+        return redirect()->route('accounts.index')->withSuccess(trans('global.created_successfully'));;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Account $account
      * @return View
      */
-    public function edit($id)
+    public function edit(Account $account)
     {
-        $account = $this->accountService->findById($id);
+        $accountGroups = AccountGroup::select('f_id', 'f_name')->orderBy('f_name')->get();
 
-        return view('modules.account.edit', compact('account'));
-
+        return view('modules.account.edit', compact('account', 'accountGroups'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param AccountStoreUpdateRequest $request
-     * @param $id
+     * @param Account $account
      * @return RedirectResponse
      */
-    public function update(AccountStoreUpdateRequest $request, $id)
+    public function update(AccountStoreUpdateRequest $request, Account $account)
     {
-        $this->accountService->update($id, $request->input());
+        $account->update($request->validated());
 
-        return redirect()->route('accounts.index');
+        return redirect()->route('accounts.index')->withSuccess(trans('global.updated_successfully'));
     }
 
     /**
@@ -100,10 +81,14 @@ class AccountController extends Controller
      * @param $id
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Account  $account)
     {
-        $this->accountService->destroy($id);
+        try {
+            $account->delete();
 
-        return redirect()->route('accounts.index');
+            return redirect()->route('accounts.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('accounts.index')->withError(trans('global.delete_failed'));
+        }
     }
 }

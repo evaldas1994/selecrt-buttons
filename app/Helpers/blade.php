@@ -7,8 +7,18 @@
 
 
 if (!function_exists('selected')) {
-    function selected($field, $value)
+    function selected($field, $value, $value2=null)
     {
-        return ($value == old($field)) ? 'selected' : '';
+        if (old($field)!== null) {
+            if ($value == old($field)) {
+                return 'selected';
+            }
+        } else {
+            if ($value == $value2) {
+                return 'selected';
+            }
+        }
+
+        return '';
     }
 }
