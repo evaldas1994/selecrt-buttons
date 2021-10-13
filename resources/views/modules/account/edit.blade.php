@@ -49,7 +49,7 @@
                             <select class="form-control form-control-sm @error('f_groupid') is-invalid @enderror"
                                     name="f_groupid"
                                     value="{{ old('f_groupid') }}">
-                                <option value selected>---</option>
+                                <option value>---</option>
                                 @foreach($accountGroups as $group)
                                     <option value="{{ $group->f_id }}" {{ selected('f_groupid', $group->f_id, $account->f_groupid) }}>{{ $group->f_name }}</option>
                                 @endforeach
