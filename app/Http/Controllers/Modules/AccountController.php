@@ -78,7 +78,7 @@ class AccountController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param Account $account
      * @return RedirectResponse
      */
     public function destroy(Account  $account)
