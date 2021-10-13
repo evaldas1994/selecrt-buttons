@@ -12,7 +12,7 @@ class Account extends Model
 
     protected $table = 't_account';
 
-    protected $perPage = 10;
+    protected $perPage = 500;
 
     /**
      * The attributes that are mass assignable.
