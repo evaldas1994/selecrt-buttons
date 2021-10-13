@@ -68,7 +68,7 @@ class Account extends Model
      */
     const UPDATED_AT = 'f_modified_date';
 
-    public function group()
+    public function accountGroup()
     {
         return $this->hasOne(AccountGroup::class, 'f_id', 'f_groupid');
     }

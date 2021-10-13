@@ -37,11 +37,11 @@
                                 <td>{{ $account->f_modified_userid }}</td>
                                 <td>{{ $account->f_modified_date }}</td>
                                 <td class="table-action">
-                                    <a href="{{ route('accounts.edit',$account) }}"><i class="align-middle" data-feather="edit-2"></i></a>
+                                    <a href="{{ route('accounts.edit', $account) }}"><i class="align-middle" data-feather="edit-2"></i></a>
                                     <a href="#" onclick="event.preventDefault();document.getElementById('delete-form-{{ $account->f_id }}').submit();">
                                         <i class="align-middle" data-feather="trash-2"></i>
                                     </a>
-                                    <form action="{{ route('accounts.destroy') }}" method="POST" class="d-none" id="delete-form-{{ $account->f_id }}">
+                                    <form action="{{ route('accounts.destroy', $account) }}" method="POST" class="d-none" id="delete-form-{{ $account->f_id }}">
                                         @csrf
                                         @method('DELETE')
                                     </form>

@@ -45,11 +45,9 @@
 
                         <div class="mb-2">
                             <label class="form-label">@lang('modules/account.f_groupid')</label>
-                            <select class="form-control form-control-sm @error('f_groupid') is-invalid @enderror"
-                                    name="f_groupid"
-                                    value="{{ old('f_groupid') }}">
+                            <select class="form-control form-control-sm @error('f_groupid') is-invalid @enderror" name="f_groupid" value="{{ old('f_groupid') }}">
                                 <option value selected>---</option>
-                            @foreach($accountGroups as $group)
+                                @foreach($accountGroups as $group)
                                     <option value="{{ $group->f_id }}" {{ selected('f_groupid',$group->f_id) }}>{{ $group->f_name }}</option>
                                 @endforeach
                             </select>
