@@ -45,7 +45,7 @@ class AccountController extends Controller
     {
         Account::create($request->validated());
 
-        return redirect()->route('accounts.index')->withSuccess(trans('global.created_successfully'));;
+        return redirect()->route('accounts.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**

@@ -6,18 +6,10 @@ use Illuminate\View\View;
 use App\Models\AccountGroup;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\AccountGroupService;
 use App\Http\Requests\AccountGroupStoreUpdateRequest;
 
 class AccountGroupController extends Controller
 {
-    private $accountGroupService;
-
-    public function __construct()
-    {
-        $this->accountGroupService = new AccountGroupService(AccountGroup::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +17,7 @@ class AccountGroupController extends Controller
      */
     public function index()
     {
-        $accountGroups = $this->accountGroupService->all();
+        $accountGroups = AccountGroup::simplePaginate();
 
         return view('modules.accountGroup.index', compact('accountGroups'));
     }
@@ -48,34 +40,19 @@ class AccountGroupController extends Controller
      */
     public function store(AccountGroupStoreUpdateRequest $request)
     {
-        $this->accountGroupService->create($request->input());
+        AccountGroup::create($request->validated());
 
-        return redirect()->route('account-groups.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $account = $this->accountGroupService->findById($id);
-
-        return view('modules.accountGroup.show', compact('account'));
+        return redirect()->route('account-groups.index')->withSuccess(trans('global.created_successfully'));;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  $id
+     * @param AccountGroup $accountGroup
      * @return View
      */
-    public function edit($id)
+    public function edit(AccountGroup $accountGroup)
     {
-        $accountGroup = $this->accountGroupService->findById($id);
-
         return view('modules.accountGroup.edit', compact('accountGroup'));
     }
 
@@ -83,26 +60,34 @@ class AccountGroupController extends Controller
      * Update the specified resource in storage.
      *
      * @param AccountGroupStoreUpdateRequest $request
-     * @param  $id
+     * @param AccountGroup $accountGroup
      * @return RedirectResponse
      */
-    public function update(AccountGroupStoreUpdateRequest $request, $id)
+    public function update(AccountGroupStoreUpdateRequest $request, AccountGroup $accountGroup)
     {
-        $this->accountGroupService->update($id, $request->input());
+        try {
+            $accountGroup->update($request->validated());
 
-        return redirect()->route('account-groups.index');
+            return redirect()->route('account-groups.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('account-groups.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  $id
+     * @param AccountGroup $accountGroup
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(AccountGroup $accountGroup)
     {
-        $this->accountGroupService->destroy($id);
+        try {
+            $accountGroup->delete();
 
-        return redirect()->route('account-groups.index');
+            return redirect()->route('account-groups.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('account-groups.index')->withError(trans('global.delete_failed'));
+        }
     }
 }
