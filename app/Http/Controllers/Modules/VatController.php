@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\VatStoreUpdateRequest;
 use App\Models\Vat;
 use App\Models\Vat2;
 
