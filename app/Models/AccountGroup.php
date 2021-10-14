@@ -12,6 +12,8 @@ class AccountGroup extends Model
 
     protected $table = 't_accountgroup';
 
+    protected $perPage = 500;
+
     /**
      * The attributes that are mass assignable.
      *
