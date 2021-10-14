@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use App\Traits\IdToUppercase;
-use App\Traits\UpdateCreatedModifiedUserIdColumns;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
 class Register2 extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
 
     protected $table = 't_r2';
+
+    protected $perPage = 500;
 
     /**
      * The attributes that are mass assignable.
