@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\VatStoreUpdateRequest;
 use App\Models\Vat;
 use App\Models\Vat2;
 
@@ -35,11 +36,11 @@ class VatController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param VatStoreRequest $request
+     * @param VatStoreUpdateRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(VatStoreRequest $request)
+    public function store(VatStoreUpdateRequest $request)
     {
         Vat::create($request->validated());
 
@@ -74,12 +75,12 @@ class VatController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param VatStoreRequest $request
+     * @param VatStoreUpdateRequest $request
      * @param Vat $vat
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(VatStoreRequest $request, Vat $vat)
+    public function update(VatStoreUpdateRequest $request, Vat $vat)
     {
         $vat->update($request->validated());
         return redirect()->route('vats.index')->withSuccess(trans('global.updated_successfully'));
