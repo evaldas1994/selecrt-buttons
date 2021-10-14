@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\IdPatternRule;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BankStoreUpdateRequest extends FormRequest
@@ -23,10 +25,10 @@ class BankStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route()->parameter('bank');
+        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_bank')->ignore($this->bank) : 'unique:t_bank';
 
         return [
-            'f_id' => 'string|required|max:20|unique:t_bank,f_id,' .$id. ',f_id',
+            'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],
             'f_name' => 'string|max:100|nullable',
             'f_bic' => 'string|max:20|nullable',
             'f_code' => 'string|max:20|nullable',
