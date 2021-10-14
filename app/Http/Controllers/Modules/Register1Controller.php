@@ -2,22 +2,15 @@
 
 namespace App\Http\Controllers\Modules;
 
-use Illuminate\View\View;
+
 use App\Models\Register1;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\Register1Service;
 use App\Http\Requests\Register1StoreUpdateRequest;
 
 class Register1Controller extends Controller
 {
-    private $register1Service;
-
-    public function __construct()
-    {
-        $this->register1Service = new Register1Service(Register1::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +18,7 @@ class Register1Controller extends Controller
      */
     public function index()
     {
-        $registers = $this->register1Service->all();
+        $registers = Register1::simplePaginate();
 
         return view('modules.register1.index', compact('registers'));
     }
@@ -48,61 +41,50 @@ class Register1Controller extends Controller
      */
     public function store(Register1StoreUpdateRequest $request)
     {
-        $this->register1Service->create(($request->input()));
+        Register1::create($request->validated());
 
-        return redirect()->route('registers1.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $register = $this->register1Service->findById($id);
-
-        return view('modules.register1.show', compact('register'));
+        return redirect()->route('registers1.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  $id
+     * @param Register1 $registers1
      * @return View
      */
-    public function edit($id)
+    public function edit(Register1 $registers1)
     {
-        $register = $this->register1Service->findById($id);
-
-        return view('modules.register1.edit', compact('register'));
+        return view('modules.register1.edit', compact('registers1'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Register1StoreUpdateRequest $request
-     * @param $id
+     * @param Register1 $registers1
      * @return RedirectResponse
      */
-    public function update(Register1StoreUpdateRequest $request, $id)
+    public function update(Register1StoreUpdateRequest $request, Register1 $registers1)
     {
-        $this->register1Service->update($id, $request->input());
+        $registers1->update($request->validated());
 
-        return redirect()->route('registers1.index');
+        return redirect()->route('registers1.index')->withSuccess(trans('global.updated_successfully'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  $id
+     * @param Register1 $registers1
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Register1 $registers1)
     {
-        $this->register1Service->destroy($id);
+        try {
+            $registers1->delete();
 
-        return redirect()->route('registers1.index');
+            return redirect()->route('registers1.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('registers1.index')->withError(trans('global.delete_failed'));
+        }
     }
 }

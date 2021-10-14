@@ -6,12 +6,13 @@ use App\Traits\IdToUppercase;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
-
 class Register1 extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
 
     protected $table = 't_r1';
+
+    protected $perPage = 500;
 
     /**
      * The attributes that are mass assignable.
@@ -64,5 +65,4 @@ class Register1 extends Model
      * @var string|null
      */
     const UPDATED_AT = 'f_modified_date';
-
 }
