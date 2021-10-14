@@ -28,14 +28,14 @@
                         @foreach($vats as $vat)
                             <tr>
                                 <td>{{ $vat->f_id }}</td>
-                                <td>{{ $vat->f_name }}</td>
+                                <td class="text-nowrap">{{ Str::limit($vat->f_name,35) }}</td>
                                 <td>{{ $vat->f_vat_perc }}</td>
                                 <td>{{ $vat->f_default_vat2_id }}</td>
                                 <td>{{ $vat->f_priority_in_integrations }}</td>
-                                <td>{{ $vat->f_create_userid }}</td>
-                                <td>{{ $vat->f_create_date }}</td>
-                                <td>{{ $vat->f_modified_userid }}</td>
-                                <td>{{ $vat->f_modified_date }}</td>
+                                <td class="text-nowrap">{{ $vat->f_create_userid }}</td>
+                                <td class="text-nowrap">{{ $vat->f_create_date }}</td>
+                                <td class="text-nowrap">{{ $vat->f_modified_userid }}</td>
+                                <td class="text-nowrap">{{ $vat->f_modified_date }}</td>
                                 <td class="table-action">
                                     <a href="{{ route('vats.edit',$vat) }}"><i class="align-middle" data-feather="edit-2"></i></a>
                                     <a href="#" onclick="event.preventDefault();document.getElementById('delete-form-{{ $vat->f_id }}').submit();">
