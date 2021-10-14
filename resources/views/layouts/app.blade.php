@@ -15,9 +15,19 @@
     @include('layouts.main')
 @endif
 <script src="{{ asset('theme/js/app.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+@if(app()->getLocale()!='en')
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/{{app()->getLocale()}}.js"></script>
+@endif
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        flatpickr(".date");
+
+        // Date picker
+        flatpickr(".date",{
+            "locale": "{{ app()->getLocale() == 'en' ? 'default' : app()->getLocale() }}"
+        });
+
+        // Messages
         var success = '{{ session('success') }}';
         if (success) {
             getMessage(success, 'success');
@@ -26,7 +36,6 @@
         if (error) {
             getMessage(error, 'danger');
         }
-
         function getMessage(message, type) {
             var message = message;
             var type = type;
@@ -46,17 +55,6 @@
             });
         }
 
-        Inputmask({
-            mask: "V{20}",
-            definitions: {
-                "V": {
-                    validator: "[A-Za-z0-9_-]",
-                    casing: "upper"
-                }
-            },
-            placeholder: '',
-            showMaskOnHover: false
-        }).mask(document.querySelectorAll('[id-pattern]'));
     });
 </script>
 </body>
