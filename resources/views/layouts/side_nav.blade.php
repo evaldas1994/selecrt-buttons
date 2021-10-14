@@ -10,7 +10,7 @@
         <div class="sidebar-user">
             <div class="d-flex justify-content-center">
                 <div class="flex-shrink-0">
-                    <!-- <img src="img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> -->
+                     <img src="https://eu.ui-avatars.com/api/?name={{ auth()->user()->f_id }}&background=random" class="avatar img-fluid rounded me-1" alt="{{ auth()->user()->f_id }}" />
                 </div>
                 <div class="flex-grow-1 ps-2">
                     <a class="sidebar-user-title dropdown-toggle" href="#" data-bs-toggle="dropdown">
