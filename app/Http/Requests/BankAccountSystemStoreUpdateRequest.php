@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\IdPatternRule;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BankAccountSystemStoreUpdateRequest extends FormRequest
@@ -23,10 +25,9 @@ class BankAccountSystemStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route()->parameter('bank_account_system');
-
+        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_bankaccount_system')->ignore($this->bank_account_system) : 'unique:t_bankaccount_system';
         return [
-            'f_id' => 'string|required|max:20|unique:t_bankaccount_system,f_id,' .$id. ',f_id',
+            'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],
             'f_bankid' => 'string|max:20|nullable|exists:t_bank,f_id',
             'f_default' => 'boolean',
             'f_system1' => 'string|max:100|nullable',

@@ -44,7 +44,7 @@
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.system.users')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.system.user_settings')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.system.system_settings')</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.system.bank_accounts')</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('bank-account-systems.index')}}">@lang('nav.system.bank_accounts')</a></li>
                     <div class="dropdown-divider"></div>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.system.counters')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.system.blank_numbers')</a></li>
