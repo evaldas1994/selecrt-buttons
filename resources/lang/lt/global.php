@@ -7,7 +7,6 @@
 
 
 return [
-
     'btn_new' => 'Naujas',
     'btn_save' => 'Išsaugoti',
     'btn_close' => 'Uždaryti',
@@ -16,5 +15,5 @@ return [
     'updated_successfully' => 'Įrašas atnaujintas sėkmingai!',
     'deleted_successfully' => 'Įrašas ištrintas sėkmingai!',
     'delete_failed' => 'Įrašo ištrinti negalima!',
-
+    'update_failed' => 'Įrašo atnaujinti negalima!',
 ];

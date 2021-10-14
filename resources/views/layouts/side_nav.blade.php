@@ -89,7 +89,7 @@
                         <a data-bs-target="#groups" data-bs-toggle="collapse" class="sidebar-link collapsed">@lang('nav.registers.groups.index')</a>
                         <ul id="groups" class="sidebar-dropdown list-unstyled collapse">
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">@lang('nav.registers.groups.account_groups')</a>
+                                <a class="sidebar-link" href="{{ route('account-groups.index') }}">@lang('nav.registers.groups.account_groups')</a>
                             </li>
                             <li class="sidebar-item">
                                 <a class="sidebar-link" href="#">@lang('nav.registers.groups.stock_groups')</a>
