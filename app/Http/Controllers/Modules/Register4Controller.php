@@ -6,18 +6,10 @@ use App\Models\Register4;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\Register4Service;
 use App\Http\Requests\Register4StoreUpdateRequest;
 
 class Register4Controller extends Controller
 {
-    private $register4Service;
-
-    public function __construct()
-    {
-        $this->register4Service = new Register4Service(Register4::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +17,7 @@ class Register4Controller extends Controller
      */
     public function index()
     {
-        $registers = $this->register4Service->all();
+        $registers = Register4::simplePaginate();
 
         return view('modules.register4.index', compact('registers'));
     }
@@ -48,61 +40,54 @@ class Register4Controller extends Controller
      */
     public function store(Register4StoreUpdateRequest $request)
     {
-        $this->register4Service->create(($request->input()));
+        Register4::create($request->validated());
 
-        return redirect()->route('registers4.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $register = $this->register4Service->findById($id);
-
-        return view('modules.register4.show', compact('register'));
+        return redirect()->route('registers4.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  $id
+     * @param Register4 $registers4
      * @return View
      */
-    public function edit($id)
+    public function edit(Register4 $registers4)
     {
-        $register = $this->register4Service->findById($id);
-
-        return view('modules.register4.edit', compact('register'));
+        return view('modules.register4.edit', compact('registers4'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Register4StoreUpdateRequest $request
-     * @param  $id
+     * @param Register4 $registers4
      * @return RedirectResponse
      */
-    public function update(Register4StoreUpdateRequest $request, $id)
+    public function update(Register4StoreUpdateRequest $request, Register4 $registers4)
     {
-        $this->register4Service->update($id, $request->input());
+        try {
+            $registers4->update($request->validated());
 
-        return redirect()->route('registers4.index');
+            return redirect()->route('registers4.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('registers4.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  $id
+     * @param Register4 $registers4
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Register4 $registers4)
     {
-        $this->register4Service->destroy($id);
+        try {
+            $registers4->delete();
 
-        return redirect()->route('registers4.index');
+            return redirect()->route('registers4.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('registers4.index')->withError(trans('global.delete_failed'));
+        }
     }
 }
