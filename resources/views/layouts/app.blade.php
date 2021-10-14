@@ -17,7 +17,7 @@
 <script src="{{ asset('theme/js/app.js') }}"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-
+        flatpickr(".date");
         var success = '{{ session('success') }}';
         if (success) {
             getMessage(success, 'success');
