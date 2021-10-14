@@ -2,26 +2,15 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Http\Controllers\Controller;
 use App\Models\Bank;
-use App\Models\BankAccountSystem;
-use App\Models\Stock;
-use App\Services\Modules\BankService;
 use Illuminate\View\View;
-use App\Services\Modules\StockService;
+use App\Models\BankAccountSystem;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\BankAccountSystemService;
 use App\Http\Requests\BankAccountSystemStoreUpdateRequest;
 
 class BankAccountSystemController extends Controller
 {
-    private $bankAccountSystemService;
-
-    public function __construct()
-    {
-        $this->bankAccountSystemService = new BankAccountSystemService(BankAccountSystem::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -29,7 +18,7 @@ class BankAccountSystemController extends Controller
      */
     public function index()
     {
-        $bankAccountSystems = $this->bankAccountSystemService->all();
+        $bankAccountSystems = BankAccountSystem::simplePaginate();
 
         return view('modules.bankAccountSystem.index', compact('bankAccountSystems'));
     }
@@ -41,8 +30,7 @@ class BankAccountSystemController extends Controller
      */
     public function create()
     {
-        $bankService = new BankService(Bank::class);
-        $banks = $bankService->all();
+        $banks = Bank::select('f_id', 'f_name')->orderBy('f_name')->get();
 
         return view('modules.bankAccountSystem.create', compact('banks'));
     }
@@ -55,36 +43,20 @@ class BankAccountSystemController extends Controller
      */
     public function store(BankAccountSystemStoreUpdateRequest $request)
     {
-        $this->bankAccountSystemService->create($request->input());
+        BankAccountSystem::create($request->validated());
 
-        return redirect()->route('bank-account-systems.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $bankAccountSystem = $this->bankAccountSystemService->findById($id);
-
-        return view('modules.bankAccountSystem.show', compact('bankAccountSystem'));
+        return redirect()->route('bank-account-systems.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
+     * @param BankAccountSystem $bankAccountSystem
      * @return View
      */
-    public function edit($id)
+    public function edit(BankAccountSystem $bankAccountSystem)
     {
-        $bankAccountSystem = $this->bankAccountSystemService->findById($id);
-
-        $bankService = new BankService(Bank::class);
-        $banks = $bankService->all();
+        $banks = Bank::select('f_id', 'f_name')->orderBy('f_name')->get();
 
         return view('modules.bankAccountSystem.edit', compact('bankAccountSystem', 'banks'));
     }
@@ -93,26 +65,30 @@ class BankAccountSystemController extends Controller
      * Update the specified resource in storage.
      *
      * @param BankAccountSystemStoreUpdateRequest $request
-     * @param $id
+     * @param BankAccountSystem $bankAccountSystem
      * @return RedirectResponse
      */
-    public function update(BankAccountSystemStoreUpdateRequest $request, $id)
+    public function update(BankAccountSystemStoreUpdateRequest $request, BankAccountSystem $bankAccountSystem)
     {
-        $this->bankAccountSystemService->update($id, $request->input());
+        $bankAccountSystem->update($request->validated());
 
-        return redirect()->route('bank-account-systems.index');
+        return redirect()->route('bank-account-systems.index')->withSuccess(trans('global.updated_successfully'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param BankAccountSystem $bankAccountSystem
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(BankAccountSystem $bankAccountSystem)
     {
-        $this->bankAccountSystemService->destroy($id);
+        try {
+            $bankAccountSystem->delete();
 
-        return redirect()->route('bank-account-systems.index');
+            return redirect()->route('bank-account-systems.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('bank-account-systems.index')->withError(trans('global.delete_failed'));
+        }
     }
 }

@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use App\Traits\IdToUppercase;
-use App\Traits\UpdateCreatedModifiedUserIdColumns;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
 class BankAccountSystem extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
 
     protected $table = 't_bankaccount_system';
+
+    protected $perPage = 500;
 
     /**
      * The attributes that are mass assignable.
@@ -63,4 +65,9 @@ class BankAccountSystem extends Model
      * @var string|null
      */
     const UPDATED_AT = 'f_modified_date';
+
+    public function bank()
+    {
+        return $this->hasOne(Bank::class, 'f_id', 'f_bankid');
+    }
 }
