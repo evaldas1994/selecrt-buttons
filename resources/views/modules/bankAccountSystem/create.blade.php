@@ -49,7 +49,7 @@
                                    class="form-control form-control-sm @error('f_name') is-invalid @enderror"
                                    name="f_name"
                                    placeholder="@lang('modules/bankAccountSystem.f_name')"
-                                   maxlength="10"
+                                   maxlength="100"
                                    value="{{ old('f_name') }}">
                             @error('f_name') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                         </div>
