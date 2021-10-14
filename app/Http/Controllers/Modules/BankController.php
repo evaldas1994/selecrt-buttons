@@ -3,23 +3,13 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Models\Bank;
-use App\Models\Stock;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
-use App\Services\Modules\BankService;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\StockService;
-use App\Http\Requests\BarcodeStoreUpdateRequest;
+use App\Http\Requests\BankStoreUpdateRequest;
 
 class BankController extends Controller
 {
-    private $bankService;
-
-    public function __construct()
-    {
-        $this->bankService = new BankService(Bank::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +17,7 @@ class BankController extends Controller
      */
     public function index()
     {
-        $banks = $this->bankService->all();
+        $banks = Bank::simplePaginate();
 
         return view('modules.bank.index', compact('banks'));
     }
@@ -39,78 +29,65 @@ class BankController extends Controller
      */
     public function create()
     {
-        $stockService = new StockService(Stock::class);
-        $stocks = $stockService->all();
-
-        return view('modules.bank.create', compact('stocks'));
+        return view('modules.bank.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param BarcodeStoreUpdateRequest $request
+     * @param BankStoreUpdateRequest $request
      * @return RedirectResponse
      */
-    public function store(BarcodeStoreUpdateRequest $request)
+    public function store(BankStoreUpdateRequest $request)
     {
-        $this->bankService->create($request->input());
+        Bank::create($request->validated());
 
-        return redirect()->route('banks.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $bank = $this->bankService->findById($id);
-
-        return view('modules.bank.show', compact('bank'));
+        return redirect()->route('banks.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
+     * @param Bank $bank
      * @return View
      */
-    public function edit($id)
+    public function edit(Bank $bank)
     {
-        $bank = $this->bankService->findById($id);
-
-        $stockService = new StockService(Stock::class);
-        $stocks = $stockService->all();
-
-        return view('modules.bank.edit', compact('bank', 'stocks'));
+        return view('modules.bank.edit', compact('bank'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param BarcodeStoreUpdateRequest $request
-     * @param $id
+     * @param BankStoreUpdateRequest $request
+     * @param Bank $bank
      * @return RedirectResponse
      */
-    public function update(BarcodeStoreUpdateRequest $request, $id)
+    public function update(BankStoreUpdateRequest $request, Bank $bank)
     {
-        $this->bankService->update($id, $request->input());
+        try {
+            $bank->update($request->validated());
 
-        return redirect()->route('banks.index');
+            return redirect()->route('banks.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('banks.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param Bank $bank
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Bank $bank)
     {
-        $this->bankService->destroy($id);
+        try {
+            $bank->delete();
 
-        return redirect()->route('banks.index');
+            return redirect()->route('banks.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('banks.index')->withError(trans('global.delete_failed'));
+        }
     }
 }
