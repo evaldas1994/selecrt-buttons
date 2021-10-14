@@ -12,6 +12,8 @@ class Account extends Model
 
     protected $table = 't_account';
 
+    protected $perPage = 500;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -65,4 +67,9 @@ class Account extends Model
      * @var string|null
      */
     const UPDATED_AT = 'f_modified_date';
+
+    public function accountGroup()
+    {
+        return $this->hasOne(AccountGroup::class, 'f_id', 'f_groupid');
+    }
 }

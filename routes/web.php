@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::resource('accounts', \App\Http\Controllers\Modules\AccountController::class);
+    Route::resource('accounts', \App\Http\Controllers\Modules\AccountController::class)->except('show');
     Route::resource('bankAccounts', \App\Http\Controllers\Modules\BankAccountController::class);
     Route::resource('account-groups', \App\Http\Controllers\Modules\AccountGroupController::class);
     Route::resource('banks', \App\Http\Controllers\Modules\BankController::class);
