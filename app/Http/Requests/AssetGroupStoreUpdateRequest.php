@@ -25,7 +25,7 @@ class AssetGroupStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_assetgroup')->ignore($this->aasset_group) : 'unique:t_assetgroup';
+        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_assetgroup')->ignore($this->asset_group) : 'unique:t_assetgroup';
         return [
             'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],
             'f_name' => 'string|max:100|nullable',

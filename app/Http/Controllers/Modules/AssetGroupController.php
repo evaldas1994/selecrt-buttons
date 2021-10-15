@@ -43,52 +43,52 @@ class AssetGroupController extends Controller
     {
         AssetGroup::create($request->validated());
 
-        return redirect()->route('aasset-groups.index')->withSuccess(trans('global.created_successfully'));
+        return redirect()->route('asset-groups.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param AssetGroup $aasset_group
+     * @param AssetGroup $assetGroup
      * @return View
      */
-    public function edit(AssetGroup $aasset_group)
+    public function edit(AssetGroup $assetGroup)
     {
-        return view('modules.assetGroup.edit', compact('aasset_group'));
+        return view('modules.assetGroup.edit', compact('assetGroup'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param AssetGroupStoreUpdateRequest $request
-     * @param AssetGroup $aasset_group
+     * @param AssetGroup $assetGroup
      * @return RedirectResponse
      */
-    public function update(AssetGroupStoreUpdateRequest $request, AssetGroup $aasset_group)
+    public function update(AssetGroupStoreUpdateRequest $request, AssetGroup $assetGroup)
     {
         try {
-            $aasset_group->update($request->validated());
+            $assetGroup->update($request->validated());
 
-            return redirect()->route('aasset-groups.index')->withSuccess(trans('global.updated_successfully'));
+            return redirect()->route('asset-groups.index')->withSuccess(trans('global.updated_successfully'));
         } catch (\Exception) {
-            return redirect()->route('aasset-groups.index')->withError(trans('global.update_failed'));
+            return redirect()->route('asset-groups.index')->withError(trans('global.update_failed'));
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param AssetGroup $aasset_group
+     * @param AssetGroup $assetGroup
      * @return RedirectResponse
      */
-    public function destroy(AssetGroup $aasset_group)
+    public function destroy(AssetGroup $assetGroup)
     {
         try {
-            $aasset_group->delete();
+            $assetGroup->delete();
 
-            return redirect()->route('aasset-groups.index')->withSuccess(trans('global.deleted_successfully'));
+            return redirect()->route('asset-groups.index')->withSuccess(trans('global.deleted_successfully'));
         } catch (\Exception) {
-            return redirect()->route('aasset-groups.index')->withError(trans('global.delete_failed'));
+            return redirect()->route('asset-groups.index')->withError(trans('global.delete_failed'));
         }
     }
 }

@@ -9,14 +9,14 @@
         <div class="col-auto ms-auto text-end mt-n1">
             <a href="#" class="btn btn-primary"
                onclick="event.preventDefault();document.getElementById('asset-group-form').submit();">@lang('global.btn_save')</a>
-            <a href="{{ route('aasset-groups.index') }}" class="btn btn-dark">@lang('global.btn_close')</a>
+            <a href="{{ route('asset-groups.index') }}" class="btn btn-dark">@lang('global.btn_close')</a>
         </div>
     </div>
     <div class="row">
         <div class="card">
             <div class="col-12 col-xl-4">
                 <div class="card-body">
-                    <form id="asset-group-form" action="{{ route('aasset-groups.update', $aasset_group) }}" method="POST">
+                    <form id="asset-group-form" action="{{ route('asset-groups.update', $assetGroup) }}" method="POST">
                         @csrf
                         @method('PUT')
 
@@ -29,7 +29,7 @@
                                    placeholder="@lang('modules/assetGroup.f_id')"
                                    required
                                    maxlength="20"
-                                   value="{{ old('f_id', $aasset_group->f_id) }}">
+                                   value="{{ old('f_id', $assetGroup->f_id) }}">
                             @error('f_id') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                         </div>
 
@@ -40,7 +40,7 @@
                                    name="f_name"
                                    placeholder="@lang('modules/assetGroup.f_name')"
                                    maxlength="100"
-                                   value="{{ old('f_name', $aasset_group->f_name) }}">
+                                   value="{{ old('f_name', $assetGroup->f_name) }}">
                             @error('f_name') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                         </div>
 
@@ -51,7 +51,7 @@
                                    name="f_name2"
                                    placeholder="@lang('modules/assetGroup.f_name2')"
                                    maxlength="100"
-                                   value="{{ old('f_name2', $aasset_group->f_name2) }}">
+                                   value="{{ old('f_name2', $assetGroup->f_name2) }}">
                             @error('f_name2') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                         </div>
 
@@ -62,7 +62,7 @@
                                    name="f_system1"
                                    placeholder="@lang('modules/assetGroup.f_system1')"
                                    maxlength="100"
-                                   value="{{ old('f_system1', $aasset_group->f_system1) }}">
+                                   value="{{ old('f_system1', $assetGroup->f_system1) }}">
                             @error('f_system1') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                         </div>
 
@@ -73,7 +73,7 @@
                                    name="f_system2"
                                    placeholder="@lang('modules/assetGroup.f_system2')"
                                    maxlength="100"
-                                   value="{{ old('f_system2', $aasset_group->f_system2) }}">
+                                   value="{{ old('f_system2', $assetGroup->f_system2) }}">
                             @error('f_system2') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                         </div>
 
@@ -84,7 +84,7 @@
                                    name="f_system3"
                                    placeholder="@lang('modules/assetGroup.f_system3')"
                                    maxlength="100"
-                                   value="{{ old('f_system3', $aasset_group->f_system3) }}">
+                                   value="{{ old('f_system3', $assetGroup->f_system3) }}">
                             @error('f_system3') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                         </div>
 

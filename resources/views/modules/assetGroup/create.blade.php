@@ -9,14 +9,14 @@
         <div class="col-auto ms-auto text-end mt-n1">
             <a href="#" class="btn btn-primary"
                onclick="event.preventDefault();document.getElementById('asset-group-form').submit();">@lang('global.btn_save')</a>
-            <a href="{{ route('aasset-groups.index') }}" class="btn btn-dark">@lang('global.btn_close')</a>
+            <a href="{{ route('asset-groups.index') }}" class="btn btn-dark">@lang('global.btn_close')</a>
         </div>
     </div>
     <div class="row">
         <div class="card">
             <div class="col-12 col-xl-4">
                 <div class="card-body">
-                    <form id="asset-group-form" action="{{ route('aasset-groups.store') }}" method="POST">
+                    <form id="asset-group-form" action="{{ route('asset-groups.store') }}" method="POST">
                         @csrf
 
                         <div class="mb-2">
