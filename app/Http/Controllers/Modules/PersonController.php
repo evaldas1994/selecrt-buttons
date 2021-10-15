@@ -6,18 +6,10 @@ use App\Models\Person;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\PersonService;
 use App\Http\Requests\PersonStoreUpdateRequest;
 
 class PersonController extends Controller
 {
-    private $personService;
-
-    public function __construct()
-    {
-        $this->personService = new PersonService(Person::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +17,7 @@ class PersonController extends Controller
      */
     public function index()
     {
-        $persons = $this->personService->all();
+        $persons = Person::simplePaginate();
 
         return view('modules.person.index', compact('persons'));
     }
@@ -48,34 +40,19 @@ class PersonController extends Controller
      */
     public function store(PersonStoreUpdateRequest $request)
     {
-        $this->personService->create(($request->input()));
+        Person::create($request->validated());
 
-        return redirect()->route('persons.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $person = $this->personService->findById($id);
-
-        return view('modules.person.show', compact('person'));
+        return redirect()->route('persons.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
+     * @param Person $person
      * @return View
      */
-    public function edit($id)
+    public function edit(Person $person)
     {
-        $person = $this->personService->findById($id);
-
         return view('modules.person.edit', compact('person'));
     }
 
@@ -83,26 +60,34 @@ class PersonController extends Controller
      * Update the specified resource in storage.
      *
      * @param PersonStoreUpdateRequest $request
-     * @param $id
+     * @param Person $person
      * @return RedirectResponse
      */
-    public function update(PersonStoreUpdateRequest $request, $id)
+    public function update(PersonStoreUpdateRequest $request, Person $person)
     {
-        $this->personService->update($id, $request->input());
+        try {
+            $person->update($request->validated());
 
-        return redirect()->route('persons.index');
+            return redirect()->route('persons.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('persons.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param Person $person
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Person $person)
     {
-        $this->personService->destroy($id);
+        try {
+            $person->delete();
 
-        return redirect()->route('persons.index');
+            return redirect()->route('persons.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('persons.index')->withError(trans('global.delete_failed'));
+        }
     }
 }
