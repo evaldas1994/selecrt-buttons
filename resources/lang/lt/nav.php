@@ -47,6 +47,7 @@ return [
             'register3' => 'Registras 3',
             'register4' => 'Registras 4',
             'register5' => 'Registras 5',
+            'register7' => 'Registras 7',
             'departments' => 'Padaliniai',
             'persons' => 'Asmenys',
             'projects' => 'Projektai',
