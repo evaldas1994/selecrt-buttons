@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('blank-numbers', \App\Http\Controllers\Modules\BlankNumberController::class);
     Route::resource('bonuses', \App\Http\Controllers\Modules\BonusController::class);
     Route::resource('counters', \App\Http\Controllers\Modules\CounterController::class);
-    Route::resource('currencies', \App\Http\Controllers\Modules\CurrencyController::class);
+    Route::resource('currencies', \App\Http\Controllers\Modules\CurrencyController::class)->except('show');
     Route::resource('departments', \App\Http\Controllers\Modules\DepartmentController::class);
     Route::resource('messages', \App\Http\Controllers\Modules\MessageController::class);
     Route::resource('partners', \App\Http\Controllers\Modules\PartnerController::class);
@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('registers4', \App\Http\Controllers\Modules\Register4Controller::class)->except('show');
     Route::resource('registers5', \App\Http\Controllers\Modules\Register5Controller::class)->except('show');
     Route::resource('registers6', \App\Http\Controllers\Modules\Register6Controller::class)->except('show');
-    Route::resource('registers7', \App\Http\Controllers\Modules\Register7Controller::class);
+    Route::resource('registers7', \App\Http\Controllers\Modules\Register7Controller::class)->except('show');
     Route::resource('registers8', \App\Http\Controllers\Modules\Register8Controller::class);
     Route::resource('sales', \App\Http\Controllers\SaleController::class);
     Route::resource('stocks', \App\Http\Controllers\Modules\StockController::class);
@@ -51,5 +51,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('units', \App\Http\Controllers\Modules\UnitController::class);
     Route::resource('user-params', \App\Http\Controllers\Modules\UserParamController::class);
     Route::resource('vats', \App\Http\Controllers\Modules\VatController::class);
+});
+
+Route::domain('blog.' . 'dineta-crm.test')->group(function () {
+    Route::get('posts', function () {
+        return 'Second subdomain landing page';
+    });
+    Route::get('post/{id}', function ($id) {
+        return 'Post ' . $id . ' in second subdomain';
+    });
 });
 

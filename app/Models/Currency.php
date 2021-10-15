@@ -12,6 +12,8 @@ class Currency extends Model
 
     protected $table = 't_cur';
 
+    protected $perPage = 500;
+
     /**
      * The attributes that are mass assignable.
      *
