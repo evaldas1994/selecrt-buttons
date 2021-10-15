@@ -6,18 +6,10 @@ use App\Models\Register8;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\Register8Service;
 use App\Http\Requests\Register8StoreUpdateRequest;
 
 class Register8Controller extends Controller
 {
-    private $register8Service;
-
-    public function __construct()
-    {
-        $this->register8Service = new Register8Service(Register8::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +17,7 @@ class Register8Controller extends Controller
      */
     public function index()
     {
-        $registers = $this->register8Service->all();
+        $registers = Register8::simplePaginate();
 
         return view('modules.register8.index', compact('registers'));
     }
@@ -48,61 +40,54 @@ class Register8Controller extends Controller
      */
     public function store(Register8StoreUpdateRequest $request)
     {
-        $this->register8Service->create(($request->input()));
+        Register8::create($request->validated());
 
-        return redirect()->route('registers8.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $register = $this->register8Service->findById($id);
-
-        return view('modules.register8.show', compact('register'));
+        return redirect()->route('registers8.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  $id
+     * @param Register8 $registers8
      * @return View
      */
-    public function edit($id)
+    public function edit(Register8 $registers8)
     {
-        $register = $this->register8Service->findById($id);
-
-        return view('modules.register8.edit', compact('register'));
+        return view('modules.register8.edit', compact('registers8'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Register8StoreUpdateRequest $request
-     * @param  $id
+     * @param Register8 $registers8
      * @return RedirectResponse
      */
-    public function update(Register8StoreUpdateRequest $request, $id)
+    public function update(Register8StoreUpdateRequest $request, Register8 $registers8)
     {
-        $this->register8Service->update($id, $request->input());
+        try {
+            $registers8->update($request->validated());
 
-        return redirect()->route('registers8.index');
+            return redirect()->route('registers8.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('registers8.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  $id
+     * @param Register8 $registers8
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Register8 $registers8)
     {
-        $this->register8Service->destroy($id);
+        try {
+            $registers8->delete();
 
-        return redirect()->route('registers8.index');
+            return redirect()->route('registers8.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('registers8.index')->withError(trans('global.delete_failed'));
+        }
     }
 }

@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('registers5', \App\Http\Controllers\Modules\Register5Controller::class)->except('show');
     Route::resource('registers6', \App\Http\Controllers\Modules\Register6Controller::class)->except('show');
     Route::resource('registers7', \App\Http\Controllers\Modules\Register7Controller::class)->except('show');
-    Route::resource('registers8', \App\Http\Controllers\Modules\Register8Controller::class);
+    Route::resource('registers8', \App\Http\Controllers\Modules\Register8Controller::class)->except('show');
     Route::resource('sales', \App\Http\Controllers\SaleController::class);
     Route::resource('stocks', \App\Http\Controllers\Modules\StockController::class);
     Route::resource('stores', \App\Http\Controllers\Modules\StoreController::class);

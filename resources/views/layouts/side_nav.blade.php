@@ -123,6 +123,9 @@
                              <li class="sidebar-item">
                                 <a class="sidebar-link" href="{{ route('registers7.index') }}">@lang('nav.registers.additional_registers.register7')</a>
                             </li>
+                             <li class="sidebar-item">
+                                <a class="sidebar-link" href="{{ route('registers8.index') }}">@lang('nav.registers.additional_registers.register8')</a>
+                            </li>
                             <div class="dropdown-divider"></div>
                             <li class="sidebar-item">
                                 <a class="sidebar-link" href="{{ route('departments.index') }}">@lang('nav.registers.additional_registers.departments')</a>
