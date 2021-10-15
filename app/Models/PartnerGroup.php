@@ -12,6 +12,8 @@ class PartnerGroup extends Model
 
     protected $table = 't_partnergroup';
 
+    protected $perPage = 500;
+
     /**
      * The attributes that are mass assignable.
      *
