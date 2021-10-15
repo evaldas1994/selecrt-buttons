@@ -13,6 +13,8 @@ class Register7 extends Model
 
     protected $table = 't_r7';
 
+    protected $perPage = 500;
+
     /**
      * The attributes that are mass assignable.
      *

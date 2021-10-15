@@ -6,18 +6,10 @@ use App\Models\Register7;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\Register7Service;
 use App\Http\Requests\Register7StoreUpdateRequest;
 
 class Register7Controller extends Controller
 {
-    private $register7Service;
-
-    public function __construct()
-    {
-        $this->register7Service = new Register7Service(Register7::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +17,7 @@ class Register7Controller extends Controller
      */
     public function index()
     {
-        $registers = $this->register7Service->all();
+        $registers = Register7::simplePaginate();
 
         return view('modules.register7.index', compact('registers'));
     }
@@ -48,61 +40,54 @@ class Register7Controller extends Controller
      */
     public function store(Register7StoreUpdateRequest $request)
     {
-        $this->register7Service->create(($request->input()));
+        Register7::create($request->validated());
 
-        return redirect()->route('registers7.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $register = $this->register7Service->findById($id);
-
-        return view('modules.register7.show', compact('register'));
+        return redirect()->route('registers7.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  $id
+     * @param Register7 $registers7
      * @return View
      */
-    public function edit($id)
+    public function edit(Register7 $registers7)
     {
-        $register = $this->register7Service->findById($id);
-
-        return view('modules.register7.edit', compact('register'));
+        return view('modules.register7.edit', compact('registers7'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Register7StoreUpdateRequest $request
-     * @param  $id
+     * @param Register7 $registers7
      * @return RedirectResponse
      */
-    public function update(Register7StoreUpdateRequest $request, $id)
+    public function update(Register7StoreUpdateRequest $request, Register7 $registers7)
     {
-        $this->register7Service->update($id, $request->input());
+        try {
+            $registers7->update($request->validated());
 
-        return redirect()->route('registers7.index');
+            return redirect()->route('registers7.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('registers7.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  $id
+     * @param Register7 $registers7
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Register7 $registers7)
     {
-        $this->register7Service->destroy($id);
+        try {
+            $registers7->delete();
 
-        return redirect()->route('registers7.index');
+            return redirect()->route('registers7.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('registers7.index')->withError(trans('global.delete_failed'));
+        }
     }
 }
