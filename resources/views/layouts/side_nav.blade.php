@@ -120,7 +120,7 @@
                              <li class="sidebar-item">
                                 <a class="sidebar-link" href="{{ route('registers6.index') }}">@lang('nav.registers.additional_registers.register6')</a>
                             </li>
-                            <li class="sidebar-item">
+                             <li class="sidebar-item">
                                 <a class="sidebar-link" href="{{ route('registers7.index') }}">@lang('nav.registers.additional_registers.register7')</a>
                             </li>
                              <li class="sidebar-item">
