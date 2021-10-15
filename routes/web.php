@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('blank-numbers', \App\Http\Controllers\Modules\BlankNumberController::class);
     Route::resource('bonuses', \App\Http\Controllers\Modules\BonusController::class);
     Route::resource('counters', \App\Http\Controllers\Modules\CounterController::class);
-    Route::resource('currencies', \App\Http\Controllers\Modules\CurrencyController::class);
+    Route::resource('currencies', \App\Http\Controllers\Modules\CurrencyController::class)->except('show');
     Route::resource('departments', \App\Http\Controllers\Modules\DepartmentController::class);
     Route::resource('messages', \App\Http\Controllers\Modules\MessageController::class);
     Route::resource('partners', \App\Http\Controllers\Modules\PartnerController::class);
