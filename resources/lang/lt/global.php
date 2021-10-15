@@ -16,4 +16,5 @@ return [
     'deleted_successfully' => 'Įrašas ištrintas sėkmingai!',
     'delete_failed' => 'Įrašo ištrinti negalima!',
     'update_failed' => 'Įrašo atnaujinti negalima!',
+    'select_date' => 'Pasirinkite datą',
 ];

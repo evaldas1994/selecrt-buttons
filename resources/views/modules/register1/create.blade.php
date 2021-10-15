@@ -56,7 +56,12 @@
 
                         <div class="mb-2">
                             <label class="form-label">@lang('modules/register1.f_valid_date')</label>
-                            <input type="text" class="form-control date" placeholder="Select date.." />
+                            <input
+                                type="text"
+                                class="form-control form-control-sm date"
+                                name="f_valid_date"
+                                placeholder="@lang('global.select_date')"
+                                value="{{ old('f_valid_date') }}">
                             @error('f_valid_date') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                         </div>
 
