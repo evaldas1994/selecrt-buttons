@@ -6,15 +6,13 @@ use App\Traits\IdToUppercase;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
-/**
- * @method static where(string $string, $f_id)
- * @method static create(mixed $input)
- */
 class Unit extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
 
     protected $table = 't_unit';
+
+    protected $perPage = 500;
 
     /**
      * The attributes that are mass assignable.

@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\IdPatternRule;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UnitStoreUpdateRequest extends FormRequest
@@ -23,15 +25,14 @@ class UnitStoreUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = $this->route()->parameter('unit');
-
+        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_unit')->ignore($this->unit) : 'unique:t_unit';
         return [
-            'f_id' => 'required|unique:t_unit,f_id,' .$id. ',f_id|max:20',
-            'f_name' => 'required|max:100',
-            'f_system1' => 'max:100|nullable',
-            'f_system2' => 'max:100|nullable',
-            'f_system3' => 'max:100|nullable',
-            'f_component' => 'required|numeric',
+            'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],
+            'f_name' => 'string|max:100|nullable',
+            'f_system1' => 'string|max:100|nullable',
+            'f_system2' => 'string|max:100|nullable',
+            'f_system3' => 'string|max:100|nullable',
+            'f_component' => 'required|integer',
         ];
     }
 }
