@@ -13,6 +13,8 @@ class Register4 extends Model
 
     protected $table = 't_r4';
 
+    protected $perPage = 500;
+
     /**
      * The attributes that are mass assignable.
      *

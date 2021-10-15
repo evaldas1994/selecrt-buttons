@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\IdPatternRule;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class Register4StoreUpdateRequest extends FormRequest
@@ -23,10 +25,9 @@ class Register4StoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route()->parameter('register4');
-
+        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_r4')->ignore($this->registers4) : 'unique:t_r4';
         return [
-            'f_id' => 'string|required|max:20|unique:t_r4,f_id,' .$id. ',f_id',
+            'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],
             'f_name' => 'string|max:100|nullable',
             'f_name2' => 'string|max:100|nullable',
             'f_system1' => 'string|max:100|nullable',

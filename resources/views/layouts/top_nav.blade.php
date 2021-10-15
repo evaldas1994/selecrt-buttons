@@ -132,7 +132,7 @@
                         <a href="#" class="list-group-item">
                             <div class="row g-0 align-items-center">
                                 <div class="col-2">
-                                    <img src="img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
+                                    <img src="https://eu.ui-avatars.com/api/?name=Vanessa Tucker" class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
                                 </div>
                                 <div class="col-10 ps-2">
                                     <div class="text-dark">Vanessa Tucker</div>
@@ -144,7 +144,7 @@
                         <a href="#" class="list-group-item">
                             <div class="row g-0 align-items-center">
                                 <div class="col-2">
-                                    <img src="img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle" alt="William Harris">
+                                    <img src="https://eu.ui-avatars.com/api/?name=William Harris" class="avatar img-fluid rounded-circle" alt="William Harris">
                                 </div>
                                 <div class="col-10 ps-2">
                                     <div class="text-dark">William Harris</div>
@@ -156,7 +156,7 @@
                         <a href="#" class="list-group-item">
                             <div class="row g-0 align-items-center">
                                 <div class="col-2">
-                                    <img src="img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle" alt="Christina Mason">
+                                    <img src="https://eu.ui-avatars.com/api/?name=Christina Mason" class="avatar img-fluid rounded-circle" alt="Christina Mason">
                                 </div>
                                 <div class="col-10 ps-2">
                                     <div class="text-dark">Christina Mason</div>
@@ -168,7 +168,7 @@
                         <a href="#" class="list-group-item">
                             <div class="row g-0 align-items-center">
                                 <div class="col-2">
-                                    <img src="img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
+                                    <img src="https://eu.ui-avatars.com/api/?name=Sharon Lessman" class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
                                 </div>
                                 <div class="col-10 ps-2">
                                     <div class="text-dark">Sharon Lessman</div>
@@ -219,7 +219,7 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-icon pe-md-0 dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                    {{ auth()->user()->f_id }}
+                    <img src="https://eu.ui-avatars.com/api/?name={{ auth()->user()->f_id }}&background=random" class="avatar img-fluid rounded" alt="{{ auth()->user()->f_id }}" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
                     <a class="dropdown-item" href="{{ route('user-params.index') }}"><i class="align-middle me-1" data-feather="user"></i> @lang('nav.user_params')</a>

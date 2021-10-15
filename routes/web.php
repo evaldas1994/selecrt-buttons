@@ -35,10 +35,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('partner-groups', \App\Http\Controllers\Modules\PartnerGroupController::class);
     Route::resource('persons', \App\Http\Controllers\Modules\PersonController::class);
     Route::resource('projects', \App\Http\Controllers\Modules\ProjectController::class);
-    Route::resource('registers1', \App\Http\Controllers\Modules\Register1Controller::class)->except('show');
-    Route::resource('registers2', \App\Http\Controllers\Modules\Register2Controller::class);
-    Route::resource('registers3', \App\Http\Controllers\Modules\Register3Controller::class);
-    Route::resource('registers4', \App\Http\Controllers\Modules\Register4Controller::class);
+    Route::resource('registers1', \App\Http\Controllers\Modules\Register1Controller::class)->except('show');   
+    Route::resource('registers2', \App\Http\Controllers\Modules\Register2Controller::class)->except('show');
+    Route::resource('registers3', \App\Http\Controllers\Modules\Register3Controller::class)->except('show');
+    Route::resource('registers4', \App\Http\Controllers\Modules\Register4Controller::class)->except('show');
     Route::resource('registers5', \App\Http\Controllers\Modules\Register5Controller::class);
     Route::resource('registers6', \App\Http\Controllers\Modules\Register6Controller::class);
     Route::resource('registers7', \App\Http\Controllers\Modules\Register7Controller::class);
