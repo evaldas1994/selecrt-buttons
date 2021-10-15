@@ -66,9 +66,13 @@ class Register1Controller extends Controller
      */
     public function update(Register1StoreUpdateRequest $request, Register1 $registers1)
     {
-        $registers1->update($request->validated());
+        try {
+            $registers1->update($request->validated());
 
-        return redirect()->route('registers1.index')->withSuccess(trans('global.updated_successfully'));
+            return redirect()->route('registers1.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('registers1.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
