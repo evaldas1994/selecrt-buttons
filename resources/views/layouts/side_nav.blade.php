@@ -242,7 +242,7 @@
                     <i class="align-middle" data-feather="corner-left-up"></i> <span class="align-middle">@lang('nav.sales.index')</span>
                 </a>
                 <ul id="sales" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.sales.sale')</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('sales.index') }}">@lang('nav.sales.sale')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.sales.sale_return')</a></li>
                     <div class="dropdown-divider"></div>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.sales.periodic_sales')</a></li>

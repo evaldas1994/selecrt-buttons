@@ -12,17 +12,10 @@ use Illuminate\Http\Request;
 
 class SaleController extends Controller
 {
-    private $saleService;
-
-    public function __construct()
-    {
-        $this->saleService = new SaleService(Stockh::class);
-    }
-
     public function index()
     {
-       $sales = Stockh::sales()->with(['stockd:f_hid'])->select('f_docno', 'f_id')->paginate(25);
-        //$sales = $this->saleService->all(['f_docno', 'f_id'],['stockd']);
+        $sales = Stockh::sales()->with(['partner1:f_name,f_id','partner2:f_name,f_id'])->select()->simplePaginate(500);
+
         return view('sale.index', compact('sales'));
     }
 

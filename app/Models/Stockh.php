@@ -119,6 +119,26 @@ class Stockh extends Model
         return $this->hasMany(Stockd::class, 'f_hid', 'f_id');
     }
 
+    public function partner1()
+    {
+        return $this->hasOne(Partner::class, 'f_id', 'f_partnerid1');
+    }
+
+    public function partner2()
+    {
+        return $this->hasOne(Partner::class, 'f_id', 'f_partnerid2');
+    }
+
+    public function store1()
+    {
+        return $this->hasOne(Store::class, 'f_id', 'f_storeid1');
+    }
+
+    public function store2()
+    {
+        return $this->hasOne(Store::class, 'f_id', 'f_storeid2');
+    }
+
     /*
 
 

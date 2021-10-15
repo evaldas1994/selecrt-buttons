@@ -95,7 +95,7 @@ return [
     // Sales
     'sales' => [
         'index' => 'Pardavimai',
-        'sales' => 'Pardavimas',
+        'sale' => 'Pardavimas',
         'sale_return' => 'Pardavimo gražinimas',
         'periodic_sales' => 'Periodiniai pardavimai',
     ],
