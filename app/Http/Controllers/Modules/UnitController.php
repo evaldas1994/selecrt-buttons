@@ -5,19 +5,11 @@ namespace App\Http\Controllers\Modules;
 use App\Models\Unit;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
-use App\Services\Modules\UnitService;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\UnitStoreUpdateRequest;
 
 class UnitController extends Controller
 {
-    private $unitService;
-
-    public function __construct()
-    {
-        $this->unitService = new UnitService(Unit::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +17,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        $units = $this->unitService->all();
+        $units = Unit::simplePaginate();
 
         return view('modules.unit.index', compact('units'));
     }
@@ -48,34 +40,19 @@ class UnitController extends Controller
      */
     public function store(UnitStoreUpdateRequest $request)
     {
-        $this->unitService->create($request->input());
+        Unit::create($request->validated());
 
-        return redirect()->route('units.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $unit = $this->unitService->findById($id);
-
-        return view('modules.unit.show', compact('unit'));
+        return redirect()->route('units.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
+     * @param Unit $unit
      * @return View
      */
-    public function edit($id)
+    public function edit(Unit $unit)
     {
-        $unit = $this->unitService->findById($id);
-
         return view('modules.unit.edit', compact('unit'));
     }
 
@@ -83,26 +60,34 @@ class UnitController extends Controller
      * Update the specified resource in storage.
      *
      * @param UnitStoreUpdateRequest $request
-     * @param $id
+     * @param Unit $unit
      * @return RedirectResponse
      */
-    public function update(UnitStoreUpdateRequest $request, $id)
+    public function update(UnitStoreUpdateRequest $request, Unit $unit)
     {
-        $this->unitService->update($id, $request->input());
+        try {
+            $unit->update($request->validated());
 
-        return redirect()->route('units.index');
+            return redirect()->route('units.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('units.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param Unit $unit
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Unit $unit)
     {
-        $this->unitService->destroy($id);
+        try {
+            $unit->delete();
 
-        return redirect()->route('units.index');
+            return redirect()->route('units.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('units.index')->withError(trans('global.delete_failed'));
+        }
     }
 }
