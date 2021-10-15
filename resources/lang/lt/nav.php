@@ -47,6 +47,8 @@ return [
             'register3' => 'Registras 3',
             'register4' => 'Registras 4',
             'register5' => 'Registras 5',
+            'register6' => 'Registras 6',
+            'register7' => 'Registras 7',
             'register8' => 'Registras 8',
             'departments' => 'Padaliniai',
             'persons' => 'Asmenys',
@@ -96,7 +98,7 @@ return [
     // Sales
     'sales' => [
         'index' => 'Pardavimai',
-        'sales' => 'Pardavimas',
+        'sale' => 'Pardavimas',
         'sale_return' => 'Pardavimo gražinimas',
         'periodic_sales' => 'Periodiniai pardavimai',
     ],

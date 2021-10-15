@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\IdPatternRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CurrencyStoreUpdateRequest extends FormRequest
 {
@@ -23,12 +25,11 @@ class CurrencyStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route()->parameter('currency');
-
+        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_cur')->ignore($this->currency) : 'unique:t_cur';
         return [
-            'f_id' => 'string|required|max:20|unique:t_cur,f_id,' .$id. ',f_id',
+            'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],
             'f_name' => 'string|max:100|nullable',
-            'f_symbol' => 'string|required|max:20|unique:t_cur,f_symbol',
+            'f_symbol' => 'string|required|max:20',
             'f_fraction' => 'string|required|max:20',
             'f_system1' => 'string|max:100|nullable',
             'f_system2' => 'string|max:100|nullable',

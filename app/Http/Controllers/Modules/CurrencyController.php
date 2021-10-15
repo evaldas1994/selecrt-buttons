@@ -11,12 +11,6 @@ use App\Http\Requests\CurrencyStoreUpdateRequest;
 
 class CurrencyController extends Controller
 {
-    private $currencyService;
-
-    public function __construct()
-    {
-        $this->currencyService = new CurrencyService(Currency::class);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +18,7 @@ class CurrencyController extends Controller
      */
     public function index()
     {
-        $currencies = $this->currencyService->all();
+        $currencies = Currency::simplePaginate();
 
         return view('modules.currency.index', compact('currencies'));
     }
@@ -47,34 +41,19 @@ class CurrencyController extends Controller
      */
     public function store(CurrencyStoreUpdateRequest $request)
     {
-        $this->currencyService->create(($request->input()));
+        Currency::create($request->validated());
 
-        return redirect()->route('currencies.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $currency = $this->currencyService->findById($id);
-
-        return view('modules.currency.show', compact('currency'));
+        return redirect()->route('currencies.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
+     * @param Currency $currency
      * @return View
      */
-    public function edit($id)
+    public function edit(Currency $currency)
     {
-        $currency = $this->currencyService->findById($id);
-
         return view('modules.currency.edit', compact('currency'));
     }
 
@@ -82,26 +61,34 @@ class CurrencyController extends Controller
      * Update the specified resource in storage.
      *
      * @param CurrencyStoreUpdateRequest $request
-     * @param $id
+     * @param Currency $currency
      * @return RedirectResponse
      */
-    public function update(CurrencyStoreUpdateRequest $request, $id)
+    public function update(CurrencyStoreUpdateRequest $request, Currency $currency)
     {
-        $this->currencyService->update($id, $request->input());
+        try {
+            $currency->update($request->validated());
 
-        return redirect()->route('currencies.index');
+            return redirect()->route('currencies.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('currencies.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  $id
+     * @param Currency $currency
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Currency $currency)
     {
-        $this->currencyService->destroy($id);
+        try {
+            $currency->delete();
 
-        return redirect()->route('currencies.index');
+            return redirect()->route('currencies.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('currencies.index')->withError(trans('global.delete_failed'));
+        }
     }
 }

@@ -6,18 +6,10 @@ use App\Models\Register5;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\Register5Service;
 use App\Http\Requests\Register5StoreUpdateRequest;
 
 class Register5Controller extends Controller
 {
-    private $register5Service;
-
-    public function __construct()
-    {
-        $this->register5Service = new Register5Service(Register5::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +17,7 @@ class Register5Controller extends Controller
      */
     public function index()
     {
-        $registers = $this->register5Service->all();
+        $registers = Register5::simplePaginate();
 
         return view('modules.register5.index', compact('registers'));
     }
@@ -48,61 +40,54 @@ class Register5Controller extends Controller
      */
     public function store(Register5StoreUpdateRequest $request)
     {
-        $this->register5Service->create(($request->input()));
+        Register5::create($request->validated());
 
-        return redirect()->route('registers5.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $register = $this->register5Service->findById($id);
-
-        return view('modules.register5.show', compact('register'));
+        return redirect()->route('registers5.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  $id
+     * @param Register5 $registers5
      * @return View
      */
-    public function edit($id)
+    public function edit(Register5 $registers5)
     {
-        $register = $this->register5Service->findById($id);
-
-        return view('modules.register5.edit', compact('register'));
+        return view('modules.register5.edit', compact('registers5'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Register5StoreUpdateRequest $request
-     * @param  $id
+     * @param Register5 $registers5
      * @return RedirectResponse
      */
-    public function update(Register5StoreUpdateRequest $request, $id)
+    public function update(Register5StoreUpdateRequest $request, Register5 $registers5)
     {
-        $this->register5Service->update($id, $request->input());
+        try {
+            $registers5->update($request->validated());
 
-        return redirect()->route('registers5.index');
+            return redirect()->route('registers5.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('registers5.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  $id
+     * @param Register5 $registers5
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Register5 $registers5)
     {
-        $this->register5Service->destroy($id);
+        try {
+            $registers5->delete();
 
-        return redirect()->route('registers5.index');
+            return redirect()->route('registers5.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('registers5.index')->withError(trans('global.delete_failed'));
+        }
     }
 }
