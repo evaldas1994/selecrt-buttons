@@ -6,11 +6,11 @@ use App\Traits\IdToUppercase;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
-class Unit extends Model
+class AssetGroup extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
 
-    protected $table = 't_unit';
+    protected $table = 't_assetgroup';
 
     protected $perPage = 500;
 
@@ -22,12 +22,12 @@ class Unit extends Model
     protected $fillable = [
         'f_id',
         'f_name',
+        'f_name2',
         'f_create_userid',
         'f_modified_userid',
         'f_system1',
         'f_system2',
         'f_system3',
-        'f_component',
     ];
 
     /**

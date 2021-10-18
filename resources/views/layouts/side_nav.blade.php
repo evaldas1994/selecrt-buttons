@@ -117,8 +117,14 @@
                             <li class="sidebar-item">
                                 <a class="sidebar-link" href="{{ route('registers5.index') }}">@lang('nav.registers.additional_registers.register5')</a>
                             </li>
-                            <li class="sidebar-item">
+                             <li class="sidebar-item">
+                                <a class="sidebar-link" href="{{ route('registers6.index') }}">@lang('nav.registers.additional_registers.register6')</a>
+                            </li>
+                             <li class="sidebar-item">
                                 <a class="sidebar-link" href="{{ route('registers7.index') }}">@lang('nav.registers.additional_registers.register7')</a>
+                            </li>
+                             <li class="sidebar-item">
+                                <a class="sidebar-link" href="{{ route('registers8.index') }}">@lang('nav.registers.additional_registers.register8')</a>
                             </li>
                             <div class="dropdown-divider"></div>
                             <li class="sidebar-item">
@@ -205,7 +211,7 @@
                 </a>
                 <ul id="assets" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.assets.index')</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.assets.asset_groups')</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('asset-groups.index') }}">@lang('nav.assets.asset_groups')</a></li>
                     <div class="dropdown-divider"></div>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.assets.asset_operations')</a></li>
                 </ul>

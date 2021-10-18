@@ -3,10 +3,10 @@
 namespace App\Http\Requests;
 
 use App\Rules\IdPatternRule;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
-class Register6StoreUpdateRequest extends FormRequest
+class AssetGroupStoreUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class Register6StoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_r6')->ignore($this->registers6) : 'unique:t_r6';
+        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_assetgroup')->ignore($this->asset_group) : 'unique:t_assetgroup';
         return [
             'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],
             'f_name' => 'string|max:100|nullable',
@@ -33,7 +33,6 @@ class Register6StoreUpdateRequest extends FormRequest
             'f_system1' => 'string|max:100|nullable',
             'f_system2' => 'string|max:100|nullable',
             'f_system3' => 'string|max:100|nullable',
-            'f_valid_date' => 'date|nullable',
         ];
     }
 }

@@ -1,57 +1,109 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <form method="post" action="{{ route('partner-groups.update', $partnerGroup->f_id) }}">
-            @method('PATCH')
-            @csrf
-
-            <div class="mb-3">
-                <label for="f_id" class="form-label">Kodas</label>
-                <input type="text" class="form-control" name="f_id" value="{{ $partnerGroup->f_id }}">
-            </div>
-
-            <div class="mb-3">
-                <label for="f_name" class="form-label">Pavadinimas</label>
-                <input type="text" class="form-control" name="f_name" value="{{ $partnerGroup->f_name }}">
-            </div>
-
-            <div class="mb-3">
-                <label for="f_name2" class="form-label">Pavadinimas 2</label>
-                <input type="text" class="form-control" name="f_name2" value="{{ $partnerGroup->f_name2 }}">
-            </div>
-
-            <div class="mb-3">
-                <label for="f_import">Importas</label>
-                <input type="checkbox" value=1 id="f_import" name="f_import" {{ $partnerGroup->f_import ? 'checked' : '' }}>
-            </div>
-
-            <div class="mb-3" hidden>
-                <label for="f_system1" class="form-label">System1</label>
-                <input type="text" class="form-control" name="f_system1" value="{{ $partnerGroup->f_system1 }}">
-            </div>
-
-            <div class="mb-3" hidden>
-                <label for="f_system2" class="form-label">System2</label>
-                <input type="text" class="form-control" name="f_system2" value="{{ $partnerGroup->f_system2 }}">
-            </div>
-
-            <div class="mb-3" hidden>
-                <label for="f_system3" class="form-label">System3</label>
-                <input type="text" class="form-control" name="f_system3" value="{{ $partnerGroup->f_system3 }}">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+    <div class="row mb-2 mb-xl-3">
+        <div class="col-auto">
+            <h1>@lang('modules/partnerGroup.h1')</h1>
         </div>
-    @endif
+
+        <div class="col-auto ms-auto text-end mt-n1">
+            <a href="#" class="btn btn-primary"
+               onclick="event.preventDefault();document.getElementById('bank-account-system-form').submit();">@lang('global.btn_save')</a>
+            <a href="{{ route('partner-groups.index') }}" class="btn btn-dark">@lang('global.btn_close')</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card">
+            <div class="col-12 col-xl-4">
+                <div class="card-body">
+                    <form id="bank-account-system-form" action="{{ route('partner-groups.update', $partnerGroup) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="mb-2">
+                            <label class="form-label">@lang('modules/partnerGroup.f_id')</label>
+                            <input type="text"
+                                   class="not-empty form-control form-control-sm @error('f_id') is-invalid @enderror"
+                                   name="f_id"
+                                   id-pattern
+                                   placeholder="@lang('modules/partnerGroup.f_id')"
+                                   required
+                                   maxlength="20"
+                                   value="{{ old('f_id', $partnerGroup->f_id) }}">
+                            @error('f_id') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label">@lang('modules/partnerGroup.f_name')</label>
+                            <input type="text"
+                                   class="form-control form-control-sm @error('f_name') is-invalid @enderror"
+                                   name="f_name"
+                                   placeholder="@lang('modules/partnerGroup.f_name')"
+                                   maxlength="100"
+                                   value="{{ old('f_name', $partnerGroup->f_name) }}">
+                            @error('f_name') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label">@lang('modules/partnerGroup.f_name2')</label>
+                            <input type="text"
+                                   class="form-control form-control-sm @error('f_name2') is-invalid @enderror"
+                                   name="f_name2"
+                                   placeholder="@lang('modules/partnerGroup.f_name2')"
+                                   maxlength="100"
+                                   value="{{ old('f_name2', $partnerGroup->f_name2) }}">
+                            @error('f_name2') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-check m-0">
+                                <span class="form-check-label">@lang('modules/partnerGroup.f_import')</span>
+                                <input type="hidden" name="f_import" value="0">
+                                <input
+                                    type="checkbox"
+                                    name="f_import" class="form-check-input @error('f_import') is-invalid @enderror"
+                                    value="{{ old('f_import', 1) }}"
+                                    {{ $partnerGroup->f_import == '1' ? 'checked' : '' }}>
+                            </label>
+                            @error('f_import') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+                        <div class="mb-2" hidden>
+                            <label class="form-label">@lang('modules/partnerGroup.f_system1')</label>
+                            <input type="text"
+                                   class="form-control form-control-sm @error('f_system1') is-invalid @enderror"
+                                   name="f_system1"
+                                   placeholder="@lang('modules/partnerGroup.f_system1')"
+                                   maxlength="100"
+                                   value="{{ old('f_system1', $partnerGroup->f_system1) }}">
+                            @error('f_system1') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+                        <div class="mb-2" hidden>
+                            <label class="form-label">@lang('modules/partnerGroup.f_system2')</label>
+                            <input type="text"
+                                   class="form-control form-control-sm @error('f_system2') is-invalid @enderror"
+                                   name="f_system2"
+                                   placeholder="@lang('modules/partnerGroup.f_system2')"
+                                   maxlength="100"
+                                   value="{{ old('f_system2', $partnerGroup->f_system2) }}">
+                            @error('f_system2') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+                        <div class="mb-2" hidden>
+                            <label class="form-label">@lang('modules/partnerGroup.f_system3')</label>
+                            <input type="text"
+                                   class="form-control form-control-sm @error('f_system3') is-invalid @enderror"
+                                   name="f_system3"
+                                   placeholder="@lang('modules/partnerGroup.f_system3')"
+                                   maxlength="100"
+                                   value="{{ old('f_system3', $partnerGroup->f_system3) }}">
+                            @error('f_system3') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

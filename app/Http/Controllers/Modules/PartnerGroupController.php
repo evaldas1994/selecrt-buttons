@@ -6,18 +6,10 @@ use Illuminate\View\View;
 use App\Models\PartnerGroup;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\PartnerGroupService;
 use App\Http\Requests\PartnerGroupStoreUpdateRequest;
 
 class PartnerGroupController extends Controller
 {
-    private $partnerGroup;
-
-    public function __construct()
-    {
-        $this->partnerGroupService = new PartnerGroupService(PartnerGroup::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +17,7 @@ class PartnerGroupController extends Controller
      */
     public function index()
     {
-        $partnerGroups = $this->partnerGroupService->all();
+        $partnerGroups = PartnerGroup::simplePaginate();
 
         return view('modules.partnerGroup.index', compact('partnerGroups'));
     }
@@ -48,34 +40,19 @@ class PartnerGroupController extends Controller
      */
     public function store(PartnerGroupStoreUpdateRequest $request)
     {
-        $this->partnerGroupService->create($request->input());
+        PartnerGroup::create($request->validated());
 
-        return redirect()->route('partner-groups.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $partnerGroup = $this->partnerGroupService->findById($id);
-
-        return view('modules.partnerGroup.show', compact('partnerGroup'));
+        return redirect()->route('partner-groups.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  $id
+     * @param PartnerGroup $partnerGroup
      * @return View
      */
-    public function edit($id)
+    public function edit(PartnerGroup $partnerGroup)
     {
-        $partnerGroup = $this->partnerGroupService->findById($id);
-
         return view('modules.partnerGroup.edit', compact('partnerGroup'));
     }
 
@@ -83,26 +60,34 @@ class PartnerGroupController extends Controller
      * Update the specified resource in storage.
      *
      * @param PartnerGroupStoreUpdateRequest $request
-     * @param  $id
+     * @param PartnerGroup $partnerGroup
      * @return RedirectResponse
      */
-    public function update(PartnerGroupStoreUpdateRequest $request, $id)
+    public function update(PartnerGroupStoreUpdateRequest $request, PartnerGroup $partnerGroup)
     {
-        $this->partnerGroupService->update($id, $request->input());
+        try {
+            $partnerGroup->update($request->validated());
 
-        return redirect()->route('partner-groups.index');
+            return redirect()->route('partner-groups.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('partner-groups.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  $id
+     * @param PartnerGroup $partnerGroup
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(PartnerGroup $partnerGroup)
     {
-        $this->partnerGroupService->destroy($id);
+        try {
+            $partnerGroup->delete();
 
-        return redirect()->route('partner-groups.index');
+            return redirect()->route('partner-groups.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('partner-groups.index')->withError(trans('global.delete_failed'));
+        }
     }
 }
