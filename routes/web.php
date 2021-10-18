@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('counters', \App\Http\Controllers\Modules\CounterController::class);
     Route::resource('currencies', \App\Http\Controllers\Modules\CurrencyController::class)->except('show');
     Route::resource('departments', \App\Http\Controllers\Modules\DepartmentController::class);
+    Route::resource('descriptions', \App\Http\Controllers\Modules\DescriptionController::class)->except('show');
     Route::resource('interests', \App\Http\Controllers\Modules\InterestController::class)->except('show');
     Route::resource('messages', \App\Http\Controllers\Modules\MessageController::class);
     Route::resource('partners', \App\Http\Controllers\Modules\PartnerController::class);
