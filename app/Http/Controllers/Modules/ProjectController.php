@@ -6,18 +6,10 @@ use App\Models\Project;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\ProjectService;
 use App\Http\Requests\ProjectStoreUpdateRequest;
 
 class ProjectController extends Controller
 {
-    private $projectService;
-
-    public function __construct()
-    {
-        $this->projectService = new ProjectService(Project::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +17,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = $this->projectService->all();
+        $projects = Project::simplePaginate();
 
         return view('modules.project.index', compact('projects'));
     }
@@ -48,34 +40,19 @@ class ProjectController extends Controller
      */
     public function store(ProjectStoreUpdateRequest $request)
     {
-        $this->projectService->create(($request->input()));
+        Project::create($request->validated());
 
-        return redirect()->route('projects.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $project = $this->projectService->findById($id);
-
-        return view('modules.project.show', compact('project'));
+        return redirect()->route('projects.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
+     * @param Project $project
      * @return View
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        $project = $this->projectService->findById($id);
-
         return view('modules.project.edit', compact('project'));
     }
 
@@ -83,26 +60,34 @@ class ProjectController extends Controller
      * Update the specified resource in storage.
      *
      * @param ProjectStoreUpdateRequest $request
-     * @param $id
+     * @param Project $project
      * @return RedirectResponse
      */
-    public function update(ProjectStoreUpdateRequest $request, $id)
+    public function update(ProjectStoreUpdateRequest $request, Project $project)
     {
-        $this->projectService->update($id, $request->input());
+        try {
+            $project->update($request->validated());
 
-        return redirect()->route('projects.index');
+            return redirect()->route('projects.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('projects.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param Project $project
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        $this->projectService->destroy($id);
+        try {
+            $project->delete();
 
-        return redirect()->route('projects.index');
+            return redirect()->route('projects.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('projects.index')->withError(trans('global.delete_failed'));
+        }
     }
 }

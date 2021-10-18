@@ -13,6 +13,8 @@ class Project extends Model
 
     protected $table = 't_project';
 
+    protected $perPage = 500;
+
     /**
      * The attributes that are mass assignable.
      *
