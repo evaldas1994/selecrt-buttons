@@ -211,7 +211,7 @@
                 </a>
                 <ul id="assets" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.assets.index')</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.assets.asset_groups')</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('asset-groups.index') }}">@lang('nav.assets.asset_groups')</a></li>
                     <div class="dropdown-divider"></div>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.assets.asset_operations')</a></li>
                 </ul>
