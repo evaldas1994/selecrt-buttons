@@ -6,12 +6,11 @@ use App\Traits\IdToUppercase;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
-
-class Project extends Model
+class Interest extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
 
-    protected $table = 't_project';
+    protected $table = 't_interests';
 
     protected $perPage = 500;
 
@@ -22,8 +21,7 @@ class Project extends Model
      */
     protected $fillable = [
         'f_id',
-        'f_name',
-        'f_name2',
+        'f_interest',
         'f_create_userid',
         'f_modified_userid',
         'f_system1',
@@ -41,9 +39,9 @@ class Project extends Model
     /**
      * The "type" of the primary key ID.
      *
-     * @var string
+     * @var integer
      */
-    protected $keyType = 'string';
+    protected $keyType = 'integer';
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -65,5 +63,4 @@ class Project extends Model
      * @var string|null
      */
     const UPDATED_AT = 'f_modified_date';
-
 }
