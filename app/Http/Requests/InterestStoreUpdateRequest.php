@@ -28,7 +28,7 @@ class InterestStoreUpdateRequest extends FormRequest
         $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_interests')->ignore($this->interest) : 'unique:t_interests';
         return [
             'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],
-            'f_interest' => 'string|max:100|nullable',
+            'f_interest' => 'string|max:20|required',
             'f_system1' => 'string|max:100|nullable',
             'f_system2' => 'string|max:100|nullable',
             'f_system3' => 'string|max:100|nullable',

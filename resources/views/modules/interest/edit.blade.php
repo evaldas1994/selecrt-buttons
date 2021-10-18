@@ -36,10 +36,10 @@
                         <div class="mb-2">
                             <label class="form-label">@lang('modules/interest.f_interest')</label>
                             <input type="text"
-                                   class="form-control form-control-sm @error('f_interest') is-invalid @enderror"
+                                   class="not-empty form-control form-control-sm @error('f_interest') is-invalid @enderror"
                                    name="f_interest"
                                    placeholder="@lang('modules/interest.f_interest')"
-                                   maxlength="100"
+                                   maxlength="20"
                                    value="{{ old('f_interest', $interest->f_interest) }}">
                             @error('f_interest') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                         </div>
