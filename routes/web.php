@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('accounts', \App\Http\Controllers\Modules\AccountController::class)->except('show');
     Route::resource('account-groups', \App\Http\Controllers\Modules\AccountGroupController::class)->except('show');
+    Route::resource('asset-groups', \App\Http\Controllers\Modules\AssetGroupController::class)->except('show');
     Route::resource('bankAccounts', \App\Http\Controllers\Modules\BankAccountController::class);
     Route::resource('banks', \App\Http\Controllers\Modules\BankController::class)->except('show');
     Route::resource('bank-account-systems', \App\Http\Controllers\Modules\BankAccountSystemController::class)->except('show');
@@ -31,6 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('currencies', \App\Http\Controllers\Modules\CurrencyController::class)->except('show');
     Route::resource('departments', \App\Http\Controllers\Modules\DepartmentController::class);
     Route::resource('descriptions', \App\Http\Controllers\Modules\DescriptionController::class)->except('show');
+    Route::resource('interests', \App\Http\Controllers\Modules\InterestController::class)->except('show');
     Route::resource('messages', \App\Http\Controllers\Modules\MessageController::class);
     Route::resource('partners', \App\Http\Controllers\Modules\PartnerController::class);
     Route::resource('partner-groups', \App\Http\Controllers\Modules\PartnerGroupController::class)->except('show');

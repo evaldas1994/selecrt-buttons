@@ -3,10 +3,10 @@
 namespace App\Http\Requests;
 
 use App\Rules\IdPatternRule;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
-class ProjectStoreUpdateRequest extends FormRequest
+class AssetGroupStoreUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class ProjectStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_project')->ignore($this->project) : 'unique:t_project';
+        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_assetgroup')->ignore($this->asset_group) : 'unique:t_assetgroup';
         return [
             'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],
             'f_name' => 'string|max:100|nullable',

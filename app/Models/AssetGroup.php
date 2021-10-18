@@ -6,12 +6,11 @@ use App\Traits\IdToUppercase;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
-
-class Project extends Model
+class AssetGroup extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
 
-    protected $table = 't_project';
+    protected $table = 't_assetgroup';
 
     protected $perPage = 500;
 
@@ -65,5 +64,4 @@ class Project extends Model
      * @var string|null
      */
     const UPDATED_AT = 'f_modified_date';
-
 }
