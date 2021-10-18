@@ -222,7 +222,7 @@
                     <i class="align-middle" data-feather="database"></i> <span class="align-middle">@lang('nav.resources.index')</span>
                 </a>
                 <ul id="resources" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.resources.stock_op_groups')</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('stock-operation-groups.index') }}">@lang('nav.resources.stock_op_groups')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.resources.stock_in')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.resources.stock_out')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.resources.stock_move')</a></li>
