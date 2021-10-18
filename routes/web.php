@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('departments', \App\Http\Controllers\Modules\DepartmentController::class);
     Route::resource('descriptions', \App\Http\Controllers\Modules\DescriptionController::class)->except('show');
     Route::resource('interests', \App\Http\Controllers\Modules\InterestController::class)->except('show');
+    Route::resource('manufacturers', \App\Http\Controllers\Modules\ManufacturerController::class)->except('show');
     Route::resource('messages', \App\Http\Controllers\Modules\MessageController::class);
     Route::resource('partners', \App\Http\Controllers\Modules\PartnerController::class);
     Route::resource('partner-groups', \App\Http\Controllers\Modules\PartnerGroupController::class)->except('show');
