@@ -51,7 +51,7 @@
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.system.blank_numbers')</a></li>
                     <div class="dropdown-divider"></div>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.system.messages')</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.system.message_groups')</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('message-groups.index') }}">@lang('nav.system.message_groups')</a></li>
                 </ul>
             </li>
 
