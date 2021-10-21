@@ -56,7 +56,6 @@
                                 <option value="10" {{ selected('f_month', 10, $calendar->f_month) }}>Spalis</option>
                                 <option value="11" {{ selected('f_month', 11, $calendar->f_month) }}>Lapkritis</option>
                                 <option value="12" {{ selected('f_month', 12, $calendar->f_month) }}>Gruodis</option>
-                                <option value="13" {{ selected('f_month', 13, $calendar->f_month) }}>Blogas testui</option>
                             </select>
                             @error('f_month') <span id="month-error" class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                         </div>
