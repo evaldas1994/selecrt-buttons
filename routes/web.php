@@ -19,7 +19,6 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-//    Route::get('/calendars/{calendar}/get-days/{month}/{year}', [App\Http\Controllers\Modules\CalendarController::class, 'getDays'])->name('calendars.getDays');
     Route::resource('accounts', \App\Http\Controllers\Modules\AccountController::class)->except('show');
     Route::resource('account-groups', \App\Http\Controllers\Modules\AccountGroupController::class)->except('show');
     Route::resource('asset-groups', \App\Http\Controllers\Modules\AssetGroupController::class)->except('show');
