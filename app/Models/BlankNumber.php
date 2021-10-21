@@ -13,6 +13,8 @@ class BlankNumber extends Model
 
     protected $table = 't_blankno';
 
+    protected $perPage = 500;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -68,6 +70,14 @@ class BlankNumber extends Model
     const UPDATED_AT = 'f_modified_date';
 
     /**
+     * Get the blank number's counter.
+     */
+    public function counter()
+    {
+        return $this->hasOne(Counter::class, 'f_id', 'f_counterid');
+    }
+
+    /**
      * Get the blank number's store.
      */
     public function store()
@@ -76,10 +86,10 @@ class BlankNumber extends Model
     }
 
     /**
-     * Get the blank number's counter.
+     * Get the blank number's stock operation group.
      */
-    public function counter()
+    public function stockOperationGroup()
     {
-        return $this->hasOne(Counter::class, 'f_id', 'f_counterid');
+        return $this->hasOne(StockOperationGroup::class, 'f_id', 'f_groupid');
     }
 }
