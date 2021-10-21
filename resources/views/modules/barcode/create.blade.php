@@ -22,6 +22,7 @@
                         <div class="mb-2">
                             <label class="form-label">@lang('modules/barcode.f_stockid')</label>
                             <select class="not-empty form-control form-control-sm @error('f_stockid') is-invalid @enderror" name="f_stockid">
+                                <option value selected>---</option>
                                 @foreach($stocks as $stock)
                                     <option value="{{ $stock->f_id }}" {{ selected('f_stockid',$stock->f_id) }}>{{ $stock->f_id }}</option>
                                 @endforeach
@@ -142,6 +143,7 @@
                         <div class="mb-2">
                             <label class="form-label">@lang('modules/barcode.f_usadid')</label>
                             <select class="not-empty form-control form-control-sm @error('f_usadid') is-invalid @enderror" name="f_usadid" value="{{ old('f_usadid') }}">
+                                <option value selected>---</option>
                                 @foreach($stocks as $stock)
                                     <option value="{{ $stock->f_id }}" {{ selected('f_usadid',$stock->f_id) }}>{{ $stock->f_id }}</option>
                                 @endforeach
