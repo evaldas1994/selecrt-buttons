@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use App\Traits\IdToUppercase;
-use App\Traits\UpdateCreatedModifiedUserIdColumns;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
 class Barcode extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
 
     protected $table = 't_barcode';
+
+    protected $perPage = 500;
 
     /**
      * The attributes that are mass assignable.
@@ -72,4 +74,20 @@ class Barcode extends Model
      * @var string|null
      */
     const UPDATED_AT = 'f_modified_date';
+
+    /**
+     * Get the barcode's stock.
+     */
+    public function stock()
+    {
+        return $this->hasOne(Barcode::class, 'f_id', 'f_stockid');
+    }
+
+    /**
+     * Get the barcode's usad.
+     */
+    public function usad()
+    {
+        return $this->hasOne(Barcode::class, 'f_id', 'f_usadid');
+    }
 }
