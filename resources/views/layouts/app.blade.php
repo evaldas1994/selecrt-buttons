@@ -19,7 +19,7 @@
 <script src="{{ asset('theme/js/app.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
 @if(app()->getLocale()!='en')
-    <script src="https://npmcdn.com/flatpickr/dist/l10n/{{app()->getLocale()}}.js"></script>
+    <script src="{{ asset('theme/js/flatpickr-locales/'.app()->getLocale().'.js') }}"></script>
 @endif
 <script src="https://validide.github.io/resizable-table-columns/dist/samples/store.js"></script>
 
