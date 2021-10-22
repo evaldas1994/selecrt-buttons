@@ -15,6 +15,9 @@ class BlankNumber extends Model
 
     protected $perPage = 500;
 
+    public static $opTypes = ['P', 'N', 'E', 'Y', 'T', 'A', 'I', 'R', 'Z', 'L'];
+    public static $invoiceRegisterTypes = ['0', '1', '2', '3'];
+
     /**
      * The attributes that are mass assignable.
      *
