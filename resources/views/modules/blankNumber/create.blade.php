@@ -33,16 +33,10 @@
                         <div class="mb-2">
                             <label class="form-label">@lang('modules/blankNumber.f_op')</label>
                             <select class="form-control form-control-sm @error('f_op') is-invalid @enderror" name="f_op" value="{{ old('f_op') }}">
-                                <option value="P">P - pajamavimas</option>
-                                <option value="N">N - nurašymas</option>
-                                <option value="E">E - perkėlimas</option>
-                                <option value="Y">Y - gamyba</option>
-                                <option value="T">T - inventorizacija</option>
-                                <option value="A">A - pardavimas</option>
-                                <option value="I">I - pirkimas</option>
-                                <option value="R">R - pardavimo grąžinimas</option>
-                                <option value="Z">Z - pirkimo grąžinimas</option>
-                                <option value="L">L - logistika</option>
+                                <option value selected>---</option>
+                                @foreach($operations as $operation)
+                                    <option value="{{ $operation['value'] }}" {{ selected('f_op',$operation['value']) }}>{{ $operation['name'] }}</option>
+                                @endforeach
                             </select>
                             @error('f_op') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                         </div>
@@ -72,10 +66,10 @@
                         <div class="mb-2">
                             <label class="form-label">@lang('modules/blankNumber.f_invoice_register')</label>
                             <select class="form-control form-control-sm @error('f_invoice_register') is-invalid @enderror" name="f_invoice_register" value="{{ old('f_invoice_register') }}">
-                                <option value="1">1 - neparinkti</option>
-                                <option value="0">0 - neregistruoti</option>
-                                <option value="2">2 - išrašomų</option>
-                                <option value="3">3 - gaunamų</option>
+                                <option value selected>---</option>
+                                @foreach($invoiceRegisters as $register)
+                                    <option value="{{ $register['value'] }}" {{ selected('f_invoice_register', $register['value']) }}>{{ $register['name'] }}</option>
+                                @endforeach
                             </select>
                             @error('f_invoice_register') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                         </div>

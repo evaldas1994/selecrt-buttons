@@ -36,7 +36,10 @@ class BlankNumberController extends Controller
         $stores = Store::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $stockOperationGroups = StockOperationGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        return view('modules.blankNumber.create', compact('counters', 'stores', 'stockOperationGroups'));
+        $operations = BlankNumber::$opTypes;
+        $invoiceRegisters = BlankNumber::$invoiceRegisterTypes;
+
+        return view('modules.blankNumber.create', compact('counters', 'stores', 'stockOperationGroups', 'operations', 'invoiceRegisters'));
     }
 
     /**
@@ -64,7 +67,10 @@ class BlankNumberController extends Controller
         $stores = Store::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $stockOperationGroups = StockOperationGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        return view('modules.blankNumber.edit', compact('blankNumber', 'stores', 'counters', 'stockOperationGroups'));
+        $operations = BlankNumber::$opTypes;
+        $invoiceRegisters = BlankNumber::$invoiceRegisterTypes;
+
+        return view('modules.blankNumber.edit', compact('blankNumber', 'stores', 'counters', 'stockOperationGroups', 'operations', 'invoiceRegisters'));
     }
 
     /**

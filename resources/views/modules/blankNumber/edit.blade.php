@@ -34,16 +34,10 @@
                         <div class="mb-2">
                             <label class="form-label">@lang('modules/blankNumber.f_op')</label>
                             <select class="form-control form-control-sm @error('f_op') is-invalid @enderror" name="f_op" value="{{ old('f_op') }}">
-                                <option value="P" {{ selected('f_op', 'P', $blankNumber->f_op) }}>P - pajamavimas</option>
-                                <option value="N" {{ selected('f_op', 'N', $blankNumber->f_op) }}>N - nurašymas</option>
-                                <option value="E" {{ selected('f_op', 'E', $blankNumber->f_op) }}>E - perkėlimas</option>
-                                <option value="Y" {{ selected('f_op', 'Y', $blankNumber->f_op) }}>Y - gamyba</option>
-                                <option value="T" {{ selected('f_op', 'T', $blankNumber->f_op) }}>T - inventorizacija</option>
-                                <option value="A" {{ selected('f_op', 'A', $blankNumber->f_op) }}>A - pardavimas</option>
-                                <option value="I" {{ selected('f_op', 'I', $blankNumber->f_op) }}>I - pirkimas</option>
-                                <option value="R" {{ selected('f_op', 'R', $blankNumber->f_op) }}>R - pardavimo grąžinimas</option>
-                                <option value="Z" {{ selected('f_op', 'Z', $blankNumber->f_op) }}>Z - pirkimo grąžinimas</option>
-                                <option value="L" {{ selected('f_op', 'L', $blankNumber->f_op) }}>L - logistika</option>
+                                <option value selected>---</option>
+                                @foreach($operations as $operation)
+                                    <option value="{{ $operation['value'] }}" {{ selected('f_op',$operation['value'], $blankNumber->f_op) }}>{{ $operation['name'] }}</option>
+                                @endforeach
                             </select>
                             @error('f_op') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                         </div>
@@ -73,10 +67,10 @@
                         <div class="mb-2">
                             <label class="form-label">@lang('modules/blankNumber.f_invoice_register')</label>
                             <select class="form-control form-control-sm @error('f_invoice_register') is-invalid @enderror" name="f_invoice_register" value="{{ old('f_invoice_register') }}">
-                                <option value="1" {{ selected('f_invoice_register', '1', $blankNumber->f_invoice_register) }}>1 - neparinkti</option>
-                                <option value="0" {{ selected('f_invoice_register', '0', $blankNumber->f_invoice_register) }}>0 - neregistruoti</option>
-                                <option value="2" {{ selected('f_invoice_register', '2', $blankNumber->f_invoice_register) }}>2 - išrašomų</option>
-                                <option value="3" {{ selected('f_invoice_register', '3', $blankNumber->f_invoice_register) }}>3 - gaunamų</option>
+                                <option value selected>---</option>
+                                @foreach($invoiceRegisters as $register)
+                                    <option value="{{ $register['value'] }}" {{ selected('f_invoice_register', $register['value'], $blankNumber->f_invoice_register) }}>{{ $register['name'] }}</option>
+                                @endforeach
                             </select>
                             @error('f_invoice_register') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                         </div>
