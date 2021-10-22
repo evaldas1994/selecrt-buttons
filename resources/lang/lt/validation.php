@@ -30,7 +30,7 @@ return [
         'string' => 'The :attribute must be between :min and :max characters.',
         'array' => 'The :attribute must have between :min and :max items.',
     ],
-    'boolean' => 'Laukas :attribute turi būti 1 arba 0.',
+    'boolean' => 'Laukas :attribute reikšmė turi būti 1 arba 0.',
     'confirmed' => 'The :attribute confirmation does not match.',
     'current_password' => 'The password is incorrect.',
     'date' => 'The :attribute is not a valid date.',

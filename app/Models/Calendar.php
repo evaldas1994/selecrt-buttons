@@ -56,8 +56,6 @@ class Calendar extends Model
         'f_d29',
         'f_d30',
         'f_d31',
-        'f_create_userid',
-        'f_modified_userid',
     ];
 
     /**
