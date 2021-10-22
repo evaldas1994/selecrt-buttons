@@ -14,11 +14,15 @@
 @else
     @include('layouts.main')
 @endif
+<script src="{{ asset('js/resizable-table-columns/index.min.js') }}"></script>
+<script src="{{ asset('js/resizable-table-columns/store.js') }}"></script>
 <script src="{{ asset('theme/js/app.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
 @if(app()->getLocale()!='en')
     <script src="https://npmcdn.com/flatpickr/dist/l10n/{{app()->getLocale()}}.js"></script>
 @endif
+<script src="https://validide.github.io/resizable-table-columns/dist/samples/store.js"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
 

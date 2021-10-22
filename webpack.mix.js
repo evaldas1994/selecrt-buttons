@@ -15,4 +15,5 @@ mix.js('resources/js/app.js', 'public/js')
     .react()
     .copyDirectory('resources/theme','public/theme')
     .js('resources/js/main.js','public/js')
+    .copyDirectory('resources/js/resizable-table-columns','public/js/resizable-table-columns')
     .css('resources/css/app.css', 'public/css');
