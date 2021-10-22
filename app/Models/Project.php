@@ -23,8 +23,6 @@ class Project extends Model
         'f_id',
         'f_name',
         'f_name2',
-        'f_create_userid',
-        'f_modified_userid',
         'f_system1',
         'f_system2',
         'f_system3',
