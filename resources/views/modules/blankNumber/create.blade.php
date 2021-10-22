@@ -33,7 +33,6 @@
                         <div class="mb-2">
                             <label class="form-label">@lang('modules/blankNumber.f_op')</label>
                             <select class="form-control form-control-sm @error('f_op') is-invalid @enderror" name="f_op" value="{{ old('f_op') }}">
-                                <option value selected>---</option>
                                 @foreach($operations as $operation)
                                     <option value="{{ $operation['value'] }}" {{ selected('f_op',$operation['value']) }}>{{ $operation['name'] }}</option>
                                 @endforeach
@@ -66,7 +65,6 @@
                         <div class="mb-2">
                             <label class="form-label">@lang('modules/blankNumber.f_invoice_register')</label>
                             <select class="form-control form-control-sm @error('f_invoice_register') is-invalid @enderror" name="f_invoice_register" value="{{ old('f_invoice_register') }}">
-                                <option value selected>---</option>
                                 @foreach($invoiceRegisters as $register)
                                     <option value="{{ $register['value'] }}" {{ selected('f_invoice_register', $register['value']) }}>{{ $register['name'] }}</option>
                                 @endforeach
