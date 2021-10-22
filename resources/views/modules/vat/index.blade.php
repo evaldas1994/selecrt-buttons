@@ -8,46 +8,44 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
+
                 <div class="table-responsive">
-                    <table class="table mb-0 table-sm table-bordered">
+                    <table class="table mb-0 table-sm table-bordered table-hover data" data-rtc-resizable-table="vat.index">
                         <thead>
                         <tr>
-                            <th scope="col">@lang('modules/vat.f_id')</th>
-                            <th scope="col">@lang('modules/vat.f_name')</th>
-                            <th scope="col">@lang('modules/vat.f_vat_perc')</th>
-                            <th scope="col">@lang('modules/vat.f_default_vat2_id')</th>
-                            <th scope="col">@lang('modules/vat.f_priority_in_integrations')</th>
-                            <th scope="col">@lang('modules/vat.f_create_userid')</th>
-                            <th scope="col">@lang('modules/vat.f_create_date')</th>
-                            <th scope="col">@lang('modules/vat.f_modified_userid')</th>
-                            <th scope="col">@lang('modules/vat.f_modified_date')</th>
+                            <th data-rtc-resizable="f_id">@lang('modules/vat.f_id')</th>
+                            <th data-rtc-resizable="f_name">@lang('modules/vat.f_name')</th>
+                            <th data-rtc-resizable="f_vat_perc">@lang('modules/vat.f_vat_perc')</th>
+                            <th data-rtc-resizable="f_default_vat2_id">@lang('modules/vat.f_default_vat2_id')</th>
+                            <th data-rtc-resizable="f_priority_in_integrations">@lang('modules/vat.f_priority_in_integrations')</th>
+                            <th data-rtc-resizable="f_create_userid">@lang('modules/vat.f_create_userid')</th>
+                            <th data-rtc-resizable="f_create_date">@lang('modules/vat.f_create_date')</th>
+                            <th data-rtc-resizable="f_modified_userid">@lang('modules/vat.f_modified_userid')</th>
+                            <th data-rtc-resizable="f_modified_date">@lang('modules/vat.f_modified_date')</th>
                             <th scope="col">@lang('global.actions')</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($vats as $vat)
-                            <tr>
-                                <td>{{ $vat->f_id }}</td>
-                                <td class="text-nowrap">{{ Str::limit($vat->f_name,35) }}</td>
-                                <td>{{ $vat->f_vat_perc }}</td>
-                                <td>{{ $vat->f_default_vat2_id }}</td>
-                                <td>{{ $vat->f_priority_in_integrations }}</td>
-                                <td class="text-nowrap">{{ $vat->f_create_userid }}</td>
-                                <td class="text-nowrap">{{ $vat->f_create_date }}</td>
-                                <td class="text-nowrap">{{ $vat->f_modified_userid }}</td>
-                                <td class="text-nowrap">{{ $vat->f_modified_date }}</td>
-                                <td class="table-action">
-                                    <a href="{{ route('vats.edit',$vat) }}"><i class="align-middle" data-feather="edit-2"></i></a>
-                                    <a href="#" onclick="event.preventDefault();document.getElementById('delete-form-{{ $vat->f_id }}').submit();">
-                                        <i class="align-middle" data-feather="trash-2"></i>
-                                    </a>
-                                    <form action="{{ route('vats.destroy',$vat) }}" method="POST" class="d-none" id="delete-form-{{ $vat->f_id }}">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
+                            @foreach($vats as $vat)
+                                <tr>
+                                    <td>{{ $vat->f_id }}</td>
+                                    <td class="">@limit($vat->f_name)</td>
+                                    <td>{{ $vat->f_vat_perc }}</td>
+                                    <td>{{ $vat->f_default_vat2_id }}</td>
+                                    <td>@lang('global.checkbox'.$vat->f_priority_in_integrations)</td>
+                                    <td>{{ $vat->f_create_userid }}</td>
+                                    <td>{{ $vat->f_create_date }}</td>
+                                    <td>{{ $vat->f_modified_userid }}</td>
+                                    <td>{{ $vat->f_modified_date }}</td>
+                                    <td class="table-action">
+                                        <a href="{{ route('vats.edit',$vat) }}"><i class="align-middle text-primary" data-feather="edit-2"></i></a>
+                                        <x-buttons.delete>
+                                            <x-slot name="route">{{ route('vats.destroy',$vat) }}</x-slot>
+                                            <x-slot name="id">{{ $vat->f_id }}</x-slot>
+                                        </x-buttons.delete>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
