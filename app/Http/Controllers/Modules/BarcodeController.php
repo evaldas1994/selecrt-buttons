@@ -30,7 +30,7 @@ class BarcodeController extends Controller
      */
     public function create()
     {
-        $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(500)->get();
+        $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
         return view('modules.barcode.create', compact('stocks'));
     }
@@ -56,7 +56,8 @@ class BarcodeController extends Controller
      */
     public function edit(Barcode $barcode)
     {
-        $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(500)->get();
+        dd($barcode->usad);
+        $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
         return view('modules.barcode.edit', compact('barcode', 'stocks'));
     }

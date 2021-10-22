@@ -23,8 +23,6 @@ class Barcode extends Model
         'f_id',
         'f_stockid',
         'f_default',
-        'f_create_userid',
-        'f_modified_userid',
         'f_system1',
         'f_system2',
         'f_system3',
@@ -80,7 +78,7 @@ class Barcode extends Model
      */
     public function stock()
     {
-        return $this->hasOne(Barcode::class, 'f_id', 'f_stockid');
+        return $this->hasOne(Stock::class, 'f_id', 'f_stockid');
     }
 
     /**
@@ -88,6 +86,6 @@ class Barcode extends Model
      */
     public function usad()
     {
-        return $this->hasOne(Barcode::class, 'f_id', 'f_usadid');
+        return $this->hasOne(Stock::class, 'f_id', 'f_usadid');
     }
 }
