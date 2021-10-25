@@ -47,7 +47,7 @@
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('bank-account-systems.index')}}">@lang('nav.system.bank_accounts')</a></li>
                     <div class="dropdown-divider"></div>
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('counters.index') }}">@lang('nav.system.counters')</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.system.blank_numbers')</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('blank-numbers.index') }}">@lang('nav.system.blank_numbers')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('periods.index') }}">@lang('nav.system.periods')</a></li>
                     <div class="dropdown-divider"></div>
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('messages.index') }}">@lang('nav.system.messages')</a></li>

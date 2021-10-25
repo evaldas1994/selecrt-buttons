@@ -16,23 +16,23 @@ class BlankNumber extends Model
     protected $perPage = 500;
 
     public static $opTypes = [
-        ['value' => 'P', 'name' => 'P - pajamavimas'],
-        ['value' => 'N', 'name' => 'N - nurašymas'],
-        ['value' => 'E', 'name' => 'E - perkėlimas'],
-        ['value' => 'Y', 'name' => 'Y - gamyba'],
-        ['value' => 'T', 'name' => 'T - inventorizacija'],
-        ['value' => 'A', 'name' => 'A - pardavimas'],
-        ['value' => 'I', 'name' => 'I - pirkimas'],
-        ['value' => 'R', 'name' => 'R - pardavimo grąžinimas'],
-        ['value' => 'Z', 'name' => 'Z - pirkimo grąžinimas'],
-        ['value' => 'L', 'name' => 'L - logistika'],
+        'P',
+        'N',
+        'E',
+        'Y',
+        'T',
+        'A',
+        'I',
+        'R',
+        'Z',
+        'L',
     ];
 
     public static $invoiceRegisterTypes = [
-        ['value' => '1', 'name' => '1 - neparinkti'],
-        ['value' => '0', 'name' => '0 - neregistruoti'],
-        ['value' => '2', 'name' => '2 - išrašomų'],
-        ['value' => '3', 'name' => '3 - gaunamų'],
+        '1',
+        '0',
+        '2',
+        '3',
     ];
 
     /**

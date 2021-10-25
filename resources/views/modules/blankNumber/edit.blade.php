@@ -35,7 +35,7 @@
                             <label class="form-label">@lang('modules/blankNumber.f_op')</label>
                             <select class="form-control form-control-sm @error('f_op') is-invalid @enderror" name="f_op" value="{{ old('f_op') }}">
                                 @foreach($operations as $operation)
-                                    <option value="{{ $operation['value'] }}" {{ selected('f_op',$operation['value'], $blankNumber->f_op) }}>{{ $operation['name'] }}</option>
+                                    <option value="{{ $operation }}" {{ selected('f_op',$operation, $blankNumber->f_op) }}>@lang('modules/blankNumber.operation_type' . $operation)</option>
                                 @endforeach
                             </select>
                             @error('f_op') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
@@ -67,7 +67,7 @@
                             <label class="form-label">@lang('modules/blankNumber.f_invoice_register')</label>
                             <select class="form-control form-control-sm @error('f_invoice_register') is-invalid @enderror" name="f_invoice_register" value="{{ old('f_invoice_register') }}">
                                 @foreach($invoiceRegisters as $register)
-                                    <option value="{{ $register['value'] }}" {{ selected('f_invoice_register', $register['value'], $blankNumber->f_invoice_register) }}>{{ $register['name'] }}</option>
+                                    <option value="{{ $register }}" {{ selected('f_invoice_register', $register, $blankNumber->f_invoice_register) }}>@lang('modules/blankNumber.invoice_register_type' . $register)</option>
                                 @endforeach
                             </select>
                             @error('f_invoice_register') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
