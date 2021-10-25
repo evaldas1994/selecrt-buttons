@@ -12,6 +12,22 @@ class Partner extends Model
 
     protected $table = 't_partner';
 
+    protected $perPage = 500;
+
+    public static $legalStatusTypes = [
+        '0',
+        'F',
+        'J',
+    ];
+
+    public static $priceLevelTypes = [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -61,8 +77,6 @@ class Partner extends Model
         'f_personid',
         'f_projectid',
         'f_locked',
-        'f_create_userid',
-        'f_modified_userid',
         'f_system1',
         'f_system2',
         'f_system3',
@@ -86,7 +100,7 @@ class Partner extends Model
         'f_legal_status',
         'f_templateid',
         'f_templateid2',
-        'f_valid',
+        'f_vatid',
         'f_edi_export',
         'f_mark1',
         'f_mark2',
@@ -137,4 +151,125 @@ class Partner extends Model
      * @var string|null
      */
     const UPDATED_AT = 'f_modified_date';
+
+    /**
+     * Get the partner's partner group.
+     */
+    public function partnerGroup()
+    {
+        return $this->hasOne(PartnerGroup::class, 'f_id', 'f_groupid');
+    }
+
+    /**
+     * Get the partner's currency.
+     */
+    public function currency()
+    {
+        return $this->hasOne(Currency::class, 'f_id', 'f_curid');
+    }
+
+    /**
+     * Get the partner's partner.
+     */
+    public function partner()
+    {
+        return $this->hasOne(Partner::class, 'f_id', 'f_partnerid');
+    }
+
+    /**
+     * Get the partner's buyer account.
+     */
+    public function buyerAccount()
+    {
+        return $this->hasOne(Account::class, 'f_id', 'f_accountid1');
+    }
+
+    /**
+     * Get the partner's seller account.
+     */
+    public function sellerAccount()
+    {
+        return $this->hasOne(Account::class, 'f_id', 'f_accountid2');
+    }
+
+    /**
+     * Get the partner's message group.
+     */
+    public function messageGroup()
+    {
+        return $this->hasOne(MessageGroup::class, 'f_id', 'f_messagegroupid');
+    }
+
+    /**
+     * Get the partner's register1.
+     */
+    public function register1()
+    {
+        return $this->hasOne(Register1::class, 'f_id', 'f_r1id');
+    }
+
+    /**
+     * Get the partner's register2.
+     */
+    public function register2()
+    {
+        return $this->hasOne(Register2::class, 'f_id', 'f_r2id');
+    }
+
+    /**
+     * Get the partner's register3.
+     */
+    public function register3()
+    {
+        return $this->hasOne(Register3::class, 'f_id', 'f_r3id');
+    }
+
+    /**
+     * Get the partner's register4.
+     */
+    public function register4()
+    {
+        return $this->hasOne(Register4::class, 'f_id', 'f_r4id');
+    }
+
+    /**
+     * Get the partner's register5.
+     */
+    public function register5()
+    {
+        return $this->hasOne(Register5::class, 'f_id', 'f_r5id');
+    }
+
+    /**
+     * Get the partner's department.
+     */
+    public function department()
+    {
+        return $this->hasOne(Department::class, 'f_id', 'f_departmentid');
+    }
+
+    /**
+     * Get the partner's person.
+     */
+    public function person()
+    {
+        return $this->hasOne(Person::class, 'f_id', 'f_personid');
+    }
+
+    /**
+     * Get the partner's project.
+     */
+    public function project()
+    {
+        return $this->hasOne(Project::class, 'f_id', 'f_projectid');
+    }
+
+    /**
+     * Get the partner's vat.
+     */
+    public function vat()
+    {
+        return $this->hasOne(Vat::class, 'f_id', 'f_vatid');
+    }
 }
+
