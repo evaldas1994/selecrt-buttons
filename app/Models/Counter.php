@@ -12,6 +12,8 @@ class Counter extends Model
 
     protected $table = 't_counter';
 
+    protected $perPage = 500;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,14 +25,20 @@ class Counter extends Model
         'f_txt_len',
         'f_num',
         'f_num_len',
-        'f_seq',
-        'f_type',
-        'f_create_userid',
-        'f_modified_userid',
         'f_system1',
         'f_system2',
         'f_system3',
         'f_copy_to_ano',
+    ];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'f_seq' => null,
+        'f_type' => 1,
     ];
 
     /**
