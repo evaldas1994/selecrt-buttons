@@ -12,6 +12,8 @@ class Message extends Model
 
     protected $table = 't_message';
 
+    protected $perPage = 500;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -25,8 +27,6 @@ class Message extends Model
         'f_min_sum',
         'f_subject',
         'f_message',
-        'f_create_userid',
-        'f_modified_userid',
         'f_system1',
         'f_system2',
         'f_system3',
@@ -66,4 +66,12 @@ class Message extends Model
      * @var string|null
      */
     const UPDATED_AT = 'f_modified_date';
+
+    /**
+     * Get the message's message group.
+     */
+    public function messageGroup()
+    {
+        return $this->hasOne(MessageGroup::class, 'f_id', 'f_groupid');
+    }
 }

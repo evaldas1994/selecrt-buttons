@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use App\Traits\IdNextRecord;
 use App\Traits\IdToUppercase;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
-class Counter extends Model
+class Calendar extends Model
 {
-    use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
+    use IdToUppercase, UpdateCreatedModifiedUserIdColumns, IdNextRecord;
 
-    protected $table = 't_counter';
+    protected $table = 't_calendar';
 
     protected $perPage = 500;
 
@@ -21,24 +22,40 @@ class Counter extends Model
      */
     protected $fillable = [
         'f_id',
-        'f_txt',
-        'f_txt_len',
-        'f_num',
-        'f_num_len',
-        'f_system1',
-        'f_system2',
-        'f_system3',
-        'f_copy_to_ano',
-    ];
-
-    /**
-     * The model's default values for attributes.
-     *
-     * @var array
-     */
-    protected $attributes = [
-        'f_seq' => null,
-        'f_type' => 1,
+        'f_year',
+        'f_month',
+        'f_month_name',
+        'f_d1',
+        'f_d2',
+        'f_d3',
+        'f_d4',
+        'f_d5',
+        'f_d6',
+        'f_d7',
+        'f_d8',
+        'f_d9',
+        'f_d10',
+        'f_d11',
+        'f_d12',
+        'f_d13',
+        'f_d14',
+        'f_d15',
+        'f_d16',
+        'f_d17',
+        'f_d18',
+        'f_d19',
+        'f_d20',
+        'f_d21',
+        'f_d22',
+        'f_d23',
+        'f_d24',
+        'f_d25',
+        'f_d26',
+        'f_d27',
+        'f_d28',
+        'f_d29',
+        'f_d30',
+        'f_d31',
     ];
 
     /**
@@ -51,9 +68,9 @@ class Counter extends Model
     /**
      * The "type" of the primary key ID.
      *
-     * @var string
+     * @var integer
      */
-    protected $keyType = 'string';
+    protected $keyType = 'integer';
 
     /**
      * Indicates if the IDs are auto-incrementing.

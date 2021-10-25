@@ -7,19 +7,10 @@ use App\Models\Barcode;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\StockService;
-use App\Services\Modules\BarcodeService;
 use App\Http\Requests\BarcodeStoreUpdateRequest;
 
 class BarcodeController extends Controller
 {
-    private $barcodeService;
-
-    public function __construct()
-    {
-        $this->barcodeService = new BarcodeService(Barcode::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +18,7 @@ class BarcodeController extends Controller
      */
     public function index()
     {
-        $barcodes = $this->barcodeService->all();
+        $barcodes = Barcode::simplePaginate();
 
         return view('modules.barcode.index', compact('barcodes'));
     }
@@ -39,8 +30,7 @@ class BarcodeController extends Controller
      */
     public function create()
     {
-        $stockService = new StockService(Stock::class);
-        $stocks = $stockService->all();
+        $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
         return view('modules.barcode.create', compact('stocks'));
     }
@@ -53,36 +43,20 @@ class BarcodeController extends Controller
      */
     public function store(BarcodeStoreUpdateRequest $request)
     {
-        $this->barcodeService->create($request->input());
+        Barcode::create($request->validated());
 
-        return redirect()->route('barcodes.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $barcode = $this->barcodeService->findById($id);
-
-        return view('modules.barcode.show', compact('barcode'));
+        return redirect()->route('barcodes.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
+     * @param Barcode $barcode
      * @return View
      */
-    public function edit($id)
+    public function edit(Barcode $barcode)
     {
-        $barcode = $this->barcodeService->findById($id);
-
-        $stockService = new StockService(Stock::class);
-        $stocks = $stockService->all();
+        $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
         return view('modules.barcode.edit', compact('barcode', 'stocks'));
     }
@@ -91,26 +65,34 @@ class BarcodeController extends Controller
      * Update the specified resource in storage.
      *
      * @param BarcodeStoreUpdateRequest $request
-     * @param $id
+     * @param Barcode $barcode
      * @return RedirectResponse
      */
-    public function update(BarcodeStoreUpdateRequest $request, $id)
+    public function update(BarcodeStoreUpdateRequest $request, Barcode $barcode)
     {
-        $this->barcodeService->update($id, $request->input());
+        try {
+            $barcode->update($request->validated());
 
-        return redirect()->route('barcodes.index');
+            return redirect()->route('barcodes.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('barcodes.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param Barcode $barcode
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Barcode $barcode)
     {
-        $this->barcodeService->destroy($id);
+        try {
+            $barcode->delete();
 
-        return redirect()->route('barcodes.index');
+            return redirect()->route('barcodes.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('barcodes.index')->withError(trans('global.delete_failed'));
+        }
     }
 }

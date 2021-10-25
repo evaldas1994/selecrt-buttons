@@ -6,7 +6,6 @@ use App\Traits\IdToUppercase;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
-
 class Project extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
@@ -24,8 +23,6 @@ class Project extends Model
         'f_id',
         'f_name',
         'f_name2',
-        'f_create_userid',
-        'f_modified_userid',
         'f_system1',
         'f_system2',
         'f_system3',
@@ -65,5 +62,4 @@ class Project extends Model
      * @var string|null
      */
     const UPDATED_AT = 'f_modified_date';
-
 }

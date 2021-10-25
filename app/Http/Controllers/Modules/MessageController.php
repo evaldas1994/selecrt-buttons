@@ -4,20 +4,13 @@ namespace App\Http\Controllers\Modules;
 
 use App\Models\Message;
 use Illuminate\View\View;
+use App\Models\MessageGroup;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\MessageService;
 use App\Http\Requests\MessageStoreUpdateRequest;
 
 class MessageController extends Controller
 {
-    private $messageService;
-
-    public function __construct()
-    {
-        $this->messageService = new MessageService(Message::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +18,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $messages = $this->messageService->all();
+        $messages = Message::simplePaginate();
 
         return view('modules.message.index', compact('messages'));
     }
@@ -37,7 +30,9 @@ class MessageController extends Controller
      */
     public function create()
     {
-        return view('modules.message.create');
+        $messageGroups = MessageGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+
+        return view('modules.message.create', compact('messageGroups'));
     }
 
     /**
@@ -48,61 +43,56 @@ class MessageController extends Controller
      */
     public function store(MessageStoreUpdateRequest $request)
     {
-        $this->messageService->create($request->input());
+        Message::create($request->validated());
 
-        return redirect()->route('messages.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $message = $this->messageService->findById($id);
-
-        return view('modules.message.show', compact('message'));
+        return redirect()->route('messages.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  $id
+     * @param Message $message
      * @return View
      */
-    public function edit($id)
+    public function edit(Message $message)
     {
-        $message = $this->messageService->findById($id);
+        $messageGroups = MessageGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        return view('modules.message.edit', compact('message'));
+        return view('modules.message.edit', compact('message', 'messageGroups'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param MessageStoreUpdateRequest $request
-     * @param  $id
+     * @param Message $message
      * @return RedirectResponse
      */
-    public function update(MessageStoreUpdateRequest $request, $id)
+    public function update(MessageStoreUpdateRequest $request, Message $message)
     {
-        $this->messageService->update($id, $request->input());
+        try {
+            $message->update($request->validated());
 
-        return redirect()->route('messages.index');
+            return redirect()->route('messages.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('messages.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  $id
+     * @param Message $message
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Message $message)
     {
-        $this->messageService->destroy($id);
+        try {
+            $message->delete();
 
-        return redirect()->route('messages.index');
+            return redirect()->route('messages.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('messages.index')->withError(trans('global.delete_failed'));
+        }
     }
 }
