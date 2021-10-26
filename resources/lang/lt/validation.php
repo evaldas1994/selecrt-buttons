@@ -35,7 +35,7 @@ return [
     'current_password' => 'The password is incorrect.',
     'date' => 'The :attribute is not a valid date.',
     'date_equals' => 'The :attribute must be a date equal to :date.',
-    'date_format' => 'The :attribute does not match the format :format.',
+    'date_format' => 'Laukas :attribute turi būti laiko formatas :format.',
     'different' => 'The :attribute and :other must be different.',
     'digits' => 'The :attribute must be :digits digits.',
     'digits_between' => 'The :attribute must be between :min and :max digits.',
@@ -122,7 +122,7 @@ return [
     'timezone' => 'The :attribute must be a valid timezone.',
     'unique' => 'Laukas :attribute jau užimtas',
     'uploaded' => 'The :attribute failed to upload.',
-    'url' => 'The :attribute must be a valid URL.',
+    'url' => 'Laukas :attribute turi būti nuoroda.',
     'uuid' => 'The :attribute must be a valid UUID.',
 
     /*
