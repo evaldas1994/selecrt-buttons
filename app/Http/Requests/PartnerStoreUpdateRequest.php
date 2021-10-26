@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Partner;
+use App\Rules\IdPatternRule;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PartnerStoreUpdateRequest extends FormRequest
@@ -23,15 +26,14 @@ class PartnerStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route()->parameter('partner');
-
+        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_partner')->ignore($this->partner) : 'unique:t_partner';
         return [
-            'f_id' => 'string|required|max:20|unique:t_partner,f_id,' .$id. ',f_id',
+            'f_id' => [$unique, 'required', 'max:40', new IdPatternRule],
             'f_name' => 'string|max:100|nullable',
             'f_name2' => 'string|max:100|nullable',
             'f_buyer'  => 'boolean',
             'f_seller' => 'boolean',
-            'f_groupid'  => 'string|max:20|nullable',
+            'f_groupid'  => 'max:20|nullable',
             'f_code' => 'string|max:20|nullable',
             'f_vat_code' => 'string|max:20|nullable',
             'f_person' => 'string|max:100|nullable',
@@ -43,7 +45,7 @@ class PartnerStoreUpdateRequest extends FormRequest
             'f_curid' => 'string|max:20|nullable',
             'f_credit' => 'numeric|between:0,9999.99|regex:/^\d+(\.\d{1,4})?$/|nullable',
             'f_pay_days' => 'integer|required',
-            'f_price_level' => 'integer|digits_between:1,5|nullable',
+            'f_price_level' => ['required', Rule::in(Partner::$priceLevelTypes)],
             'f_partnerid' => 'string|max:20|nullable',
             'f_accountid1' => 'string|max:20|nullable|exists:t_account,f_id',
             'f_accountid2' => 'string|max:20|nullable|exists:t_account,f_id',
@@ -89,10 +91,10 @@ class PartnerStoreUpdateRequest extends FormRequest
             'f_discount_card_balance3_date' => 'date|nullable',
             'f_edi_storeid' => 'string|max:20|nullable',
             'f_country' => 'string|max:10|nullable',
-            'f_legal_status' => 'string|max:5|nullable',
+            'f_legal_status' => ['required', Rule::in(Partner::$legalStatusTypes)],
             'f_templateid' => 'string|max:20|nullable',
             'f_templateid2' => 'string|max:20|nullable',
-            'f_valid' => 'string|max:20|nullable',
+            'f_vatid' => 'string|max:20|nullable|exists:t_vat,f_id',
             'f_edi_export' => 'boolean',
             'f_mark1' => 'boolean',
             'f_mark2' => 'boolean',

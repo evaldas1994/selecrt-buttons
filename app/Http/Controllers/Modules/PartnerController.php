@@ -2,40 +2,27 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Models\Currency;
+use App\Models\Vat;
 use App\Models\Person;
 use App\Models\Account;
 use App\Models\Partner;
 use App\Models\Project;
+use App\Models\Currency;
 use App\Models\Register1;
 use App\Models\Register2;
 use App\Models\Register3;
 use App\Models\Register4;
 use Illuminate\View\View;
 use App\Models\Register5;
+use App\Models\Department;
+use App\Models\MessageGroup;
+use App\Models\PartnerGroup;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\PersonService;
-use App\Services\Modules\ProjectService;
-use App\Services\Modules\AccountService;
-use App\Services\Modules\PartnerService;
-use App\Services\Modules\CurrencyService;
-use App\Services\Modules\Register1Service;
-use App\Services\Modules\Register2Service;
-use App\Services\Modules\Register3Service;
-use App\Services\Modules\Register4Service;
-use App\Services\Modules\Register5Service;
 use App\Http\Requests\PartnerStoreUpdateRequest;
 
 class PartnerController extends Controller
 {
-    private $partnerService;
-
-    public function __construct()
-    {
-        $this->partnerService = new PartnerService(Partner::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -43,7 +30,7 @@ class PartnerController extends Controller
      */
     public function index()
     {
-        $partners = $this->partnerService->all();
+        $partners = Partner::simplePaginate();
 
         return view('modules.partner.index', compact('partners'));
     }
@@ -55,34 +42,42 @@ class PartnerController extends Controller
      */
     public function create()
     {
-        $curService = new CurrencyService(Currency::class);
-        $curs = $curService->all();
+        $partnerGroups = PartnerGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $currencies = Currency::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $partners = Partner::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $accounts = Account::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $messageGroups = MessageGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers1 = Register1::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers2 = Register2::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers3 = Register3::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers4 = Register4::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers5 = Register5::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $departments = Department::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $persons = Person::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $projects = Project::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $vats = Vat::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        $register1Service = new Register1Service(Register1::class);
-        $registers1 = $register1Service->all();
+        $priceLevels = Partner::$priceLevelTypes;
+        $legalStatuses = Partner::$legalStatusTypes;
 
-        $register2Service = new Register2Service(Register2::class);
-        $registers2 = $register2Service->all();
-
-        $register3Service = new Register3Service(Register3::class);
-        $registers3 = $register3Service->all();
-
-        $register4Service = new Register4Service(Register4::class);
-        $registers4 = $register4Service->all();
-
-        $register5Service = new Register5Service(Register5::class);
-        $registers5 = $register5Service->all();
-
-        $accountService = new AccountService(Account::class);
-        $accounts = $accountService->all();
-
-        $personService = new PersonService(Person::class);
-        $persons = $personService->all();
-
-        $projectService = new ProjectService(Project::class);
-        $projects = $projectService->all();
-
-        return view('modules.partner.create', compact('curs', 'registers1', 'registers2', 'registers3', 'registers4', 'registers5', 'accounts', 'persons', 'projects'));
+        return view('modules.partner.create', compact(
+            'partnerGroups',
+            'currencies',
+            'partners',
+            'accounts',
+            'messageGroups',
+            'registers1',
+            'registers2',
+            'registers3',
+            'registers4',
+            'registers5',
+            'departments',
+            'persons',
+            'projects',
+            'vats',
+            'priceLevels',
+            'legalStatuses'
+        ));
     }
 
     /**
@@ -93,89 +88,93 @@ class PartnerController extends Controller
      */
     public function store(PartnerStoreUpdateRequest $request)
     {
-        $this->partnerService->create($request->input());
+        Partner::create($request->validated());
 
-        return redirect()->route('partners.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $partner = $this->partnerService->findById($id);
-
-        return view('modules.partner.show', compact('partner'));
+        return redirect()->route('partners.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Partner $partner
      * @return View
      */
-    public function edit($id)
+    public function edit(Partner $partner)
     {
-        $partnerService = new partnerService(Partner::class);
-        $partner = $partnerService->findById($id);
+        $partnerGroups = PartnerGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $currencies = Currency::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $partners = Partner::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $accounts = Account::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $messageGroups = MessageGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers1 = Register1::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers2 = Register2::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers3 = Register3::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers4 = Register4::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers5 = Register5::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $departments = Department::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $persons = Person::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $projects = Project::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $vats = Vat::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        $curService = new CurrencyService(Currency::class);
-        $curs = $curService->all();
+        $priceLevels = Partner::$priceLevelTypes;
+        $legalStatuses = Partner::$legalStatusTypes;
 
-        $register1Service = new Register1Service(Register1::class);
-        $registers1 = $register1Service->all();
-
-        $register2Service = new Register2Service(Register2::class);
-        $registers2 = $register2Service->all();
-
-        $register3Service = new Register3Service(Register3::class);
-        $registers3 = $register3Service->all();
-
-        $register4Service = new Register4Service(Register4::class);
-        $registers4 = $register4Service->all();
-
-        $register5Service = new Register5Service(Register5::class);
-        $registers5 = $register5Service->all();
-
-        $accountService = new AccountService(Account::class);
-        $accounts = $accountService->all();
-
-        $personService = new PersonService(Person::class);
-        $persons = $personService->all();
-
-        $projectService = new ProjectService(Project::class);
-        $projects = $projectService->all();
-
-        return view('modules.partner.edit', compact('partner', 'curs', 'registers1', 'registers2', 'registers3', 'registers4', 'registers5', 'accounts', 'persons', 'projects'));
+        return view(
+            'modules.partner.edit',
+            compact(
+                'partner',
+                'partnerGroups',
+                'currencies',
+                'partners',
+                'accounts',
+                'messageGroups',
+                'registers1',
+                'registers2',
+                'registers3',
+                'registers4',
+                'registers5',
+                'departments',
+                'persons',
+                'projects',
+                'vats',
+                'priceLevels',
+                'legalStatuses'
+            )
+        );
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param PartnerStoreUpdateRequest $request
-     * @param $id
+     * @param Partner $partner
      * @return RedirectResponse
      */
-    public function update(PartnerStoreUpdateRequest $request, $id)
+    public function update(PartnerStoreUpdateRequest $request, Partner $partner)
     {
-        $this->partnerService->update($id, $request->input());
+        try {
+            $partner->update($request->validated());
 
-        return redirect()->route('partners.index');
+            return redirect()->route('partners.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('partners.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param Partner $partner
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Partner $partner)
     {
-        $this->partnerService->destroy($id);
+        try {
+            $partner->delete();
 
-        return redirect()->route('partners.index');
+            return redirect()->route('partners.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('partners.index')->withError(trans('global.delete_failed'));
+        }
     }
 }
