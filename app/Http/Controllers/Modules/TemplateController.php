@@ -5,21 +5,13 @@ namespace App\Http\Controllers\Modules;
 use App\Models\Account;
 use App\Models\Template;
 use Illuminate\View\View;
+use App\Models\StockOperationGroup;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\AccountService;
-use App\Services\Modules\TemplateService;
 use App\Http\Requests\TemplateStoreUpdateRequest;
 
 class TemplateController extends Controller
 {
-    private $templateServive;
-
-    public function __construct()
-    {
-        $this->templateServive = new TemplateService(Template::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +19,7 @@ class TemplateController extends Controller
      */
     public function index()
     {
-        $templates = $this->templateServive->all();
+        $templates = Template::simplePaginate();
 
         return view('modules.template.index', compact('templates'));
     }
@@ -39,10 +31,12 @@ class TemplateController extends Controller
      */
     public function create()
     {
-        $accountService = new AccountService(Account::class);
-        $accounts = $accountService->all();
+        $stockOperationGroups = StockOperationGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $accounts = Account::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        return view('modules.template.create', compact('accounts'));
+        $operations = Template::$operationTypes;
+
+        return view('modules.template.create', compact('stockOperationGroups', 'accounts', 'operations'));
     }
 
     /**
@@ -53,64 +47,59 @@ class TemplateController extends Controller
      */
     public function store(TemplateStoreUpdateRequest $request)
     {
-        $this->templateServive->create($request->input());
+        Template::create($request->validated());
 
-        return redirect()->route('templates.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $template = $this->templateServive->findById($id);
-
-        return view('modules.template.show', compact('template'));
+        return redirect()->route('templates.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
+     * @param Template $template
      * @return View
      */
-    public function edit($id)
+    public function edit(Template $template)
     {
-        $template = $this->templateServive->findById($id);
+        $stockOperationGroups = StockOperationGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $accounts = Account::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        $accountService = new AccountService(Account::class);
-        $accounts = $accountService->all();
+        $operations = Template::$operationTypes;
 
-        return view('modules.template.edit', compact('template', 'accounts'));
+        return view('modules.template.edit', compact('template', 'stockOperationGroups', 'accounts', 'operations'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param TemplateStoreUpdateRequest $request
-     * @param $id
+     * @param Template $template
      * @return RedirectResponse
      */
-    public function update(TemplateStoreUpdateRequest $request, $id)
+    public function update(TemplateStoreUpdateRequest $request, Template $template)
     {
-        $this->templateServive->update($id, $request->input());
+        try {
+            $template->update($request->validated());
 
-        return redirect()->route('templates.index');
+            return redirect()->route('templates.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('templates.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param Template $template
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Template $template)
     {
-        $this->templateServive->destroy($id);
+        try {
+            $template->delete();
 
-        return redirect()->route('templates.index');
+            return redirect()->route('templates.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('templates.index')->withError(trans('global.delete_failed'));
+        }
     }
 }

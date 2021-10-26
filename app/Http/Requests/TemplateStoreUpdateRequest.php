@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Template;
+use App\Rules\IdPatternRule;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TemplateStoreUpdateRequest extends FormRequest
@@ -23,11 +26,10 @@ class TemplateStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route()->parameter('template');
-
+        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_template')->ignore($this->template) : 'unique:t_template';
         return [
-            'f_id' => 'string|required|max:20|unique:t_template,f_id,' .$id. ',f_id',
-            'f_op' => 'string|max:1',
+            'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],
+            'f_op' => ['required', Rule::in(Template::$operationTypes)],
             'f_description1' => 'string|max:100|nullable',
             'f_cred_account1' => 'string|max:20|nullable|exists:t_account,f_id',
             'f_deb_account1' => 'string|max:20|nullable|exists:t_account,f_id',
@@ -104,7 +106,7 @@ class TemplateStoreUpdateRequest extends FormRequest
             'f_description23' => 'string|max:100|nullable',
             'f_cred_account23' => 'string|max:20|nullable|exists:t_account,f_id',
             'f_deb_account23' => 'string|max:20|nullable|exists:t_account,f_id',
-            'f_groupid' => 'string|max:20',
+            'f_groupid' => 'string|max:20|nullable|exists:t_stockopgroup,f_id',
         ];
     }
 }
