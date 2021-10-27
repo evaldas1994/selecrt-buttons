@@ -13,6 +13,28 @@ class BlankNumber extends Model
 
     protected $table = 't_blankno';
 
+    protected $perPage = 500;
+
+    public static $opTypes = [
+        'P',
+        'N',
+        'E',
+        'Y',
+        'T',
+        'A',
+        'I',
+        'R',
+        'Z',
+        'L',
+    ];
+
+    public static $invoiceRegisterTypes = [
+        '1',
+        '0',
+        '2',
+        '3',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -24,8 +46,6 @@ class BlankNumber extends Model
         'f_op',
         'f_storeid',
         'f_groupid',
-        'f_create_userid',
-        'f_modified_userid',
         'f_system1',
         'f_system2',
         'f_system3',
@@ -68,6 +88,14 @@ class BlankNumber extends Model
     const UPDATED_AT = 'f_modified_date';
 
     /**
+     * Get the blank number's counter.
+     */
+    public function counter()
+    {
+        return $this->hasOne(Counter::class, 'f_id', 'f_counterid');
+    }
+
+    /**
      * Get the blank number's store.
      */
     public function store()
@@ -76,10 +104,10 @@ class BlankNumber extends Model
     }
 
     /**
-     * Get the blank number's counter.
+     * Get the blank number's stock operation group.
      */
-    public function counter()
+    public function stockOperationGroup()
     {
-        return $this->hasOne(Counter::class, 'f_id', 'f_counterid');
+        return $this->hasOne(StockOperationGroup::class, 'f_id', 'f_groupid');
     }
 }

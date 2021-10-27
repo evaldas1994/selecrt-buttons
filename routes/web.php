@@ -26,7 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('banks', \App\Http\Controllers\Modules\BankController::class)->except('show');
     Route::resource('bank-account-systems', \App\Http\Controllers\Modules\BankAccountSystemController::class)->except('show');
     Route::resource('barcodes', \App\Http\Controllers\Modules\BarcodeController::class);
-    Route::resource('blank-numbers', \App\Http\Controllers\Modules\BlankNumberController::class);
+    Route::resource('blank-numbers', \App\Http\Controllers\Modules\BlankNumberController::class)->except('show');
     Route::resource('bonuses', \App\Http\Controllers\Modules\BonusController::class);
     Route::resource('calendars', \App\Http\Controllers\Modules\CalendarController::class)->except('show');
     Route::resource('counters', \App\Http\Controllers\Modules\CounterController::class)->except('show');
