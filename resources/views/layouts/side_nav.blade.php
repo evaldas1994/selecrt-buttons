@@ -196,7 +196,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="#">
+                        <a class="sidebar-link" href="{{ route('templates.index') }}">
                             <span class="align-middle">@lang('nav.registers.templates')</span>
                         </a>
                     </li>
