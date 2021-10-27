@@ -15,6 +15,8 @@ class Stock extends Model
 
     protected $table = 't_stock';
 
+    protected $perPage = 500;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -145,6 +147,22 @@ class Stock extends Model
      * @var string|null
      */
     const UPDATED_AT = 'f_modified_date';
+
+    /**
+     * Get the stock's stock group.
+     */
+    public function unit()
+    {
+        return $this->hasOne(Unit::class, 'f_id', 'f_unitid');
+    }
+
+
+
+
+
+
+
+
 
     /**
      * Get the stock's unit.
