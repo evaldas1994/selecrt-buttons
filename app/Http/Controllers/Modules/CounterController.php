@@ -2,24 +2,14 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CounterStoreUpdateRequest;
 use App\Models\Counter;
-use App\Models\Stock;
-use App\Services\Modules\CounterService;
-use App\Services\Modules\StockService;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\CounterStoreUpdateRequest;
 
 class CounterController extends Controller
 {
-    private $counterService;
-
-    public function __construct()
-    {
-        $this->counterService = new CounterService(Counter::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +17,7 @@ class CounterController extends Controller
      */
     public function index()
     {
-        $counters = $this->counterService->all();
+        $counters = Counter::whereFType(1)->simplePaginate();
 
         return view('modules.counter.index', compact('counters'));
     }
@@ -39,10 +29,7 @@ class CounterController extends Controller
      */
     public function create()
     {
-        $stockService = new StockService(Stock::class);
-        $stocks = $stockService->all();
-
-        return view('modules.counter.create', compact('stocks'));
+        return view('modules.counter.create');
     }
 
     /**
@@ -53,64 +40,54 @@ class CounterController extends Controller
      */
     public function store(CounterStoreUpdateRequest $request)
     {
-        $this->counterService->create($request->input());
+        Counter::create($request->validated());
 
-        return redirect()->route('counters.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $counter = $this->counterService->findById($id);
-
-        return view('modules.counter.show', compact('counter'));
+        return redirect()->route('counters.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
+     * @param Counter $counter
      * @return View
      */
-    public function edit($id)
+    public function edit(Counter $counter)
     {
-        $counter = $this->counterService->findById($id);
-
-        $stockService = new StockService(Stock::class);
-        $stocks = $stockService->all();
-
-        return view('modules.counter.edit', compact('counter', 'stocks'));
+        return view('modules.counter.edit', compact('counter'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param CounterStoreUpdateRequest $request
-     * @param $id
+     * @param Counter $counter
      * @return RedirectResponse
      */
-    public function update(CounterStoreUpdateRequest $request, $id)
+    public function update(CounterStoreUpdateRequest $request, Counter $counter)
     {
-        $this->counterService->update($id, $request->input());
+        try {
+            $counter->update($request->validated());
 
-        return redirect()->route('counters.index');
+            return redirect()->route('counters.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('counters.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param Counter $counter
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Counter $counter)
     {
-        $this->counterService->destroy($id);
+        try {
+            $counter->delete();
 
-        return redirect()->route('counters.index');
+            return redirect()->route('counters.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('counters.index')->withError(trans('global.delete_failed'));
+        }
     }
 }

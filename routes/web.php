@@ -28,7 +28,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('barcodes', \App\Http\Controllers\Modules\BarcodeController::class);
     Route::resource('blank-numbers', \App\Http\Controllers\Modules\BlankNumberController::class);
     Route::resource('bonuses', \App\Http\Controllers\Modules\BonusController::class);
-    Route::resource('counters', \App\Http\Controllers\Modules\CounterController::class);
+    Route::resource('calendars', \App\Http\Controllers\Modules\CalendarController::class)->except('show');
+    Route::resource('counters', \App\Http\Controllers\Modules\CounterController::class)->except('show');
     Route::resource('currencies', \App\Http\Controllers\Modules\CurrencyController::class)->except('show');
     Route::resource('departments', \App\Http\Controllers\Modules\DepartmentController::class);
     Route::resource('descriptions', \App\Http\Controllers\Modules\DescriptionController::class)->except('show');
@@ -36,11 +37,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('manufacturers', \App\Http\Controllers\Modules\ManufacturerController::class)->except('show');
     Route::resource('messages', \App\Http\Controllers\Modules\MessageController::class);
     Route::resource('message-groups', \App\Http\Controllers\Modules\MessageGroupController::class)->except('show');
-    Route::resource('partners', \App\Http\Controllers\Modules\PartnerController::class);
+    Route::resource('partners', \App\Http\Controllers\Modules\PartnerController::class)->except('show');
     Route::resource('partner-groups', \App\Http\Controllers\Modules\PartnerGroupController::class)->except('show');
     Route::resource('periods', \App\Http\Controllers\Modules\PeriodController::class)->except('show');
     Route::resource('persons', \App\Http\Controllers\Modules\PersonController::class)->except('show');
-    Route::resource('projects', \App\Http\Controllers\Modules\ProjectController::class);
+    Route::resource('projects', \App\Http\Controllers\Modules\ProjectController::class)->except('show');
     Route::resource('registers1', \App\Http\Controllers\Modules\Register1Controller::class)->except('show');
     Route::resource('registers2', \App\Http\Controllers\Modules\Register2Controller::class)->except('show');
     Route::resource('registers3', \App\Http\Controllers\Modules\Register3Controller::class)->except('show');
@@ -55,7 +56,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('stores', \App\Http\Controllers\Modules\StoreController::class);
     Route::resource('system-params', \App\Http\Controllers\Modules\ParamController::class);
     Route::resource('taxesd', \App\Http\Controllers\Modules\TaxdController::class)->except('show');
-    Route::resource('templates', \App\Http\Controllers\Modules\TemplateController::class);
+    Route::resource('templates', \App\Http\Controllers\Modules\TemplateController::class)->except('show');
     Route::resource('units', \App\Http\Controllers\Modules\UnitController::class)->except('show');
     Route::resource('user-params', \App\Http\Controllers\Modules\UserParamController::class);
     Route::resource('vats', \App\Http\Controllers\Modules\VatController::class);

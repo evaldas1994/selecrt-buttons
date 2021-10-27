@@ -67,5 +67,7 @@
 
     });
 </script>
+
+@livewireScripts
 </body>
 </html>

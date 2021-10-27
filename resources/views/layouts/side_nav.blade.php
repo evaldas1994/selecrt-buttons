@@ -46,11 +46,11 @@
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.system.system_settings')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('bank-account-systems.index')}}">@lang('nav.system.bank_accounts')</a></li>
                     <div class="dropdown-divider"></div>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.system.counters')</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('counters.index') }}">@lang('nav.system.counters')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.system.blank_numbers')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('periods.index') }}">@lang('nav.system.periods')</a></li>
                     <div class="dropdown-divider"></div>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.system.messages')</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('messages.index') }}">@lang('nav.system.messages')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('message-groups.index') }}">@lang('nav.system.message_groups')</a></li>
                 </ul>
             </li>
@@ -196,7 +196,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="#">
+                        <a class="sidebar-link" href="{{ route('templates.index') }}">
                             <span class="align-middle">@lang('nav.registers.templates')</span>
                         </a>
                     </li>
@@ -279,7 +279,7 @@
                 <ul id="salaries" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.salaries.index')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.salaries.employees')</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.salaries.holiday_calendar')</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('calendars.index') }}">@lang('nav.salaries.holiday_calendar')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.salaries.work_schedule_templates')</a></li>
                 </ul>
             </li>
