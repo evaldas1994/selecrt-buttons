@@ -67,8 +67,8 @@
 
                         <div class="mb-2">
                             <label class="form-label">@lang('modules/stockGroup.f_allowed_from')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_allowed_from') is-invalid @enderror"
+                            <input type="time"
+                                   class="form-control form-control-sm time @error('f_allowed_from') is-invalid @enderror"
                                    name="f_allowed_from"
                                    placeholder="@lang('modules/stockGroup.f_allowed_from')"
                                    maxlength="100"
@@ -78,8 +78,8 @@
 
                         <div class="mb-2">
                             <label class="form-label">@lang('modules/stockGroup.f_allowed_to')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_allowed_to') is-invalid @enderror"
+                            <input type="time"
+                                   class="form-control form-control-sm time @error('f_allowed_to') is-invalid @enderror"
                                    name="f_allowed_to"
                                    placeholder="@lang('modules/stockGroup.f_allowed_to')"
                                    maxlength="100"
