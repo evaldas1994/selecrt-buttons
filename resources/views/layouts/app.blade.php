@@ -30,6 +30,12 @@
         flatpickr(".date",{
             "locale": "{{ app()->getLocale() == 'en' ? 'default' : app()->getLocale() }}"
         });
+        flatpickr(".time", {
+            time_24hr: true,
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+        });
 
         // Messages
         var success = '{{ session('success') }}';
