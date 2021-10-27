@@ -37,11 +37,11 @@ class StockGroupStoreUpdateRequest extends FormRequest
             'f_allowed_to' => 'nullable|date_format:H:i|after:f_allowed_from',
             'f_ignore_promotion' => 'boolean',
             'f_ignore_voucher' => 'boolean',
-            'f_group_level' => 'integer|nullable',              //??
+            'f_group_level' => 'integer|nullable|min:0',
             'f_group_parent' => 'max:20|exists:t_stockgroup,f_id|nullable',
             'f_catalog_group' => 'boolean',
             'f_ignor_gross_weight' => 'boolean',
-            'f_disp_priority' => 'integer',                     //0-?
+            'f_disp_priority' => 'integer',
             'f_name_short_lt' => 'string|max:100|nullable',
             'f_name_short_en' => 'string|max:100|nullable',
             'f_name_short_ru' => 'string|max:100|nullable',
