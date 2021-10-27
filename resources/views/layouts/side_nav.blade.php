@@ -92,7 +92,7 @@
                                 <a class="sidebar-link" href="{{ route('account-groups.index') }}">@lang('nav.registers.groups.account_groups')</a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="#">@lang('nav.registers.groups.stock_groups')</a>
+                                <a class="sidebar-link" href="{{ route('stock-groups.index') }}">@lang('nav.registers.groups.stock_groups')</a>
                             </li>
                             <li class="sidebar-item">
                                 <a class="sidebar-link" href="{{ route('partner-groups.index') }}">@lang('nav.registers.groups.partner_groups')</a>
