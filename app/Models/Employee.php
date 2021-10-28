@@ -40,6 +40,28 @@ class Employee extends Model
         '5',
     ];
 
+    public static $disablementPercentTypes = [
+        '0',
+        '5',
+        '10',
+        '15',
+        '20',
+        '25',
+        '30',
+        '35',
+        '40',
+        '45',
+        '50',
+        '55',
+        '60',
+        '70',
+        '80',
+        '90',
+        '100',
+        'Vidutinių poreikių',
+        'Nedidelių poreikių',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -76,6 +98,12 @@ class Employee extends Model
         'f_cash',
         'f_work_shedule_template',
         'f_disability_perc',
+    ];
+
+    protected $attributes = [
+        'f_uses_nti2' => null,
+        'f_growing' => null,
+        'f_table_nr' => null,
     ];
 
     /**
@@ -140,8 +168,8 @@ class Employee extends Model
     /**
      * Get the employee's work shedule template.
      */
-//    public function workSheduleTemplate()
-//    {
-//        return $this->hasOne(Work::class, 'f_id', 'f_direct_debit_bank');
-//    }
+    public function workSheduleTemplate()
+    {
+        return $this->hasOne(WorkSheduleTemplate::class, 'f_id', 'f_work_shedule_template');
+    }
 }
