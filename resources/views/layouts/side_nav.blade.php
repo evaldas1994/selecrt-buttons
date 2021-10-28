@@ -66,7 +66,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('stores.index') }}">
+                        <a class="sidebar-link" href="{{ route('stocks.index') }}">
                             <span class="align-middle">@lang('nav.registers.stocks')</span>
                         </a>
                     </li>

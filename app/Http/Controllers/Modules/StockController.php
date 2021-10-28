@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules;
 
 use App\Models\Vat;
 use App\Models\Unit;
+use App\Models\Disch;
 use App\Models\Stock;
 use App\Models\Person;
 use App\Models\Partner;
@@ -16,32 +17,15 @@ use App\Models\Register2;
 use App\Models\Register3;
 use App\Models\Register4;
 use App\Models\Register5;
+use App\Models\Department;
+use App\Models\StockGroup;
+use App\Models\Manufacturer;
 use App\Http\Controllers\Controller;
-use App\Services\Modules\VatService;
-use App\Services\Modules\UnitService;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\StockService;
-use App\Services\Modules\PersonService;
-use App\Services\Modules\PartnerService;
-use App\Services\Modules\AccountService;
-use App\Services\Modules\ProjectService;
-use App\Services\Modules\CurrencyService;
-use App\Services\Modules\Register1Service;
-use App\Services\Modules\Register2Service;
-use App\Services\Modules\Register3Service;
-use App\Services\Modules\Register4Service;
-use App\Services\Modules\Register5Service;
 use App\Http\Requests\StockStoreUpdateRequest;
 
 class StockController extends Controller
 {
-    private $stockService;
-
-    public function __construct()
-    {
-        $this->stockService = new StockService(Stock::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -49,7 +33,7 @@ class StockController extends Controller
      */
     public function index()
     {
-        $stocks = $this->stockService->all();
+        $stocks = Stock::simplePaginate();
 
         return view('modules.stock.index', compact('stocks'));
     }
@@ -61,43 +45,50 @@ class StockController extends Controller
      */
     public function create()
     {
-        $unitService = new UnitService(Unit::class);
-        $units = $unitService->all();
+        $stockGroups = StockGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $units = Unit::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $manufacturers = Manufacturer::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $discountsh = Disch::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $vats = Vat::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $currencies = Currency::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $partners = Partner::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $accounts = Account::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers1 = Register1::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers2 = Register2::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers3 = Register3::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers4 = Register4::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers5 = Register5::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $departments = Department::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $persons = Person::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $projects = Project::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        $vatService = new VatService(Vat::class);
-        $vats = $vatService->all();
+        $types = Stock::$types;
+        $pacTypes = Stock::$gpaisPacTypes;
+        $defaultUnit = Stock::$defaultUnit;
 
-        $currencyService = new CurrencyService(Currency::class);
-        $currencies = $currencyService->all();
-
-        $register1Service = new Register1Service(Register1::class);
-        $registers1 = $register1Service->all();
-
-        $register2Service = new Register2Service(Register2::class);
-        $registers2 = $register2Service->all();
-
-        $register3Service = new Register3Service(Register3::class);
-        $registers3 = $register3Service->all();
-
-        $register4Service = new Register4Service(Register4::class);
-        $registers4 = $register4Service->all();
-
-        $register5Service = new Register5Service(Register5::class);
-        $registers5 = $register5Service->all();
-
-        $accountService = new AccountService(Account::class);
-        $accounts = $accountService->all();
-
-        $partnerService = new PartnerService(Partner::class);
-        $partners = $partnerService->all();
-
-        $personService = new PersonService(Person::class);
-        $persons = $personService->all();
-
-        $projectService = new ProjectService(Project::class);
-        $projects = $projectService->all();
-
-        return view('modules.stock.create', compact('units', 'vats', 'currencies', 'registers1', 'registers2', 'registers3', 'registers4', 'registers5', 'accounts', 'partners', 'persons', 'projects'));
+        return view('modules.stock.create', compact(
+            'stockGroups',
+            'units',
+            'manufacturers',
+            'discountsh',
+            'vats',
+            'stocks',
+            'currencies',
+            'partners',
+            'accounts',
+            'registers1',
+            'registers2',
+            'registers3',
+            'registers4',
+            'registers5',
+            'departments',
+            'persons',
+            'projects',
+            'types',
+            'pacTypes',
+            'defaultUnit'
+        ));
     }
 
     /**
@@ -108,97 +99,96 @@ class StockController extends Controller
      */
     public function store(StockStoreUpdateRequest $request)
     {
-        $this->stockService->create($request->input());
+        Stock::create($request->validated());
 
-        return redirect()->route('stocks.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $stock = $this->stockService->findById($id);
-
-        return view('modules.stock.show', compact('stock'));
+        return redirect()->route('stocks.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
+     * @param Stock $stock
      * @return View
      */
-    public function edit($id)
+    public function edit(Stock $stock)
     {
-        $stock = $this->stockService->findById($id);
+        $stockGroups = StockGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $units = Unit::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $manufacturers = Manufacturer::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $discountsh = Disch::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $vats = Vat::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $currencies = Currency::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $partners = Partner::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $accounts = Account::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers1 = Register1::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers2 = Register2::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers3 = Register3::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers4 = Register4::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers5 = Register5::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $departments = Department::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $persons = Person::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $projects = Project::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        $unitService = new UnitService(Unit::class);
-        $units = $unitService->all();
+        $types = Stock::$types;
+        $pacTypes = Stock::$gpaisPacTypes;
 
-        $vatService = new VatService(Vat::class);
-        $vats = $vatService->all();
-
-        $currencyService = new CurrencyService(Currency::class);
-        $currencies = $currencyService->all();
-
-        $register1Service = new Register1Service(Register1::class);
-        $registers1 = $register1Service->all();
-
-        $register2Service = new Register2Service(Register2::class);
-        $registers2 = $register2Service->all();
-
-        $register3Service = new Register3Service(Register3::class);
-        $registers3 = $register3Service->all();
-
-        $register4Service = new Register4Service(Register4::class);
-        $registers4 = $register4Service->all();
-
-        $register5Service = new Register5Service(Register5::class);
-        $registers5 = $register5Service->all();
-
-        $accountService = new AccountService(Account::class);
-        $accounts = $accountService->all();
-
-        $partnerService = new PartnerService(Partner::class);
-        $partners = $partnerService->all();
-
-        $personService = new PersonService(Person::class);
-        $persons = $personService->all();
-
-        $projectService = new ProjectService(Project::class);
-        $projects = $projectService->all();
-
-        return view('modules.stock.edit', compact('stock', 'units', 'vats', 'currencies', 'registers1', 'registers2', 'registers3', 'registers4', 'registers5', 'accounts', 'partners', 'persons', 'projects'));
+        return view('modules.stock.edit', compact(
+            'stock',
+            'stockGroups',
+            'units',
+            'manufacturers',
+            'discountsh',
+            'vats',
+            'stocks',
+            'currencies',
+            'partners',
+            'accounts',
+            'registers1',
+            'registers2',
+            'registers3',
+            'registers4',
+            'registers5',
+            'departments',
+            'persons',
+            'projects',
+            'types',
+            'pacTypes'
+        ));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param StockStoreUpdateRequest $request
-     * @param $id
+     * @param Stock $stock
      * @return RedirectResponse
      */
-    public function update(StockStoreUpdateRequest $request, $id)
+    public function update(StockStoreUpdateRequest $request, Stock $stock)
     {
-        $this->stockService->update($id, $request->input());
+        try {
+            $stock->update($request->validated());
 
-        return redirect()->route('stocks.index');
+            return redirect()->route('stocks.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('stocks.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param Stock $stock
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Stock $stock)
     {
-        $this->stockService->destroy($id);
+        try {
+            $stock->delete();
 
-        return redirect()->route('stocks.index');
+            return redirect()->route('stocks.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('stocks.index')->withError(trans('global.delete_failed'));
+        }
     }
 }

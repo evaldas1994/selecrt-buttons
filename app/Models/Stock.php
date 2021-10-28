@@ -6,14 +6,32 @@ use App\Traits\IdToUppercase;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
-/**
- * @method static paginate(int $int)
- */
 class Stock extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
 
     protected $table = 't_stock';
+
+    protected $perPage = 500;
+
+    public static $defaultUnit = 'VNT';
+
+    public static $types = [
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+    ];
+
+    public static $gpaisPacTypes = [
+        '0',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -104,11 +122,9 @@ class Stock extends Model
         'f_disp_priority',
         'f_alternative_group_id',
         'f_imgurl',
-        'f_ignor_gross_wight',
+        'f_ignor_gross_weight',
         'f_prevent_manual_entry',
         'f_diviation_percentage',
-        'f_f6',
-        'f_f7',
     ];
 
     /**
@@ -147,11 +163,43 @@ class Stock extends Model
     const UPDATED_AT = 'f_modified_date';
 
     /**
+     * Get the stock's stock group.
+     */
+    public function stockGroup()
+    {
+        return $this->hasOne(StockGroup::class, 'f_id', 'f_groupid');
+    }
+
+    /**
      * Get the stock's unit.
      */
     public function unit()
     {
         return $this->hasOne(Unit::class, 'f_id', 'f_unitid');
+    }
+
+    /**
+     * Get the stock's pacK unit.
+     */
+    public function packUnit()
+    {
+        return $this->hasOne(Unit::class, 'f_id', 'f_pack_unitid');
+    }
+
+    /**
+     * Get the stock's manufacturer.
+     */
+    public function manufacturer()
+    {
+        return $this->hasOne(Manufacturer::class, 'f_id', 'f_manufacturerid');
+    }
+
+    /**
+     * Get the stock's discounth.
+     */
+    public function discounth()
+    {
+        return $this->hasOne(Disch::class, 'f_id', 'f_discid');
     }
 
     /**
@@ -163,51 +211,27 @@ class Stock extends Model
     }
 
     /**
+     * Get the stock's alternative stock.
+     */
+    public function alternativeStock()
+    {
+        return $this->hasOne(Stock::class, 'f_id', 'alter_stockid');
+    }
+
+    /**
      * Get the stock's currency.
      */
-    public function cur()
+    public function currency()
     {
-        return $this->hasOne(Cur::class, 'f_id', 'f_curid');
+        return $this->hasOne(Currency::class, 'f_id', 'f_curid');
     }
 
     /**
-     * Get the stock's register 1.
+     * Get the stock's partner.
      */
-    public function r1()
+    public function partner()
     {
-        return $this->hasOne(R1::class, 'f_id', 'f_r1id');
-    }
-
-    /**
-     * Get the stock's register 2.
-     */
-    public function r2()
-    {
-        return $this->hasOne(R2::class, 'f_id', 'f_r2id');
-    }
-
-    /**
-     * Get the stock's register 3.
-     */
-    public function r3()
-    {
-        return $this->hasOne(R3::class, 'f_id', 'f_r3id');
-    }
-
-    /**
-     * Get the stock's register 4.
-     */
-    public function r4()
-    {
-        return $this->hasOne(R4::class, 'f_id', 'f_r4id');
-    }
-
-    /**
-     * Get the stock's register 5.
-     */
-    public function r5()
-    {
-        return $this->hasOne(R5::class, 'f_id', 'f_r5id');
+        return $this->hasOne(Partner::class, 'f_id', 'f_partnerid');
     }
 
     /**
@@ -216,6 +240,62 @@ class Stock extends Model
     public function account()
     {
         return $this->hasOne(Account::class, 'f_id', 'f_accountid');
+    }
+
+    /**
+     * Get the stock's alternative stock group.
+     */
+    public function alternativeStockGroup()
+    {
+        return $this->hasOne(StockGroup::class, 'f_id', 'f_alternative_group_id');
+    }
+
+    /**
+     * Get the stock's register 1.
+     */
+    public function register1()
+    {
+        return $this->hasOne(Register1::class, 'f_id', 'f_r1id');
+    }
+
+    /**
+     * Get the stock's register 2.
+     */
+    public function register2()
+    {
+        return $this->hasOne(Register2::class, 'f_id', 'f_r2id');
+    }
+
+    /**
+     * Get the stock's register 3.
+     */
+    public function register3()
+    {
+        return $this->hasOne(Register3::class, 'f_id', 'f_r3id');
+    }
+
+    /**
+     * Get the stock's register 4.
+     */
+    public function register4()
+    {
+        return $this->hasOne(Register4::class, 'f_id', 'f_r4id');
+    }
+
+    /**
+     * Get the stock's register 5.
+     */
+    public function register5()
+    {
+        return $this->hasOne(Register5::class, 'f_id', 'f_r5id');
+    }
+
+    /**
+     * Get the stock's department.
+     */
+    public function department()
+    {
+        return $this->hasOne(Department::class, 'f_id', 'f_departmentid');
     }
 
     /**
