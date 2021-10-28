@@ -280,7 +280,7 @@
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.salaries.index')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.salaries.employees')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('calendars.index') }}">@lang('nav.salaries.holiday_calendar')</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.salaries.work_schedule_templates')</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('work-shedule-templates.index') }}">@lang('nav.salaries.work_schedule_templates')</a></li>
                 </ul>
             </li>
 
