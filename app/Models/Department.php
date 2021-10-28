@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use App\Traits\IdToUppercase;
-use App\Traits\UpdateCreatedModifiedUserIdColumns;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
 class Department extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
 
     protected $table = 't_department';
+
+    protected $perPage = 500;
 
     /**
      * The attributes that are mass assignable.
@@ -74,6 +76,14 @@ class Department extends Model
     public function account1()
     {
         return $this->hasOne(Account::class, 'f_id', 'f_accountid1');
+    }
+
+    /**
+     * Get the stock's account2.
+     */
+    public function account2()
+    {
+        return $this->hasOne(Account::class, 'f_id', 'f_accountid2');
     }
 
     /**
