@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('stocks', \App\Http\Controllers\Modules\StockController::class)->except('show');
     Route::resource('stock-groups', \App\Http\Controllers\Modules\StockGroupController::class)->except('show');
     Route::resource('stock-operation-groups', \App\Http\Controllers\Modules\StockOperationGroupController::class)->except('show');
-    Route::resource('stores', \App\Http\Controllers\Modules\StoreController::class);
+    Route::resource('stores', \App\Http\Controllers\Modules\StoreController::class)->except('show');
     Route::resource('system-params', \App\Http\Controllers\Modules\ParamController::class);
     Route::resource('taxesd', \App\Http\Controllers\Modules\TaxdController::class)->except('show');
     Route::resource('templates', \App\Http\Controllers\Modules\TemplateController::class)->except('show');

@@ -12,28 +12,13 @@ use App\Models\Register2;
 use App\Models\Register3;
 use App\Models\Register4;
 use App\Models\Register5;
-use App\Services\PersonService;
-use App\Services\AccountService;
-use App\Services\ProjectService;
+use App\Models\Department;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\StoreService;
-use App\Services\Modules\Register1Service;
-use App\Services\Modules\Register2Service;
-use App\Services\Modules\Register3Service;
-use App\Services\Modules\Register4Service;
-use App\Services\Modules\Register5Service;
 use App\Http\Requests\StoreStoreUpdateRequest;
 
 class StoreController extends Controller
 {
-    private $storeService;
-
-    public function __construct()
-    {
-        $this->storeService = new StoreService(Store::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -41,9 +26,9 @@ class StoreController extends Controller
      */
     public function index()
     {
-        $stores = $this->storeService->all();
+        $stores = Store::simplePaginate();
 
-        return view('store.index', compact('stores'));
+        return view('modules.store.index', compact('stores'));
     }
 
     /**
@@ -53,31 +38,30 @@ class StoreController extends Controller
      */
     public function create()
     {
-        $register1Service = new Register1Service(Register1::class);
-        $registers1 = $register1Service->all();
+        $accounts = Account::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $stores = Store::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers1 = Register1::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers2 = Register2::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers3 = Register3::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers4 = Register4::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers5 = Register5::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $departments = Department::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $persons = Person::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $projects = Project::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        $register2Service = new Register2Service(Register2::class);
-        $registers2 = $register2Service->all();
 
-        $register3Service = new Register3Service(Register3::class);
-        $registers3 = $register3Service->all();
-
-        $register4Service = new Register4Service(Register4::class);
-        $registers4 = $register4Service->all();
-
-        $register5Service = new Register5Service(Register5::class);
-        $registers5 = $register5Service->all();
-
-        $accountService = new AccountService(Account::class);
-        $accounts = $accountService->all();
-
-        $personService = new PersonService(Person::class);
-        $persons = $personService->all();
-
-        $projectService = new ProjectService(Project::class);
-        $projects = $projectService->all();
-
-        return view('store.create', compact('registers1', 'registers2', 'registers3', 'registers4', 'registers5', 'accounts', 'persons', 'projects'));
+        return view('modules.store.create', compact(
+            'accounts',
+            'stores',
+            'registers1',
+            'registers2',
+            'registers3',
+            'registers4',
+            'registers5',
+            'departments',
+            'persons',
+            'projects'
+        ));
     }
 
     /**
@@ -88,85 +72,78 @@ class StoreController extends Controller
      */
     public function store(StoreStoreUpdateRequest $request)
     {
-        $this->storeService->create(($request->input()));
+        Store::create($request->validated());
 
-        return redirect()->route('stores.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $store = $this->storeService->findById($id);
-
-        return view('store.show', compact('store'));
+        return redirect()->route('stores.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
+     * @param Store $store
      * @return View
      */
-    public function edit($id)
+    public function edit(Store $store)
     {
-        $store = $this->storeService->findById($id);
+        $accounts = Account::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $stores = Store::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers1 = Register1::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers2 = Register2::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers3 = Register3::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers4 = Register4::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $registers5 = Register5::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $departments = Department::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $persons = Person::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $projects = Project::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        $register1Service = new Register1Service(Register1::class);
-        $registers1 = $register1Service->all();
 
-        $register2Service = new Register2Service(Register2::class);
-        $registers2 = $register2Service->all();
-
-        $register3Service = new Register3Service(Register3::class);
-        $registers3 = $register3Service->all();
-
-        $register4Service = new Register4Service(Register4::class);
-        $registers4 = $register4Service->all();
-
-        $register5Service = new Register5Service(Register5::class);
-        $registers5 = $register5Service->all();
-
-        $accountService = new AccountService(Account::class);
-        $accounts = $accountService->all();
-
-        $personService = new PersonService(Person::class);
-        $persons = $personService->all();
-
-        $projectService = new ProjectService(Project::class);
-        $projects = $projectService->all();
-
-        return view('store.edit', compact('store', 'registers1', 'registers2', 'registers3', 'registers4', 'registers5', 'accounts', 'persons', 'projects'));
+        return view('modules.store.edit', compact(
+            'store',
+            'accounts',
+            'stores',
+            'registers1',
+            'registers2',
+            'registers3',
+            'registers4',
+            'registers5',
+            'departments',
+            'persons',
+            'projects'
+        ));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param StoreStoreUpdateRequest $request
-     * @param $id
+     * @param Store $store
      * @return RedirectResponse
      */
-    public function update(StoreStoreUpdateRequest $request, $id)
+    public function update(StoreStoreUpdateRequest $request, Store $store)
     {
-        $this->storeService->update($id, $request->input());
+        try {
+            $store->update($request->validated());
 
-        return redirect()->route('stores.index');
+            return redirect()->route('stores.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('stores.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param Store $store
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Store $store)
     {
-        $this->storeService->destroy($id);
+        try {
+            $store->delete();
 
-        return redirect()->route('stores.index');
+            return redirect()->route('stores.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('stores.index')->withError(trans('global.delete_failed'));
+        }
     }
 }

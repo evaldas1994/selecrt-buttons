@@ -13,6 +13,8 @@ class Store extends Model
 
     protected $table = 't_store';
 
+    protected $perPage = 500;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -37,8 +39,6 @@ class Store extends Model
         'f_departmentid',
         'f_personid',
         'f_projectid',
-        'f_create_userid',
-        'f_modified_userid',
         'f_system1',
         'f_system2',
         'f_system3',
@@ -86,51 +86,67 @@ class Store extends Model
     const UPDATED_AT = 'f_modified_date';
 
     /**
-     * Get the store's register 1.
-     */
-    public function r1()
-    {
-        return $this->hasOne(R1::class, 'f_id', 'f_r1id');
-    }
-
-    /**
-     * Get the store's register 2.
-     */
-    public function r2()
-    {
-        return $this->hasOne(R2::class, 'f_id', 'f_r2id');
-    }
-
-    /**
-     * Get the store's register 3.
-     */
-    public function r3()
-    {
-        return $this->hasOne(R3::class, 'f_id', 'f_r3id');
-    }
-
-    /**
-     * Get the store's register 4.
-     */
-    public function r4()
-    {
-        return $this->hasOne(R4::class, 'f_id', 'f_r4id');
-    }
-
-    /**
-     * Get the store's register 5.
-     */
-    public function r5()
-    {
-        return $this->hasOne(R5::class, 'f_id', 'f_r5id');
-    }
-
-    /**
      * Get the store's account.
      */
     public function account()
     {
         return $this->hasOne(Account::class, 'f_id', 'f_accountid');
+    }
+
+    /**
+     * Get the store's store.
+     */
+    public function store()
+    {
+        return $this->hasOne(Store::class, 'f_id', 'f_store');
+    }
+
+    /**
+     * Get the store's register 1.
+     */
+    public function register1()
+    {
+        return $this->hasOne(Register1::class, 'f_id', 'f_r1id');
+    }
+
+    /**
+     * Get the store's register 2.
+     */
+    public function register2()
+    {
+        return $this->hasOne(Register2::class, 'f_id', 'f_r2id');
+    }
+
+    /**
+     * Get the store's register 3.
+     */
+    public function register3()
+    {
+        return $this->hasOne(Register3::class, 'f_id', 'f_r3id');
+    }
+
+    /**
+     * Get the store's register 4.
+     */
+    public function register4()
+    {
+        return $this->hasOne(Register4::class, 'f_id', 'f_r4id');
+    }
+
+    /**
+     * Get the store's register 5.
+     */
+    public function register5()
+    {
+        return $this->hasOne(Register5::class, 'f_id', 'f_r5id');
+    }
+
+    /**
+     * Get the store's department.
+     */
+    public function department()
+    {
+        return $this->hasOne(Department::class, 'f_id', 'f_departmentid');
     }
 
     /**
