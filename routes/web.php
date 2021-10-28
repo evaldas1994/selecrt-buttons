@@ -63,6 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('units', \App\Http\Controllers\Modules\UnitController::class)->except('show');
     Route::resource('user-params', \App\Http\Controllers\Modules\UserParamController::class);
     Route::resource('vats', \App\Http\Controllers\Modules\VatController::class);
+    Route::resource('work-shedule-templates', \App\Http\Controllers\Modules\WorkSheduleTemplateController::class);
 });
 
 Route::domain('blog.' . 'dineta-crm.test')->group(function () {
