@@ -170,7 +170,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="#">
+                        <a class="sidebar-link" href="{{ route('loyalty-points.index') }}">
                             <span class="align-middle">@lang('nav.registers.loyalty_points')</span>
                         </a>
                     </li>
