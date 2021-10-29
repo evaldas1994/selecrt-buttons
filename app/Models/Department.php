@@ -28,9 +28,12 @@ class Department extends Model
         'f_system3',
         'f_parent_id',
         'f_manager_id',
-        'f_doc_confirm_rules',
         'f_accountid1',
         'f_accountid2',
+    ];
+
+    protected $attributes = [
+        'f_doc_confirm_rules' => null,
     ];
 
     /**
@@ -69,7 +72,23 @@ class Department extends Model
     const UPDATED_AT = 'f_modified_date';
 
     /**
-     * Get the stock's account1.
+     * Get the department's parent department.
+     */
+    public function parentDepartment()
+    {
+        return $this->hasOne(Department::class, 'f_id', 'f_parent_id');
+    }
+
+    /**
+     * Get the department's employee.
+     */
+    public function employee()
+    {
+        return $this->hasOne(Employee::class, 'f_id', 'f_manager_id');
+    }
+
+    /**
+     * Get the department's account1.
      */
     public function account1()
     {
@@ -77,15 +96,7 @@ class Department extends Model
     }
 
     /**
-     * Get the stock's account2.
-     */
-    public function account2()
-    {
-        return $this->hasOne(Account::class, 'f_id', 'f_accountid2');
-    }
-
-    /**
-     * Get the stock's account2.
+     * Get the department's account2.
      */
     public function account2()
     {
