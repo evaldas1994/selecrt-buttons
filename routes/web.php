@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('departments', \App\Http\Controllers\Modules\DepartmentController::class)->except('show');
     Route::resource('descriptions', \App\Http\Controllers\Modules\DescriptionController::class)->except('show');
     Route::resource('discountsh', \App\Http\Controllers\Modules\DischController::class)->except('show');
+    Route::resource('employees', \App\Http\Controllers\Modules\EmployeeController::class)->except('show');
     Route::resource('interests', \App\Http\Controllers\Modules\InterestController::class)->except('show');
     Route::resource('manufacturers', \App\Http\Controllers\Modules\ManufacturerController::class)->except('show');
     Route::resource('messages', \App\Http\Controllers\Modules\MessageController::class);
@@ -62,6 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('units', \App\Http\Controllers\Modules\UnitController::class)->except('show');
     Route::resource('user-params', \App\Http\Controllers\Modules\UserParamController::class);
     Route::resource('vats', \App\Http\Controllers\Modules\VatController::class);
+    Route::resource('work-shedule-templates', \App\Http\Controllers\Modules\WorkSheduleTemplateController::class);
 });
 
 Route::domain('blog.' . 'dineta-crm.test')->group(function () {
