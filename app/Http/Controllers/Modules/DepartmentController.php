@@ -2,25 +2,16 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Http\Requests\DepartmentStoreUpdateRequest;
 use App\Models\Account;
-use App\Models\Department;
-use App\Services\Modules\AccountService;
-use App\Services\Modules\DepartmentService;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use Illuminate\View\View;
+use App\Models\Department;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\DepartmentStoreUpdateRequest;
 
 class DepartmentController extends Controller
 {
-    private $departmentService;
-
-    public function __construct()
-    {
-        $this->departmentService = new DepartmentService(Department::class);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +19,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = $this->departmentService->all();
+        $departments = Department::simplePaginate();
 
         return view('modules.department.index', compact('departments'));
     }
@@ -40,10 +31,11 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        $accountService = new AccountService(Account::class);
-        $accounts = $accountService->all();
+        $departments = Department::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $employees = Employee::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $accounts = Account::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        return view('modules.department.create', compact('accounts'));
+        return view('modules.department.create', compact('departments', 'employees', 'accounts'));
     }
 
     /**
@@ -54,64 +46,58 @@ class DepartmentController extends Controller
      */
     public function store(DepartmentStoreUpdateRequest $request)
     {
-        $this->departmentService->create(($request->input()));
+        Department::create($request->validated());
 
-        return redirect()->route('departments.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $department = $this->departmentService->findById($id);
-
-        return view('modules.department.show', compact('department'));
+        return redirect()->route('departments.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  $id
+     * @param Department $department
      * @return View
      */
-    public function edit($id)
+    public function edit(Department $department)
     {
-        $department = $this->departmentService->findById($id);
+        $departments = Department::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $employees = Employee::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $accounts = Account::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        $accountService = new AccountService(Account::class);
-        $accounts = $accountService->all();
-
-        return view('modules.department.edit', compact('department', 'accounts'));
+        return view('modules.department.edit', compact('department', 'departments', 'employees', 'accounts'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param DepartmentStoreUpdateRequest $request
-     * @param  $id
+     * @param Department $department
      * @return RedirectResponse
      */
-    public function update(DepartmentStoreUpdateRequest $request, $id)
+    public function update(DepartmentStoreUpdateRequest $request, Department $department)
     {
-        $this->departmentService->update($id, $request->input());
+        try {
+            $department->update($request->validated());
 
-        return redirect()->route('departments.index');
+            return redirect()->route('departments.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('departments.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  $id
+     * @param Department $department
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Department $department)
     {
-        $this->departmentService->destroy($id);
+        try {
+            $department->delete();
 
-        return redirect()->route('departments.index');
+            return redirect()->route('departments.index')->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('departments.index')->withError(trans('global.delete_failed'));
+        }
     }
 }

@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('calendars', \App\Http\Controllers\Modules\CalendarController::class)->except('show');
     Route::resource('counters', \App\Http\Controllers\Modules\CounterController::class)->except('show');
     Route::resource('currencies', \App\Http\Controllers\Modules\CurrencyController::class)->except('show');
-    Route::resource('departments', \App\Http\Controllers\Modules\DepartmentController::class);
+    Route::resource('departments', \App\Http\Controllers\Modules\DepartmentController::class)->except('show');
     Route::resource('descriptions', \App\Http\Controllers\Modules\DescriptionController::class)->except('show');
     Route::resource('discountsh', \App\Http\Controllers\Modules\DischController::class)->except('show');
     Route::resource('employees', \App\Http\Controllers\Modules\EmployeeController::class)->except('show');

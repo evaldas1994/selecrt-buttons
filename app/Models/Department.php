@@ -3,14 +3,16 @@
 namespace App\Models;
 
 use App\Traits\IdToUppercase;
-use App\Traits\UpdateCreatedModifiedUserIdColumns;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
 class Department extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
 
     protected $table = 't_department';
+
+    protected $perPage = 500;
 
     /**
      * The attributes that are mass assignable.
@@ -21,16 +23,17 @@ class Department extends Model
         'f_id',
         'f_name',
         'f_name2',
-        'f_create_userid',
-        'f_modified_userid',
         'f_system1',
         'f_system2',
         'f_system3',
         'f_parent_id',
         'f_manager_id',
-        'f_doc_confirm_rules',
         'f_accountid1',
         'f_accountid2',
+    ];
+
+    protected $attributes = [
+        'f_doc_confirm_rules' => null,
     ];
 
     /**
@@ -69,7 +72,23 @@ class Department extends Model
     const UPDATED_AT = 'f_modified_date';
 
     /**
-     * Get the stock's account1.
+     * Get the department's parent department.
+     */
+    public function parentDepartment()
+    {
+        return $this->hasOne(Department::class, 'f_id', 'f_parent_id');
+    }
+
+    /**
+     * Get the department's employee.
+     */
+    public function employee()
+    {
+        return $this->hasOne(Employee::class, 'f_id', 'f_manager_id');
+    }
+
+    /**
+     * Get the department's account1.
      */
     public function account1()
     {
@@ -77,7 +96,7 @@ class Department extends Model
     }
 
     /**
-     * Get the stock's account2.
+     * Get the department's account2.
      */
     public function account2()
     {
