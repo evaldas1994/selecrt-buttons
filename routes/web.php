@@ -31,13 +31,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('calendars', \App\Http\Controllers\Modules\CalendarController::class)->except('show');
     Route::resource('counters', \App\Http\Controllers\Modules\CounterController::class)->except('show');
     Route::resource('currencies', \App\Http\Controllers\Modules\CurrencyController::class)->except('show');
-    Route::resource('departments', \App\Http\Controllers\Modules\DepartmentController::class);
+    Route::resource('departments', \App\Http\Controllers\Modules\DepartmentController::class)->except('show');
     Route::resource('descriptions', \App\Http\Controllers\Modules\DescriptionController::class)->except('show');
     Route::resource('discountsh', \App\Http\Controllers\Modules\DischController::class)->except('show');
     Route::resource('employees', \App\Http\Controllers\Modules\EmployeeController::class)->except('show');
     Route::resource('interests', \App\Http\Controllers\Modules\InterestController::class)->except('show');
     Route::resource('ledger-groups', \App\Http\Controllers\Modules\LedgerGroupController::class)->except('show');
+    Route::resource('loyalty-points', \App\Http\Controllers\Modules\LoyaltyPointController::class)->except('show');
     Route::resource('manufacturers', \App\Http\Controllers\Modules\ManufacturerController::class)->except('show');
+    Route::resource('markups', \App\Http\Controllers\Modules\MarkupController::class)->except('show');
     Route::resource('messages', \App\Http\Controllers\Modules\MessageController::class);
     Route::resource('message-groups', \App\Http\Controllers\Modules\MessageGroupController::class)->except('show');
     Route::resource('partners', \App\Http\Controllers\Modules\PartnerController::class)->except('show');

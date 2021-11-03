@@ -1,87 +1,141 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <form method="post" action="{{ route('departments.update', $department->f_id) }}">
-            @method('PATCH')
-            @csrf
-
-            <div class="mb-3">
-                <label for="f_id" class="form-label">Kodas</label>
-                <input type="text" class="form-control" name="f_id" value="{{ $department->f_id }}">
-            </div>
-
-            <div class="mb-3">
-                <label for="f_name" class="form-label">Pavadinimas</label>
-                <input type="text" class="form-control" name="f_name" value="{{ $department->f_name }}">
-            </div>
-
-            <div class="mb-3">
-                <label for="f_name2" class="form-label">Pavadinimas 2</label>
-                <input type="text" class="form-control" name="f_name2" value="{{ $department->f_name2 }}">
-            </div>
-
-            <div class="mb-3">
-                <label for="f_accountid1" class="form-label">Sąskaita</label>
-                <select name="f_accountid1" id="f_accountid1">
-                    @foreach($accounts as $account)
-                        <option value="{{ $account->f_id }}" {{ $department->f_accountid1 === $account->f_id ? 'selected' : '' }}>{{ $account->f_name }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="f_accountid2" class="form-label">Sąskaita 2</label>
-                <select name="f_accountid2" id="f_accountid2">
-                    @foreach($accounts as $account)
-                        <option value="{{ $account->f_id }}" {{ $department->f_accountid2 === $account->f_id ? 'selected' : '' }}>{{ $account->f_name }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="f_manager_id" class="form-label">Vadovas</label>
-                <select name="f_manager_id" id="f_manager_id">
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="f_parent_id" class="form-label">Valdantysis padalinys</label>
-                <select name="f_parent_id" id="f_parent_id">
-                </select>
-            </div>
-
-            <div  class="mb-3" hidden>
-                <label for="f_doc_confirm_rules" class="form-label">Confirm rules</label>
-                <input type="text" class="form-control" name="f_doc_confirm_rules" value="{{ $department->f_doc_confirm_rules }}">
-            </div>
-
-            <div  class="mb-3" hidden>
-                <label for="f_system1" class="form-label">System1</label>
-                <input type="text" class="form-control" name="f_system1" value="{{ $department->f_system1 }}">
-            </div>
-
-            <div class="mb-3" hidden>
-                <label for="f_system2" class="form-label">System2</label>
-                <input type="text" class="form-control" name="f_system2" value="{{ $department->f_system2 }}">
-            </div>
-
-            <div class="mb-3" hidden>
-                <label for="f_system3" class="form-label">System3</label>
-                <input type="text" class="form-control" name="f_system3" value="{{ $department->f_system3 }}">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+    <div class="row mb-2 mb-xl-3">
+        <div class="col-auto">
+            <h1>@lang('modules/department.h1')</h1>
         </div>
-    @endif
+
+        <div class="col-auto ms-auto text-end mt-n1">
+            <a href="#" class="btn btn-primary"
+               onclick="event.preventDefault();document.getElementById('department-form').submit();">@lang('global.btn_save')</a>
+            <a href="{{ route('departments.index') }}" class="btn btn-dark">@lang('global.btn_close')</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card">
+            <div class="col-12 col-xl-4">
+                <div class="card-body">
+                    <form id="department-form" action="{{ route('departments.update', $department) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+
+                        <div class="mb-2">
+                            <label class="form-label">@lang('modules/department.f_id')</label>
+                            <input type="text"
+                                   class="not-empty form-control form-control-sm @error('f_id') is-invalid @enderror"
+                                   name="f_id"
+                                   id-pattern
+                                   placeholder="@lang('modules/department.f_id')"
+                                   required
+                                   maxlength="20"
+                                   value="{{ old('f_id', $department->f_id)}}">
+                            @error('f_id') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label">@lang('modules/department.f_name')</label>
+                            <input type="text"
+                                   class="form-control form-control-sm @error('f_name') is-invalid @enderror"
+                                   name="f_name"
+                                   placeholder="@lang('modules/department.f_name')"
+                                   maxlength="100"
+                                   value="{{ old('f_name', $department->f_name)}}">
+                            @error('f_name') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label">@lang('modules/department.f_name2')</label>
+                            <input type="text"
+                                   class="form-control form-control-sm @error('f_name2') is-invalid @enderror"
+                                   name="f_name2"
+                                   placeholder="@lang('modules/department.f_name2')"
+                                   maxlength="100"
+                                   value="{{ old('f_name2', $department->f_name2)}}">
+                            @error('f_name2') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+
+                        <div class="mb-2">
+                            <label class="form-label">@lang('modules/department.f_accountid1')</label>
+                            <select class="form-control form-control-sm @error('f_accountid1') is-invalid @enderror" name="f_accountid1">
+                                <option value selected>---</option>
+                                @foreach($accounts as $account)
+                                    <option value="{{ $account->f_id }}" {{ selected('f_accountid1', $account->f_id, $department->f_accountid1) }}>{{ $account->f_name }}</option>
+                                @endforeach
+                            </select>
+                            @error('f_accountid1') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label">@lang('modules/department.f_accountid2')</label>
+                            <select class="form-control form-control-sm @error('f_accountid2') is-invalid @enderror" name="f_accountid2">
+                                <option value selected>---</option>
+                                @foreach($accounts as $account)
+                                    <option value="{{ $account->f_id }}" {{ selected('f_accountid2', $account->f_id, $department->f_accountid2) }}>{{ $account->f_name }}</option>
+                                @endforeach
+                            </select>
+                            @error('f_accountid2') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label">@lang('modules/department.f_manager_id')</label>
+                            <select class="form-control form-control-sm @error('f_manager_id') is-invalid @enderror" name="f_manager_id">
+                                <option value selected>---</option>
+                                @foreach($employees as $employee)
+                                    <option value="{{ $employee->f_id }}" {{ selected('f_manager_id', $employee->f_id, $department->f_manager_id) }}>{{ $employee->f_name }}</option>
+                                @endforeach
+                            </select>
+                            @error('f_manager_id') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label">@lang('modules/department.f_parent_id')</label>
+                            <select class="form-control form-control-sm @error('f_parent_id') is-invalid @enderror" name="f_parent_id">
+                                <option value selected>---</option>
+                                @foreach($departments as $singleDepartment)
+                                    <option value="{{ $singleDepartment->f_id }}" {{ selected('f_parent_id', $singleDepartment->f_id, $department->f_parent_id) }}>{{ $singleDepartment->f_name }}</option>
+                                @endforeach
+                            </select>
+                            @error('f_parent_id') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+                        <div class="mb-2" hidden>
+                            <label class="form-label">@lang('modules/department.f_system1')</label>
+                            <input type="text"
+                                   class="form-control form-control-sm @error('f_system1') is-invalid @enderror"
+                                   name="f_system1"
+                                   placeholder="@lang('modules/department.f_system1')"
+                                   maxlength="100"
+                                   value="{{ old('f_system1', $department->f_system1) }}">
+                            @error('f_system1') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+                        <div class="mb-2" hidden>
+                            <label class="form-label">@lang('modules/department.f_system2')</label>
+                            <input type="text"
+                                   class="form-control form-control-sm @error('f_system2') is-invalid @enderror"
+                                   name="f_system2"
+                                   placeholder="@lang('modules/department.f_system2')"
+                                   maxlength="100"
+                                   value="{{ old('f_system2', $department->f_system2) }}">
+                            @error('f_system2') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+                        <div class="mb-2" hidden>
+                            <label class="form-label">@lang('modules/department.f_system3')</label>
+                            <input type="text"
+                                   class="form-control form-control-sm @error('f_system3') is-invalid @enderror"
+                                   name="f_system3"
+                                   placeholder="@lang('modules/department.f_system3')"
+                                   maxlength="100"
+                                   value="{{ old('f_system3', $department->f_system3) }}">
+                            @error('f_system3') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
