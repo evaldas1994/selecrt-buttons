@@ -23,13 +23,20 @@
                         <div class="row">
                             <div class="col-12">
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <li class="nav-item"><a class="nav-link active" href="#tab-1" data-bs-toggle="tab" role="tab">@lang('modules/stock.tab1')</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#tab-2" data-bs-toggle="tab" role="tab">@lang('modules/stock.tab2')</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#tab-3" data-bs-toggle="tab" role="tab">@lang('modules/stock.tab3')</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#tab-4" data-bs-toggle="tab" role="tab">@lang('modules/stock.tab4')</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#tab-5" data-bs-toggle="tab" role="tab">@lang('modules/stock.tab5')</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#tab-6" data-bs-toggle="tab" role="tab">@lang('modules/stock.tab6')</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#tab-7" data-bs-toggle="tab" role="tab">@lang('modules/stock.tab7')</a></li>
+                                    <li class="nav-item"><a class="nav-link active" href="#tab-1" data-bs-toggle="tab"
+                                                            role="tab">@lang('modules/stock.tab1')</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#tab-2" data-bs-toggle="tab"
+                                                            role="tab">@lang('modules/stock.tab2')</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#tab-3" data-bs-toggle="tab"
+                                                            role="tab">@lang('modules/stock.tab3')</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#tab-4" data-bs-toggle="tab"
+                                                            role="tab">@lang('modules/stock.tab4')</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#tab-5" data-bs-toggle="tab"
+                                                            role="tab">@lang('modules/stock.tab5')</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#tab-6" data-bs-toggle="tab"
+                                                            role="tab">@lang('modules/stock.tab6')</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#tab-7" data-bs-toggle="tab"
+                                                            role="tab">@lang('modules/stock.tab7')</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -40,14 +47,13 @@
                                     <div class="tab-content">
                                         <div class="tab-pane fade show active" id="tab-1" role="tabpanel">
                                             <div class="row">
-                                                <div class="col-12 col-xl-4">
+                                                <div class="col-12 col-xl-3">
                                                     <div class="mb-2">
                                                         <label class="form-label">@lang('modules/stock.f_id')</label>
                                                         <input type="text"
                                                                class="not-empty form-control form-control-sm @error('f_id') is-invalid @enderror"
                                                                name="f_id"
                                                                id-pattern
-                                                               placeholder="@lang('modules/stock.f_id')"
                                                                required
                                                                maxlength="20"
                                                                value="{{ old('f_id')}}">
@@ -60,7 +66,6 @@
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_name') is-invalid @enderror"
                                                                name="f_name"
-                                                               placeholder="@lang('modules/stock.f_name')"
                                                                maxlength="500"
                                                                value="{{ old('f_name')}}">
                                                         @error('f_name') <span class="invalid-feedback"
@@ -72,7 +77,6 @@
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_name2') is-invalid @enderror"
                                                                name="f_name2"
-                                                               placeholder="@lang('modules/stock.f_name2')"
                                                                maxlength="100"
                                                                value="{{ old('f_name2')}}">
                                                         @error('f_name2') <span class="invalid-feedback"
@@ -80,7 +84,8 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_groupid')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_groupid')</label>
                                                         <select
                                                             class="form-control form-control-sm @error('f_groupid') is-invalid @enderror"
                                                             name="f_groupid">
@@ -95,7 +100,8 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_unitid')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_unitid')</label>
                                                         <select
                                                             class="not-empty form-control form-control-sm @error('f_unitid') is-invalid @enderror"
                                                             name="f_unitid">
@@ -109,7 +115,8 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_pack_unitid')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_pack_unitid')</label>
                                                         <select
                                                             class="form-control form-control-sm @error('f_pack_unitid') is-invalid @enderror"
                                                             name="f_pack_unitid">
@@ -124,11 +131,11 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_pack_quant')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_pack_quant')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_pack_quant') is-invalid @enderror"
                                                                name="f_pack_quant"
-                                                               placeholder="@lang('modules/stock.f_pack_quant')"
                                                                maxlength="15"
                                                                value="{{ old('f_pack_quant', '0.0000')}}">
                                                         @error('f_pack_quant') <span class="invalid-feedback"
@@ -136,11 +143,11 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_volume')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_volume')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_volume') is-invalid @enderror"
                                                                name="f_volume"
-                                                               placeholder="@lang('modules/stock.f_volume')"
                                                                maxlength="15"
                                                                value="{{ old('f_volume', '0.0000')}}">
                                                         @error('f_volume') <span class="invalid-feedback"
@@ -148,11 +155,11 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_weight')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_weight')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_weight') is-invalid @enderror"
                                                                name="f_weight"
-                                                               placeholder="@lang('modules/stock.f_weight')"
                                                                maxlength="15"
                                                                value="{{ old('f_weight', '0.0000')}}">
                                                         @error('f_weight') <span class="invalid-feedback"
@@ -160,23 +167,24 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_min_quant')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_min_quant')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_min_quant') is-invalid @enderror"
                                                                name="f_min_quant"
-                                                               placeholder="@lang('modules/stock.f_min_quant')"
                                                                maxlength="15"
                                                                value="{{ old('f_min_quant', '0.0000')}}">
                                                         @error('f_min_quant') <span class="invalid-feedback"
                                                                                     role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                                     </div>
-
+                                                </div>
+                                                <div class="col-12 col-xl-3">
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_valid_days')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_valid_days')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_valid_days') is-invalid @enderror"
                                                                name="f_valid_days"
-                                                               placeholder="@lang('modules/stock.f_valid_days')"
                                                                maxlength="100"
                                                                value="{{ old('f_valid_days', '0')}}">
                                                         @error('f_valid_days') <span class="invalid-feedback"
@@ -184,7 +192,8 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_valid_date')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_valid_date')</label>
                                                         <input
                                                             type="text"
                                                             class="form-control form-control-sm date"
@@ -196,11 +205,11 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_packing')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_packing')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_packing') is-invalid @enderror"
                                                                name="f_packing"
-                                                               placeholder="@lang('modules/stock.f_packing')"
                                                                maxlength="100"
                                                                value="{{ old('f_packing')}}">
                                                         @error('f_packing') <span class="invalid-feedback"
@@ -208,11 +217,11 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_originating')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_originating')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_originating') is-invalid @enderror"
                                                                name="f_originating"
-                                                               placeholder="@lang('modules/stock.f_originating')"
                                                                maxlength="100"
                                                                value="{{ old('f_originating')}}">
                                                         @error('f_originating') <span class="invalid-feedback"
@@ -234,14 +243,13 @@
                                                         @error('f_manufacturerid') <span class="invalid-feedback"
                                                                                          role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                                     </div>
-                                                </div>
-                                                <div class="col-12 col-xl-4">
+
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_price_sale1')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_price_sale1')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_price_sale1') is-invalid @enderror"
                                                                name="f_price_sale1"
-                                                               placeholder="@lang('modules/stock.f_price_sale1')"
                                                                maxlength="15"
                                                                value="{{ old('f_price_sale1', '0.0000')}}">
                                                         @error('f_price_sale1') <span class="invalid-feedback"
@@ -249,11 +257,11 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_price_sale2')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_price_sale2')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_price_sale2') is-invalid @enderror"
                                                                name="f_price_sale2"
-                                                               placeholder="@lang('modules/stock.f_price_sale2')"
                                                                maxlength="15"
                                                                value="{{ old('f_price_sale2', '0.0000')}}">
                                                         @error('f_price_sale2') <span class="invalid-feedback"
@@ -261,11 +269,11 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_price_sale3')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_price_sale3')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_price_sale3') is-invalid @enderror"
                                                                name="f_price_sale3"
-                                                               placeholder="@lang('modules/stock.f_price_sale3')"
                                                                maxlength="15"
                                                                value="{{ old('f_price_sale3', '0.0000')}}">
                                                         @error('f_price_sale3') <span class="invalid-feedback"
@@ -273,11 +281,11 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_price_sale4')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_price_sale4')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_price_sale4') is-invalid @enderror"
                                                                name="f_price_sale4"
-                                                               placeholder="@lang('modules/stock.f_price_sale4')"
                                                                maxlength="15"
                                                                value="{{ old('f_price_sale4', '0.0000')}}">
                                                         @error('f_price_sale4') <span class="invalid-feedback"
@@ -285,19 +293,21 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_price_sale5')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_price_sale5')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_price_sale5') is-invalid @enderror"
                                                                name="f_price_sale5"
-                                                               placeholder="@lang('modules/stock.f_price_sale5')"
                                                                maxlength="15"
                                                                value="{{ old('f_price_sale5', '0.0000')}}">
                                                         @error('f_price_sale5') <span class="invalid-feedback"
                                                                                       role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                                     </div>
-
+                                                </div>
+                                                <div class="col-12 col-xl-3">
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_discid')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_discid')</label>
                                                         <select
                                                             class="form-control form-control-sm @error('f_discid') is-invalid @enderror"
                                                             name="f_discid">
@@ -312,11 +322,11 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_price_purch')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_price_purch')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_price_purch') is-invalid @enderror"
                                                                name="f_price_purch"
-                                                               placeholder="@lang('modules/stock.f_price_purch')"
                                                                maxlength="15"
                                                                value="{{ old('f_price_purch', '0.0000')}}">
                                                         @error('f_price_purch') <span class="invalid-feedback"
@@ -324,11 +334,11 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_vat_perc')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_vat_perc')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_vat_perc') is-invalid @enderror"
                                                                name="f_vat_perc"
-                                                               placeholder="@lang('modules/stock.f_vat_perc')"
                                                                maxlength="100"
                                                                value="{{ old('f_vat_perc', '21.00')}}"
                                                                readonly>
@@ -373,7 +383,6 @@
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_partner_discount') is-invalid @enderror"
                                                                name="f_partner_discount"
-                                                               placeholder="@lang('modules/stock.f_partner_discount')"
                                                                maxlength="15"
                                                                value="{{ old('f_partner_discount', '0.0000')}}">
                                                         @error('f_partner_discount') <span class="invalid-feedback"
@@ -381,18 +390,54 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_gross_weight')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_gross_weight')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_gross_weight') is-invalid @enderror"
                                                                name="f_gross_weight"
-                                                               placeholder="@lang('modules/stock.f_gross_weight')"
                                                                maxlength="15"
                                                                value="{{ old('f_gross_weight', '0.0000')}}">
                                                         @error('f_gross_weight') <span class="invalid-feedback"
                                                                                        role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                                     </div>
+
+                                                    <div class="mb-2">
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_stock_text1')</label>
+                                                        <input type="text"
+                                                               class="form-control form-control-sm @error('f_stock_text1') is-invalid @enderror"
+                                                               name="f_stock_text1"
+                                                               maxlength="100"
+                                                               value="{{ old('f_stock_text1')}}">
+                                                        @error('f_stock_text1') <span class="invalid-feedback"
+                                                                                      role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                                    </div>
+
+                                                    <div class="mb-2">
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_stock_text2')</label>
+                                                        <input type="text"
+                                                               class="form-control form-control-sm @error('f_stock_text2') is-invalid @enderror"
+                                                               name="f_stock_text2"
+                                                               maxlength="100"
+                                                               value="{{ old('f_stock_text2')}}">
+                                                        @error('f_stock_text2') <span class="invalid-feedback"
+                                                                                      role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                                    </div>
+
+                                                    <div class="mb-2">
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_stock_text3')</label>
+                                                        <input type="text"
+                                                               class="form-control form-control-sm @error('f_stock_text3') is-invalid @enderror"
+                                                               name="f_stock_text3"
+                                                               maxlength="100"
+                                                               value="{{ old('f_stock_text3')}}">
+                                                        @error('f_stock_text3') <span class="invalid-feedback"
+                                                                                      role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                                    </div>
                                                 </div>
-                                                <div class="col-12 col-xl-4">
+                                                <div class="col-12 col-xl-3">
                                                     <div class="mb-2">
                                                         <label class="form-label">@lang('modules/stock.f_type')</label>
                                                         <select
@@ -462,7 +507,8 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_partnerid')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_partnerid')</label>
                                                         <select
                                                             class="form-control form-control-sm @error('f_partnerid') is-invalid @enderror"
                                                             name="f_partnerid">
@@ -481,7 +527,6 @@
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_code') is-invalid @enderror"
                                                                name="f_code"
-                                                               placeholder="@lang('modules/stock.f_code')"
                                                                maxlength="100"
                                                                value="{{ old('f_code')}}">
                                                         @error('f_code') <span class="invalid-feedback"
@@ -489,7 +534,8 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_accountid')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_accountid')</label>
                                                         <select
                                                             class="form-control form-control-sm @error('f_accountid') is-invalid @enderror"
                                                             name="f_accountid">
@@ -504,49 +550,14 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_ingredients')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_ingredients')</label>
                                                         <textarea
                                                             class="form-control form-control-sm @error('f_ingredients') is-invalid @enderror"
                                                             name="f_ingredients"
                                                             rows="4"
                                                             cols="50">{{ old('f_ingredients')}}</textarea>
                                                         @error('f_ingredients') <span class="invalid-feedback"
-                                                                                      role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                                                    </div>
-
-                                                    <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_stock_text1')</label>
-                                                        <input type="text"
-                                                               class="form-control form-control-sm @error('f_stock_text1') is-invalid @enderror"
-                                                               name="f_stock_text1"
-                                                               placeholder="@lang('modules/stock.f_stock_text1')"
-                                                               maxlength="100"
-                                                               value="{{ old('f_stock_text1')}}">
-                                                        @error('f_stock_text1') <span class="invalid-feedback"
-                                                                                      role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                                                    </div>
-
-                                                    <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_stock_text2')</label>
-                                                        <input type="text"
-                                                               class="form-control form-control-sm @error('f_stock_text2') is-invalid @enderror"
-                                                               name="f_stock_text2"
-                                                               placeholder="@lang('modules/stock.f_stock_text2')"
-                                                               maxlength="100"
-                                                               value="{{ old('f_stock_text2')}}">
-                                                        @error('f_stock_text2') <span class="invalid-feedback"
-                                                                                      role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                                                    </div>
-
-                                                    <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_stock_text3')</label>
-                                                        <input type="text"
-                                                               class="form-control form-control-sm @error('f_stock_text3') is-invalid @enderror"
-                                                               name="f_stock_text3"
-                                                               placeholder="@lang('modules/stock.f_stock_text3')"
-                                                               maxlength="100"
-                                                               value="{{ old('f_stock_text3')}}">
-                                                        @error('f_stock_text3') <span class="invalid-feedback"
                                                                                       role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                                     </div>
 
@@ -573,7 +584,6 @@
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_f1') is-invalid @enderror"
                                                                name="f_f1"
-                                                               placeholder="@lang('modules/stock.f_f1')"
                                                                maxlength="100"
                                                                value="{{ old('f_f1')}}">
                                                         @error('f_f1') <span class="invalid-feedback"
@@ -585,7 +595,6 @@
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_f2') is-invalid @enderror"
                                                                name="f_f2"
-                                                               placeholder="@lang('modules/stock.f_f2')"
                                                                maxlength="100"
                                                                value="{{ old('f_f2')}}">
                                                         @error('f_f2') <span class="invalid-feedback"
@@ -597,7 +606,6 @@
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_f3') is-invalid @enderror"
                                                                name="f_f3"
-                                                               placeholder="@lang('modules/stock.f_f3')"
                                                                maxlength="100"
                                                                value="{{ old('f_f3')}}">
                                                         @error('f_f3') <span class="invalid-feedback"
@@ -609,7 +617,6 @@
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_f4') is-invalid @enderror"
                                                                name="f_f4"
-                                                               placeholder="@lang('modules/stock.f_f4')"
                                                                maxlength="100"
                                                                value="{{ old('f_f4')}}">
                                                         @error('f_f4') <span class="invalid-feedback"
@@ -621,7 +628,6 @@
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_f5') is-invalid @enderror"
                                                                name="f_f5"
-                                                               placeholder="@lang('modules/stock.f_f5')"
                                                                maxlength="100"
                                                                value="{{ old('f_f5')}}">
                                                         @error('f_f5') <span class="invalid-feedback"
@@ -629,11 +635,11 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_height')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_height')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_height') is-invalid @enderror"
                                                                name="f_height"
-                                                               placeholder="@lang('modules/stock.f_height')"
                                                                maxlength="100"
                                                                value="{{ old('f_height', '0.0000')}}">
                                                         @error('f_height') <span class="invalid-feedback"
@@ -645,7 +651,6 @@
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_width') is-invalid @enderror"
                                                                name="f_width"
-                                                               placeholder="@lang('modules/stock.f_width')"
                                                                maxlength="100"
                                                                value="{{ old('f_width', '0.0000')}}">
                                                         @error('f_width') <span class="invalid-feedback"
@@ -653,11 +658,11 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_length')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_length')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_length') is-invalid @enderror"
                                                                name="f_length"
-                                                               placeholder="@lang('modules/stock.f_length')"
                                                                maxlength="100"
                                                                value="{{ old('f_length', '0.0000')}}">
                                                         @error('f_length') <span class="invalid-feedback"
@@ -665,7 +670,8 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_main_stockid')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_main_stockid')</label>
                                                         <select
                                                             class="form-control form-control-sm @error('f_main_stockid') is-invalid @enderror"
                                                             name="f_main_stockid">
@@ -756,7 +762,8 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_departmentid')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_departmentid')</label>
                                                         <select
                                                             class="form-control form-control-sm @error('f_departmentid') is-invalid @enderror"
                                                             name="f_departmentid">
@@ -771,7 +778,8 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_personid')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_personid')</label>
                                                         <select
                                                             class="form-control form-control-sm @error('f_personid') is-invalid @enderror"
                                                             name="f_personid">
@@ -786,7 +794,8 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_projectid')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_projectid')</label>
                                                         <select
                                                             class="form-control form-control-sm @error('f_projectid') is-invalid @enderror"
                                                             name="f_projectid">
@@ -801,11 +810,11 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_quantity')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_quantity')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_quantity') is-invalid @enderror"
                                                                name="f_quantity"
-                                                               placeholder="@lang('modules/stock.f_quantity')"
                                                                maxlength="15"
                                                                value="{{ old('f_quantity', '0.0000')}}">
                                                         @error('f_quantity') <span class="invalid-feedback"
@@ -815,7 +824,8 @@
                                                 <div class="col-12 col-xl-3">
                                                     <div class="mb-2">
                                                         <label class="form-check m-0">
-                                                            <span class="form-check-label">@lang('modules/stock.f_mark1')</span>
+                                                            <span
+                                                                class="form-check-label">@lang('modules/stock.f_mark1')</span>
                                                             <input type="hidden" name="f_mark1" value="0">
                                                             <input type="checkbox" name="f_mark1"
                                                                    class="form-check-input @error('f_mark1') is-invalid @enderror"
@@ -827,7 +837,8 @@
 
                                                     <div class="mb-2">
                                                         <label class="form-check m-0">
-                                                            <span class="form-check-label">@lang('modules/stock.f_mark2')</span>
+                                                            <span
+                                                                class="form-check-label">@lang('modules/stock.f_mark2')</span>
                                                             <input type="hidden" name="f_mark2" value="0">
                                                             <input type="checkbox" name="f_mark2"
                                                                    class="form-check-input @error('f_mark2') is-invalid @enderror"
@@ -839,7 +850,8 @@
 
                                                     <div class="mb-2">
                                                         <label class="form-check m-0">
-                                                            <span class="form-check-label">@lang('modules/stock.f_mark3')</span>
+                                                            <span
+                                                                class="form-check-label">@lang('modules/stock.f_mark3')</span>
                                                             <input type="hidden" name="f_mark3" value="0">
                                                             <input type="checkbox" name="f_mark3"
                                                                    class="form-check-input @error('f_mark3') is-invalid @enderror"
@@ -851,7 +863,8 @@
 
                                                     <div class="mb-2">
                                                         <label class="form-check m-0">
-                                                            <span class="form-check-label">@lang('modules/stock.f_mark4')</span>
+                                                            <span
+                                                                class="form-check-label">@lang('modules/stock.f_mark4')</span>
                                                             <input type="hidden" name="f_mark4" value="0">
                                                             <input type="checkbox" name="f_mark4"
                                                                    class="form-check-input @error('f_mark4') is-invalid @enderror"
@@ -863,7 +876,8 @@
 
                                                     <div class="mb-2">
                                                         <label class="form-check m-0">
-                                                            <span class="form-check-label">@lang('modules/stock.f_mark5')</span>
+                                                            <span
+                                                                class="form-check-label">@lang('modules/stock.f_mark5')</span>
                                                             <input type="hidden" name="f_mark5" value="0">
                                                             <input type="checkbox" name="f_mark5"
                                                                    class="form-check-input @error('f_mark5') is-invalid @enderror"
@@ -875,7 +889,8 @@
 
                                                     <div class="mb-2">
                                                         <label class="form-check m-0">
-                                                            <span class="form-check-label">@lang('modules/stock.f_mark6')</span>
+                                                            <span
+                                                                class="form-check-label">@lang('modules/stock.f_mark6')</span>
                                                             <input type="hidden" name="f_mark6" value="0">
                                                             <input type="checkbox" name="f_mark6"
                                                                    class="form-check-input @error('f_mark6') is-invalid @enderror"
@@ -887,7 +902,8 @@
 
                                                     <div class="mb-2">
                                                         <label class="form-check m-0">
-                                                            <span class="form-check-label">@lang('modules/stock.f_mark7')</span>
+                                                            <span
+                                                                class="form-check-label">@lang('modules/stock.f_mark7')</span>
                                                             <input type="hidden" name="f_mark7" value="0">
                                                             <input type="checkbox" name="f_mark7"
                                                                    class="form-check-input @error('f_mark7') is-invalid @enderror"
@@ -899,7 +915,8 @@
 
                                                     <div class="mb-2">
                                                         <label class="form-check m-0">
-                                                            <span class="form-check-label">@lang('modules/stock.f_mark8')</span>
+                                                            <span
+                                                                class="form-check-label">@lang('modules/stock.f_mark8')</span>
                                                             <input type="hidden" name="f_mark8" value="0">
                                                             <input type="checkbox" name="f_mark8"
                                                                    class="form-check-input @error('f_mark8') is-invalid @enderror"
@@ -975,11 +992,11 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_disp_priority')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_disp_priority')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_disp_priority') is-invalid @enderror"
                                                                name="f_disp_priority"
-                                                               placeholder="@lang('modules/stock.f_disp_priority')"
                                                                maxlength="15"
                                                                value="{{ old('f_disp_priority', '0')}}">
                                                         @error('f_disp_priority') <span class="invalid-feedback"
@@ -1029,7 +1046,8 @@
                                                     </div>
 
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_pack_type')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_pack_type')</label>
                                                         <select
                                                             class="form-control form-control-sm @error('f_pack_type') is-invalid @enderror"
                                                             name="f_pack_type">
@@ -1080,33 +1098,33 @@
                                         </div>
                                         <div class="tab-pane fade" id="tab-7" role="tabpanel">
                                             <div class="row">
-                                                <div class="col-12 col-xl-4">
+                                                <div class="col-12 col-xl-3">
                                                     <div class="mb-2">
                                                         <label
                                                             class="form-label">@lang('modules/stock.f_diviation_percentage')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_diviation_percentage') is-invalid @enderror"
                                                                name="f_diviation_percentage"
-                                                               placeholder="@lang('modules/stock.f_diviation_percentage')"
                                                                maxlength="15"
                                                                value="{{ old('f_diviation_percentage', '0.00')}}">
                                                         @error('f_diviation_percentage') <span class="invalid-feedback"
                                                                                                role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                                     </div>
-
+                                                </div>
+                                                <div class="col-12 col-xl-3">
                                                     <div class="mb-2">
-                                                        <label class="form-label">@lang('modules/stock.f_imgurl')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_imgurl')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_imgurl') is-invalid @enderror"
                                                                name="f_imgurl"
-                                                               placeholder="@lang('modules/stock.f_imgurl')"
                                                                maxlength="500"
                                                                value="{{ old('f_imgurl')}}">
                                                         @error('f_imgurl') <span class="invalid-feedback"
                                                                                  role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-xl-4">
+                                                <div class="col-12 col-xl-3">
                                                     <div class="mb-2">
                                                         <label class="form-check m-0">
                                                     <span
@@ -1124,7 +1142,8 @@
                                                         <label class="form-check m-0">
                                                     <span
                                                         class="form-check-label">@lang('modules/stock.f_prevent_manual_entry')</span>
-                                                            <input type="hidden" name="f_prevent_manual_entry" value="0">
+                                                            <input type="hidden" name="f_prevent_manual_entry"
+                                                                   value="0">
                                                             <input type="checkbox" name="f_prevent_manual_entry"
                                                                    class="form-check-input @error('f_prevent_manual_entry') is-invalid @enderror"
                                                                    value="{{ old('f_prevent_manual_entry', 1) }}" {{ old('f_prevent_manual_entry') == 1 ? 'checked' : '' }}>
@@ -1133,13 +1152,13 @@
                                                                                                role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-xl-4">
+                                                <div class="col-12 col-xl-3">
                                                     <div class="mb-2" hidden>
-                                                        <label class="form-label">@lang('modules/stock.f_system1')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_system1')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_system1') is-invalid @enderror"
                                                                name="f_system1"
-                                                               placeholder="@lang('modules/stock.f_system1')"
                                                                maxlength="100"
                                                                value="{{ old('f_system1') }}">
                                                         @error('f_system1') <span class="invalid-feedback"
@@ -1147,11 +1166,11 @@
                                                     </div>
 
                                                     <div class="mb-2" hidden>
-                                                        <label class="form-label">@lang('modules/stock.f_system2')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_system2')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_system2') is-invalid @enderror"
                                                                name="f_system2"
-                                                               placeholder="@lang('modules/stock.f_system2')"
                                                                maxlength="100"
                                                                value="{{ old('f_system2') }}">
                                                         @error('f_system2') <span class="invalid-feedback"
@@ -1159,11 +1178,11 @@
                                                     </div>
 
                                                     <div class="mb-2" hidden>
-                                                        <label class="form-label">@lang('modules/stock.f_system3')</label>
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_system3')</label>
                                                         <input type="text"
                                                                class="form-control form-control-sm @error('f_system3') is-invalid @enderror"
                                                                name="f_system3"
-                                                               placeholder="@lang('modules/stock.f_system3')"
                                                                maxlength="100"
                                                                value="{{ old('f_system3') }}">
                                                         @error('f_system3') <span class="invalid-feedback"

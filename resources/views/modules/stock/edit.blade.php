@@ -49,7 +49,7 @@
                                             @method('PUT')
 
                                             <div class="row">
-                                                <div class="col-12 col-xl-4">
+                                                <div class="col-12 col-xl-3">
                                                     <div class="mb-2">
                                                         <label class="form-label">@lang('modules/stock.f_id')</label>
                                                         <input type="text"
@@ -179,7 +179,8 @@
                                                         @error('f_min_quant') <span class="invalid-feedback"
                                                                                     role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                                     </div>
-
+                                                </div>
+                                                <div class="col-12 col-xl-3">
                                                     <div class="mb-2">
                                                         <label
                                                             class="form-label">@lang('modules/stock.f_valid_days')</label>
@@ -243,8 +244,7 @@
                                                         @error('f_manufacturerid') <span class="invalid-feedback"
                                                                                          role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                                     </div>
-                                                </div>
-                                                <div class="col-12 col-xl-4">
+
                                                     <div class="mb-2">
                                                         <label
                                                             class="form-label">@lang('modules/stock.f_price_sale1')</label>
@@ -304,7 +304,8 @@
                                                         @error('f_price_sale5') <span class="invalid-feedback"
                                                                                       role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                                     </div>
-
+                                                </div>
+                                                <div class="col-12 col-xl-3">
                                                     <div class="mb-2">
                                                         <label
                                                             class="form-label">@lang('modules/stock.f_discid')</label>
@@ -400,8 +401,44 @@
                                                         @error('f_gross_weight') <span class="invalid-feedback"
                                                                                        role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                                     </div>
+
+                                                    <div class="mb-2">
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_stock_text1')</label>
+                                                        <input type="text"
+                                                               class="form-control form-control-sm @error('f_stock_text1') is-invalid @enderror"
+                                                               name="f_stock_text1"
+                                                               maxlength="100"
+                                                               value="{{ old('f_stock_text1', $stock->f_stock_text1)}}">
+                                                        @error('f_stock_text1') <span class="invalid-feedback"
+                                                                                      role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                                    </div>
+
+                                                    <div class="mb-2">
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_stock_text2')</label>
+                                                        <input type="text"
+                                                               class="form-control form-control-sm @error('f_stock_text2') is-invalid @enderror"
+                                                               name="f_stock_text2"
+                                                               maxlength="100"
+                                                               value="{{ old('f_stock_text2', $stock->f_stock_text2)}}">
+                                                        @error('f_stock_text2') <span class="invalid-feedback"
+                                                                                      role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                                    </div>
+
+                                                    <div class="mb-2">
+                                                        <label
+                                                            class="form-label">@lang('modules/stock.f_stock_text3')</label>
+                                                        <input type="text"
+                                                               class="form-control form-control-sm @error('f_stock_text3') is-invalid @enderror"
+                                                               name="f_stock_text3"
+                                                               maxlength="100"
+                                                               value="{{ old('f_stock_text3', $stock->f_stock_text3)}}">
+                                                        @error('f_stock_text3') <span class="invalid-feedback"
+                                                                                      role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                                    </div>
                                                 </div>
-                                                <div class="col-12 col-xl-4">
+                                                <div class="col-12 col-xl-3">
                                                     <div class="mb-2">
                                                         <label class="form-label">@lang('modules/stock.f_type')</label>
                                                         <select
@@ -522,42 +559,6 @@
                                                             rows="4"
                                                             cols="50">{{ old('f_ingredients', $stock->f_ingredients)}}</textarea>
                                                         @error('f_ingredients') <span class="invalid-feedback"
-                                                                                      role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                                                    </div>
-
-                                                    <div class="mb-2">
-                                                        <label
-                                                            class="form-label">@lang('modules/stock.f_stock_text1')</label>
-                                                        <input type="text"
-                                                               class="form-control form-control-sm @error('f_stock_text1') is-invalid @enderror"
-                                                               name="f_stock_text1"
-                                                               maxlength="100"
-                                                               value="{{ old('f_stock_text1', $stock->f_stock_text1)}}">
-                                                        @error('f_stock_text1') <span class="invalid-feedback"
-                                                                                      role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                                                    </div>
-
-                                                    <div class="mb-2">
-                                                        <label
-                                                            class="form-label">@lang('modules/stock.f_stock_text2')</label>
-                                                        <input type="text"
-                                                               class="form-control form-control-sm @error('f_stock_text2') is-invalid @enderror"
-                                                               name="f_stock_text2"
-                                                               maxlength="100"
-                                                               value="{{ old('f_stock_text2', $stock->f_stock_text2)}}">
-                                                        @error('f_stock_text2') <span class="invalid-feedback"
-                                                                                      role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                                                    </div>
-
-                                                    <div class="mb-2">
-                                                        <label
-                                                            class="form-label">@lang('modules/stock.f_stock_text3')</label>
-                                                        <input type="text"
-                                                               class="form-control form-control-sm @error('f_stock_text3') is-invalid @enderror"
-                                                               name="f_stock_text3"
-                                                               maxlength="100"
-                                                               value="{{ old('f_stock_text3', $stock->f_stock_text3)}}">
-                                                        @error('f_stock_text3') <span class="invalid-feedback"
                                                                                       role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                                     </div>
 
@@ -1064,7 +1065,7 @@
                                     </div>
                                     <div class="tab-pane fade" id="tab-7" role="tabpanel">
                                         <div class="row">
-                                            <div class="col-12 col-xl-4">
+                                            <div class="col-12 col-xl-3">
                                                 <div class="mb-2">
                                                     <label
                                                         class="form-label">@lang('modules/stock.f_diviation_percentage')</label>
@@ -1076,7 +1077,8 @@
                                                     @error('f_diviation_percentage') <span class="invalid-feedback"
                                                                                            role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                                 </div>
-
+                                            </div>
+                                            <div class="col-12 col-xl-3">
                                                 <div class="mb-2">
                                                     <label
                                                         class="form-label">@lang('modules/stock.f_imgurl')</label>
@@ -1089,7 +1091,7 @@
                                                                              role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-xl-4">
+                                            <div class="col-12 col-xl-3">
                                                 <div class="mb-2">
                                                     <label class="form-check m-0">
                                                     <span
@@ -1117,7 +1119,7 @@
                                                                                            role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-xl-4">
+                                            <div class="col-12 col-xl-3">
                                                 <div class="mb-2" hidden>
                                                     <label
                                                         class="form-label">@lang('modules/stock.f_system1')</label>

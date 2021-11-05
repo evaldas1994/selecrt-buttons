@@ -72,6 +72,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('prices/type/{type}', [App\Http\Controllers\Modules\PriceController::class, 'create'])->name('prices.create');
         Route::post('prices/type/{type}', [App\Http\Controllers\Modules\PriceController::class, 'store'])->name('prices.store');
     });
+
+//    Route::prefix('stocks/{stock}')->group(function () {
+//        Route::resource('prices', \App\Http\Controllers\Modules\PriceController::class)->except('show', 'create', 'store', 'edit', 'update');
+//        Route::get('prices/type/{type}/create', [App\Http\Controllers\Modules\PriceController::class, 'create'])->name('prices.create');
+//        Route::post('prices/type/{type}/create', [App\Http\Controllers\Modules\PriceController::class, 'store'])->name('prices.store');
+//        Route::get('prices/type/{type}/edit', [App\Http\Controllers\Modules\PriceController::class, 'edit'])->name('prices.edit');
+//        Route::post('prices/type/{type}/edit', [App\Http\Controllers\Modules\PriceController::class, 'update'])->name('prices.update');
+//    });
 });
 
 Route::domain('blog.' . 'dineta-crm.test')->group(function () {
