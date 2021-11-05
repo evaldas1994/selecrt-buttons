@@ -66,6 +66,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('user-params', \App\Http\Controllers\Modules\UserParamController::class);
     Route::resource('vats', \App\Http\Controllers\Modules\VatController::class);
     Route::resource('work-shedule-templates', \App\Http\Controllers\Modules\WorkSheduleTemplateController::class);
+
+    Route::prefix('stocks/{stock}')->group(function () {
+        Route::resource('prices', \App\Http\Controllers\Modules\PriceController::class)->except('show', 'create', 'store');
+        Route::get('prices/type/{type}', [App\Http\Controllers\Modules\PriceController::class, 'create'])->name('prices.create');
+        Route::post('prices/type/{type}', [App\Http\Controllers\Modules\PriceController::class, 'store'])->name('prices.store');
+    });
 });
 
 Route::domain('blog.' . 'dineta-crm.test')->group(function () {

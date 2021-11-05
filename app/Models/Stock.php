@@ -313,4 +313,9 @@ class Stock extends Model
     {
         return $this->hasOne(Project::class, 'f_id', 'f_projectid');
     }
+
+    public function prices()
+    {
+        return $this->hasMany(Price::class, 'f_stockid', 'f_id');
+    }
 }
