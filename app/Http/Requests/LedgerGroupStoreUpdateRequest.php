@@ -6,7 +6,7 @@ use App\Rules\IdPatternRule;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CurrencyStoreUpdateRequest extends FormRequest
+class LedgerGroupStoreUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,12 +25,11 @@ class CurrencyStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_cur')->ignore($this->currency) : 'unique:t_cur';
+        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_ledgergroup')->ignore($this->ledger_group) : 'unique:t_ledgergroup';
         return [
             'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],
             'f_name' => 'string|max:100|nullable',
-            'f_symbol' => 'string|required|max:20',
-            'f_fraction' => 'string|required|max:20',
+            'f_accountid' => 'nullable|exists:t_account,f_id',
             'f_system1' => 'string|max:100|nullable',
             'f_system2' => 'string|max:100|nullable',
             'f_system3' => 'string|max:100|nullable',

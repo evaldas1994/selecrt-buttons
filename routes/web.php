@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('discountsh', \App\Http\Controllers\Modules\DischController::class)->except('show');
     Route::resource('employees', \App\Http\Controllers\Modules\EmployeeController::class)->except('show');
     Route::resource('interests', \App\Http\Controllers\Modules\InterestController::class)->except('show');
+    Route::resource('ledger-groups', \App\Http\Controllers\Modules\LedgerGroupController::class)->except('show');
     Route::resource('loyalty-points', \App\Http\Controllers\Modules\LoyaltyPointController::class)->except('show');
     Route::resource('manufacturers', \App\Http\Controllers\Modules\ManufacturerController::class)->except('show');
     Route::resource('markups', \App\Http\Controllers\Modules\MarkupController::class)->except('show');
@@ -73,13 +74,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('prices/type/{type}', [App\Http\Controllers\Modules\PriceController::class, 'store'])->name('prices.store');
     });
 
-//    Route::prefix('stocks/{stock}')->group(function () {
-//        Route::resource('prices', \App\Http\Controllers\Modules\PriceController::class)->except('show', 'create', 'store', 'edit', 'update');
-//        Route::get('prices/type/{type}/create', [App\Http\Controllers\Modules\PriceController::class, 'create'])->name('prices.create');
-//        Route::post('prices/type/{type}/create', [App\Http\Controllers\Modules\PriceController::class, 'store'])->name('prices.store');
-//        Route::get('prices/type/{type}/edit', [App\Http\Controllers\Modules\PriceController::class, 'edit'])->name('prices.edit');
-//        Route::post('prices/type/{type}/edit', [App\Http\Controllers\Modules\PriceController::class, 'update'])->name('prices.update');
-//    });
+    Route::prefix('currencies/{currency}')->group(function () {
+        Route::resource('currency-rates', \App\Http\Controllers\Modules\CurrencyRateController::class)->except('show');
+    });
 });
 
 Route::domain('blog.' . 'dineta-crm.test')->group(function () {

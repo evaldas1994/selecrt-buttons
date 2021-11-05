@@ -1,11 +1,10 @@
 <?php
 
 return [
-    'h1' => 'Valiutos',
+    'h1' => 'DK operacijų grupės',
     'f_id' => 'Kodas',
     'f_name' => 'Pavadinimas',
-    'f_symbol' => 'Simbolis',
-    'f_fraction' => '1/100 dalis',
+    'f_accountid' => 'Sąskaita',
     'f_system1' => 'Sistema1',
     'f_system2' => 'Sistema2',
     'f_system3' => 'Sistema3',
