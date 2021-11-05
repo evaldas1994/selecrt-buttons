@@ -66,6 +66,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('user-params', \App\Http\Controllers\Modules\UserParamController::class);
     Route::resource('vats', \App\Http\Controllers\Modules\VatController::class);
     Route::resource('work-shedule-templates', \App\Http\Controllers\Modules\WorkSheduleTemplateController::class);
+
+    Route::prefix('currencies/{currency}')->group(function () {
+        Route::resource('currency-rates', \App\Http\Controllers\Modules\CurrencyRateController::class)->except('show');
+    });
 });
 
 Route::domain('blog.' . 'dineta-crm.test')->group(function () {
