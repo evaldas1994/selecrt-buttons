@@ -1,11 +1,12 @@
 <?php
 
 return [
-    'h1' => 'Valiutos',
+    'h1' => 'Valiutos kursas',
     'f_id' => 'Kodas',
-    'f_name' => 'Pavadinimas',
-    'f_symbol' => 'Simbolis',
-    'f_fraction' => '1/100 dalis',
+    'f_from' => 'Nuo',
+    'f_rate' => 'Kursas',
+    'f_dim' => 'Dimensija',
+    'f_curid' => 'Valiuta',
     'f_system1' => 'Sistema1',
     'f_system2' => 'Sistema2',
     'f_system3' => 'Sistema3',

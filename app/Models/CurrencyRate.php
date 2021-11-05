@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use App\Traits\IdNextRecord;
 use App\Traits\IdToUppercase;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
-class Currency extends Model
+class CurrencyRate extends Model
 {
-    use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
+    use IdToUppercase, UpdateCreatedModifiedUserIdColumns, IdNextRecord;
 
-    protected $table = 't_cur';
+    protected $table = 't_currate';
 
     protected $perPage = 500;
 
@@ -21,9 +22,10 @@ class Currency extends Model
      */
     protected $fillable = [
         'f_id',
-        'f_name',
-        'f_symbol',
-        'f_fraction',
+        'f_curid',
+        'f_from',
+        'f_rate',
+        'f_dim',
         'f_system1',
         'f_system2',
         'f_system3',
@@ -65,10 +67,10 @@ class Currency extends Model
     const UPDATED_AT = 'f_modified_date';
 
     /**
-     * Get the currency rates for the currency.
+     * Get the currency rates's currency.
      */
-    public function currencyRates()
+    public function currency()
     {
-        return $this->hasMany(CurrencyRate::class, 'f_curid', 'f_id');
+        return $this->hasOne(Currency::class, 'f_id', 'f_curid');
     }
 }

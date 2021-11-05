@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\IdPatternRule;
-use Illuminate\Validation\Rule;
+use App\Rules\FloatRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CurrencyStoreUpdateRequest extends FormRequest
+class CurrencyRateStoreUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,12 +24,10 @@ class CurrencyStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_cur')->ignore($this->currency) : 'unique:t_cur';
         return [
-            'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],
-            'f_name' => 'string|max:100|nullable',
-            'f_symbol' => 'string|required|max:20',
-            'f_fraction' => 'string|required|max:20',
+            'f_from' => 'required|date',
+            'f_rate' => ['required', 'numeric', new FloatRule(4)],
+            'f_dim' => ['required', 'numeric', new FloatRule(4)],
             'f_system1' => 'string|max:100|nullable',
             'f_system2' => 'string|max:100|nullable',
             'f_system3' => 'string|max:100|nullable',

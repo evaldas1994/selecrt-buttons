@@ -6,7 +6,6 @@ use App\Models\Currency;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\CurrencyService;
 use App\Http\Requests\CurrencyStoreUpdateRequest;
 
 class CurrencyController extends Controller
@@ -41,7 +40,12 @@ class CurrencyController extends Controller
      */
     public function store(CurrencyStoreUpdateRequest $request)
     {
-        Currency::create($request->validated());
+        $currency = Currency::create($request->validated());
+
+        switch ($request->input('action')) {
+            case 'currency-rates-create':
+                return redirect()->route('currency-rates.create' , $currency);
+        }
 
         return redirect()->route('currencies.index')->withSuccess(trans('global.created_successfully'));
     }
@@ -54,7 +58,9 @@ class CurrencyController extends Controller
      */
     public function edit(Currency $currency)
     {
-        return view('modules.currency.edit', compact('currency'));
+        $currencyRates = $currency->currencyRates;
+
+        return view('modules.currency.edit', compact('currency', 'currencyRates'));
     }
 
     /**
@@ -68,6 +74,11 @@ class CurrencyController extends Controller
     {
         try {
             $currency->update($request->validated());
+
+            switch ($request->input('action')) {
+                case 'currency-rates-create':
+                    return redirect()->route('currency-rates.create' , $currency);
+            }
 
             return redirect()->route('currencies.index')->withSuccess(trans('global.updated_successfully'));
         } catch (\Exception) {
