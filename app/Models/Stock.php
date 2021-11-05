@@ -81,8 +81,6 @@ class Stock extends Model
         'f_weightsign',
         'f_product',
         'f_locked',
-        'f_create_userid',
-        'f_modified_userid',
         'f_system1',
         'f_system2',
         'f_system3',
