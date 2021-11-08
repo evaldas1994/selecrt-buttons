@@ -3,106 +3,90 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Models\Bonus;
+use App\Models\Employee;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\BonusService;
 use App\Http\Requests\BonusStoreUpdateRequest;
 
 class BonusController extends Controller
 {
-    private $bonusService;
-
-    public function __construct()
-    {
-        $this->bonusService = new BonusService(Bonus::class);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return View
-     */
-    public function index()
-    {
-        $bonuses = $this->bonusService->all();
-
-        return view('modules.bonus.index', compact('bonuses'));
-    }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return View
      */
-    public function create()
+    public function create(Employee $employee)
     {
-        return view('modules.bonus.create');
+        $types = Bonus::$types;
+        $reasons = Bonus::$reasons;
+
+        return view('modules.bonus.create', compact('employee', 'types', 'reasons'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param BonusStoreUpdateRequest $request
+     * @param Employee $employee
      * @return RedirectResponse
      */
-    public function store(BonusStoreUpdateRequest $request)
+    public function store(BonusStoreUpdateRequest $request, Employee $employee)
     {
-        $this->bonusService->create($request->input());
+        $employee->bonuses()->create($request->validated());
 
-        return redirect()->route('bonuses.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $bonus = $this->bonusService->findById($id);
-
-        return view('modules.bonus.show', compact('bonus'));
+        return redirect()->route('employees.edit', $employee)->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
+     * @param Employee $employee
+     * @param Bonus $bonus
      * @return View
      */
-    public function edit($id)
+    public function edit(Employee $employee, Bonus $bonus)
     {
-        $bonus = $this->bonusService->findById($id);
+        $types = Bonus::$types;
+        $reasons = Bonus::$reasons;
 
-        return view('modules.bonus.edit', compact('bonus'));
+        return view('modules.bonus.edit', compact('employee', 'bonus', 'types', 'reasons'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param BonusStoreUpdateRequest $request
-     * @param $id
+     * @param Employee $employee
+     * @param Bonus $bonus
      * @return RedirectResponse
      */
-    public function update(BonusStoreUpdateRequest $request, $id)
+    public function update(BonusStoreUpdateRequest $request, Employee $employee, Bonus $bonus)
     {
-        $this->bonusService->update($id, $request->input());
+        try {
+            $bonus->update($request->validated());
 
-        return redirect()->route('bonuses.index');
+            return redirect()->route('employees.edit', $employee)->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('employees.edit', $employee)->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param Employee $employee
+     * @param Bonus $bonus
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Employee $employee, Bonus $bonus)
     {
-        $this->bonusService->destroy($id);
+        try {
+            $bonus->delete();
 
-        return redirect()->route('bonuses.index');
+            return redirect()->route('employees.edit', $employee)->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('employees.edit', $employee)->withError(trans('global.delete_failed'));
+        }
     }
 }

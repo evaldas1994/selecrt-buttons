@@ -73,4 +73,14 @@ return [
     'disablementPercentType100' => '100%',
     'disablementPercentTypeVidutinių poreikių' => 'Vidutinių poreikių%',
     'disablementPercentTypeNedidelių poreikių' => 'Nedidelių poreikių%',
+
+    'tab1' => 'Pagrindinis',
+    'tab2' => 'Atlyginimai',
+    'tab3' => 'Vaikai',
+    'tab4' => 'Neatvykimo atvėjai',
+    'tab5' => 'Vykdomieji raštai',
+    'tab6' => 'Įranga',
+    'tab7' => 'Premijos',
+    'tab8' => 'Padaliniai ir grafikai',
+    'tab9' => 'Istorija',
 ];

@@ -1,107 +1,117 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <form method="post" action="{{ route('bonuses.store') }}">
-            @csrf
+    <div class="row mb-2 mb-xl-3">
+        <div class="col-auto">
+            <h1>@lang('modules/bonus.h1')</h1>
+        </div>
 
-            <div class="mb-3">
-                <label for="f_employee_id" class="form-label">Darbuotojas</label>
-                <select name="f_employee_id" id="f_employee_id">
-                    <option value="0011905086">0011905086</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="f_bonus_name" class="form-label">Pavadinimas</label>
-                <input type="text" class="form-control" name="f_bonus_name">
-            </div>
-
-            <div class="mb-3">
-                <label for="f_value" class="form-label">Reikšmė</label>
-                <input type="text" class="form-control" name="f_value" value="0.00">
-            </div>
-
-            <div class="mb-3">
-                <label for="f_type" class="form-label">Tipas</label>
-                <select name="f_type" id="f_type">
-                    <option value="0">---</option>
-                    <option value="1">Apmokestinama</option>
-                    <option value="2">Neapmokestinama</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="f_date_from" class="form-label">Laikotarpis nuo</label>
-                <input type="text" class="form-control" name="f_date_from">
-            </div>
-
-            <div class="mb-3">
-                <label for="f_date_till" class="form-label">Laikotarpis iki</label>
-                <input type="text" class="form-control" name="f_date_till">
-            </div>
-
-            <div class="mb-3">
-                <label for="f_reason" class="form-label">Neatvykimo į darbą atvejai</label>
-                <select name="f_reason" id="f_reason">
-                    <option value="DN">DN - darbas naktį</option>
-                    <option value="VD">VD - viršvalandinis darbas</option>
-                    <option value="FD">FD - faktiškai dirbtas laikas</option>
-                    <option value="KS">KS - darbas esant nukrypimams nuo normalių darbo sąlygų</option>
-                    <option value="DP">DP - darbas poilsio ir švenčių dienomis</option>
-                    <option value="BN">BN - budėjimas namuose</option>
-                    <option value="BI">BĮ - budėjimas darbe</option>
-                    <option value="ID">ID - laikas naujo darbo paieškoms</option>
-                    <option value="MD">MD - privalomų medicininių apžiūrų laikas</option>
-                    <option value="V">V - papildomos poilsio dienos, suteiktos už darbą virš kasdienio darbo laiko trukmės, darbą poilsio ir švenčių dienomis</option>
-                    <option value="M">M - papildomas poilsio laikas darbuotojams, auginantiems neįgalų vaiką iki 18 metų arba du ir daugiau vaikų iki 12 metų</option>
-                    <option value="D">D - kraujo davimo dienos donorams</option>
-                    <option value="L">L - nedarbingumas dėl ligos ar traumų</option>
-                    <option value="N">N - neapmokamas nedarbingumas</option>
-                    <option value="NS">NS - nedarbingumas ligoniams slaugyti, turint pažymas</option>
-                    <option value="A">A - kasmetinės atostogos</option>
-                    <option value="MA">MA - mokymosi atostogos</option>
-                    <option value="NA">NA - nemokamos atostogos</option>
-                    <option value="KA">KA - kūrybinės atostogos</option>
-                    <option value="G">G - nėštumo ir gimdymo atostogos</option>
-                    <option value="TA">TA - tėvystės atostogos</option>
-                    <option value="PV">PV - atostogos vaikui prižiūrėti, kol jam sueis 3 metai</option>
-                    <option value="KR">KR - kitų rūšių atostogos</option>
-                    <option value="K">K - tarnybinės komandiruotės</option>
-                    <option value="SZ">SŽ - stažuotės</option>
-                    <option value="KV">KV - kvalifikacijos kėlimas</option>
-                    <option value="PR">PR - pertraukos darbe, pagal norminius teisės aktus įskaitomos į darbo laiką</option>
-                    <option value="VV">VV - valstybinių, visuomeninių ar piliečio pareigų vykdymas</option>
-                    <option value="KT">KT - karinė tarnyba</option>
-                    <option value="KM">KM - mokomosios karinės pratybos</option>
-                    <option value="PK">PK - prastovos dėl darbuotojo kaltės</option>
-                    <option value="PN">PN - prastovos ne dėl darbuotojo kaltės</option>
-                    <option value="PB">PB - pravaikštos ir kitoks neatvykimas į darbą be svarbios priežasties</option>
-                    <option value="ND">ND - neatvykimas į darbą administracijai leidus</option>
-                    <option value="NP">NP - neatvykimas į darbą kitais norminių teisės aktų nustatytais laikotarpiais</option>
-                    <option value="NN">NN - nušalinimas nuo darbo</option>
-                    <option value="P">P - poilsio dienos</option>
-                    <option value="S">S - švenčių dienos</option>
-                    <option value="ST">ST - streikas</option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="f_description" class="form-label">Aprašymas</label>
-                <input type="text" class="form-control" name="f_description">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+        <div class="col-auto ms-auto text-end mt-n1">
+            <a href="#" class="btn btn-primary"
+               onclick="event.preventDefault();document.getElementById('bonus-form').submit();">@lang('global.btn_save')</a>
+            <a href="{{ route('employees.edit', $employee) }}" class="btn btn-dark">@lang('global.btn_close')</a>
+        </div>
     </div>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <div class="row">
+        <form id="bonus-form" action="{{ route('bonuses.store', $employee) }}" method="POST">
+            @csrf
+
+            <div class="card">
+                <div class="col-12">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-xl-3">
+                                <div class="mb-2">
+                                    <label class="form-label">@lang('modules/bonus.f_bonus_name')</label>
+                                    <input type="text"
+                                           class="form-control form-control-sm @error('f_bonus_name') is-invalid @enderror"
+                                           name="f_bonus_name"
+                                           maxlength="100"
+                                           value="{{ old('f_bonus_name')}}">
+                                    @error('f_bonus_name') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                </div>
+
+                                <div class="mb-2">
+                                    <label class="form-label">@lang('modules/bonus.f_value')</label>
+                                    <input type="text"
+                                           class="form-control form-control-sm @error('f_value') is-invalid @enderror"
+                                           name="f_value"
+                                           maxlength="10"
+                                           value="{{ old('f_value', 0) }}">
+                                    @error('f_value') <span class="invalid-feedback"
+                                                                 role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                </div>
+                            </div>
+                            <div class="col-12 col-xl-3">
+                                <div class="mb-2">
+                                    <label class="form-label">@lang('modules/bonus.f_type')</label>
+                                    <select
+                                        class="form-control form-control-sm @error('f_type') is-invalid @enderror"
+                                        name="f_type">
+                                        <option value selected>---</option>
+                                        @foreach($types as $type)
+                                            <option
+                                                value="{{ $type }}" {{ selected('f_type', $type) }}>@lang('modules/bonus.type' . $type)</option>
+                                        @endforeach
+                                    </select>
+                                    @error('f_type') <span class="invalid-feedback"
+                                                             role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                </div>
+
+                                <div class="mb-2">
+                                    <label class="form-label">@lang('modules/bonus.f_reason')</label>
+                                    <select
+                                        class="not-empty form-control form-control-sm @error('f_reason') is-invalid @enderror"
+                                        name="f_reason">
+                                        <option value selected>---</option>
+                                        @foreach($reasons as $reason)
+                                            <option
+                                                value="{{ $reason }}" {{ selected('f_reason', $reason) }}>@lang('modules/bonus.reason' . $reason)</option>
+                                        @endforeach
+                                    </select>
+                                    @error('f_reason') <span class="invalid-feedback"
+                                                           role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                </div>
+                            </div>
+                            <div class="col-12 col-xl-3">
+                                <div class="mb-2">
+                                    <label class="form-label">@lang('modules/bonus.f_date_from')</label>
+                                    <input
+                                        type="text"
+                                        class="not-empty form-control form-control-sm date"
+                                        name="f_date_from"
+                                        placeholder="@lang('global.select_date')"
+                                        value="{{ old('f_date_from') }}">
+                                    @error('f_date_from') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                </div>
+
+                                <div class="mb-2">
+                                    <label class="form-label">@lang('modules/bonus.f_date_till')</label>
+                                    <input
+                                        type="text"
+                                        class="not-empty form-control form-control-sm date"
+                                        name="f_date_till"
+                                        placeholder="@lang('global.select_date')"
+                                        value="{{ old('f_date_till') }}">
+                                    @error('f_date_till') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                </div>
+                            </div>
+                            <div class="col-12 col-xl-3">
+                                <div class="mb-2">
+                                    <label class="form-label">@lang('modules/bonus.f_description')</label>
+                                    <textarea
+                                        class="form-control form-control-sm @error('f_description') is-invalid @enderror"
+                                        name="f_description"
+                                        rows="4"
+                                        cols="50">{{ old('f_description')}}</textarea>
+                                    @error('f_description') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 @endsection

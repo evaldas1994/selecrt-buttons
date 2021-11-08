@@ -65,7 +65,12 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeStoreUpdateRequest $request)
     {
-        Employee::create($request->validated());
+        $employee = Employee::create($request->validated());
+
+        switch ($request->input('action')) {
+            case 'bonus-create':
+                return redirect()->route('bonuses.create' , $employee);
+        }
 
         return redirect()->route('employees.index')->withSuccess(trans('global.created_successfully'));
     }
@@ -89,6 +94,8 @@ class EmployeeController extends Controller
         $disablementTypes = Employee::$disablementTypes;
         $disablementPercentTypes = Employee::$disablementPercentTypes;
 
+        $bonuses = $employee->bonuses;
+
         return view('modules.employee.edit', compact(
                 'employee',
                 'departments',
@@ -100,6 +107,7 @@ class EmployeeController extends Controller
                 'sexTypes',
                 'disablementTypes',
                 'disablementPercentTypes',
+                'bonuses',
             )
         );
     }
@@ -115,6 +123,11 @@ class EmployeeController extends Controller
     {
         try {
             $employee->update($request->validated());
+
+            switch ($request->input('action')) {
+                case 'bonus-create':
+                    return redirect()->route('bonuses.create' , $employee);
+            }
 
             return redirect()->route('employees.index')->withSuccess(trans('global.updated_successfully'));
         } catch (\Exception) {
