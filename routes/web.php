@@ -71,6 +71,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('currencies/{currency}')->group(function () {
         Route::resource('currency-rates', \App\Http\Controllers\Modules\CurrencyRateController::class)->except('show');
     });
+
+    Route::prefix('partners/{partner}')->group(function () {
+        Route::resource('bank-accounts', \App\Http\Controllers\Modules\BankAccountController::class)->except('show', 'index');
+    });
 });
 
 Route::domain('blog.' . 'dineta-crm.test')->group(function () {

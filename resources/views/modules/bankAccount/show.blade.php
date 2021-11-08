@@ -7,9 +7,9 @@
         <p>Partner id: {{ $bankAccount->f_partnerid }}</p>
         <p>Pagrindinis: {{ $bankAccount->f_default }}</p>
 
-        <a href="{{ route('bankAccounts.edit', $bankAccount->f_id) }}">Edit</a>
+        <a href="{{ route('bank-accounts.edit', $bankAccount->f_id) }}">Edit</a>
 
-        <form method="post" action="{{ route('bankAccounts.destroy', $bankAccount->f_id) }}">
+        <form method="post" action="{{ route('bank-accounts.destroy', $bankAccount->f_id) }}">
 
             @method('DELETE')
             @csrf
