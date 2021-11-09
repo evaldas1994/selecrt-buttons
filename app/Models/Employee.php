@@ -172,4 +172,12 @@ class Employee extends Model
     {
         return $this->hasOne(WorkSheduleTemplate::class, 'f_id', 'f_work_shedule_template');
     }
+
+    /**
+     * Get the bonuses for the employee.
+     */
+    public function bonuses()
+    {
+        return $this->hasMany(Bonus::class, 'f_employee_id', 'f_id');
+    }
 }

@@ -14,6 +14,53 @@ class Bonus extends Model
     const CREATED_AT = null;
     protected $table = 't_bonus';
 
+    public static $types = [
+      '1',
+      '2',
+    ];
+
+    public static $reasons = [
+        'DN',
+        'VD',
+        'FD',
+        'BN',
+        'KS',
+        'DP',
+        'BI',
+        'ID',
+        'MD',
+        'V' ,
+        'M' ,
+        'D' ,
+        'L' ,
+        'N' ,
+        'NS',
+        'A' ,
+        'MA',
+        'NA',
+        'KA',
+        'G' ,
+        'TA',
+        'PV',
+        'KR',
+        'K' ,
+        'SZ',
+        'KV',
+        'PR',
+        'VV',
+        'KT',
+        'KM',
+        'PK',
+        'PN',
+        'PB',
+        'ND',
+        'NP',
+        'NN',
+        'P' ,
+        'S' ,
+        'ST',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -29,8 +76,6 @@ class Bonus extends Model
         'f_date_till',
         'f_reason',
         'f_type',
-        'f_modified_date',
-        'f_modified_userid',
     ];
 
     /**
