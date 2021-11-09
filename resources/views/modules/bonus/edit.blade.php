@@ -80,7 +80,7 @@
                                     <label class="form-label">@lang('modules/bonus.f_date_from')</label>
                                     <input
                                         type="text"
-                                        class="not-empty form-control form-control-sm date"
+                                        class="not-empty form-control form-control-sm date @error('f_date_from') is-invalid @enderror"
                                         name="f_date_from"
                                         placeholder="@lang('global.select_date')"
                                         value="{{ old('f_date_from', $bonus->f_date_from) }}">
@@ -91,7 +91,7 @@
                                     <label class="form-label">@lang('modules/bonus.f_date_till')</label>
                                     <input
                                         type="text"
-                                        class="not-empty form-control form-control-sm date"
+                                        class="not-empty form-control form-control-sm date @error('f_date_till') is-invalid @enderror"
                                         name="f_date_till"
                                         placeholder="@lang('global.select_date')"
                                         value="{{ old('f_date_till', $bonus->f_date_till) }}">
