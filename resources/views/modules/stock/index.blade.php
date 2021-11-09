@@ -18,10 +18,6 @@
                             <th scope="col">@lang('modules/stock.f_groupid')</th>
                             <th scope="col">@lang('modules/stock.f_unitid')</th>
                             <th scope="col">@lang('modules/stock.f_price_sale1')</th>
-                            <th scope="col">@lang('modules/stock.f_create_userid')</th>
-                            <th scope="col">@lang('modules/stock.f_create_date')</th>
-                            <th scope="col">@lang('modules/stock.f_modified_userid')</th>
-                            <th scope="col">@lang('modules/stock.f_modified_date')</th>
                             <th scope="col">@lang('global.actions')</th>
                         </tr>
                         </thead>
@@ -34,10 +30,6 @@
                                 <td>{{ $stock->f_groupid }}</td>
                                 <td>{{ $stock->f_unitid }}</td>
                                 <td>{{ $stock->f_price_sale1 }}</td>
-                                <td>{{ $stock->f_create_userid }}</td>
-                                <td>{{ $stock->f_create_date }}</td>
-                                <td>{{ $stock->f_modified_userid }}</td>
-                                <td>{{ $stock->f_modified_date }}</td>
                                 <td class="table-action">
                                     <a href="{{ route('stocks.edit', $stock) }}"><i class="align-middle" data-feather="edit-2"></i></a>
                                     <a href="#" onclick="event.preventDefault();document.getElementById('delete-form-{{ $stock->f_id }}').submit();">
