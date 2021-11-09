@@ -106,6 +106,9 @@ class PartnerController extends Controller
         switch ($request->input('action')) {
             case 'bank-account-create':
                 return redirect()->route('bank-accounts.create' , $partner);
+
+            case 'price-create':
+                return redirect()->route('price-partners.create' , $partner);
         }
 
         return redirect()->route('partners.index')->withSuccess(trans('global.created_successfully'));
@@ -143,6 +146,7 @@ class PartnerController extends Controller
         $ediExportTypes = Partner::$ediExportTypes;
 
         $bankAccounts = $partner->bankAccounts;
+        $prices = $partner->prices;
 
         return view(
             'modules.partner.edit',
@@ -170,6 +174,7 @@ class PartnerController extends Controller
                 'sexTypes',
                 'ediExportTypes',
                 'bankAccounts',
+                'prices',
             )
         );
     }
@@ -189,6 +194,9 @@ class PartnerController extends Controller
             switch ($request->input('action')) {
                 case 'bank-account-create':
                     return redirect()->route('bank-accounts.create' , $partner);
+
+                case 'price-create':
+                    return redirect()->route('price-partners.create' , $partner);
             }
 
             return redirect()->route('partners.index')->withSuccess(trans('global.updated_successfully'));

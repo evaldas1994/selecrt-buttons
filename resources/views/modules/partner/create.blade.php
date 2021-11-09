@@ -1048,7 +1048,20 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane fade" id="tab-3" role="tabpanel">3</div>
+                                        <div class="tab-pane fade" id="tab-3" role="tabpanel">
+                                            <div class="row">
+                                                <div class="col-auto text-end mt-1">
+                                                    <button
+                                                        form="partner-form"
+                                                        class="btn btn-primary"
+                                                        type="submit"
+                                                        name="action"
+                                                        value="price-create">
+                                                        <i class="fas fa-plus"></i> @lang('global.btn_new')
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="tab-pane fade" id="tab-4" role="tabpanel">4</div>
                                         <div class="tab-pane fade" id="tab-5" role="tabpanel">5</div>
                                         <div class="tab-pane fade" id="tab-6" role="tabpanel">6</div>
