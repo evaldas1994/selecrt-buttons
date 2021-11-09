@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Models\Vat;
+use App\Models\Bank;
+use App\Models\Store;
 use App\Models\Person;
 use App\Models\Account;
 use App\Models\Partner;
 use App\Models\Project;
+use App\Models\Template;
 use App\Models\Currency;
 use App\Models\Register1;
 use App\Models\Register2;
@@ -56,9 +59,14 @@ class PartnerController extends Controller
         $persons = Person::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $projects = Project::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $vats = Vat::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $banks = Bank::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $stores = Store::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $templates = Template::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
         $priceLevels = Partner::$priceLevelTypes;
         $legalStatuses = Partner::$legalStatusTypes;
+        $sexTypes = Partner::$sexTypes;
+        $ediExportTypes = Partner::$ediExportTypes;
 
         return view('modules.partner.create', compact(
             'partnerGroups',
@@ -75,8 +83,13 @@ class PartnerController extends Controller
             'persons',
             'projects',
             'vats',
+            'banks',
+            'stores',
+            'templates',
             'priceLevels',
-            'legalStatuses'
+            'legalStatuses',
+            'sexTypes',
+            'ediExportTypes',
         ));
     }
 
@@ -88,7 +101,12 @@ class PartnerController extends Controller
      */
     public function store(PartnerStoreUpdateRequest $request)
     {
-        Partner::create($request->validated());
+        $partner = Partner::create($request->validated());
+
+        switch ($request->input('action')) {
+            case 'bank-account-create':
+                return redirect()->route('bank-accounts.create' , $partner);
+        }
 
         return redirect()->route('partners.index')->withSuccess(trans('global.created_successfully'));
     }
@@ -115,9 +133,16 @@ class PartnerController extends Controller
         $persons = Person::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $projects = Project::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $vats = Vat::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $banks = Bank::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $stores = Store::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $templates = Template::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
         $priceLevels = Partner::$priceLevelTypes;
         $legalStatuses = Partner::$legalStatusTypes;
+        $sexTypes = Partner::$sexTypes;
+        $ediExportTypes = Partner::$ediExportTypes;
+
+        $bankAccounts = $partner->bankAccounts;
 
         return view(
             'modules.partner.edit',
@@ -137,8 +162,14 @@ class PartnerController extends Controller
                 'persons',
                 'projects',
                 'vats',
+                'banks',
+                'stores',
+                'templates',
                 'priceLevels',
-                'legalStatuses'
+                'legalStatuses',
+                'sexTypes',
+                'ediExportTypes',
+                'bankAccounts',
             )
         );
     }
@@ -154,6 +185,11 @@ class PartnerController extends Controller
     {
         try {
             $partner->update($request->validated());
+
+            switch ($request->input('action')) {
+                case 'bank-account-create':
+                    return redirect()->route('bank-accounts.create' , $partner);
+            }
 
             return redirect()->route('partners.index')->withSuccess(trans('global.updated_successfully'));
         } catch (\Exception) {
