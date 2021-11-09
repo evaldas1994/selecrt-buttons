@@ -96,6 +96,14 @@ return [
     'f_modified_userid' => 'Redagavo vartotojas',
     'f_modified_date' => 'Redagavimo data',
 
+    'tab1' => 'Pagrindinis',
+    'tab2' => 'Papildomas',
+    'tab3' => 'Pard. kainos',
+    'tab4' => 'Pirk. kainos',
+    'tab5' => 'Susijusios prekės',
+    'tab6' => 'Pakuotės(GPAIS)',
+    'tab7' => 'Savitarna',
+
     'type1' => '1 - Prekė',
     'type2' => '2 - Paslauga',
     'type3' => '3 - Papildoma paslauga',
@@ -108,14 +116,6 @@ return [
     'gpais_pac_type3' => 'Baterija',
     'gpais_pac_type4' => 'Alyvos gaminys',
     'gpais_pac_type5' => 'Apmokestinamas gaminys',
-
-    'column1' => 'Pagrindinis',
-    'column2' => 'Papildomas',
-    'column3' => 'Pard. kainos',
-    'column4' => 'Pirk. kainos',
-    'column5' => 'Susijusios prekės',
-    'column6' => 'Pakuotės (GPAIS)',
-    'column7' => 'Savitarna',
 
     'title1' => 'GPAIS Registrai',
 ];

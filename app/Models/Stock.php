@@ -81,8 +81,6 @@ class Stock extends Model
         'f_weightsign',
         'f_product',
         'f_locked',
-        'f_create_userid',
-        'f_modified_userid',
         'f_system1',
         'f_system2',
         'f_system3',
@@ -312,5 +310,10 @@ class Stock extends Model
     public function project()
     {
         return $this->hasOne(Project::class, 'f_id', 'f_projectid');
+    }
+
+    public function prices()
+    {
+        return $this->hasMany(Price::class, 'f_stockid', 'f_id');
     }
 }
