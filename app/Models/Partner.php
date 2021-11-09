@@ -28,6 +28,17 @@ class Partner extends Model
         '5',
     ];
 
+    public static $sexTypes = [
+        '0',
+        'M',
+        'F',
+    ];
+
+    public static $ediExportTypes = [
+      '0',
+      '1',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -270,6 +281,30 @@ class Partner extends Model
     public function vat()
     {
         return $this->hasOne(Vat::class, 'f_id', 'f_vatid');
+    }
+
+    /**
+     * Get the partner's direct debit bank.
+     */
+    public function directDebitBank()
+    {
+        return $this->hasOne(Bank::class, 'f_id', 'f_direct_debit_bank');
+    }
+
+    /**
+     * Get the partner's edi store.
+     */
+    public function ediStore()
+    {
+        return $this->hasOne(Store::class, 'f_id', 'f_edi_storeid');
+    }
+
+    /**
+     * Get the bank accounts for the partner.
+     */
+    public function bankAccounts()
+    {
+        return $this->hasMany(BankAccount::class, 'f_partnerid', 'f_id');
     }
 }
 

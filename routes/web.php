@@ -67,12 +67,22 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('vats', \App\Http\Controllers\Modules\VatController::class);
     Route::resource('work-shedule-templates', \App\Http\Controllers\Modules\WorkSheduleTemplateController::class);
 
+    Route::prefix('stocks/{stock}')->group(function () {
+        Route::resource('prices', \App\Http\Controllers\Modules\PriceController::class)->except('show', 'create', 'store');
+        Route::get('prices/type/{type}', [App\Http\Controllers\Modules\PriceController::class, 'create'])->name('prices.create');
+        Route::post('prices/type/{type}', [App\Http\Controllers\Modules\PriceController::class, 'store'])->name('prices.store');
+    });
+
     Route::prefix('currencies/{currency}')->group(function () {
         Route::resource('currency-rates', \App\Http\Controllers\Modules\CurrencyRateController::class)->except('show');
     });
 
     Route::prefix('employees/{employee}')->group(function () {
         Route::resource('bonuses', \App\Http\Controllers\Modules\BonusController::class)->except('show', 'index');
+    });
+  
+    Route::prefix('partners/{partner}')->group(function () {
+        Route::resource('bank-accounts', \App\Http\Controllers\Modules\BankAccountController::class)->except('show', 'index');
     });
 });
 

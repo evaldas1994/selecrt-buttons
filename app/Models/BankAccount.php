@@ -12,6 +12,8 @@ class BankAccount extends Model
 
     protected $table = 't_bankaccount';
 
+    protected $perPage = 500;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,8 +24,6 @@ class BankAccount extends Model
         'f_bankid',
         'f_partnerid',
         'f_default',
-        'f_create_userid',
-        'f_modified_userid',
         'f_system1',
         'f_system2',
         'f_system3',
@@ -63,4 +63,20 @@ class BankAccount extends Model
      * @var string|null
      */
     const UPDATED_AT = 'f_modified_date';
+
+    /**
+     * Get the bank account's bank.
+     */
+    public function bank()
+    {
+        return $this->hasOne(Bank::class, 'f_id', 'f_bankid');
+    }
+
+    /**
+     * Get the bank account's partner.
+     */
+    public function partner()
+    {
+        return $this->hasOne(Partner::class, 'f_id', 'f_partnerid');
+    }
 }

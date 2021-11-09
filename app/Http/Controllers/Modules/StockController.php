@@ -99,9 +99,17 @@ class StockController extends Controller
      */
     public function store(StockStoreUpdateRequest $request)
     {
-        Stock::create($request->validated());
+        $stock = Stock::create($request->validated());
 
-        return redirect()->route('stocks.index')->withSuccess(trans('global.created_successfully'));
+        switch ($request->input('action')) {
+            case 'price-sale-create':
+                return redirect()->route('prices.create' , [$stock, 'S']);
+
+            case 'price-purch-create':
+                return redirect()->route('prices.create' , [$stock, 'P']);
+        }
+
+        return redirect()->route('stocks.index', $stock)->withSuccess(trans('global.created_successfully'));
     }
 
     /**
@@ -112,6 +120,9 @@ class StockController extends Controller
      */
     public function edit(Stock $stock)
     {
+        $pricesSale = $stock->prices()->where('f_type', 'S')->get();;
+        $pricesPurch = $stock->prices()->where('f_type', 'P')->get();;
+
         $stockGroups = StockGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $units = Unit::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $manufacturers = Manufacturer::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
@@ -134,6 +145,8 @@ class StockController extends Controller
         $pacTypes = Stock::$gpaisPacTypes;
 
         return view('modules.stock.edit', compact(
+            'pricesSale',
+            'pricesPurch',
             'stock',
             'stockGroups',
             'units',
@@ -168,6 +181,14 @@ class StockController extends Controller
     {
         try {
             $stock->update($request->validated());
+
+            switch ($request->input('action')) {
+                case 'price-sale-create':
+                    return redirect()->route('prices.create' , [$stock, 'S']);
+
+                case 'price-purch-create':
+                    return redirect()->route('prices.create' , [$stock, 'P']);
+            }
 
             return redirect()->route('stocks.index')->withSuccess(trans('global.updated_successfully'));
         } catch (\Exception) {

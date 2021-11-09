@@ -7,118 +7,85 @@ use App\Models\Partner;
 use Illuminate\View\View;
 use App\Models\BankAccount;
 use App\Http\Controllers\Controller;
-use App\Services\Modules\BankService;
 use Illuminate\Http\RedirectResponse;
-use App\Services\Modules\PartnerService;
-use App\Services\Modules\BankAccountService;
 use App\Http\Requests\BankAccountStoreUpdateRequest;
 
 class BankAccountController extends Controller
 {
-    private $bankAccountService;
-
-    public function __construct()
-    {
-        $this->bankAccountService = new BankAccountService(BankAccount::class);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return View
-     */
-    public function index()
-    {
-        $bankAccounts = $this->bankAccountService->all();
-
-        return view('modules.bankAccount.index', compact('bankAccounts'));
-    }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return View
      */
-    public function create()
+    public function create(Partner $partner)
     {
-        $bankService = new BankService(Bank::class);
-        $banks = $bankService->all();
+        $banks = Bank::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        $partnerService = new PartnerService(Partner::class);
-        $partners = $partnerService->all();
-
-        return view('modules.bankAccount.create', compact('banks', 'partners'));
+        return view('modules.bankAccount.create', compact('partner','banks'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param BankAccountStoreUpdateRequest $request
+     * @param Partner $partner
      * @return RedirectResponse
      */
-    public function store(BankAccountStoreUpdateRequest $request)
+    public function store(BankAccountStoreUpdateRequest $request, Partner $partner)
     {
-        $this->bankAccountService->create($request->input());
+        $partner->bankAccounts()->create($request->validated());
 
-        return redirect()->route('bankAccounts.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param $id
-     * @return View
-     */
-    public function show($id)
-    {
-        $bankAccount = $this->bankAccountService->findById($id);
-
-        return view('modules.bankAccount.show', compact('bankAccount'));
+        return redirect()->route('partners.edit', $partner)->withSuccess(trans('global.created_successfully'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
+     * @param Partner $partner
+     * @param BankAccount $bankAccount
      * @return View
      */
-    public function edit($id)
+    public function edit(Partner $partner, BankAccount $bankAccount)
     {
-        $bankAccount = $this->bankAccountService->findById($id);
+        $banks = Bank::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        $bankService = new BankService(Bank::class);
-        $banks = $bankService->all();
-
-        $partnerService = new PartnerService(Partner::class);
-        $partners = $partnerService->all();
-
-        return view('modules.bankAccount.edit', compact('bankAccount','banks', 'partners'));
+        return view('modules.bankAccount.edit', compact('partner', 'bankAccount','banks'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param BankAccountStoreUpdateRequest $request
-     * @param $id
+     * @param Partner $partner
+     * @param BankAccount $bankAccount
      * @return RedirectResponse
      */
-    public function update(BankAccountStoreUpdateRequest $request, $id)
+    public function update(BankAccountStoreUpdateRequest $request, Partner $partner, BankAccount $bankAccount)
     {
-        $this->bankAccountService->update($id, $request->input());
+        try {
+            $bankAccount->update($request->validated());
 
-        return redirect()->route('bankAccounts.index');
+            return redirect()->route('partners.edit', $partner)->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('partners.edit', $partner)->withError(trans('global.update_failed'));
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
+     * @param Partner $partner
+     * @param BankAccount $bankAccount
      * @return RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Partner $partner, BankAccount $bankAccount)
     {
-        $this->bankAccountService->destroy($id);
+        try {
+            $bankAccount->delete();
 
-        return redirect()->route('bankAccounts.index');
+            return redirect()->route('partners.edit', $partner)->withSuccess(trans('global.deleted_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('partners.edit', $partner)->withError(trans('global.delete_failed'));
+        }
     }
 }
