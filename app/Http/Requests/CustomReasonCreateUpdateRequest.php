@@ -24,7 +24,10 @@ class CustomReasonCreateUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'f_description' => 'required|string|max:100',
+            'f_system1' => 'string|max:100|nullable',
+            'f_system2' => 'string|max:100|nullable',
+            'f_system3' => 'string|max:100|nullable',
         ];
     }
 }
