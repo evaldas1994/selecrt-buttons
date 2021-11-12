@@ -124,7 +124,7 @@ class StockController extends Controller
             session()->forget('queue_of_actions');
 
             //redirect
-            return redirect()->route($prevRoute, $prevData)->withInput($prevData);
+            return redirect()->route($prevRoute)->withInput($prevData);
         }
         return redirect()->route('stocks.index', $stock)->withSuccess(trans('global.created_successfully'));
     }

@@ -80,7 +80,7 @@ class BarcodeController extends Controller
      */
     public function edit(Barcode $barcode)
     {
-        $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $stocks = Stock::select('f_id', 'f_name')->orderBy('f_create_date', 'desc')->limit(10)->get();
 
         return view('modules.barcode.edit', compact('barcode', 'stocks'));
     }
