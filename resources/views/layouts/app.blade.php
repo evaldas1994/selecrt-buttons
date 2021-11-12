@@ -12,6 +12,16 @@
 @if(request()->routeIs('login'))
     @yield('content')
 @else
+
+
+    @if(session()->exists('band'))
+        @foreach(session('band') as $session)
+            {{ Arr::get($session, 'route-prev.route') . ' -> ' . Arr::get($session, 'route-next.route') }}
+        @endforeach
+    @endif
+
+
+
     @include('layouts.main')
 @endif
 <script src="{{ asset('js/resizable-table-columns/index.min.js') }}"></script>

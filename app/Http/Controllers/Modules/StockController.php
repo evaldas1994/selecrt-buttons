@@ -19,6 +19,7 @@ use App\Models\Register4;
 use App\Models\Register5;
 use App\Models\Department;
 use App\Models\StockGroup;
+use Illuminate\Support\Arr;
 use App\Models\Manufacturer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -109,6 +110,22 @@ class StockController extends Controller
                 return redirect()->route('prices.create' , [$stock, 'P']);
         }
 
+        if (session()->exists('queue_of_actions')) {
+            $lastOfQueue = Arr::last(session('queue_of_actions'));
+
+            $prevRoute = Arr::get($lastOfQueue, 'route-prev.route');
+            $prevData = Arr::get($lastOfQueue, 'route-prev.data');
+            $targetField = Arr::get($lastOfQueue, 'route-prev.target_field');
+
+            // collect data
+            $prevData = Arr::set($prevData, $targetField, $stock->f_id);
+
+            //remove session
+            session()->forget('queue_of_actions');
+
+            //redirect
+            return redirect()->route($prevRoute, $prevData)->withInput($prevData);
+        }
         return redirect()->route('stocks.index', $stock)->withSuccess(trans('global.created_successfully'));
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Rules\FloatRule;
 use App\Rules\IdPatternRule;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,6 +27,10 @@ class BarcodeStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if (Arr::exists($this->input(), 'button-action')) {
+            return [];
+        }
+
         $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_barcode')->ignore($this->barcode) : 'unique:t_barcode';
         return [
             'f_id' => [$unique, 'required', 'max:40', new IdPatternRule],
