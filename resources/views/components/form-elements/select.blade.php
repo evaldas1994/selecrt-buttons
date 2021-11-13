@@ -4,17 +4,10 @@
         <select class="form-select-sm form-control form-control-sm {{ $selectClass ?? '' }}" @error($name) is-invalid @enderror"
                 name="{{ $name }}">
             <option value selected>---</option>
-            @foreach($stocks as $stock)
-                <option value="{{ $stock->f_id }}" {{ selected($name, $stock->f_id, $defaultValue ?? null) }}>{{ $stock->f_id }}</option>
+            @foreach($data as $item)
+                <option value="{{ $item }}" {{ selected($name, $item, $defaultValue ?? '') }}>@lang($langValue . $item)</option>
             @endforeach
         </select>
-        <button
-            name="{{ $buttonName }}"
-            value="{{ $buttonValue }}"
-            type="{{ $buttonType ?? 'submit' }}"
-            class="{{ $buttonClass }}">
-            <i class="fas fa-ellipsis-v"></i>
-        </button>
     </div>
     @error($name) <span class="invalid-feedback"
                               role="alert"> <strong>{{ $message }}</strong> </span> @enderror

@@ -65,8 +65,12 @@ class BarcodeController extends Controller
 
                 // redirect
                 return redirect()->route(Arr::get($data,'route-next.route'), Arr::get($data,'route-next.data'));
+
+            case 'close':
+                return redirect()->route('barcodes.index');
         }
 
+//        dd($request->validated());
         Barcode::create($request->validated());
 
         return redirect()->route('barcodes.index')->withSuccess(trans('global.created_successfully'));
