@@ -4,6 +4,7 @@
            class="form-control form-control-sm {{ $inputClass ?? '' }} @error($name) is-invalid @enderror"
            name="{{ $name }}"
            maxlength="{{ $maxLength ?? '255' }}"
-           value="{{ old($name, $defaultValue ?? '')}}">
+           value="{{ old($name, $defaultValue ?? '')}}"
+           {{ $readonly ?? '' }}>
     @error($name) <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
 </div>

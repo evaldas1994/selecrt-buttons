@@ -3,9 +3,8 @@
     <div class="input-group">
         <select class="form-select-sm form-control form-control-sm {{ $selectClass ?? '' }}" @error($name) is-invalid @enderror"
                 name="{{ $name }}">
-            <option value selected>---</option>
-            @foreach($data as $item)
-                <option value="{{ $item }}" {{ selected($name, $item, $defaultValue ?? '') }}>@lang($langValue . $item)</option>
+            @foreach($items as $item)
+                <option value="{{ $item }}" {{ selected($name, $item, $defaultValue ?? '') }}>@lang($selectValue . $item)</option>
             @endforeach
         </select>
     </div>
