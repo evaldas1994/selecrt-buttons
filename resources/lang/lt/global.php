@@ -10,6 +10,7 @@ return [
     'btn_new' => 'Naujas',
     'btn_save' => 'Išsaugoti',
     'btn_close' => 'Uždaryti',
+    'btn_empty' => '',
     'actions' => 'Veiksmai',
     'created_successfully' => 'Įrašas sukurtas sėkmingai!',
     'updated_successfully' => 'Įrašas atnaujintas sėkmingai!',

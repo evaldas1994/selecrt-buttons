@@ -69,7 +69,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('work-shedule-templates', \App\Http\Controllers\Modules\WorkSheduleTemplateController::class);
 
     Route::prefix('stocks/{stock}')->group(function () {
-        Route::resource('prices', \App\Http\Controllers\Modules\PriceController::class)->except('show', 'create', 'store');
+        Route::resource('prices', \App\Http\Controllers\Modules\PriceController::class)->except('show', 'create', 'store') ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
         Route::get('prices/type/{type}', [App\Http\Controllers\Modules\PriceController::class, 'create'])->name('prices.create');
         Route::post('prices/type/{type}', [App\Http\Controllers\Modules\PriceController::class, 'store'])->name('prices.store');
     });
@@ -81,7 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('employees/{employee}')->group(function () {
         Route::resource('bonuses', \App\Http\Controllers\Modules\BonusController::class)->except('show', 'index');
     });
-  
+
     Route::prefix('partners/{partner}')->group(function () {
         Route::resource('bank-accounts', \App\Http\Controllers\Modules\BankAccountController::class)->except('show', 'index');
     });

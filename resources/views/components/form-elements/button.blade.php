@@ -1,8 +1,11 @@
 <button
     form="{{ $form ?? null }}"
-    class="btn {{ $class }}"
+    class="btn {{ $class ?? '' }}"
     type="{{ $type ?? 'submit' }}"
     name="{{ $name ?? null }}"
     value="{{ $value ?? null}}"
->   @lang($text)
+>
+    @if(isset($dataFeather))<i class="align-middle" data-feather="{{ $dataFeather }}"></i> @endif
+    @if(isset($fontawesomeIcon))<i class="{{ $fontawesomeIcon }}"></i> @endif
+        @lang($text ?? 'global.btn_empty')
 </button>

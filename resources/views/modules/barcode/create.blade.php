@@ -11,14 +11,14 @@
                 form="barcode-form"
                 class="btn-primary"
                 text="global.btn_save"
-            ></x-form-elements.button>
+            />
             <x-form-elements.button
                 form="barcode-form"
                 class="btn-dark"
                 name="button-action"
                 value="close"
                 text="global.btn_close"
-            ></x-form-elements.button>
+            />
         </div>
     </div>
 
@@ -35,20 +35,22 @@
                                 labelValue="modules/barcode.f_id"
                                 maxLength="40"
                                 inputClass="not-empty"
-                            ></x-form-elements.input-id>
+                            />
+
                             <x-form-elements.select-with-button
-                                :stocks="$stocks"
+                                :items="$stocks"
                                 name="f_stockid"
                                 labelValue="modules/barcode.f_stockid"
                                 selectClass="not-empty"
                                 buttonName="button-action"
                                 buttonValue="select-stock"
                                 buttonClass="input-group-text"
-                            ></x-form-elements.select-with-button>
+                            />
+
                             <x-form-elements.checkbox-boolean
                                 name="f_default"
                                 labelValue="modules/barcode.f_default"
-                            ></x-form-elements.checkbox-boolean>
+                            />
                         </div>
                         <div class="col-12 col-md-6 col-xl-3">
                             <x-form-elements.input
@@ -57,15 +59,16 @@
                                 inputClass="not-empty"
                                 maxLength="15"
                                 defaultValue="1.0000"
-                            ></x-form-elements.input>
+                            />
+
                             <x-form-elements.select-with-button
-                                :stocks="$stocks"
+                                :items="$stocks"
                                 name="f_usadid"
                                 labelValue="modules/barcode.f_usadid"
                                 buttonName="button-action"
                                 buttonValue="select-usad"
                                 buttonClass="input-group-text"
-                            ></x-form-elements.select-with-button>
+                            />
                         </div>
                         <div class="col-12 col-md-6 col-xl-3">
                             <x-form-elements.input
@@ -74,21 +77,23 @@
                                 inputClass="not-empty"
                                 maxLength="15"
                                 defaultValue="0.0000"
-                            ></x-form-elements.input>
+                            />
+
                             <x-form-elements.input
                                 name="f_plastic"
                                 labelValue="modules/barcode.f_plastic"
                                 inputClass="not-empty"
                                 maxLength="15"
                                 defaultValue="0.0000"
-                            ></x-form-elements.input>
+                            />
+
                             <x-form-elements.input
                                 name="f_paper"
                                 labelValue="modules/barcode.f_paper"
                                 inputClass="not-empty"
                                 maxLength="15"
                                 defaultValue="0.0000"
-                            ></x-form-elements.input>
+                            />
                         </div>
                         <div class="col-12 col-md-6 col-xl-3">
                             <x-form-elements.input
@@ -97,28 +102,31 @@
                                 inputClass="not-empty"
                                 maxLength="15"
                                 defaultValue="0.0000"
-                            ></x-form-elements.input>
+                            />
+
                             <x-form-elements.input
                                 name="f_wood"
                                 labelValue="modules/barcode.f_wood"
                                 inputClass="not-empty"
                                 maxLength="15"
                                 defaultValue="0.0000"
-                            ></x-form-elements.input>
+                            />
+
                             <x-form-elements.input
                                 name="f_pap1"
                                 labelValue="modules/barcode.f_pap1"
                                 inputClass="not-empty"
                                 maxLength="15"
                                 defaultValue="0.0000"
-                            ></x-form-elements.input>
+                            />
+
                             <x-form-elements.input
                                 name="f_pap2"
                                 labelValue="modules/barcode.f_pap2"
                                 inputClass="not-empty"
                                 maxLength="15"
                                 defaultValue="0.0000"
-                            ></x-form-elements.input>
+                            />
                         </div>
                         <div class="col-12 col-md-6 col-xl-3">
                             <x-form-elements.input
@@ -126,19 +134,21 @@
                                 labelValue="modules/barcode.f_system1"
                                 maxLength="100"
                                 hidden="hidden"
-                            ></x-form-elements.input>
+                            />
+
                             <x-form-elements.input
                                 name="f_system2"
                                 labelValue="modules/barcode.f_system2"
                                 maxLength="100"
                                 hidden="hidden"
-                            ></x-form-elements.input>
+                            />
+
                             <x-form-elements.input
                                 name="f_system3"
                                 labelValue="modules/barcode.f_system3"
                                 maxLength="100"
                                 hidden="hidden"
-                            ></x-form-elements.input>
+                            />
                         </div>
                     </div>
                 </div>

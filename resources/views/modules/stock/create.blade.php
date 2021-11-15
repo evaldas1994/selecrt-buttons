@@ -8,22 +8,23 @@
 
         <div class="col-auto ms-auto text-end mt-n1">
             <x-form-elements.button
-                form="stock-form"
+                form="stock_create_form"
                 class="btn-primary"
                 text="global.btn_save"
-            ></x-form-elements.button>
+            />
+
             <x-form-elements.button
-                form="stock-form"
+                form="stock_create_form"
                 class="btn-dark"
-                name="button-action"
+                name="button-action-without-validation"
                 value="close"
                 text="global.btn_close"
-            ></x-form-elements.button>
+            />
         </div>
     </div>
 
     <div class="row">
-        <form id="stock-form" action="{{ route('stocks.store') }}" method="POST">
+        <form id="stock_create_form" action="{{ route('stocks.store') }}" method="POST">
             @csrf
 
             <div class="card">
@@ -32,7 +33,7 @@
                         <x-modules.tabs-list
                             lang="modules/stock.tab"
                             count="7"
-                        ></x-modules.tabs-list>
+                        />
                     </div>
 
                     <div class="row">
@@ -40,7 +41,6 @@
                             <div class="tab-pane fade show active" id="tab-1" role="tabpanel">
                                 <div class="row">
                                     <div class="col-12 col-md-6 col-xl-3">
-
                                         <x-form-elements.input-id
                                             name="f_id"
                                             labelValue="modules/stock.f_id"
@@ -551,29 +551,29 @@
                             </div>
                             <div class="tab-pane fade" id="tab-3" role="tabpanel">
                                 <div class="row">
-                                    <div class="col-auto text-end mt-1">
-                                        <button
-                                            form="stock-form"
-                                            class="btn btn-primary"
-                                            type="submit"
-                                            name="action"
-                                            value="price-sale-create">
-                                            <i class="fas fa-plus"></i> @lang('global.btn_new')
-                                        </button>
+                                    <div class="col-auto">
+                                        <x-form-elements.button
+                                            form="stock_create_form"
+                                            class="btn-primary"
+                                            name="button-action"
+                                            value="price-sale-create"
+                                            fontawesomeIcon="fas fa-plus"
+                                            text="global.btn_new"
+                                        />
                                     </div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="tab-4" role="tabpanel">
                                 <div class="row">
-                                    <div class="col-auto text-end mt-1">
-                                        <button
-                                            form="stock-form"
-                                            class="btn btn-primary"
-                                            type="submit"
-                                            name="action"
-                                            value="price-purch-create">
-                                            <i class="fas fa-plus"></i> @lang('global.btn_new')
-                                        </button>
+                                    <div class="col-auto">
+                                        <x-form-elements.button
+                                            form="stock_create_form"
+                                            class="btn-primary"
+                                            name="button-action"
+                                            value="price-purch-create"
+                                            fontawesomeIcon="fas fa-plus"
+                                            text="global.btn_new"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -613,41 +613,26 @@
                                         />
                                     </div>
                                     <div class="col-12 col-md-6 col-xl-3">
-                                        <div class="mb-2" hidden>
-                                            <label
-                                                class="form-label">@lang('modules/stock.f_system1')</label>
-                                            <input type="text"
-                                                   class="form-control form-control-sm @error('f_system1') is-invalid @enderror"
-                                                   name="f_system1"
-                                                   maxlength="100"
-                                                   value="{{ old('f_system1') }}">
-                                            @error('f_system1') <span class="invalid-feedback"
-                                                                      role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                                        </div>
+                                        <x-form-elements.input
+                                            name="f_system1"
+                                            labelValue="modules/stock.f_system1"
+                                            maxLength="100"
+                                            hidden="hidden"
+                                        />
 
-                                        <div class="mb-2" hidden>
-                                            <label
-                                                class="form-label">@lang('modules/stock.f_system2')</label>
-                                            <input type="text"
-                                                   class="form-control form-control-sm @error('f_system2') is-invalid @enderror"
-                                                   name="f_system2"
-                                                   maxlength="100"
-                                                   value="{{ old('f_system2') }}">
-                                            @error('f_system2') <span class="invalid-feedback"
-                                                                      role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                                        </div>
+                                        <x-form-elements.input
+                                            name="f_system2"
+                                            labelValue="modules/stock.f_system2"
+                                            maxLength="100"
+                                            hidden="hidden"
+                                        />
 
-                                        <div class="mb-2" hidden>
-                                            <label
-                                                class="form-label">@lang('modules/stock.f_system3')</label>
-                                            <input type="text"
-                                                   class="form-control form-control-sm @error('f_system3') is-invalid @enderror"
-                                                   name="f_system3"
-                                                   maxlength="100"
-                                                   value="{{ old('f_system3') }}">
-                                            @error('f_system3') <span class="invalid-feedback"
-                                                                      role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                                        </div>
+                                        <x-form-elements.input
+                                            name="f_system3"
+                                            labelValue="modules/stock.f_system3"
+                                            maxLength="100"
+                                            hidden="hidden"
+                                        />
                                     </div>
                                 </div>
                             </div>

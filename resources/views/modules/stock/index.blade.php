@@ -9,7 +9,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="table-responsive">
-                    <table class="table mb-0 table-sm table-bordered">
+                    <table class="table mb-0 table-sm table-bordered table-striped">
                         <thead>
                         <tr>
                             <th scope="col">@lang('modules/stock.f_id')</th>
@@ -35,7 +35,7 @@
                                     <a href="#" onclick="event.preventDefault();document.getElementById('delete-form-{{ $stock->f_id }}').submit();">
                                         <i class="align-middle" data-feather="trash-2"></i>
                                     </a>
-                                    <form action="{{ route('stocks.destroy', $stock) }}" method="POST" class="d-none" id="delete-form-{{ $stock->f_id }}">
+                                    <form action="{{ route('stocks.destroy', $stock) }}" method="POST" class="d-none" name="delete-form-{{ $stock->f_id }}" id="delete-form-{{ $stock->f_id }}">
                                         @csrf
                                         @method('DELETE')
                                     </form>
