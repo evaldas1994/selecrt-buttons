@@ -56,7 +56,7 @@
                                             buttonValue="select-stock|f_stockid"
                                             wireModel="f_stockid"
                                             wireChange="changeStock($event.target.value)"
-                                            :defaultValue="$f_id"
+                                            defaultValue="f_stockid"
                                         />
 
                                         <x-form-elements.input

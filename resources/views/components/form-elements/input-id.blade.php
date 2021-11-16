@@ -17,7 +17,8 @@
                class="form-control form-control-sm {{ $inputClass ?? '' }} @error($name) is-invalid @enderror"
                name="{{ $name }}"
                id-pattern
-               wire:model="{{ $wireModel ?? ''}}"
+               {{ isset($wireModel) ? 'wire:model.lazy='.$wireModel : '' }}
+               {{ isset($wireChange) ? 'wire:change.lazy='.$wireChange : '' }}
                maxlength="{{ $maxLength ?? '255' }}"
                value="{{ old($name, $defaultValue ?? '')}}"
             {{ $readonly ?? '' }}>

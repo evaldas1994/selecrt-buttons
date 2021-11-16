@@ -92,6 +92,14 @@ class ProductionCardComponent extends Model
     }
 
     /**
+     * Get the production card component's alternative stock.
+     */
+    public function alterStock()
+    {
+        return $this->hasOne(Stock::class, 'f_id', 'f_alter_stockid');
+    }
+
+    /**
      * Get the production card component's unit.
      */
     public function unit()

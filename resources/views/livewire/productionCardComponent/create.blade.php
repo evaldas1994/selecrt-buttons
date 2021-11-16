@@ -39,7 +39,7 @@
                                 buttonValue="select-stock|f_stockid"
                                 wireModel="f_stockid"
                                 wireChange="changeStock($event.target.value)"
-                                :defaultValue="$f_id"
+                                defaultValue="f_stockid"
                             />
 
                             <x-form-elements.input
@@ -47,7 +47,7 @@
                                 labelValue="modules/productionCardComponent.f_stock_name"
                                 maxLength="20"
                                 :defaultValue="$f_stock_name"
-                                wireModel="$f_stock_name"
+                                wireModel="f_stock_name"
                                 readonly="readonly"
                             />
                             <x-form-elements.input
@@ -64,12 +64,11 @@
                                 :items="$stocks"
                                 name="f_alter_stockid"
                                 labelValue="modules/productionCardComponent.f_alter_stockid"
-                                selectClass="not-empty"
                                 buttonName="button-action-without-validation"
                                 buttonValue="select-alter-stock|f_alter_stockid"
                                 wireModel="f_alter_stockid"
                                 wireChange="changeAlterStock($event.target.value)"
-                                :defaultValue="$f_alter_stockid"
+                                defaultValue="f_alter_stockid"
                             />
 
                             <x-form-elements.input
@@ -77,10 +76,9 @@
                                 labelValue="modules/productionCardComponent.f_alter_stock_name"
                                 maxLength="20"
                                 :defaultValue="$f_alter_stock_name"
-                                wireModel="$f_stock_name"
+                                wireModel="f_alter_stock_name"
                                 readonly="readonly"
                             />
-
                         </div>
                         <div class="col-12 col-xl-3">
                             <x-form-elements.input
@@ -97,7 +95,7 @@
                                 maxLength="15"
                                 :defaultValue="$f_price"
                                 wireModel="f_price"
-                                readonly="{{ $f_type == 1 ? 'readonly' : null }}"
+                                readonly="{{ $f_price_locked == 1 ? 'readonly' : null }}"
                             />
                         </div>
                         <div class="col-12 col-xl-3">
@@ -108,7 +106,7 @@
                                 selectValue="modules/productionCardComponent.type"
                                 wireModel="f_type"
                                 wireChange="changeType($event.target.value)"
-                                :defaultValue="$f_type"
+                                defaultValue="f_type"
                                 disabled="{{ $f_type_locked == 1 ? 'disabled' : null }}"
                             />
 

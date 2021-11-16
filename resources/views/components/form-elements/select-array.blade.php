@@ -16,13 +16,14 @@
     <label class="col-form-label col-6 col-xxl-5 text-sm">@lang($labelValue)</label>
     <div class="col-6 col-xxl-7">
         <div class="input-group">
-            <select wire:model.lazy="{{ $wireModel ?? '' }}"
-                    wire:change="{{$wireChange ?? ''}}"
+            <select {{ isset($wireModel) ? 'wire:model.lazy='.$wireModel : '' }}
+                    {{ isset($wireChange) ? 'wire:change.lazy='.$wireChange : '' }}
                     {{ $disabled ?? '' }}
                     class="form-select-sm form-control form-control-sm {{ $selectClass ?? '' }} @error($name) is-invalid @enderror"
                     name="{{ $name }}">
                 @foreach($items as $item)
-                    <option value="{{ $item }}" {{ selected($name, $item, $defaultValue ?? '') }}>@lang($selectValue . $item)</option>
+                    <option
+                        value="{{ $item }}" {{ selected($name, $item, $defaultValue ?? '') }}>@lang($selectValue . $item)</option>
                 @endforeach
             </select>
             @error($name) <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
@@ -30,6 +31,9 @@
     </div>
 
     @if(isset($disabled) )
-        <input type="hidden" name="{{ $name }}" value="{{ $defaultValue }}">
+        <input {{ isset($wireModel) ? 'wire:model.lazy='.$wireModel : '' }}
+               type="hidden"
+               name="{{ $name }}"
+               value="{{ $defaultValue }}">
     @endif
 </div>

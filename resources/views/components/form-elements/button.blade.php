@@ -7,5 +7,5 @@
 >
     @if(isset($dataFeather))<i class="align-middle" data-feather="{{ $dataFeather }}"></i> @endif
     @if(isset($fontawesomeIcon))<i class="{{ $fontawesomeIcon }}"></i> @endif
-        @lang($text ?? 'global.btn_empty')
+    @lang($text ?? 'global.btn_empty')
 </button>

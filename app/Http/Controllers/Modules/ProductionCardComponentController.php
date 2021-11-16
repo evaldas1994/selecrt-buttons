@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules;
 
 use App\Models\Stock;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 use App\Models\ProductionCard;
 use App\Http\Controllers\Controller;
@@ -54,6 +55,8 @@ class ProductionCardComponentController extends Controller
      */
     public function edit(ProductionCard $productionCard, ProductionCardComponent $productionCardComponent)
     {
+        $productionCardComponent = $productionCardComponent->load('stock', 'alterStock');
+
         $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
         $types = ProductionCardComponent::$types;

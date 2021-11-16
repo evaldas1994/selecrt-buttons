@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\ProductionCardComponent;
 
+use App\Models\ProductionCardComponent;
 use App\Models\Stock;
 use Livewire\Component;
 
@@ -23,6 +24,7 @@ class Edit extends Component
     public $types;
     public $productionCardComponent;
 
+    public $f_price_locked = false;
     public $f_type_locked = false;
 
     public function mount($productionCard, $stocks, $types, $productionCardComponent)
@@ -32,59 +34,63 @@ class Edit extends Component
         $this->types = $types;
         $this->productionCardComponent = $productionCardComponent;
 
-        $this->changeStock($productionCardComponent->f_stockid);
-        $this->changeAlterStock($productionCardComponent->f_alter_stockid);
-
         $this->setOldValue('f_type', $productionCardComponent->f_type);
         $this->setOldValue('f_id', $productionCardComponent->f_id);
         $this->setOldValue('f_stockid', $productionCardComponent->f_stockid);
-        $this->setOldValue('f_stock_name', $productionCardComponent->f_stock_name);
+        $this->setOldValue('f_stock_name', $productionCardComponent->stock->f_name);
         $this->setOldValue('f_quant', $productionCardComponent->f_quant);
-        $this->setOldValue('f_unitid', $productionCardComponent->f_unitid);
-        $this->setOldValue('f_alter_stockid', $productionCardComponent->f_alter_stockid);
-        $this->setOldValue('f_alter_stock_name', $productionCardComponent->f_alter_stock_name);
+        $this->setOldValue('f_unitid', $productionCardComponent->stock->f_unitid);
+        $this->setOldValue('f_alter_stockid', $productionCardComponent->alterStock->f_id);
+        $this->setOldValue('f_alter_stock_name', $productionCardComponent->alterStock->f_name);
         $this->setOldValue('f_neto', $productionCardComponent->f_neto);
-        ($this->f_type == 1 || $this->f_type == null) ? $this->f_price = '0.0000' : $this->setOldValue('f_price', $productionCardComponent->f_price);
+        $this->setOldValue('f_price', $productionCardComponent->f_price);
 
-        $this->f_stockid != null ? $this->f_type_locked = true : $this->f_type_locked = false;
+        $this->changeStock($this->f_stockid);
+        $this->changeAlterStock($this->f_alter_stockid);
+
+        $this->f_type_locked = $this->isTypeLocked();
+        $this->f_price_locked = $this->isPriceLocked();
     }
 
     public function changeStock($stockid)
     {
-        if ($stockid != null ) {
-            $stock = Stock::findOrFail($stockid);
+        $stock = Stock::find($stockid);
 
-            $this->f_stockid = $stock->f_id;
-            $this->f_stock_name = $stock->f_name;
-            $this->f_unitid = $stock->f_unitid;
-            $this->f_type = $stock->f_type;
-
-            $this->f_type == 1 ? $this->f_price = '0.0000' : '';
-            $this->f_type = $stock->f_type;
-            $this->f_type_locked = true;
-        } else {
+        if ($stockid == null || $stock == null ) {
             $this->f_stockid = null;
             $this->f_stock_name = null;
             $this->f_unitid = null;
             $this->f_type = 1;
             $this->f_type_locked = false;
+        } else {
+            $this->f_stockid = $stock->f_id;
+            $this->f_stock_name = $stock->f_name;
+            $this->f_unitid = $stock->f_unitid;
+            $this->f_type = $stock->f_type;
+            $this->f_type_locked = true;
         }
-    }
 
-    public function changeType($type)
-    {
-        if ($this->f_stockid == null) {
-            $this->f_type = $type;
-            $type == 1 ? $this->f_price = '0.0000' : '';
-        }
+        $this->f_type_locked = $this->isTypeLocked();
+        $this->f_price_locked = $this->isPriceLocked();
     }
 
     public function changeAlterStock($alterStockid)
     {
-        $alterStock = Stock::findOrFail($alterStockid);
+        $stock = Stock::find($alterStockid);
 
-        $this->f_alter_stockid = $alterStock->f_id;
-        $this->f_alter_stock_name = $alterStock->f_name;
+        if ($alterStockid == null || $stock == null ) {
+            $this->f_alter_stockid = null;
+            $this->f_alter_stock_name = null;
+        } else {
+            $this->f_alter_stockid = $stock->f_id;
+            $this->f_alter_stock_name = $stock->f_name;
+        }
+    }
+
+    public function changeType()
+    {
+        $this->f_type_locked = $this->isTypeLocked();
+        $this->f_price_locked = $this->isPriceLocked();
     }
 
     public function render()
@@ -101,5 +107,25 @@ class Edit extends Component
                 $this->$value = $default;
             }
         }
+    }
+
+    private function isPriceLocked(): bool
+    {
+        if ($this->f_type == 1) {
+            $this->f_price = '0.0000';
+            return true;
+        }
+
+        return false;
+    }
+
+    private function isTypeLocked(): bool
+    {
+        $stock = Stock::find($this->f_stockid);
+
+        if ($stock != null) {
+            return $stock->f_type != null;
+        }
+        return false;
     }
 }
