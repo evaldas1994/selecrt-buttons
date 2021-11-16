@@ -42,9 +42,10 @@
                                         <x-form-elements.input-id
                                             name="f_id"
                                             labelValue="modules/productionCard.f_id"
+                                            inputClass="not-empty"
                                             maxLength="20"
                                             wireModel="f_id"
-                                            inputClass="not-empty"
+                                            :defaultValue="$f_id"
                                         />
 
                                         <x-form-elements.select-with-button
@@ -59,12 +60,13 @@
                                             defaultValue="f_stockid"
                                         />
 
+
                                         <x-form-elements.input
                                             name="f_stock_name"
                                             labelValue="modules/productionCard.f_stock_name"
                                             maxLength="20"
                                             :defaultValue="$f_stock_name"
-                                            wireModel="$f_stock_name"
+                                            wireModel="f_stock_name"
                                             readonly="readonly"
                                         />
                                     </div>

@@ -36,25 +36,21 @@ class Create extends Component
         $this->setOldValue('f_unitid');
         $this->setOldValue('f_description');
 
-        $this->f_stockid !== null ? $this->changeStock($this->f_stockid) : '';
+        $this->changeStock($this->f_stockid);
     }
 
-    public function changeStock(?string $stockId)
+    public function changeStock($stockId)
     {
-        if ($stockId == null) {
+        $this->f_stockid = $stockId;
+        $stock = Stock::find($this->f_stockid);
+
+        if ($this->f_stockid == null ) {
             $this->f_stock_name = null;
             $this->f_unitid = null;
         } else {
-            $stock = Stock::findOrFail($stockId);
-
             $this->f_stock_name = $stock->f_name;
             $this->f_unitid = $stock->f_unitid;
         }
-    }
-
-    public function changeId($id)
-    {
-        $this->f_id = $id;
     }
 
     public function render()
