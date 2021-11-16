@@ -12,7 +12,7 @@ class Create extends Component
 {
     use WithFileUploads;
 
-    public $f_id;
+    public $f_id = " ";
     public $f_stockid;
     public $f_stock_name;
     public $f_name;
