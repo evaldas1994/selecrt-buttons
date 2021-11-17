@@ -76,7 +76,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="#">
+                        <a class="sidebar-link" href="{{ route('production-cards.index') }}">
                             <span class="align-middle">@lang('nav.registers.production_cards')</span>
                         </a>
                     </li>

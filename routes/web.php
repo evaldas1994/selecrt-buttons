@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('partner-groups', \App\Http\Controllers\Modules\PartnerGroupController::class)->except('show');
     Route::resource('periods', \App\Http\Controllers\Modules\PeriodController::class)->except('show');
     Route::resource('persons', \App\Http\Controllers\Modules\PersonController::class)->except('show');
+    Route::resource('production-cards', \App\Http\Controllers\Modules\ProductionCardController::class)->except('show');
     Route::resource('projects', \App\Http\Controllers\Modules\ProjectController::class)->except('show');
     Route::resource('registers1', \App\Http\Controllers\Modules\Register1Controller::class)->except('show');
     Route::resource('registers2', \App\Http\Controllers\Modules\Register2Controller::class)->except('show');
@@ -81,9 +82,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('employees/{employee}')->group(function () {
         Route::resource('bonuses', \App\Http\Controllers\Modules\BonusController::class)->except('show', 'index');
     });
-  
+
     Route::prefix('partners/{partner}')->group(function () {
         Route::resource('bank-accounts', \App\Http\Controllers\Modules\BankAccountController::class)->except('show', 'index');
+    });
+
+    Route::prefix('production-cards/{production_card}')->group(function () {
+        Route::resource('production-card-components', \App\Http\Controllers\Modules\ProductionCardComponentController::class)->except('show', 'index');
     });
 });
 

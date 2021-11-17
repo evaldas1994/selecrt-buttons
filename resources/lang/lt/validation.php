@@ -161,6 +161,7 @@ return [
 
     'alnum'=> 'Yra neileistinų simbolių. Galimi simboliai: raidės, skaičiai ir -_',
     'no_negatives' => 'Galimi tik teigiami skaičiai.',
-    'wrong_number_format' => 'Blogas reikšmės formatas.'
+    'wrong_number_format' => 'Blogas reikšmės formatas.',
+    'wrong_price_by_type' => 'Kaina negalima, kai tipas yra prekė'
 
 ];
