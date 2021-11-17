@@ -184,15 +184,6 @@
                         </div>
 
                         <div class="col-auto">
-{{--                            <x-form-elements.button--}}
-{{--                                form="production_card_edit_form"--}}
-{{--                                class="btn-primary"--}}
-{{--                                name="button-action"--}}
-{{--                                value="production-card-component-create"--}}
-{{--                                fontawesomeIcon="fas fa-plus"--}}
-{{--                                text="global.btn_new"--}}
-{{--                            />--}}
-
                             <button wire:click="showCreate"
                                 class="btn btn-primary"
                             ><i class="fas fa-plus"></i>
@@ -203,16 +194,6 @@
 
                     <div class="row">
                         <div class="col-12">
-{{--                            <x-modules.items-list--}}
-{{--                                form="production_card_edit_form"--}}
-{{--                                :items="$productionCardComponents"--}}
-{{--                                :parentRouteData="$productionCard"--}}
-{{--                                :langs="['modules/productionCardComponent.f_id', 'modules/productionCardComponent.f_stockid', 'modules/productionCardComponent.f_quant', 'modules/productionCardComponent.f_price', 'modules/productionCardComponent.f_unitid']"--}}
-{{--                                :fields="['f_id', 'f_stockid', 'f_quant', 'f_price', 'f_unitid']"--}}
-{{--                                deleteFormRoute="production-card-components.destroy"--}}
-{{--                                name="production-card-component"--}}
-{{--                            />--}}
-
                             <x-modules.items-list
                                 form="production_card_edit_form"
                                 :items="$productionCardComponents"

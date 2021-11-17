@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\ProductionCardComponent;
 
-use App\Models\ProductionCardComponent;
 use App\Models\Stock;
 use Livewire\Component;
 
@@ -40,7 +39,6 @@ class Edit extends Component
         $this->setOldValue('f_stock_name', $productionCardComponent->stock->f_name);
         $this->setOldValue('f_quant', $productionCardComponent->f_quant);
         $this->setOldValue('f_unitid', $productionCardComponent->stock->f_unitid);
-
         $this->setOldValue('f_neto', $productionCardComponent->f_neto);
         $this->setOldValue('f_price', $productionCardComponent->f_price);
 

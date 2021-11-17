@@ -1,10 +1,6 @@
 
 <div class="fixed-bottom">
     <div class="row mb-2 mb-xl-3">
-{{--        <div class="col-auto">--}}
-{{--            <h1>@lang('modules/productionCardComponent.h1')</h1>--}}
-{{--        </div>--}}
-
         <div class="col-auto ms-auto text-end mt-n1">
             <x-form-elements.button
                 form="production-card-component-create-form"
@@ -17,14 +13,6 @@
             >
                 @lang('global.btn_close')
             </button>
-
-{{--            <x-form-elements.button--}}
-{{--                form="production-card-component-create-form"--}}
-{{--                class="btn-dark"--}}
-{{--                name="button-action-without-validation"--}}
-{{--                value="close"--}}
-{{--                text="global.btn_close"--}}
-{{--            />--}}
         </div>
     </div>
     <div class="row">

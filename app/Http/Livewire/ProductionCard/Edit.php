@@ -2,14 +2,10 @@
 
 namespace App\Http\Livewire\ProductionCard;
 
-use App\Models\ProductionCardComponent;
 use App\Models\Stock;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-
-use PhpParser\Node\Stmt\DeclareDeclare;
-
-use function PHPUnit\Framework\isEmpty;
+use App\Models\ProductionCardComponent;
 
 class Edit extends Component
 {
@@ -39,16 +35,6 @@ class Edit extends Component
         $this->stocks = $stocks;
         $this->productionCardComponents = $productionCardComponents;
         $this->types = $types;
-
-//        $this->f_id = $productionCard->f_id;
-//        $this->f_stockid = $productionCard->f_stockid;
-//        $this->f_stock_name = $productionCard->f_stock_name;
-//        $this->f_name = $productionCard->f_name;
-//        $this->f_name2 = $productionCard->f_name2;
-//        $this->f_quant = $productionCard->f_quant;
-//        $this->f_unitid = $productionCard->f_unitid;
-//        $this->f_description = $productionCard->f_description;
-
 
         $this->setOldValue('f_id', $productionCard->f_id);
         $this->setOldValue('f_stockid',$productionCard->f_stockid);
@@ -106,7 +92,6 @@ class Edit extends Component
     public function showEdit(bool $value = true, string $id = null)
     {
         $productionCardComponent = ProductionCardComponent::find($id);
-//        dd($productionCardComponent);
 
         if ($value == true && $productionCardComponent !== null ) {
             $this->productionCardComponent = $productionCardComponent;

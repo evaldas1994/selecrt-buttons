@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Models\ProductionCardComponent;
 use App\Models\Stock;
-
-use Illuminate\Support\Arr;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
 use App\Models\ProductionCard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use App\Models\ProductionCardComponent;
 use App\Http\Requests\ProductionCardStoreUpdateRequest;
 
 class ProductionCardController extends Controller

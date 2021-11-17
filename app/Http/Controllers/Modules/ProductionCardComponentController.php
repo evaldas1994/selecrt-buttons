@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Modules;
 
 use App\Models\Stock;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 use App\Models\ProductionCard;
 use App\Http\Controllers\Controller;

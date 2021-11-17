@@ -130,9 +130,7 @@ class Create extends Component
 
     public function showCreate($value)
     {
-//        $this->emitUp('showCreate', $value);
         $this->emitUp('showCreate', $value);
-
     }
 
 }

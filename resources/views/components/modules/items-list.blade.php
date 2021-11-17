@@ -19,8 +19,6 @@
                 @endforeach
 
                 <td class="table-action">
-
-
                     @isset($wireEmmitUpName)
                         <button wire:click="$emitUp('{{ $wireEmmitUpName }}', {{ $wireEmmitValue ?? true }}, {{ '\''.$item->f_id.'\'' }})"
                                 class="btn "
