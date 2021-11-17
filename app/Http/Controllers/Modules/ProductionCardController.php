@@ -140,7 +140,7 @@ class ProductionCardController extends Controller
         $action = explode('|', $request->input('button-action'))[0];
         switch ($action) {
             case 'production-card-component-create':
-                return redirect()->route('production-card-components.create', $productionCard);
+                return redirect()->route('production-cards.edit', $productionCard);
         }
 
         return redirect()->route('production-cards.index')->withSuccess(trans($message));

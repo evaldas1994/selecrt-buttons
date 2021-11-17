@@ -28,7 +28,6 @@ class Edit extends Component
     public $productionCard;
     public $productionCardComponents;
 
-
     public $types;
     public $productionCardComponent;
     public $showCreate = false;
