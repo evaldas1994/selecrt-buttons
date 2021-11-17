@@ -1,8 +1,8 @@
-<div>
+<div class="fixed-bottom">
     <div class="row mb-2 mb-xl-3">
-        <div class="col-auto">
-            <h1>@lang('modules/productionCardComponent.h1')</h1>
-        </div>
+{{--        <div class="col-auto">--}}
+{{--            <h1>@lang('modules/productionCardComponent.h1')</h1>--}}
+{{--        </div>--}}
 
         <div class="col-auto ms-auto text-end mt-n1">
             <x-form-elements.button
@@ -11,13 +11,18 @@
                 text="global.btn_save"
             />
 
-            <x-form-elements.button
-                form="production-card-component-edit-form"
-                class="btn-dark"
-                name="button-action-without-validation"
-                value="close"
-                text="global.btn_close"
-            />
+{{--            <x-form-elements.button--}}
+{{--                form="production-card-component-edit-form"--}}
+{{--                class="btn-dark"--}}
+{{--                name="button-action-without-validation"--}}
+{{--                value="close"--}}
+{{--                text="global.btn_close"--}}
+{{--            />--}}
+            <button wire:click="$emitUp('showEdit', false)"
+                    class="btn btn-primary"
+            >
+                @lang('global.btn_close')
+            </button>
         </div>
     </div>
     <div class="row">
@@ -30,7 +35,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12 col-xl-3">
+                        <div class="col-12 col-md-6 col-xl-3">
                             <x-form-elements.select-with-button
                                 :items="$stocks"
                                 name="f_stockid"
@@ -60,7 +65,7 @@
                                 readonly="readonly"
                             />
                         </div>
-                        <div class="col-12 col-xl-3">
+                        <div class="col-12 col-md-6 col-xl-3">
                             <x-form-elements.select-with-button
                                 :items="$stocks"
                                 name="f_alter_stockid"
@@ -82,7 +87,7 @@
                             />
 
                         </div>
-                        <div class="col-12 col-xl-3">
+                        <div class="col-12 col-md-6 col-xl-3">
                             <x-form-elements.input
                                 name="f_quant"
                                 labelValue="modules/productionCardComponent.f_quant"
@@ -100,7 +105,7 @@
                                 readonly="{{ $f_price_locked == 1 ? 'readonly' : null }}"
                             />
                         </div>
-                        <div class="col-12 col-xl-3">
+                        <div class="col-12 col-md-6 col-xl-3">
                             <x-form-elements.select-array
                                 :items="$types"
                                 name="f_type"

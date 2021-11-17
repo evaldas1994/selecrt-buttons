@@ -20,6 +20,6 @@
                maxlength="{{ $maxLength ?? '255' }}"
                value="{{ old($name, $defaultValue ?? '')}}"
             {{ $readonly ?? '' }}>
-        @error($name) <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+        @error($name) <span {{ $errorHidden ?? '' }} class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
     </div>
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\ProductionCard;
 
+use App\Models\ProductionCardComponent;
 use App\Models\Stock;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -25,12 +26,20 @@ class Edit extends Component
 
     public $stocks;
     public $productionCard;
+    public $productionCardComponents;
 
-    public function mount($stocks, $productionCard, $productionCardComponents)
+
+    public $types;
+    public $productionCardComponent;
+    public $showCreate = false;
+    public $showEdit = false;
+
+    public function mount($stocks, $productionCard, $productionCardComponents, $types)
     {
         $this->productionCard = $productionCard;
         $this->stocks = $stocks;
         $this->productionCardComponents = $productionCardComponents;
+        $this->types = $types;
 
 //        $this->f_id = $productionCard->f_id;
 //        $this->f_stockid = $productionCard->f_stockid;
@@ -88,4 +97,31 @@ class Edit extends Component
             }
         }
     }
+
+    public function showCreate($value = true)
+    {
+        $this->showCreate = $value;
+        $this->showEdit = false;
+    }
+
+    public function showEdit(bool $value = true, string $id = null)
+    {
+        $productionCardComponent = ProductionCardComponent::find($id);
+//        dd($productionCardComponent);
+
+        if ($value == true && $productionCardComponent !== null ) {
+            $this->productionCardComponent = $productionCardComponent;
+            $this->showCreate = false;
+            $this->showEdit = $value;
+        } else {
+            $this->productionCardComponent = null;
+            $this->showCreate = false;
+            $this->showEdit = false;
+        }
+    }
+
+    public $listeners = [
+        'showCreate' => 'showCreate',
+        'showEdit' => 'showEdit'
+    ];
 }

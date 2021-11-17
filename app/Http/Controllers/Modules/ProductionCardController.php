@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Modules;
 
+use App\Models\ProductionCardComponent;
 use App\Models\Stock;
 
 use Illuminate\Support\Arr;
@@ -74,7 +75,9 @@ class ProductionCardController extends Controller
 
         $productionCardComponents = $productionCard->components;
 
-        return view('modules.productionCard.edit', compact('productionCard', 'stocks', 'productionCardComponents'));
+        $types = ProductionCardComponent::$types;
+
+        return view('modules.productionCard.edit', compact('productionCard', 'stocks', 'productionCardComponents', 'types'));
     }
 
     /**

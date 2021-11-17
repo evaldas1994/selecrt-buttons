@@ -127,4 +127,12 @@ class Create extends Component
         }
         return false;
     }
+
+    public function showCreate($value)
+    {
+//        $this->emitUp('showCreate', $value);
+        $this->emitUp('showCreate', $value);
+
+    }
+
 }

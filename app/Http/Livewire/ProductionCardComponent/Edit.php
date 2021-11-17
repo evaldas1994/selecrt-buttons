@@ -40,10 +40,17 @@ class Edit extends Component
         $this->setOldValue('f_stock_name', $productionCardComponent->stock->f_name);
         $this->setOldValue('f_quant', $productionCardComponent->f_quant);
         $this->setOldValue('f_unitid', $productionCardComponent->stock->f_unitid);
-        $this->setOldValue('f_alter_stockid', $productionCardComponent->alterStock->f_id);
-        $this->setOldValue('f_alter_stock_name', $productionCardComponent->alterStock->f_name);
+
         $this->setOldValue('f_neto', $productionCardComponent->f_neto);
         $this->setOldValue('f_price', $productionCardComponent->f_price);
+
+        if($productionCardComponent->AlterStock == null) {
+            $this->setOldValue('f_alter_stockid', null);
+            $this->setOldValue('f_alter_stock_name', null);
+        }else {
+            $this->setOldValue('f_alter_stockid', $productionCardComponent->alterStock->f_id);
+            $this->setOldValue('f_alter_stock_name', $productionCardComponent->alterStock->f_name);
+        }
 
         $this->changeStock($this->f_stockid);
         $this->changeAlterStock($this->f_alter_stockid);

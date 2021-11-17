@@ -19,13 +19,23 @@
                 @endforeach
 
                 <td class="table-action">
-                    <x-form-elements.button
-                        form="{{ $form }}"
-                        class="p-0"
-                        name="button-action-without-validation"
-                        value="{{ $name }}-edit|{{ $item->f_id }}"
-                        dataFeather="edit-2"
-                    />
+
+
+                    @isset($wireEmmitUpName)
+                        <button wire:click="$emitUp('{{ $wireEmmitUpName }}', {{ $wireEmmitValue ?? true }}, {{ '\''.$item->f_id.'\'' }})"
+                                class="btn "
+                        ><i class="align-middle" data-feather="edit-2"></i>
+                        </button>
+                    @else
+                        <x-form-elements.button
+                            form="{{ $form }}"
+                            class="p-0"
+                            name="button-action-without-validation"
+                            value="{{ $name }}-edit|{{ $item->f_id }}"
+                            dataFeather="edit-2"
+                        />
+                    @endisset
+
                     <x-form-elements.button
                         form="delete_form_{{ $item->f_id }}"
                         class="p-0"
