@@ -6,8 +6,6 @@ use App\Models\Stock;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-use function PHPUnit\Framework\isEmpty;
-
 class Create extends Component
 {
     use WithFileUploads;
@@ -42,8 +40,6 @@ class Create extends Component
     public function changeId($id)
     {
         $this->setOldValue('f_id', $id);
-
-
     }
 
     public function changeStock($stockId)

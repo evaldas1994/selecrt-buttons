@@ -47,6 +47,7 @@
                                                 labelValue="modules/productionCard.f_id"
                                                 maxLength="20"
                                                 wireModel="f_id"
+                                                wireChange="changeId($event.target.value)"
                                                 inputClass="not-empty"
                                                 :defaultValue="$f_id"
                                             />
@@ -67,7 +68,7 @@
                                                 name="f_stock_name"
                                                 labelValue="modules/productionCard.f_stock_name"
                                                 maxLength="20"
-                                                wireModel="$f_stock_name"
+                                                wireModel="f_stock_name"
                                                 readonly="readonly"
                                                 :defaultValue="$f_stock_name"
                                             />
