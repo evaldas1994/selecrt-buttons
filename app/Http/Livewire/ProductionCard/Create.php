@@ -12,7 +12,7 @@ class Create extends Component
 {
     use WithFileUploads;
 
-    public $f_id = " ";
+    public $f_id = ' ';
     public $f_stockid;
     public $f_stock_name;
     public $f_name;
@@ -37,6 +37,13 @@ class Create extends Component
         $this->setOldValue('f_description');
 
         $this->changeStock($this->f_stockid);
+    }
+
+    public function changeId($id)
+    {
+        $this->setOldValue('f_id', $id);
+
+
     }
 
     public function changeStock($stockId)

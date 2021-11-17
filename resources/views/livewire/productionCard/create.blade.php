@@ -45,6 +45,7 @@
                                             inputClass="not-empty"
                                             maxLength="20"
                                             wireModel="f_id"
+                                            wireChange="changeId($event.target.value)"
                                             :defaultValue="$f_id"
                                         />
 
