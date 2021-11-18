@@ -1,5 +1,5 @@
 <div class="fixed-bottom">
-    <div class="row mb-2 mb-xl-3">
+    <div class="row mb-2">
         <div class="col-auto ms-auto text-end mt-n1">
             <x-form-elements.button
                 form="production-card-component-edit-form"
