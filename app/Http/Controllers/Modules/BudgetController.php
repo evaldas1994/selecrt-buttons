@@ -78,7 +78,7 @@ class BudgetController extends Controller
 
         Budget::create($request->validated());
 
-        return redirect()->route('budgets.index')->withError(trans('global.created_successfully'));
+        return redirect()->route('budgets.index')->withSuccess(trans('global.created_successfully'));
     }
 
     /**
@@ -151,5 +151,46 @@ class BudgetController extends Controller
         } catch (\Exception) {
             return redirect()->route('budgets.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param BudgetStoreUpdateRequest $request
+     * @param Budget|null $budget
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(BudgetStoreUpdateRequest $request, Budget $budget = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('budget.index');
+
+            case 'select-account':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-department':
+                dd('route to department.index', $actionWithoutValidation[1]);
+
+            case 'select-project':
+                dd('route to project.index', $actionWithoutValidation[1]);
+
+            case 'select-register1':
+                dd('route to register1.index', $actionWithoutValidation[1]);
+
+            case 'select-register2':
+                dd('route to register2.index', $actionWithoutValidation[1]);
+
+            case 'select-register3':
+                dd('route to register3.index', $actionWithoutValidation[1]);
+
+            case 'select-register4':
+                dd('route to register4.index', $actionWithoutValidation[1]);
+
+            case 'select-register5':
+                dd('route to register5.index', $actionWithoutValidation[1]);
+            }
+
+        return redirect()->route('production-cards.index')->withSuccess(trans($message));
     }
 }

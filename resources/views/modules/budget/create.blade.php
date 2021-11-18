@@ -1,5 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <livewire:production-card.create :stocks="$stocks"/>
+    <livewire:budget.create
+        :accounts="$accounts"
+        :registers1="$registers1"
+        :registers2="$registers2"
+        :registers3="$registers3"
+        :registers4="$registers4"
+        :registers5="$registers5"
+        :departments="$departments"
+        :projects="$projects"
+        :years="$years"
+        :months="$months"
+    />
 @endsection
