@@ -7,6 +7,7 @@ use App\Models\Vat;
 use App\Models\Unit;
 use App\Models\Disch;
 use App\Models\Stock;
+use Barryvdh\Debugbar\DebugbarViewEngine;
 use GuzzleHttp\Client;
 use App\Models\Person;
 use App\Models\Partner;
@@ -203,7 +204,7 @@ class StockController extends Controller
     public function update(StockStoreUpdateRequest $request, Stock $stock)
     {
         if (Arr::exists($request->input(), 'button-action-without-validation')) {
-            return $this->checkButtonActionWithoutValidation($request);
+            return $this->checkButtonActionWithoutValidation($request, $stock);
         }
 
         try {
@@ -232,7 +233,7 @@ class StockController extends Controller
         }
     }
 
-    private function checkButtonAction(StockStoreUpdateRequest $request, Stock $stock)
+    private function checkButtonAction(StockStoreUpdateRequest $request, Stock $stock = null, string $message='global.empty')
     {
         $action = explode('|', $request->input('button-action'))[0];
         switch ($action) {
@@ -246,16 +247,26 @@ class StockController extends Controller
                 $priceId = explode('|', $request->input('button-action'))[1];
                 return redirect()->route('prices.edit', [$stock, $priceId]);
         }
+
+        return redirect()->route('stocks.index')->withSuccess(trans($message));
     }
 
-    private function checkButtonActionWithoutValidation(StockStoreUpdateRequest $request)
+    private function checkButtonActionWithoutValidation(StockStoreUpdateRequest $request, Stock $stock = null, string $message='global.empty')
     {
-        $actionWithoutValidation = $request->input('button-action-without-validation');
-        switch ($actionWithoutValidation) {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
             case 'close':
                 return redirect()->route('stocks.index');
+
+            case 'price-edit':
+                $priceId = $actionWithoutValidation[1];
+                return redirect()->route('prices.edit', [$stock, $priceId]);
+
+            case 'price-purch-edit':
+                $priceId = $actionWithoutValidation[1];
+                return redirect()->route('prices.edit', [$stock, $priceId]);
         }
 
-        return redirect()->route('stocks.index');
+        return redirect()->route('stocks.index')->withSuccess(trans($message));
     }
 }

@@ -685,6 +685,9 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <x-modules.items-list
+                                            form="stock_edit_form"
+                                            name="price-sale"
+                                            deleteFormRoute="prices.destroy"
                                             :items="$pricesSale"
                                             :parentRouteData="$stock"
                                             :langs="['modules/price.f_id', 'modules/price.f_storeid', 'modules/price.f_type', 'modules/price.f_price', 'modules/price.f_price_orig', 'modules/price.f_promotion', 'modules/price.f_valid_from', 'modules/price.f_valid_till']"
@@ -707,11 +710,14 @@
                                     </div>
                                 </div>
 
-                                {{--    Pard. kainos--}}
+                                {{--    Pirk. kainos--}}
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="col-12">
                                             <x-modules.items-list
+                                                form="stock_edit_form"
+                                                name="price-purch"
+                                                deleteFormRoute="prices.destroy"
                                                 :items="$pricesPurch"
                                                 :parentRouteData="$stock"
                                                 :langs="['modules/price.f_id', 'modules/price.f_storeid', 'modules/price.f_type', 'modules/price.f_price', 'modules/price.f_price_orig', 'modules/price.f_promotion', 'modules/price.f_valid_from', 'modules/price.f_valid_till']"

@@ -24,9 +24,7 @@
     </div>
 
     <div class="row">
-        <form id="stock_create_form" action="{{ route('stocks.store') }}" method="POST">
-            @csrf
-
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -39,6 +37,8 @@
                     <div class="row">
                         <div class="tab tab-content mt-2">
                             <div class="tab-pane fade show active" id="tab-1" role="tabpanel">
+                                <form id="stock_create_form" action="{{ route('stocks.store') }}" method="POST">
+                                    @csrf
                                 <div class="row">
                                     <div class="col-12 col-md-6 col-xl-3">
                                         <x-form-elements.input-id
@@ -549,40 +549,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="tab-3" role="tabpanel">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <x-form-elements.button
-                                            form="stock_create_form"
-                                            class="btn-primary"
-                                            name="button-action"
-                                            value="price-sale-create"
-                                            fontawesomeIcon="fas fa-plus"
-                                            text="global.btn_new"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="tab-4" role="tabpanel">
-                                <div class="row">
-                                    <div class="col-auto">
-                                        <x-form-elements.button
-                                            form="stock_create_form"
-                                            class="btn-primary"
-                                            name="button-action"
-                                            value="price-purch-create"
-                                            fontawesomeIcon="fas fa-plus"
-                                            text="global.btn_new"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="tab-5" role="tabpanel">
-
-                            </div>
-                            <div class="tab-pane fade" id="tab-6" role="tabpanel">
-
-                            </div>
                             <div class="tab-pane fade" id="tab-7" role="tabpanel">
                                 <div class="row">
                                     <div class="col-12 col-md-6 col-xl-3">
@@ -635,11 +601,46 @@
                                         />
                                     </div>
                                 </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="tab-3" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <x-form-elements.button
+                                            form="stock_create_form"
+                                            class="btn-primary"
+                                            name="button-action"
+                                            value="price-sale-create"
+                                            fontawesomeIcon="fas fa-plus"
+                                            text="global.btn_new"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tab-4" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <x-form-elements.button
+                                            form="stock_create_form"
+                                            class="btn-primary"
+                                            name="button-action"
+                                            value="price-purch-create"
+                                            fontawesomeIcon="fas fa-plus"
+                                            text="global.btn_new"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tab-5" role="tabpanel">
+
+                            </div>
+                            <div class="tab-pane fade" id="tab-6" role="tabpanel">
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 @endsection
