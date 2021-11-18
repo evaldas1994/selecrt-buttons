@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Models\Stock;
+use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use App\Models\JoinedStock;
 use App\Http\Controllers\Controller;
@@ -33,6 +34,10 @@ class JoinedStockController extends Controller
      */
     public function store(JoinedStockStoreUpdateRequest $request, Stock $stock)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $stock);
+        }
+
         $stock->joinedStocks()->create($request->validated());
 
         return redirect()->route('stocks.edit', $stock)->withSuccess(trans('global.created_successfully'));
@@ -49,7 +54,7 @@ class JoinedStockController extends Controller
     {
         $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        return view('modules.joinedStock.create', compact('stock', 'joinedStock', 'stocks'));
+        return view('modules.joinedStock.edit', compact('stock', 'joinedStock', 'stocks'));
     }
 
     /**
@@ -62,12 +67,16 @@ class JoinedStockController extends Controller
      */
     public function update(JoinedStockStoreUpdateRequest $request, Stock $stock, JoinedStock $joinedStock)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $stock);
+        }
+
         try {
             $joinedStock->update($request->validated());
 
-            return redirect()->route('joined-stocks.edit', $stock)->withSuccess(trans('global.updated_successfully'));
+            return redirect()->route('stocks.edit', $stock)->withSuccess(trans('global.updated_successfully'));
         } catch (\Exception) {
-            return redirect()->route('joined-stocks.edit', $stock)->withError(trans('global.update_failed'));
+            return redirect()->route('stocks.edit', $stock)->withError(trans('global.update_failed'));
         }
     }
 
@@ -83,9 +92,20 @@ class JoinedStockController extends Controller
         try {
             $joinedStock->delete();
 
-            return redirect()->route('joined-stocks.edit', $stock)->withSuccess(trans('global.deleted_successfully'));
+            return redirect()->route('stocks.edit', $stock)->withSuccess(trans('global.deleted_successfully'));
         } catch (\Exception) {
-            return redirect()->route('joined-stocks.edit', $stock)->withError(trans('global.delete_failed'));
+            return redirect()->route('stocks.edit', $stock)->withError(trans('global.delete_failed'));
         }
+    }
+
+    private function checkButtonActionWithoutValidation(JoinedStockStoreUpdateRequest $request, Stock $stock = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('stocks.edit', $stock);
+        }
+
+        return redirect()->route('production-cards.index')->withSuccess(trans($message));
     }
 }

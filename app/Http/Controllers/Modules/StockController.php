@@ -141,8 +141,9 @@ class StockController extends Controller
      */
     public function edit(Stock $stock)
     {
-        $pricesSale = $stock->prices()->where('f_type', 'S')->get();;
-        $pricesPurch = $stock->prices()->where('f_type', 'P')->get();;
+        $pricesSale = $stock->prices()->where('f_type', 'S')->get();
+        $pricesPurch = $stock->prices()->where('f_type', 'P')->get();
+        $joinedStocks = $stock->joinedStocks;
 
         $stockGroups = StockGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $units = Unit::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
@@ -170,6 +171,7 @@ class StockController extends Controller
             compact(
                 'pricesSale',
                 'pricesPurch',
+                'joinedStocks',
                 'stock',
                 'stockGroups',
                 'units',
@@ -264,6 +266,10 @@ class StockController extends Controller
             case 'price-purch-edit':
                 $priceId = $actionWithoutValidation[1];
                 return redirect()->route('prices.edit', [$stock, $priceId]);
+
+            case 'joined-stock-edit':
+                $joinedStockId = $actionWithoutValidation[1];
+                return redirect()->route('joined-stocks.edit', [$stock, $joinedStockId]);
 
             case 'select-stock-group':
                 dd('route to stock group.index', $actionWithoutValidation[1]);

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row mb-2 mb-xl-3">
+    <div class="row mb-2">
         <div class="col-auto">
             <h1>@lang('modules/stock.h1')</h1>
         </div>
@@ -24,8 +24,7 @@
     </div>
 
     <div class="row">
-
-
+        <div class="col-12">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -728,12 +727,39 @@
 
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="tab-5" role="tabpanel"></div>
+                            <div class="tab-pane fade" id="tab-5" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <x-form-elements.button
+                                            form="stock_edit_form"
+                                            class="btn-primary"
+                                            name="button-action"
+                                            value="joined-stock-create"
+                                            fontawesomeIcon="fas fa-plus"
+                                            text="global.btn_new"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <x-modules.items-list
+                                            form="stock_edit_form"
+                                            name="joined-stock"
+                                            deleteFormRoute="joined-stocks.destroy"
+                                            :items="$joinedStocks"
+                                            :parentRouteData="$stock"
+                                            :langs="['modules/joinedStock.f_id', 'modules/joinedStock.f_stockid', 'modules/joinedStock.f_joined_stockid', 'modules/joinedStock.f_quant', 'modules/joinedStock.f_create_date']"
+                                            :fields="['f_id', 'f_stockid', 'f_joined_stockid', 'f_quant', 'f_create_date']"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
                             <div class="tab-pane fade" id="tab-6" role="tabpanel"></div>
                         </div>
                     </div>
                 </div>
             </div>
-
+        </div>
     </div>
 @endsection

@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-        <div class="row mb-2 mb-xl-3">
+        <div class="row mb-2">
+            <div class="col-auto">
+                <h1>@lang('modules/joinedStock.h1')</h1>
+            </div>
+
             <div class="col-auto ms-auto text-end mt-n1">
                 <x-form-elements.button
                     form="joined_stock_create_form"

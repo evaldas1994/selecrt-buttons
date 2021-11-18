@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Rules\FloatRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Arr;
 
 class JoinedStockStoreUpdateRequest extends FormRequest
 {
@@ -24,6 +25,10 @@ class JoinedStockStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
+            return [];
+        }
+
         return [
             'f_joined_stockid' => 'required|exists:t_stock,f_id',
             'f_quant' => ['nullable', 'numeric', new FloatRule(4)],

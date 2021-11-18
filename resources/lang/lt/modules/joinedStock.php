@@ -4,7 +4,7 @@ return [
     'h1' => 'Susijusios prekės',
     'f_id' => 'Kodas',
     'f_stockid' => 'Prekė',
-    'f_joined_stockid' => 'Prekė',
+    'f_joined_stockid' => 'Susijusi prekė',
     'f_quant' => 'Kiekis',
     'f_system1' => 'Sistema1',
     'f_system2' => 'Sistema2',
