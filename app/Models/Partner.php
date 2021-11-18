@@ -306,5 +306,13 @@ class Partner extends Model
     {
         return $this->hasMany(BankAccount::class, 'f_partnerid', 'f_id');
     }
+
+    /**
+     * Get the prices for the partner.
+     */
+    public function prices()
+    {
+        return $this->hasMany(PricePartner::class, 'f_partnerid', 'f_id');
+    }
 }
 

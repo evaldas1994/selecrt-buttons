@@ -1045,7 +1045,83 @@
                                         </div>
                                         </form>
                                     </div>
-                                    <div class="tab-pane fade" id="tab-3" role="tabpanel">3</div>
+                                    <div class="tab-pane fade" id="tab-3" role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-auto text-end mt-1">
+                                                <button
+                                                    form="partner-form"
+                                                    class="btn btn-primary"
+                                                    type="submit"
+                                                    name="action"
+                                                    value="price-create">
+                                                    <i class="fas fa-plus"></i> @lang('global.btn_new')
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card">
+                                                    <div class="table-responsive">
+                                                        <table class="table mb-0 table-sm table-bordered">
+                                                            <thead>
+                                                            <tr>
+                                                                <th scope="col">@lang('modules/pricePartner.f_id')</th>
+                                                                <th scope="col">@lang('modules/pricePartner.f_partnerid')</th>
+                                                                <th scope="col">@lang('modules/pricePartner.f_type')</th>
+                                                                <th scope="col">@lang('modules/pricePartner.f_stockid')</th>
+                                                                <th scope="col">@lang('modules/pricePartner.f_price')</th>
+                                                                <th scope="col">@lang('modules/pricePartner.f_valid_from')</th>
+                                                                <th scope="col">@lang('modules/pricePartner.f_valid_till')</th>
+                                                                <th scope="col">@lang('modules/pricePartner.f_quant')</th>
+                                                                <th scope="col">@lang('modules/pricePartner.f_active')</th>
+                                                                <th scope="col">@lang('modules/pricePartner.f_vat_perc')</th>
+                                                                <th scope="col">@lang('modules/pricePartner.f_create_date')</th>
+                                                                <th scope="col">@lang('global.actions')</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+
+                                                            @foreach($prices as $price)
+                                                                <tr>
+                                                                    <td>{{ $price->f_id }}</td>
+                                                                    <td>{{ $price->f_partnerid }}</td>
+                                                                    <td>{{ $price->f_type }}</td>
+                                                                    <td>{{ $price->f_stockid }}</td>
+                                                                    <td>{{ $price->f_price }}</td>
+                                                                    <td>{{ $price->f_valid_from }}</td>
+                                                                    <td>{{ $price->f_valid_till }}</td>
+                                                                    <td>{{ $price->f_quant }}</td>
+                                                                    <td>{{ $price->f_active }}</td>
+                                                                    <td>{{ $price->f_vat_perc }}</td>
+                                                                    <td>{{ $price->f_create_date }}</td>
+                                                                    <td class="table-action">
+                                                                        <a href="{{ route('price-partners.edit', [$partner, $price] ) }}"><i
+                                                                                class="align-middle"
+                                                                                data-feather="edit-2"></i></a>
+                                                                        <a href="#"
+                                                                           onclick="event.preventDefault();document.getElementById('delete-form-{{ $price->f_id }}').submit();">
+                                                                            <i class="align-middle"
+                                                                               data-feather="trash-2"></i>
+                                                                        </a>
+                                                                        <form
+                                                                            action="{{ route('price-partners.destroy', [$partner, $price]) }}"
+                                                                            method="POST" class="d-none"
+                                                                            id="delete-form-{{ $price->f_id }}">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                        </form>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                     <div class="tab-pane fade" id="tab-4" role="tabpanel">4</div>
                                     <div class="tab-pane fade" id="tab-5" role="tabpanel">5</div>
                                     <div class="tab-pane fade" id="tab-6" role="tabpanel">6</div>
