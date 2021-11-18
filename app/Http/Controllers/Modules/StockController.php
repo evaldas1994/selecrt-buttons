@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Modules;
 
+use App\Models\Price;
 use App\Models\Vat;
 use App\Models\Unit;
 use App\Models\Disch;
 use App\Models\Stock;
+use GuzzleHttp\Client;
 use App\Models\Person;
 use App\Models\Partner;
 use App\Models\Account;
@@ -19,10 +21,13 @@ use App\Models\Register4;
 use App\Models\Register5;
 use App\Models\Department;
 use App\Models\StockGroup;
+use Illuminate\Support\Arr;
 use App\Models\Manufacturer;
+use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StockStoreUpdateRequest;
+use GuzzleHttp\Psr7\Request;
 
 class StockController extends Controller
 {
@@ -67,28 +72,31 @@ class StockController extends Controller
         $pacTypes = Stock::$gpaisPacTypes;
         $defaultUnit = Stock::$defaultUnit;
 
-        return view('modules.stock.create', compact(
-            'stockGroups',
-            'units',
-            'manufacturers',
-            'discountsh',
-            'vats',
-            'stocks',
-            'currencies',
-            'partners',
-            'accounts',
-            'registers1',
-            'registers2',
-            'registers3',
-            'registers4',
-            'registers5',
-            'departments',
-            'persons',
-            'projects',
-            'types',
-            'pacTypes',
-            'defaultUnit'
-        ));
+        return view(
+            'modules.stock.create',
+            compact(
+                'stockGroups',
+                'units',
+                'manufacturers',
+                'discountsh',
+                'vats',
+                'stocks',
+                'currencies',
+                'partners',
+                'accounts',
+                'registers1',
+                'registers2',
+                'registers3',
+                'registers4',
+                'registers5',
+                'departments',
+                'persons',
+                'projects',
+                'types',
+                'pacTypes',
+                'defaultUnit'
+            )
+        );
     }
 
     /**
@@ -99,17 +107,29 @@ class StockController extends Controller
      */
     public function store(StockStoreUpdateRequest $request)
     {
-        $stock = Stock::create($request->validated());
-
-        switch ($request->input('action')) {
-            case 'price-sale-create':
-                return redirect()->route('prices.create' , [$stock, 'S']);
-
-            case 'price-purch-create':
-                return redirect()->route('prices.create' , [$stock, 'P']);
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
         }
 
-        return redirect()->route('stocks.index', $stock)->withSuccess(trans('global.created_successfully'));
+        $stock = Stock::create($request->validated());
+
+//        if (session()->exists('queue_of_actions')) {
+//            $lastOfQueue = Arr::last(session('queue_of_actions'));
+//
+//            $prevRoute = Arr::get($lastOfQueue, 'route-prev.route');
+//            $prevData = Arr::get($lastOfQueue, 'route-prev.data');
+//            $targetField = Arr::get($lastOfQueue, 'route-prev.target_field');
+//
+//            // collect data
+//            $prevData = Arr::set($prevData, $targetField, $stock->f_id);
+//
+//            //remove session
+//            session()->forget('queue_of_actions');
+//
+//            //redirect
+//            return redirect()->route($prevRoute)->withInput($prevData);
+//        }
+        return $this->checkButtonAction($request, $stock);
     }
 
     /**
@@ -144,30 +164,33 @@ class StockController extends Controller
         $types = Stock::$types;
         $pacTypes = Stock::$gpaisPacTypes;
 
-        return view('modules.stock.edit', compact(
-            'pricesSale',
-            'pricesPurch',
-            'stock',
-            'stockGroups',
-            'units',
-            'manufacturers',
-            'discountsh',
-            'vats',
-            'stocks',
-            'currencies',
-            'partners',
-            'accounts',
-            'registers1',
-            'registers2',
-            'registers3',
-            'registers4',
-            'registers5',
-            'departments',
-            'persons',
-            'projects',
-            'types',
-            'pacTypes'
-        ));
+        return view(
+            'modules.stock.edit',
+            compact(
+                'pricesSale',
+                'pricesPurch',
+                'stock',
+                'stockGroups',
+                'units',
+                'manufacturers',
+                'discountsh',
+                'vats',
+                'stocks',
+                'currencies',
+                'partners',
+                'accounts',
+                'registers1',
+                'registers2',
+                'registers3',
+                'registers4',
+                'registers5',
+                'departments',
+                'persons',
+                'projects',
+                'types',
+                'pacTypes'
+            )
+        );
     }
 
     /**
@@ -179,21 +202,17 @@ class StockController extends Controller
      */
     public function update(StockStoreUpdateRequest $request, Stock $stock)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         try {
             $stock->update($request->validated());
-
-            switch ($request->input('action')) {
-                case 'price-sale-create':
-                    return redirect()->route('prices.create' , [$stock, 'S']);
-
-                case 'price-purch-create':
-                    return redirect()->route('prices.create' , [$stock, 'P']);
-            }
-
-            return redirect()->route('stocks.index')->withSuccess(trans('global.updated_successfully'));
         } catch (\Exception) {
             return redirect()->route('stocks.index')->withError(trans('global.update_failed'));
         }
+
+        return $this->checkButtonAction($request, $stock);
     }
 
     /**
@@ -211,5 +230,32 @@ class StockController extends Controller
         } catch (\Exception) {
             return redirect()->route('stocks.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    private function checkButtonAction(StockStoreUpdateRequest $request, Stock $stock)
+    {
+        $action = explode('|', $request->input('button-action'))[0];
+        switch ($action) {
+            case 'price-sale-create':
+                return redirect()->route('prices.create', [$stock, 'S']);
+
+            case 'price-purch-create':
+                return redirect()->route('prices.create', [$stock, 'P']);
+
+            case 'price-edit':
+                $priceId = explode('|', $request->input('button-action'))[1];
+                return redirect()->route('prices.edit', [$stock, $priceId]);
+        }
+    }
+
+    private function checkButtonActionWithoutValidation(StockStoreUpdateRequest $request)
+    {
+        $actionWithoutValidation = $request->input('button-action-without-validation');
+        switch ($actionWithoutValidation) {
+            case 'close':
+                return redirect()->route('stocks.index');
+        }
+
+        return redirect()->route('stocks.index');
     }
 }
