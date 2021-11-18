@@ -74,6 +74,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('prices', \App\Http\Controllers\Modules\PriceController::class)->except('show', 'create', 'store');
         Route::get('prices/type/{type}', [App\Http\Controllers\Modules\PriceController::class, 'create'])->name('prices.create');
         Route::post('prices/type/{type}', [App\Http\Controllers\Modules\PriceController::class, 'store'])->name('prices.store');
+        Route::resource('joined-stocks', \App\Http\Controllers\Modules\JoinedStockController::class)->except('show', 'index');
     });
 
     Route::prefix('currencies/{currency}')->group(function () {

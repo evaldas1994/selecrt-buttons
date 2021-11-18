@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Rules\FloatRule;
 use App\Rules\IdPatternRule;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,10 +27,15 @@ class BarcodeStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+//        dd($this->input());
+        if (Arr::exists($this->input(), 'button-action')) {
+            return [];
+        }
+
         $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_barcode')->ignore($this->barcode) : 'unique:t_barcode';
         return [
             'f_id' => [$unique, 'required', 'max:40', new IdPatternRule],
-            'f_stockid' => 'required|string|max:20|exists:t_stock,f_id',
+            'f_stockid' => 'required|exists:t_stock,f_id',
             'f_default' => 'boolean',
             'f_system1' => 'string|max:100|nullable',
             'f_system2' => 'string|max:100|nullable',
@@ -43,7 +49,7 @@ class BarcodeStoreUpdateRequest extends FormRequest
             'f_wood' => ['required', 'numeric', new FloatRule(4)],
             'f_pap1' => ['required', 'numeric', new FloatRule(4)],
             'f_pap2' => ['required', 'numeric', new FloatRule(4)],
-            'f_usadid' => 'required|string|max:20|exists:t_stock,f_id',
+            'f_usadid' => 'nullable|exists:t_stock,f_id',
         ];
     }
 }

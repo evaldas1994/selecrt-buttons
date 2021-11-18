@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Modules;
 
+use App\Models\Price;
 use App\Models\Vat;
 use App\Models\Unit;
 use App\Models\Disch;
 use App\Models\Stock;
+use Barryvdh\Debugbar\DebugbarViewEngine;
+use GuzzleHttp\Client;
 use App\Models\Person;
 use App\Models\Partner;
 use App\Models\Account;
@@ -19,10 +22,13 @@ use App\Models\Register4;
 use App\Models\Register5;
 use App\Models\Department;
 use App\Models\StockGroup;
+use Illuminate\Support\Arr;
 use App\Models\Manufacturer;
+use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StockStoreUpdateRequest;
+use GuzzleHttp\Psr7\Request;
 
 class StockController extends Controller
 {
@@ -67,28 +73,31 @@ class StockController extends Controller
         $pacTypes = Stock::$gpaisPacTypes;
         $defaultUnit = Stock::$defaultUnit;
 
-        return view('modules.stock.create', compact(
-            'stockGroups',
-            'units',
-            'manufacturers',
-            'discountsh',
-            'vats',
-            'stocks',
-            'currencies',
-            'partners',
-            'accounts',
-            'registers1',
-            'registers2',
-            'registers3',
-            'registers4',
-            'registers5',
-            'departments',
-            'persons',
-            'projects',
-            'types',
-            'pacTypes',
-            'defaultUnit'
-        ));
+        return view(
+            'modules.stock.create',
+            compact(
+                'stockGroups',
+                'units',
+                'manufacturers',
+                'discountsh',
+                'vats',
+                'stocks',
+                'currencies',
+                'partners',
+                'accounts',
+                'registers1',
+                'registers2',
+                'registers3',
+                'registers4',
+                'registers5',
+                'departments',
+                'persons',
+                'projects',
+                'types',
+                'pacTypes',
+                'defaultUnit'
+            )
+        );
     }
 
     /**
@@ -99,17 +108,29 @@ class StockController extends Controller
      */
     public function store(StockStoreUpdateRequest $request)
     {
-        $stock = Stock::create($request->validated());
-
-        switch ($request->input('action')) {
-            case 'price-sale-create':
-                return redirect()->route('prices.create' , [$stock, 'S']);
-
-            case 'price-purch-create':
-                return redirect()->route('prices.create' , [$stock, 'P']);
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
         }
 
-        return redirect()->route('stocks.index', $stock)->withSuccess(trans('global.created_successfully'));
+        $stock = Stock::create($request->validated());
+
+//        if (session()->exists('queue_of_actions')) {
+//            $lastOfQueue = Arr::last(session('queue_of_actions'));
+//
+//            $prevRoute = Arr::get($lastOfQueue, 'route-prev.route');
+//            $prevData = Arr::get($lastOfQueue, 'route-prev.data');
+//            $targetField = Arr::get($lastOfQueue, 'route-prev.target_field');
+//
+//            // collect data
+//            $prevData = Arr::set($prevData, $targetField, $stock->f_id);
+//
+//            //remove session
+//            session()->forget('queue_of_actions');
+//
+//            //redirect
+//            return redirect()->route($prevRoute)->withInput($prevData);
+//        }
+        return $this->checkButtonAction($request, $stock);
     }
 
     /**
@@ -120,8 +141,9 @@ class StockController extends Controller
      */
     public function edit(Stock $stock)
     {
-        $pricesSale = $stock->prices()->where('f_type', 'S')->get();;
-        $pricesPurch = $stock->prices()->where('f_type', 'P')->get();;
+        $pricesSale = $stock->prices()->where('f_type', 'S')->get();
+        $pricesPurch = $stock->prices()->where('f_type', 'P')->get();
+        $joinedStocks = $stock->joinedStocks;
 
         $stockGroups = StockGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $units = Unit::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
@@ -144,30 +166,34 @@ class StockController extends Controller
         $types = Stock::$types;
         $pacTypes = Stock::$gpaisPacTypes;
 
-        return view('modules.stock.edit', compact(
-            'pricesSale',
-            'pricesPurch',
-            'stock',
-            'stockGroups',
-            'units',
-            'manufacturers',
-            'discountsh',
-            'vats',
-            'stocks',
-            'currencies',
-            'partners',
-            'accounts',
-            'registers1',
-            'registers2',
-            'registers3',
-            'registers4',
-            'registers5',
-            'departments',
-            'persons',
-            'projects',
-            'types',
-            'pacTypes'
-        ));
+        return view(
+            'modules.stock.edit',
+            compact(
+                'pricesSale',
+                'pricesPurch',
+                'joinedStocks',
+                'stock',
+                'stockGroups',
+                'units',
+                'manufacturers',
+                'discountsh',
+                'vats',
+                'stocks',
+                'currencies',
+                'partners',
+                'accounts',
+                'registers1',
+                'registers2',
+                'registers3',
+                'registers4',
+                'registers5',
+                'departments',
+                'persons',
+                'projects',
+                'types',
+                'pacTypes'
+            )
+        );
     }
 
     /**
@@ -179,21 +205,17 @@ class StockController extends Controller
      */
     public function update(StockStoreUpdateRequest $request, Stock $stock)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $stock);
+        }
+
         try {
             $stock->update($request->validated());
-
-            switch ($request->input('action')) {
-                case 'price-sale-create':
-                    return redirect()->route('prices.create' , [$stock, 'S']);
-
-                case 'price-purch-create':
-                    return redirect()->route('prices.create' , [$stock, 'P']);
-            }
-
-            return redirect()->route('stocks.index')->withSuccess(trans('global.updated_successfully'));
         } catch (\Exception) {
             return redirect()->route('stocks.index')->withError(trans('global.update_failed'));
         }
+
+        return $this->checkButtonAction($request, $stock);
     }
 
     /**
@@ -211,5 +233,102 @@ class StockController extends Controller
         } catch (\Exception) {
             return redirect()->route('stocks.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    private function checkButtonAction(StockStoreUpdateRequest $request, Stock $stock = null, string $message='global.empty')
+    {
+        $action = explode('|', $request->input('button-action'))[0];
+        switch ($action) {
+            case 'price-sale-create':
+                return redirect()->route('prices.create', [$stock, 'S']);
+
+            case 'price-purch-create':
+                return redirect()->route('prices.create', [$stock, 'P']);
+
+            case 'joined-stock-create':
+                return redirect()->route('joined-stocks.create', $stock);
+        }
+
+        return redirect()->route('stocks.index')->withSuccess(trans($message));
+    }
+
+    private function checkButtonActionWithoutValidation(StockStoreUpdateRequest $request, Stock $stock = null, string $message='global.empty')
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('stocks.index');
+
+            case 'price-sale-edit':
+                $priceId = $actionWithoutValidation[1];
+                return redirect()->route('prices.edit', [$stock, $priceId]);
+
+            case 'price-purch-edit':
+                $priceId = $actionWithoutValidation[1];
+                return redirect()->route('prices.edit', [$stock, $priceId]);
+
+            case 'joined-stock-edit':
+                $joinedStockId = $actionWithoutValidation[1];
+                return redirect()->route('joined-stocks.edit', [$stock, $joinedStockId]);
+
+            case 'select-stock-group':
+                dd('route to stock group.index', $actionWithoutValidation[1]);
+
+            case 'select-unit':
+                dd('route to unit.index', $actionWithoutValidation[1]);
+
+            case 'select-pack-unit':
+                dd('route to unit.index', $actionWithoutValidation[1]);
+
+            case 'select-manufacturer':
+                dd('route to manufacturer.index', $actionWithoutValidation[1]);
+
+            case 'select-discount':
+                dd('route to discount.index', $actionWithoutValidation[1]);
+
+            case 'select-vat':
+                dd('route to vat.index', $actionWithoutValidation[1]);
+
+            case 'select-alternative-group':
+                dd('route to stock group.index', $actionWithoutValidation[1]);
+
+            case 'select-currency':
+                dd('route to currency.index', $actionWithoutValidation[1]);
+
+            case 'select-partner':
+                dd('route to partner.index', $actionWithoutValidation[1]);
+
+            case 'select-account':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-main-stock':
+                dd('route to stock.index', $actionWithoutValidation[1]);
+
+            case 'select-register1':
+                dd('route to register1.index', $actionWithoutValidation[1]);
+
+            case 'select-register2':
+                dd('route to register2.index', $actionWithoutValidation[1]);
+
+            case 'select-register3':
+                dd('route to register3.index', $actionWithoutValidation[1]);
+
+            case 'select-register4':
+                dd('route to register4.index', $actionWithoutValidation[1]);
+
+            case 'select-register5':
+                dd('route to register5.index', $actionWithoutValidation[1]);
+
+            case 'select-department':
+                dd('route to department.index', $actionWithoutValidation[1]);
+
+            case 'select-person':
+                dd('route to person.index', $actionWithoutValidation[1]);
+
+            case 'select-project':
+                dd('route to project.index', $actionWithoutValidation[1]);
+        }
+
+        return redirect()->route('stocks.index')->withSuccess(trans($message));
     }
 }

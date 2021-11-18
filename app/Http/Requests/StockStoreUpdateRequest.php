@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Stock;
 use App\Rules\FloatRule;
 use App\Rules\IdPatternRule;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,6 +28,10 @@ class StockStoreUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
+            return [];
+        }
+
         $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_stock')->ignore($this->stock) : 'unique:t_stock';
         return [
             'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],

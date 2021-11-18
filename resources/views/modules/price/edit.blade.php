@@ -35,7 +35,7 @@
                                            class="not-empty form-control form-control-sm @error('f_price') is-invalid @enderror"
                                            name="f_price"
                                            maxlength="15"
-                                           value="{{ old('f_price', '0.0000')}}">
+                                           value="{{ old('f_price', $price->f_price)}}">
                                     @error('f_price') <span class="invalid-feedback"
                                                             role="alert"> <strong>{{ $message }}</strong> </span> @enderror
                                 </div>

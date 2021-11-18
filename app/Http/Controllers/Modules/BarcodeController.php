@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Modules;
 
 use App\Models\Stock;
 use App\Models\Barcode;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -30,7 +32,7 @@ class BarcodeController extends Controller
      */
     public function create()
     {
-        $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $stocks = Stock::select('f_id', 'f_name')->orderBy('f_create_date', 'desc')->limit(10)->get();
 
         return view('modules.barcode.create', compact('stocks'));
     }
@@ -43,6 +45,32 @@ class BarcodeController extends Controller
      */
     public function store(BarcodeStoreUpdateRequest $request)
     {
+        switch (Arr::get($request->input(), 'button-action')) {
+            case 'select-stock':
+                // get data for session
+                $data = $this->getQueueOfActionsSessionData($this->getPrevRoute(), $request->input(), 'stocks.index', [], 'f_stockid');
+
+                // push session
+                session()->push('queue_of_actions', $data);
+
+                // redirect
+                return redirect()->route(Arr::get($data,'route-next.route'), Arr::get($data,'route-next.data'));
+
+            case 'select-usad':
+                // get data for session
+                $data = $this->getQueueOfActionsSessionData($this->getPrevRoute(), $request->input(), 'stocks.index', [], 'f_usadid');
+
+                // push session
+                session()->push('queue_of_actions', $data);
+
+                // redirect
+                return redirect()->route(Arr::get($data,'route-next.route'), Arr::get($data,'route-next.data'));
+
+            case 'close':
+                return redirect()->route('barcodes.index');
+        }
+
+//        dd($request->validated());
         Barcode::create($request->validated());
 
         return redirect()->route('barcodes.index')->withSuccess(trans('global.created_successfully'));
@@ -56,7 +84,7 @@ class BarcodeController extends Controller
      */
     public function edit(Barcode $barcode)
     {
-        $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $stocks = Stock::select('f_id', 'f_name')->orderBy('f_create_date', 'desc')->limit(10)->get();
 
         return view('modules.barcode.edit', compact('barcode', 'stocks'));
     }
@@ -94,5 +122,21 @@ class BarcodeController extends Controller
         } catch (\Exception) {
             return redirect()->route('barcodes.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    private function getPrevRoute()
+    {
+        return app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName();
+    }
+
+    private function getQueueOfActionsSessionData($prevRoute, $prevData, $nextRoute, $nextData, $field)
+    {
+        $data = Arr::add([], 'route-prev.route', $prevRoute);
+        $data = Arr::add($data, 'route-prev.data', $prevData);
+        $data = Arr::add($data, 'route-next.route', $nextRoute);
+        $data = Arr::add($data, 'route-next.data', $nextData);
+        $data = Arr::add($data, 'route-prev.target_field', $field);
+
+        return $data;
     }
 }
