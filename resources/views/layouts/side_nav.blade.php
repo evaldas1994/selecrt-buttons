@@ -291,7 +291,7 @@
                 <ul id="ledger" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
                     <li class="sidebar-item"><a class="sidebar-link" href="{{ route('ledger-groups.index') }}">@lang('nav.ledger.operation_groups')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.ledger.operations')</a></li>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.ledger.budget')</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('budgets.index') }}">@lang('nav.ledger.budget')</a></li>
                 </ul>
             </li>
 
