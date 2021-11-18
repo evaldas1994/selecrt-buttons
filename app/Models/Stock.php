@@ -327,4 +327,12 @@ class Stock extends Model
     {
         return $this->hasMany(Price::class, 'f_stockid', 'f_id');
     }
+
+    /**
+     * Get the joined stocks for the stock.
+     */
+    public function joinedStocks()
+    {
+        return $this->hasMany(JoinedStock::class, 'f_stockid', 'f_id');
+    }
 }

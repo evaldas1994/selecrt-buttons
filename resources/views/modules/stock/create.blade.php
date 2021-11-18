@@ -632,7 +632,18 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="tab-5" role="tabpanel">
-
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <x-form-elements.button
+                                            form="stock_create_form"
+                                            class="btn-primary"
+                                            name="button-action"
+                                            value="joined-stock-create"
+                                            fontawesomeIcon="fas fa-plus"
+                                            text="global.btn_new"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="tab-6" role="tabpanel">
 

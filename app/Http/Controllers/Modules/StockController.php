@@ -243,9 +243,8 @@ class StockController extends Controller
             case 'price-purch-create':
                 return redirect()->route('prices.create', [$stock, 'P']);
 
-            case 'price-edit':
-                $priceId = explode('|', $request->input('button-action'))[1];
-                return redirect()->route('prices.edit', [$stock, $priceId]);
+            case 'joined-stock-create':
+                return redirect()->route('joined-stocks.create', $stock);
         }
 
         return redirect()->route('stocks.index')->withSuccess(trans($message));
@@ -258,7 +257,7 @@ class StockController extends Controller
             case 'close':
                 return redirect()->route('stocks.index');
 
-            case 'price-edit':
+            case 'price-sale-edit':
                 $priceId = $actionWithoutValidation[1];
                 return redirect()->route('prices.edit', [$stock, $priceId]);
 
