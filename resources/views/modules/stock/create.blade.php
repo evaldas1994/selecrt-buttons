@@ -64,8 +64,8 @@
                                             :items="$stockGroups"
                                             name="f_groupid"
                                             labelValue="modules/stock.f_groupid"
-                                            buttonName="button-action"
-                                            buttonValue="select-stock-group"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-stock-group|f_groupid"
                                         />
 
                                         <x-form-elements.select-with-button
@@ -73,8 +73,8 @@
                                             name="f_unitid"
                                             labelValue="modules/stock.f_unitid"
                                             selectClass="not-empty"
-                                            buttonName="button-action"
-                                            buttonValue="select-unit"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-unit|f_unitid"
                                             defaultValue="VNT"
                                         />
 
@@ -82,8 +82,8 @@
                                             :items="$units"
                                             name="f_pack_unitid"
                                             labelValue="modules/stock.f_pack_unitid"
-                                            buttonName="button-action"
-                                            buttonValue="select-unit"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-pack-unit|f_pack_unitid"
                                         />
 
                                         <x-form-elements.input
@@ -143,8 +143,8 @@
                                             :items="$manufacturers"
                                             name="f_manufacturerid"
                                             labelValue="modules/stock.f_manufacturerid"
-                                            buttonName="button-action"
-                                            buttonValue="select-manufacturer"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-manufacturer|f_manufacturerid"
                                         />
 
                                         <x-form-elements.input
@@ -187,8 +187,8 @@
                                             :items="$discountsh"
                                             name="f_discid"
                                             labelValue="modules/stock.f_discid"
-                                            buttonName="button-action"
-                                            buttonValue="select-discount"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-discount|f_discid"
                                         />
 
                                         <x-form-elements.input
@@ -211,16 +211,16 @@
                                             name="f_vatid"
                                             labelValue="modules/stock.f_vatid"
                                             selectClass="not-empty"
-                                            buttonName="button-action"
-                                            buttonValue="select-vat"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-vat|f_vatid"
                                         />
 
                                         <x-form-elements.select-with-button
                                             :items="$stockGroups"
                                             name="f_alternative_group_id"
                                             labelValue="modules/stock.f_alternative_group_id"
-                                            buttonName="button-action"
-                                            buttonValue="select-alternative-group"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-alternative-group|f_alternative_group_id"
                                         />
 
                                         <x-form-elements.input
@@ -282,16 +282,16 @@
                                             :items="$currencies"
                                             name="f_curid"
                                             labelValue="modules/stock.f_curid"
-                                            buttonName="button-action"
-                                            buttonValue="select-currency"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-currency|f_curid"
                                         />
 
                                         <x-form-elements.select-with-button
                                             :items="$partners"
                                             name="f_partnerid"
                                             labelValue="modules/stock.f_partnerid"
-                                            buttonName="button-action"
-                                            buttonValue="select-partner"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-partner|f_partnerid"
                                         />
 
                                         <x-form-elements.input
@@ -304,8 +304,8 @@
                                             :items="$accounts"
                                             name="f_accountid"
                                             labelValue="modules/stock.f_accountid"
-                                            buttonName="button-action"
-                                            buttonValue="select-account"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-account|f_accountid"
                                         />
 
                                         <x-form-elements.textarea
@@ -378,8 +378,8 @@
                                             :items="$stocks"
                                             name="f_main_stockid"
                                             labelValue="modules/stock.f_main_stockid"
-                                            buttonName="button-action"
-                                            buttonValue="select-main-stock"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-main-stock|f_main_stockid"
                                         />
                                     </div>
                                     <div class="col-12 col-md-6 col-xl-3">
@@ -387,64 +387,64 @@
                                             :items="$registers1"
                                             name="f_r1id"
                                             labelValue="modules/stock.f_r1id"
-                                            buttonName="button-action"
-                                            buttonValue="select-register1"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-register1|f_r1id"
                                         />
 
                                         <x-form-elements.select-with-button
                                             :items="$registers2"
                                             name="f_r2id"
                                             labelValue="modules/stock.f_r2id"
-                                            buttonName="button-action"
-                                            buttonValue="select-register2"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-register2|f_r2id"
                                         />
 
                                         <x-form-elements.select-with-button
                                             :items="$registers3"
                                             name="f_r3id"
                                             labelValue="modules/stock.f_r3id"
-                                            buttonName="button-action"
-                                            buttonValue="select-register3"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-register3|f_r3id"
                                         />
 
                                         <x-form-elements.select-with-button
                                             :items="$registers4"
                                             name="f_r4id"
                                             labelValue="modules/stock.f_r4id"
-                                            buttonName="button-action"
-                                            buttonValue="select-register4"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-register4|f_r4id"
                                         />
 
                                         <x-form-elements.select-with-button
                                             :items="$registers5"
                                             name="f_r5id"
                                             labelValue="modules/stock.f_r5id"
-                                            buttonName="button-action"
-                                            buttonValue="select-register5"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-register5|f_r5id"
                                         />
 
                                         <x-form-elements.select-with-button
                                             :items="$departments"
                                             name="f_departmentid"
                                             labelValue="modules/stock.f_departmentid"
-                                            buttonName="button-action"
-                                            buttonValue="select-department"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-department|f_departmentid"
                                         />
 
                                         <x-form-elements.select-with-button
                                             :items="$persons"
                                             name="f_personid"
                                             labelValue="modules/stock.f_personid"
-                                            buttonName="button-action"
-                                            buttonValue="select-person"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-person|f_personid"
                                         />
 
                                         <x-form-elements.select-with-button
                                             :items="$projects"
                                             name="f_projectid"
                                             labelValue="modules/stock.f_projectid"
-                                            buttonName="button-action"
-                                            buttonValue="select-project"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-project|f_projectid"
                                         />
 
                                         <x-form-elements.input

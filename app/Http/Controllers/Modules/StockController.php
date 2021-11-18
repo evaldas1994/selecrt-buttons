@@ -265,6 +265,63 @@ class StockController extends Controller
             case 'price-purch-edit':
                 $priceId = $actionWithoutValidation[1];
                 return redirect()->route('prices.edit', [$stock, $priceId]);
+
+            case 'select-stock-group':
+                dd('route to stock group.index', $actionWithoutValidation[1]);
+
+            case 'select-unit':
+                dd('route to unit.index', $actionWithoutValidation[1]);
+
+            case 'select-pack-unit':
+                dd('route to unit.index', $actionWithoutValidation[1]);
+
+            case 'select-manufacturer':
+                dd('route to manufacturer.index', $actionWithoutValidation[1]);
+
+            case 'select-discount':
+                dd('route to discount.index', $actionWithoutValidation[1]);
+
+            case 'select-vat':
+                dd('route to vat.index', $actionWithoutValidation[1]);
+
+            case 'select-alternative-group':
+                dd('route to stock group.index', $actionWithoutValidation[1]);
+
+            case 'select-currency':
+                dd('route to currency.index', $actionWithoutValidation[1]);
+
+            case 'select-partner':
+                dd('route to partner.index', $actionWithoutValidation[1]);
+
+            case 'select-account':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-main-stock':
+                dd('route to stock.index', $actionWithoutValidation[1]);
+
+            case 'select-register1':
+                dd('route to register1.index', $actionWithoutValidation[1]);
+
+            case 'select-register2':
+                dd('route to register2.index', $actionWithoutValidation[1]);
+
+            case 'select-register3':
+                dd('route to register3.index', $actionWithoutValidation[1]);
+
+            case 'select-register4':
+                dd('route to register4.index', $actionWithoutValidation[1]);
+
+            case 'select-register5':
+                dd('route to register5.index', $actionWithoutValidation[1]);
+
+            case 'select-department':
+                dd('route to department.index', $actionWithoutValidation[1]);
+
+            case 'select-person':
+                dd('route to person.index', $actionWithoutValidation[1]);
+
+            case 'select-project':
+                dd('route to project.index', $actionWithoutValidation[1]);
         }
 
         return redirect()->route('stocks.index')->withSuccess(trans($message));

@@ -312,6 +312,17 @@ class Stock extends Model
         return $this->hasOne(Project::class, 'f_id', 'f_projectid');
     }
 
+    /**
+     * Get the stock's main stock.
+     */
+    public function mainStock()
+    {
+        return $this->hasOne(Stock::class, 'f_id', 'f_main_stockid');
+    }
+
+    /**
+     * Get the prices for the stock.
+     */
     public function prices()
     {
         return $this->hasMany(Price::class, 'f_stockid', 'f_id');
