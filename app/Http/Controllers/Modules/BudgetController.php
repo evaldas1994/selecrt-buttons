@@ -112,6 +112,7 @@ class BudgetController extends Controller
             'projects',
             'years',
             'months',
+            'budget'
         ));
     }
 
@@ -130,7 +131,7 @@ class BudgetController extends Controller
 
         try {
             $budget->update($request->validated());
-            return redirect()->route('budgets.index')->withError(trans('global.updated_successfully'));
+            return redirect()->route('budgets.index')->withSuccess(trans('global.updated_successfully'));
         } catch (\Exception) {
             return redirect()->route('budgets.index')->withError(trans('global.update_failed'));
         }
@@ -164,7 +165,7 @@ class BudgetController extends Controller
         $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
         switch ($actionWithoutValidation[0]) {
             case 'close':
-                return redirect()->route('budget.index');
+                return redirect()->route('budgets.index');
 
             case 'select-account':
                 dd('route to account.index', $actionWithoutValidation[1]);

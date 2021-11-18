@@ -1,75 +1,105 @@
 <?php
 
-namespace App\Http\Livewire\ProductionCard;
+namespace App\Http\Livewire\Budget;
 
-use App\Models\Stock;
 use Livewire\Component;
-use Livewire\WithFileUploads;
-use App\Models\ProductionCardComponent;
 
 class Edit extends Component
 {
-    use WithFileUploads;
+    public $accounts;
+    public $registers1;
+    public $registers2;
+    public $registers3;
+    public $registers4;
+    public $registers5;
+    public $departments;
+    public $projects;
+    public $years;
+    public $months;
+    public $budget;
 
     public $f_id;
-    public $f_stockid;
-    public $f_stock_name;
-    public $f_name;
-    public $f_name2;
-    public $f_quant;
-    public $f_unitid;
-    public $f_description;
+    public $f_accountid;
+    public $f_year;
+    public $f_month;
+    public $f_r1id;
+    public $f_r2id;
+    public $f_r3id;
+    public $f_r4id;
+    public $f_r5id;
+    public $f_departmentid;
+    public $f_projectid;
+    public $f_system1;
+    public $f_system2;
+    public $f_system3;
+    public $f_credit_sum;
+    public $f_debit_sum;
 
-    public $stocks;
-    public $productionCard;
-    public $productionCardComponents;
-
-    public $types;
-    public $productionCardComponent;
-    public $showCreate = false;
-    public $showEdit = false;
-
-    public function mount($stocks, $productionCard, $productionCardComponents, $types)
+    public function mount(
+        $accounts,
+        $registers1,
+        $registers2,
+        $registers3,
+        $registers4,
+        $registers5,
+        $departments,
+        $projects,
+        $years,
+        $months,
+        $budget
+    )
     {
-        $this->productionCard = $productionCard;
-        $this->stocks = $stocks;
-        $this->productionCardComponents = $productionCardComponents;
-        $this->types = $types;
+        $this->accounts = $accounts;
+        $this->registers1 = $registers1;
+        $this->registers2 = $registers2;
+        $this->registers3 = $registers3;
+        $this->registers4 = $registers4;
+        $this->registers5 = $registers5;
+        $this->departments = $departments;
+        $this->projects = $projects;
+        $this->years = $years;
+        $this->months = $months;
+        $this->budget = $budget;
 
-        $this->setOldValue('f_id', $productionCard->f_id);
-        $this->setOldValue('f_stockid',$productionCard->f_stockid);
-        $this->setOldValue('f_stock_name', $productionCard->stock->f_name);
-        $this->setOldValue('f_name', $productionCard->f_name);
-        $this->setOldValue('f_name2', $productionCard->f_name2);
-        $this->setOldValue('f_quant', $productionCard->f_quant);
-        $this->setOldValue('f_unitid', $productionCard->f_unitid);
-        $this->setOldValue('f_description', $productionCard->f_description);
+        $this->setOldValue('f_id', $budget->f_id);
+        $this->setOldValue('f_accountid', $budget->f_accountid);
+        $this->setOldValue('f_year', $budget->f_year);
+        $this->setOldValue('f_month', $budget->f_month);
+        $this->setOldValue('f_r1id', $budget->f_r1id);
+        $this->setOldValue('f_r2id', $budget->f_r2id);
+        $this->setOldValue('f_r3id', $budget->f_r3id);
+        $this->setOldValue('f_r4id', $budget->f_r4id);
+        $this->setOldValue('f_r5id', $budget->f_r5id);
+        $this->setOldValue('f_departmentid', $budget->f_departmentid);
+        $this->setOldValue('f_projectid', $budget->f_projectid);
+        $this->setOldValue('f_system1', $budget->f_system1);
+        $this->setOldValue('f_system2', $budget->f_system2);
+        $this->setOldValue('f_system3', $budget->f_system3);
+        $this->setOldValue('f_credit_sum', $budget->f_credit_sum);
+        $this->setOldValue('f_debit_sum', $budget->f_debit_sum);
 
-        $this->changeStock($this->f_stockid);
-    }
-
-    public function changeId($id)
-    {
-        $this->setOldValue('f_id', $id);
-    }
-
-    public function changeStock($stockId)
-    {
-        $this->f_stockid = $stockId;
-        $stock = Stock::find($this->f_stockid);
-
-        if ($this->f_stockid == null ) {
-            $this->f_stock_name = null;
-            $this->f_unitid = null;
-        } else {
-            $this->f_stock_name = $stock->f_name;
-            $this->f_unitid = $stock->f_unitid;
-        }
+        $this->setId();
     }
 
     public function render()
     {
-        return view('livewire.productionCard.edit');
+        return view('livewire.budget.edit');
+    }
+
+    public function setId()
+    {
+        if ($this->f_year !== null) {
+            $this->f_id = $this->f_year;
+
+            if ($this->f_month !== null) {
+                $this->f_id = $this->f_year.$this->f_month;
+                if ($this->f_accountid !== null) {
+                    $this->f_id = $this->f_year.$this->f_month.$this->f_accountid;
+                }
+            }
+        } else {
+            $this->f_id = null;
+        }
     }
 
     private function setOldValue($value, $default = null)
@@ -82,30 +112,4 @@ class Edit extends Component
             }
         }
     }
-
-    public function showCreate($value = true)
-    {
-        $this->showCreate = $value;
-        $this->showEdit = false;
-    }
-
-    public function showEdit(bool $value = true, string $id = null)
-    {
-        $productionCardComponent = ProductionCardComponent::find($id);
-
-        if ($value == true && $productionCardComponent !== null ) {
-            $this->productionCardComponent = $productionCardComponent;
-            $this->showCreate = false;
-            $this->showEdit = $value;
-        } else {
-            $this->productionCardComponent = null;
-            $this->showCreate = false;
-            $this->showEdit = false;
-        }
-    }
-
-    public $listeners = [
-        'showCreate' => 'showCreate',
-        'showEdit' => 'showEdit'
-    ];
 }

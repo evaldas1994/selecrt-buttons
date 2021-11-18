@@ -1,22 +1,29 @@
-<div class="fixed-bottom">
-    <div class="row mb-2 mb-xl-3">
+<div>
+    <div class="row mb-2">
+        <div class="col-auto">
+            <h1>@lang('modules/budget.h1')</h1>
+        </div>
+
         <div class="col-auto ms-auto text-end mt-n1">
             <x-form-elements.button
-                form="production-card-component-edit-form"
+                form="budget_edit_form"
                 class="btn-primary"
                 text="global.btn_save"
             />
-            <button wire:click="$emitUp('showEdit', false)"
-                    class="btn btn-primary"
-            >
-                @lang('global.btn_close')
-            </button>
+
+            <x-form-elements.button
+                form="budget_edit_form"
+                class="btn-dark"
+                name="button-action-without-validation"
+                value="close"
+                text="global.btn_close"
+            />
         </div>
     </div>
     <div class="row">
-        <form id="production-card-component-edit-form"
-              action="{{ route('production-card-components.update', [$productionCard, $productionCardComponent]) }}" method="POST"
-              enctype=multipart/form-data laravel>
+        <form id="budget_edit_form"
+              name="budget_edit_form"
+              action="{{ route('budgets.update', $budget) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -24,93 +31,164 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12 col-md-6 col-xl-3">
+                            <x-form-elements.input-id
+                                name="f_id"
+                                labelValue="modules/budget.f_id"
+                                inputClass="not-empty"
+                                wireModel="f_id"
+                                :defaultValue="$f_id"
+                                readonly="readonly"
+                            />
+
+                            <x-form-elements.select-array
+                                :items="$years"
+                                name="f_year"
+                                labelValue="modules/budget.f_year"
+                                selectValue="modules/budget.year"
+                                wireModel="f_year"
+                                wireChange="setId"
+                                defaultValue="f_year"
+                            />
+
+                            <x-form-elements.select-array
+                                :items="$months"
+                                name="f_month"
+                                labelValue="modules/budget.f_month"
+                                selectValue="modules/budget.month"
+                                wireModel="f_month"
+                                wireChange="setId"
+                                defaultValue="f_month"
+                            />
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-3">
+                            <x-form-elements.input
+                                name="f_credit_sum"
+                                labelValue="modules/budget.f_credit_sum"
+                                inputClass="not-empty"
+                                maxLength="15"
+                                :defaultValue="$f_credit_sum"
+                                wireModel="f_credit_sum"
+                            />
+
+                            <x-form-elements.input
+                                name="f_debit_sum"
+                                labelValue="modules/budget.f_debit_sum"
+                                inputClass="not-empty"
+                                maxLength="15"
+                                :defaultValue="$f_debit_sum"
+                                wireModel="f_debit_sum"
+                            />
+                        </div>
+                        <div class="col-12 col-md-6 col-xl-3">
                             <x-form-elements.select-with-button
-                                :items="$stocks"
-                                name="f_stockid"
-                                labelValue="modules/productionCardComponent.f_stockid"
+                                :items="$accounts"
+                                name="f_accountid"
+                                labelValue="modules/budget.f_accountid"
                                 selectClass="not-empty"
                                 buttonName="button-action-without-validation"
-                                buttonValue="select-stock|f_stockid"
-                                wireModel="f_stockid"
-                                wireChange="changeStock($event.target.value)"
-                                defaultValue="f_stockid"
+                                buttonValue="select-account|f_accountid"
+                                wireModel="f_accountid"
+                                wireChange="setId"
+                                defaultValue="f_accountid"
                             />
 
-                            <x-form-elements.input
-                                name="f_stock_name"
-                                labelValue="modules/productionCardComponent.f_stock_name"
-                                maxLength="20"
-                                :defaultValue="$f_stock_name"
-                                wireModel="f_stock_name"
-                                readonly="readonly"
+                            <x-form-elements.select-with-button
+                                :items="$departments"
+                                name="f_departmentid"
+                                labelValue="modules/budget.f_departmentid"
+                                buttonName="button-action-without-validation"
+                                buttonValue="select-department|f_departmentid"
+                                wireModel="f_departmentid"
+                                defaultValue="f_departmentid"
                             />
-                            <x-form-elements.input
-                                name="f_unitid"
-                                labelValue="modules/productionCardComponent.f_unitid"
-                                maxLength="20"
-                                :defaultValue="$f_unitid"
-                                wireModel="f_unitid"
-                                readonly="readonly"
+
+                            <x-form-elements.select-with-button
+                                :items="$projects"
+                                name="f_projectid"
+                                labelValue="modules/budget.f_projectid"
+                                buttonName="button-action-without-validation"
+                                buttonValue="select-project|f_projectid"
+                                wireModel="f_projectid"
+                                defaultValue="f_projectid"
+                            />
+
+                            <x-form-elements.select-with-button
+                                :items="$registers1"
+                                name="f_r1id"
+                                labelValue="modules/budget.f_r1id"
+                                buttonName="button-action-without-validation"
+                                buttonValue="select-register1|f_r1id"
+                                wireModel="f_r1id"
+                                defaultValue="f_r1id"
                             />
                         </div>
                         <div class="col-12 col-md-6 col-xl-3">
                             <x-form-elements.select-with-button
-                                :items="$stocks"
-                                name="f_alter_stockid"
-                                labelValue="modules/productionCardComponent.f_alter_stockid"
+                                :items="$registers2"
+                                name="f_r2id"
+                                labelValue="modules/budget.f_r2id"
                                 buttonName="button-action-without-validation"
-                                buttonValue="select-alter-stock|f_alter_stockid"
-                                wireModel="f_alter_stockid"
-                                wireChange="changeAlterStock($event.target.value)"
-                                defaultValue="f_alter_stockid"
+                                buttonValue="select-register2|f_r2id"
+                                wireModel="f_r2id"
+                                defaultValue="f_r2id"
                             />
 
-                            <x-form-elements.input
-                                name="f_alter_stock_name"
-                                labelValue="modules/productionCardComponent.f_alter_stock_name"
-                                maxLength="20"
-                                :defaultValue="$f_alter_stock_name"
-                                wireModel="f_alter_stock_name"
-                                readonly="readonly"
+                            <x-form-elements.select-with-button
+                                :items="$registers3"
+                                name="f_r3id"
+                                labelValue="modules/budget.f_r3id"
+                                buttonName="button-action-without-validation"
+                                buttonValue="select-register3|f_r3id"
+                                wireModel="f_r3id"
+                                defaultValue="f_r3id"
                             />
 
+                            <x-form-elements.select-with-button
+                                :items="$registers4"
+                                name="f_r4id"
+                                labelValue="modules/budget.f_r4id"
+                                buttonName="button-action-without-validation"
+                                buttonValue="select-register4|f_r4id"
+                                wireModel="f_r4id"
+                                defaultValue="f_r4id"
+                            />
+
+                            <x-form-elements.select-with-button
+                                :items="$registers5"
+                                name="f_r5id"
+                                labelValue="modules/budget.f_r5id"
+                                buttonName="button-action-without-validation"
+                                buttonValue="select-register5|f_r5id"
+                                wireModel="f_r5id"
+                                defaultValue="f_r5id"
+                            />
                         </div>
                         <div class="col-12 col-md-6 col-xl-3">
                             <x-form-elements.input
-                                name="f_quant"
-                                labelValue="modules/productionCardComponent.f_quant"
-                                maxLength="15"
-                                :defaultValue="$f_quant"
-                                wireModel="f_quant"
+                                name="f_system1"
+                                labelValue="modules/budget.f_system1"
+                                maxLength="100"
+                                :defaultValue="$f_system1"
+                                wireModel="f_system1"
+                                hidden="hidden"
                             />
 
                             <x-form-elements.input
-                                name="f_price"
-                                labelValue="modules/productionCardComponent.f_price"
-                                maxLength="15"
-                                :defaultValue="$f_price"
-                                wireModel="f_price"
-                                readonly="{{ $f_price_locked == 1 ? 'readonly' : null }}"
-                            />
-                        </div>
-                        <div class="col-12 col-md-6 col-xl-3">
-                            <x-form-elements.select-array
-                                :items="$types"
-                                name="f_type"
-                                labelValue="modules/productionCardComponent.f_type"
-                                selectValue="modules/productionCardComponent.type"
-                                wireModel="f_type"
-                                wireChange="changeType($event.target.value)"
-                                defaultValue="f_type"
-                                disabled="{{ $f_type_locked == 1 ? 'disabled' : null }}"
+                                name="f_system2"
+                                labelValue="modules/budget.f_system2"
+                                maxLength="100"
+                                :defaultValue="$f_system2"
+                                wireModel="f_system2"
+                                hidden="hidden"
                             />
 
                             <x-form-elements.input
-                                name="f_neto"
-                                labelValue="modules/productionCardComponent.f_neto"
-                                maxLength="15"
-                                :defaultValue="$f_neto"
-                                wireModel="f_neto"
+                                name="f_system3"
+                                labelValue="modules/budget.f_system3"
+                                maxLength="100"
+                                :defaultValue="$f_system3"
+                                wireModel="f_system3"
+                                hidden="hidden"
                             />
                         </div>
                     </div>
