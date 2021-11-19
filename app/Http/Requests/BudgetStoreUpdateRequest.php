@@ -32,7 +32,7 @@ class BudgetStoreUpdateRequest extends FormRequest
             return [];
         }
 
-        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_bom')->ignore($this->production_card) : 'unique:t_bom';
+        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_budget')->ignore($this->budget) : 'unique:t_budget';
         return [
             'f_id' => [$unique, 'required', 'max:255', new IdPatternRule],
             'f_accountid' => 'required|exists:t_account,f_id',
