@@ -137,7 +137,7 @@ class PaymentGroupController extends Controller
         $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
         switch ($actionWithoutValidation[0]) {
             case 'close':
-                return redirect()->route('budgets.index');
+                return redirect()->route('payment-groups.index');
 
             case 'select-debit-account':
                 dd('route to account.index', $actionWithoutValidation[1]);
