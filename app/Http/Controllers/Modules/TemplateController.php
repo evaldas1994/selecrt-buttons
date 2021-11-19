@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Modules;
 
 use App\Models\Account;
 use App\Models\Template;
-use Illuminate\Support\Arr;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
 use App\Models\StockOperationGroup;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -52,9 +52,9 @@ class TemplateController extends Controller
             return $this->checkButtonActionWithoutValidation($request);
         }
 
-        Template::create($request->validated());
+        $template = Template::create($request->validated());
 
-        return redirect()->route('templates.index')->withSuccess(trans('global.created_successfully'));
+        return $this->checkButtonAction($request, $template, 'global.created_successfully');
     }
 
     /**
@@ -70,7 +70,9 @@ class TemplateController extends Controller
 
         $operationTypes = Template::$operationTypes;
 
-        return view('modules.template.edit', compact('template', 'stockOperationGroups', 'accounts', 'operationTypes'));
+        $templateReasons = $template->templateReasons;
+
+        return view('modules.template.edit', compact('template', 'stockOperationGroups', 'accounts', 'operationTypes', 'templateReasons'));
     }
 
     /**
@@ -88,11 +90,11 @@ class TemplateController extends Controller
 
         try {
             $template->update($request->validated());
-
-            return redirect()->route('templates.index')->withSuccess(trans('global.updated_successfully'));
         } catch (\Exception) {
             return redirect()->route('templates.index')->withError(trans('global.update_failed'));
         }
+
+        return $this->checkButtonAction($request, $template, 'global.updated_successfully');
     }
 
     /**
@@ -112,12 +114,27 @@ class TemplateController extends Controller
         }
     }
 
+    private function checkButtonAction(TemplateStoreUpdateRequest $request, Template $template = null, string $message='global.empty')
+    {
+        $action = explode('|', $request->input('button-action'))[0];
+        switch ($action) {
+            case 'template-reason-create':
+                return redirect()->route('template-reasons.create', $template);
+        }
+
+        return redirect()->route('stocks.index')->withSuccess(trans($message));
+    }
+
     private function checkButtonActionWithoutValidation(TemplateStoreUpdateRequest $request, Template $template = null, string $message='global.empty')
     {
         $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
         switch ($actionWithoutValidation[0]) {
             case 'close':
                 return redirect()->route('templates.index');
+
+            case 'template-reason-edit':
+                $templateReasonId = $actionWithoutValidation[1];
+                return redirect()->route('template-reasons.edit', [$template, $templateReasonId]);
 
             case 'select-stock-operation-group':
                 dd('route to stock operation group.index', $actionWithoutValidation[1]);
@@ -261,6 +278,6 @@ class TemplateController extends Controller
                 dd('route to account.index', $actionWithoutValidation[1]);
         }
 
-        return redirect()->route('stocks.index')->withSuccess(trans($message));
+        return redirect()->route('template-reasons.index')->withSuccess(trans($message));
     }
 }

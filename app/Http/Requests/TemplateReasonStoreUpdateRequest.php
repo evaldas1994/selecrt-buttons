@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Arr;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TemplateReasonStoreUpdateRequest extends FormRequest
@@ -23,8 +24,15 @@ class TemplateReasonStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
+            return [];
+        }
+
         return [
-            //
+            'f_description' => 'string|max:100|nullable',
+            'f_system1' => 'string|max:100|nullable',
+            'f_system2' => 'string|max:100|nullable',
+            'f_system3' => 'string|max:100|nullable',
         ];
     }
 }

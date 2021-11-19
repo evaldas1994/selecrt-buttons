@@ -871,7 +871,32 @@
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="tab-2" role="tabpanel">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <x-form-elements.button
+                                            form="template_edit_form"
+                                            class="btn-primary"
+                                            name="button-action"
+                                            value="template-reason-create"
+                                            fontawesomeIcon="fas fa-plus"
+                                            text="global.btn_new"
+                                        />
+                                    </div>
+                                </div>
 
+                                <div class="row">
+                                    <div class="col-12">
+                                        <x-modules.items-list
+                                            form="template_edit_form"
+                                            name="template-reason"
+                                            deleteFormRoute="template-reasons.destroy"
+                                            :items="$templateReasons"
+                                            :parentRouteData="$template"
+                                            :langs="['modules/templateReason.f_id', 'modules/templateReason.f_description', 'modules/templateReason.f_templateid']"
+                                            :fields="['f_id', 'f_description', 'f_templateid']"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

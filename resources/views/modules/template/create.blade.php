@@ -795,7 +795,18 @@
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="tab-2" role="tabpanel">
-
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <x-form-elements.button
+                                            form="template_create_form"
+                                            class="btn-primary"
+                                            name="button-action"
+                                            value="template-reason-create"
+                                            fontawesomeIcon="fas fa-plus"
+                                            text="global.btn_new"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
