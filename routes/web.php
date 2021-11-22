@@ -45,6 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('message-groups', \App\Http\Controllers\Modules\MessageGroupController::class)->except('show');
     Route::resource('partners', \App\Http\Controllers\Modules\PartnerController::class)->except('show');
     Route::resource('partner-groups', \App\Http\Controllers\Modules\PartnerGroupController::class)->except('show');
+    Route::resource('payment-groups', \App\Http\Controllers\Modules\PaymentGroupController::class)->except('show');
     Route::resource('periods', \App\Http\Controllers\Modules\PeriodController::class)->except('show');
     Route::resource('persons', \App\Http\Controllers\Modules\PersonController::class)->except('show');
     Route::resource('production-cards', \App\Http\Controllers\Modules\ProductionCardController::class)->except('show');
