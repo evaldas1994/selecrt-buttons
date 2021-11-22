@@ -148,6 +148,7 @@ class PartnerController extends Controller
         $ediExportTypes = Partner::$ediExportTypes;
 
         $bankAccounts = $partner->bankAccounts;
+        $contacts = $partner->contacts;
 
         return view(
             'modules.partner.edit',
@@ -175,6 +176,7 @@ class PartnerController extends Controller
                 'sexTypes',
                 'ediExportTypes',
                 'bankAccounts',
+                'contacts',
             )
         );
     }
@@ -189,7 +191,7 @@ class PartnerController extends Controller
     public function update(PartnerStoreUpdateRequest $request, Partner $partner)
     {
         if (Arr::exists($request->input(), 'button-action-without-validation')) {
-            return $this->checkButtonActionWithoutValidation($request);
+            return $this->checkButtonActionWithoutValidation($request, $partner);
         }
 
         try {
@@ -244,6 +246,13 @@ class PartnerController extends Controller
         switch ($actionWithoutValidation[0]) {
             case 'close':
                 return redirect()->route('partners.index');
+            case 'bank-account-edit':
+                $bankAccountId = $actionWithoutValidation[1];
+                return redirect()->route('bank-accounts.edit', [$partner, $bankAccountId]);
+
+            case 'contact-edit':
+                $contactId = $actionWithoutValidation[1];
+                return redirect()->route('contacts.edit', [$partner, $contactId]);
 
             case 'select-partner-group':
                 dd('route to partner group.index', $actionWithoutValidation[1]);

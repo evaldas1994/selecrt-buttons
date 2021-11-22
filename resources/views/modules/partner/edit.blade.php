@@ -638,15 +638,31 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="tab-6" role="tabpanel">
-                                <div class="col-auto">
-                                    <x-form-elements.button
-                                        form="partner_edit_form"
-                                        class="btn-primary"
-                                        name="button-action"
-                                        value="contact-create"
-                                        fontawesomeIcon="fas fa-plus"
-                                        text="global.btn_new"
-                                    />
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <x-form-elements.button
+                                            form="partner_edit_form"
+                                            class="btn-primary"
+                                            name="button-action"
+                                            value="contact-create"
+                                            fontawesomeIcon="fas fa-plus"
+                                            text="global.btn_new"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <x-modules.items-list
+                                            form="partner_edit_form"
+                                            name="contact"
+                                            deleteFormRoute="contacts.destroy"
+                                            :items="$contacts"
+                                            :parentRouteData="$partner"
+                                            :langs="['modules/contact.f_id', 'modules/contact.f_partnerid', 'modules/contact.f_fullname', 'modules/contact.f_post', 'modules/contact.f_phone', 'modules/contact.f_email']"
+                                            :fields="['f_id', 'f_partnerid', 'f_fullname', 'f_post', 'f_phone' , 'f_email']"
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="tab-7" role="tabpanel">
@@ -659,6 +675,20 @@
                                             value="bank-account-create"
                                             fontawesomeIcon="fas fa-plus"
                                             text="global.btn_new"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <x-modules.items-list
+                                            form="partner_edit_form"
+                                            name="bank-account"
+                                            deleteFormRoute="bank-accounts.destroy"
+                                            :items="$bankAccounts"
+                                            :parentRouteData="$partner"
+                                            :langs="['modules/bankAccount.f_id', 'modules/bankAccount.f_partnerid', 'modules/bankAccount.f_bankid', 'modules/bankAccount.f_default']"
+                                            :fields="['f_id', 'f_partnerid', 'f_bankid', 'f_default']"
                                         />
                                     </div>
                                 </div>
