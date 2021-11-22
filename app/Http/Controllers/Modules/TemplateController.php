@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Modules;
 use App\Models\Account;
 use App\Models\Template;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
 use App\Models\StockOperationGroup;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -34,9 +35,9 @@ class TemplateController extends Controller
         $stockOperationGroups = StockOperationGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $accounts = Account::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        $operations = Template::$operationTypes;
+        $operationTypes = Template::$operationTypes;
 
-        return view('modules.template.create', compact('stockOperationGroups', 'accounts', 'operations'));
+        return view('modules.template.create', compact('stockOperationGroups', 'accounts', 'operationTypes'));
     }
 
     /**
@@ -47,9 +48,13 @@ class TemplateController extends Controller
      */
     public function store(TemplateStoreUpdateRequest $request)
     {
-        Template::create($request->validated());
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
 
-        return redirect()->route('templates.index')->withSuccess(trans('global.created_successfully'));
+        $template = Template::create($request->validated());
+
+        return $this->checkButtonAction($request, $template, 'global.created_successfully');
     }
 
     /**
@@ -63,9 +68,11 @@ class TemplateController extends Controller
         $stockOperationGroups = StockOperationGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $accounts = Account::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        $operations = Template::$operationTypes;
+        $operationTypes = Template::$operationTypes;
 
-        return view('modules.template.edit', compact('template', 'stockOperationGroups', 'accounts', 'operations'));
+        $templateReasons = $template->templateReasons;
+
+        return view('modules.template.edit', compact('template', 'stockOperationGroups', 'accounts', 'operationTypes', 'templateReasons'));
     }
 
     /**
@@ -77,13 +84,17 @@ class TemplateController extends Controller
      */
     public function update(TemplateStoreUpdateRequest $request, Template $template)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $template);
+        }
+
         try {
             $template->update($request->validated());
-
-            return redirect()->route('templates.index')->withSuccess(trans('global.updated_successfully'));
         } catch (\Exception) {
             return redirect()->route('templates.index')->withError(trans('global.update_failed'));
         }
+
+        return $this->checkButtonAction($request, $template, 'global.updated_successfully');
     }
 
     /**
@@ -101,5 +112,172 @@ class TemplateController extends Controller
         } catch (\Exception) {
             return redirect()->route('templates.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    private function checkButtonAction(TemplateStoreUpdateRequest $request, Template $template = null, string $message='global.empty')
+    {
+        $action = explode('|', $request->input('button-action'))[0];
+        switch ($action) {
+            case 'template-reason-create':
+                return redirect()->route('template-reasons.create', $template);
+        }
+
+        return redirect()->route('stocks.index')->withSuccess(trans($message));
+    }
+
+    private function checkButtonActionWithoutValidation(TemplateStoreUpdateRequest $request, Template $template = null, string $message='global.empty')
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('templates.index');
+
+            case 'template-reason-edit':
+                $templateReasonId = $actionWithoutValidation[1];
+                return redirect()->route('template-reasons.edit', [$template, $templateReasonId]);
+
+            case 'select-stock-operation-group':
+                dd('route to stock operation group.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-1':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-1':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-2':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-2':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-3':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-3':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-4':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-4':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-5':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-5':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-6':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-6':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-7':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-7':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-8':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-8':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-9':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-9':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-10':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-10':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-11':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-11':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-12':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-12':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-13':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-13':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-14':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-14':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-15':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-15':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-16':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-16':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-17':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-17':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-18':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-18':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-19':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-19':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-20':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-20':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-21':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-21':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-22':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-22':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-debit-account-23':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-credit-account-23':
+                dd('route to account.index', $actionWithoutValidation[1]);
+        }
+
+        return redirect()->route('template-reasons.index')->withSuccess(trans($message));
     }
 }

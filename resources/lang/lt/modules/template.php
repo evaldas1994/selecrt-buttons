@@ -55,4 +55,7 @@ return [
     'operation_typeD' => 'D - Turto nusidėvėjimas',
     'operation_typeS' => 'S - Atlyginimas',
     'operation_typeL' => 'L - DK operacijos',
+
+    'tab1' => 'Pagrindinis',
+    'tab2' => 'Priežastys',
 ];

@@ -94,6 +94,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('production-cards/{production_card}')->group(function () {
         Route::resource('production-card-components', \App\Http\Controllers\Modules\ProductionCardComponentController::class)->except('show', 'index');
     });
+
+    Route::prefix('templates/{template}')->group(function () {
+        Route::resource('template-reasons', \App\Http\Controllers\Modules\TemplateReasonController::class)->except('show', 'index');
+    });
 });
 
 Route::domain('blog.' . 'dineta-crm.test')->group(function () {
