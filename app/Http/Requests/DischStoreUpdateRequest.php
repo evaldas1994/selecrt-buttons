@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DiscounthStoreUpdateRequest extends FormRequest
+class DischStoreUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,7 +30,7 @@ class DiscounthStoreUpdateRequest extends FormRequest
             return [];
         }
 
-        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_disch')->ignore($this->discountsh) : 'unique:t_disch';
+        $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_disch')->ignore($this->disch) : 'unique:t_disch';
         return [
             'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],
             'f_name' => 'string|max:100|nullable',

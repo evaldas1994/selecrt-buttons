@@ -1,22 +1,26 @@
 <?php
 
-namespace App\Http\Livewire\Discounth;
+namespace App\Http\Livewire\Discd;
 
+use App\Models\Disch;
 use Livewire\Component;
 
 class Create extends Component
 {
-    public $f_id = ' ';
-    public $f_name;
+    public $f_quant;
+    public $f_perc;
     public $f_system1;
     public $f_system2;
     public $f_system3;
 
+    public $disch;
 
-    public function mount()
+    public function mount(Disch $disch)
     {
-        $this->setOldValue('f_id');
-        $this->setOldValue('f_name');
+        $this->disch = $disch;
+
+        $this->setOldValue('f_quant', '0.0000');
+        $this->setOldValue('f_perc', '0.00');
         $this->setOldValue('f_system1');
         $this->setOldValue('f_system2');
         $this->setOldValue('f_system3');
@@ -29,7 +33,7 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.discounth.create');
+        return view('livewire.discd.create');
     }
 
     private function setOldValue($value, $default = null)
@@ -41,5 +45,10 @@ class Create extends Component
                 $this->$value = $default;
             }
         }
+    }
+
+    public function showCreate($value)
+    {
+        $this->emitUp('showCreate', $value);
     }
 }

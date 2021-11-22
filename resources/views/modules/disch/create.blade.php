@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <livewire:discounth.create/>
+    <livewire:disch.create/>
 @endsection

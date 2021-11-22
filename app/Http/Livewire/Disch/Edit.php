@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire\Discounth;
+namespace App\Http\Livewire\Disch;
 
 use Livewire\Component;
-use App\Models\Discountd;
-use App\Models\Discounth;
+use App\Models\Discd;
+use App\Models\Disch;
 
 class Edit extends Component
 {
@@ -14,24 +14,24 @@ class Edit extends Component
     public $f_system2;
     public $f_system3;
 
-    public $discountsh;
-    public $discountsd;
-    public $allDiscountsd;
+    public $disch;
+    public $discd;
+    public $allDiscd;
 
     public $showCreate = false;
     public $showEdit = false;
 
-    public function mount(Discounth $discountsh, $allDiscountsd)
+    public function mount(Disch $disch, $allDiscd)
     {
-        $this->discountsh = $discountsh;
-        $this->allDiscountsd = $allDiscountsd;
-        $this->f_id = $discountsh->f_id;
+        $this->disch = $disch;
+        $this->allDiscd = $allDiscd;
+        $this->f_id = $disch->f_id;
 
-        $this->setOldValue('f_id', $this->discountsh->f_id);
-        $this->setOldValue('f_name', $this->discountsh->f_name);
-        $this->setOldValue('f_system1', $this->discountsh->f_system1);
-        $this->setOldValue('f_system2', $this->discountsh->f_system2);
-        $this->setOldValue('f_system3', $this->discountsh->f_system3);
+        $this->setOldValue('f_id', $this->disch->f_id);
+        $this->setOldValue('f_name', $this->disch->f_name);
+        $this->setOldValue('f_system1', $this->disch->f_system1);
+        $this->setOldValue('f_system2', $this->disch->f_system2);
+        $this->setOldValue('f_system3', $this->disch->f_system3);
     }
 
     public function changeId($id)
@@ -41,7 +41,7 @@ class Edit extends Component
 
     public function render()
     {
-        return view('livewire.discounth.edit');
+        return view('livewire.disch.edit');
     }
 
     private function setOldValue($value, $default = null)
@@ -63,14 +63,14 @@ class Edit extends Component
 
     public function showEdit(bool $value = true, string $id = null)
     {
-        $discountsd = Discountd::find($id);
+        $discd = Discd::find($id);
 
-        if ($value == true && $discountsd !== null ) {
-            $this->discountsd = $discountsd;
+        if ($value == true && $discd !== null ) {
+            $this->discd = $discd;
             $this->showCreate = false;
             $this->showEdit = $value;
         } else {
-            $this->discountsd = null;
+            $this->discd = null;
             $this->showCreate = false;
             $this->showEdit = false;
         }

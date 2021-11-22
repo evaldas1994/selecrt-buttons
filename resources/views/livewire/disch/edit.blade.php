@@ -1,7 +1,7 @@
 <div>
     <div class="row mb-2">
         <div class="col-auto">
-            <h1>@lang('modules/discounth.h1')</h1>
+            <h1>@lang('modules/disch.h1')</h1>
         </div>
 
         <div class="col-auto ms-auto text-end mt-n1">
@@ -24,14 +24,14 @@
         <div class="col-12">
         <div class="card">
                 <div class="card-body">
-                    <form id="disch_edit_form" name="disch_edit_form" action="{{ route('discountsh.update', $discountsh) }}" method="POST">
+                    <form id="disch_edit_form" name="disch_edit_form" action="{{ route('disch.update', $disch) }}" method="POST">
                         @csrf
                         @method('PUT')
                    <div class="row">
                        <div class="col-12 col-md-6 col-xl-3">
                            <x-form-elements.input-id
                                name="f_id"
-                               labelValue="modules/discounth.f_id"
+                               labelValue="modules/disch.f_id"
                                inputClass="not-empty"
                                maxLength="20"
                                wireModel="f_id"
@@ -42,7 +42,7 @@
                        <div class="col-12 col-md-6 col-xl-3">
                            <x-form-elements.input
                                name="f_name"
-                               labelValue="modules/discounth.f_name"
+                               labelValue="modules/disch.f_name"
                                maxLength="100"
                                :defaultValue="$f_name"
                                wireModel="f_name"
@@ -54,7 +54,7 @@
                        <div class="col-12 col-md-6 col-xl-3">
                            <x-form-elements.input
                                name="f_system1"
-                               labelValue="modules/discounth.f_system1"
+                               labelValue="modules/disch.f_system1"
                                maxLength="100"
                                :defaultValue="$f_system1"
                                wireModel="f_system1"
@@ -63,7 +63,7 @@
 
                            <x-form-elements.input
                                name="f_system2"
-                               labelValue="modules/discounth.f_system2"
+                               labelValue="modules/disch.f_system2"
                                maxLength="100"
                                :defaultValue="$f_system2"
                                wireModel="f_system2"
@@ -72,7 +72,7 @@
 
                            <x-form-elements.input
                                name="f_system3"
-                               labelValue="modules/discounth.f_system3"
+                               labelValue="modules/disch.f_system3"
                                maxLength="100"
                                :defaultValue="$f_system3"
                                wireModel="f_system3"
@@ -83,7 +83,7 @@
                     </form>
                     <div class="row mt-4">
                         <div class="col-12">
-                            <h4>@lang('modules/discountd.h1')</h4>
+                            <h4>@lang('modules/discd.h1')</h4>
                         </div>
 
                         <div class="col-auto">
@@ -99,12 +99,12 @@
                         <div class="col-12">
                             <x-modules.items-list
                                 form="disch_edit_form"
-                                :items="$allDiscountsd"
-                                :parentRouteData="$discountsh"
-                                :langs="['modules/discountd.f_id', 'modules/discountd.f_quant', 'modules/discountd.f_perc']"
+                                :items="$allDiscd"
+                                :parentRouteData="$disch"
+                                :langs="['modules/discd.f_id', 'modules/discd.f_quant', 'modules/discd.f_perc']"
                                 :fields="['f_id', 'f_quant', 'f_perc']"
-                                deleteFormRoute="discountsd.destroy"
-                                name="discountd"
+                                deleteFormRoute="discd.destroy"
+                                name="discd"
                                 wireEmmitUpName="showEdit"
                                 wireEmmitValue="true"
                             />
@@ -117,13 +117,13 @@
 
     @if($showCreate)
         <div class="row">
-            <livewire:discountd.create :discountsh="$discountsh"/>
+            <livewire:discd.create :disch="$disch"/>
         </div>
     @endif
 
-    @if($showEdit && $discountsd != null)
+    @if($showEdit && $discd != null)
         <div class="row">
-            <livewire:discountd.edit :discountsh="$discountsh" :discountsd="$discountsd"/>
+            <livewire:discd.edit :disch="$disch" :discd="$discd"/>
         </div>
     @endif
 </div>

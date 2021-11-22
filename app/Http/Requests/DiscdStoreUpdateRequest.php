@@ -6,7 +6,7 @@ use App\Rules\FloatRule;
 use Illuminate\Support\Arr;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DiscountdStoreUpdateRequest extends FormRequest
+class DiscdStoreUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
