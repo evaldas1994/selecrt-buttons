@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use App\Traits\IdNextRecord;
 use App\Traits\IdToUppercase;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
-class Discounth extends Model
+class Discountd extends Model
 {
-    use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
+    use IdToUppercase, UpdateCreatedModifiedUserIdColumns, IdNextRecord;
 
-    protected $table = 't_disch';
+    protected $table = 't_discd';
 
     protected $perPage = 500;
 
@@ -21,7 +22,9 @@ class Discounth extends Model
      */
     protected $fillable = [
         'f_id',
-        'f_name',
+        'f_hid',
+        'f_quant',
+        'f_perc',
         'f_system1',
         'f_system2',
         'f_system3',
@@ -63,10 +66,10 @@ class Discounth extends Model
     const UPDATED_AT = 'f_modified_date';
 
     /**
-     * Get the joined stocks for the stock.
+     * Get the discountd's discounth.
      */
-    public function discountsd()
+    public function discounth()
     {
-        return $this->hasMany(Discountd::class, 'f_hid', 'f_id');
+        return $this->hasOne(Discounth::class, 'f_id', 'f_hid');
     }
 }

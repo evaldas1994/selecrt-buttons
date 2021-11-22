@@ -45,9 +45,9 @@ class DiscounthController extends Controller
             return $this->checkButtonActionWithoutValidation($request);
         }
 
-        $discounth = Discounth::create($request->validated());
+        $discountsh = Discounth::create($request->validated());
 
-        return $this->checkButtonAction($request, $discounth, 'global.created_successfully');
+        return $this->checkButtonAction($request, $discountsh, 'global.created_successfully');
     }
 
     /**
@@ -58,7 +58,9 @@ class DiscounthController extends Controller
      */
     public function edit(Discounth $discountsh)
     {
-        return view('modules.discounth.edit', compact('discountsh'));
+        $allDiscountsd = $discountsh->discountsd;
+
+        return view('modules.discounth.edit', compact('discountsh', 'allDiscountsd'));
     }
 
     /**
@@ -105,8 +107,7 @@ class DiscounthController extends Controller
         $action = explode('|', $request->input('button-action'))[0];
         switch ($action) {
             case 'discountd-create':
-                dd('d create');
-                return redirect()->route('discountsd.create', $discounth);
+                return redirect()->route('discountsh.edit', $discounth);
         }
 
         return redirect()->route('discountsh.index')->withSuccess(trans($message));
