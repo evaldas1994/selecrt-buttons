@@ -6,7 +6,7 @@ use App\Traits\IdToUppercase;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
-class Disch extends Model
+class Discounth extends Model
 {
     use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
 

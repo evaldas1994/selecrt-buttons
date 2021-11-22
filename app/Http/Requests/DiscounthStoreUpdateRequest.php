@@ -3,10 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Rules\IdPatternRule;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DischStoreUpdateRequest extends FormRequest
+class DiscounthStoreUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,6 +26,10 @@ class DischStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
+            return [];
+        }
+
         $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_disch')->ignore($this->discountsh) : 'unique:t_disch';
         return [
             'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],
