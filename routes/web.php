@@ -88,7 +88,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::prefix('partners/{partner}')->group(function () {
         Route::resource('bank-accounts', \App\Http\Controllers\Modules\BankAccountController::class)->except('show', 'index');
-        Route::resource('price-partners', \App\Http\Controllers\Modules\PricePartnerController::class)->except('show', 'index');
+        Route::resource('contacts', \App\Http\Controllers\Modules\ContactController::class)->except('show', 'index');
     });
 
     Route::prefix('production-cards/{production_card}')->group(function () {

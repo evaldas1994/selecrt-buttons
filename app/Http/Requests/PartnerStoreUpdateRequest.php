@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Partner;
 use App\Rules\FloatRule;
 use App\Rules\IdPatternRule;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,6 +28,10 @@ class PartnerStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
+            return [];
+        }
+
         $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_partner')->ignore($this->partner) : 'unique:t_partner';
         return [
             'f_id' => [$unique, 'required', 'max:40', new IdPatternRule],
