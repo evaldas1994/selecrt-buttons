@@ -1,6 +1,6 @@
 <div class="mb-2 row" {{ $hidden ?? '' }}>
-    <label class="col-form-label col-6 col-xxl-5 text-sm">@lang($labelValue)</label>
-    <div class="col-6 col-xxl-7">
+    @isset($labelValue)<label class="col-form-label col-6 col-xxl-5 text-sm">@lang($labelValue)</label>@endisset
+    <div class="col-{{ !isset($labelValue) ? '12' : '6' }} col-xxl-{{ !isset($labelValue) ? '12' : '7' }}">
         <div class="input-group">
             <select {{ isset($wireModel) ? 'wire:model.lazy='.$wireModel : '' }}
                     {{ isset($wireChange) ? 'wire:change.lazy='.$wireChange : '' }}

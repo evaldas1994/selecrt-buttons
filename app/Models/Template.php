@@ -530,4 +530,12 @@ class Template extends Model
     {
         return $this->hasOne(Account::class, 'f_id', 'f_debit_account23');
     }
+
+    /**
+     * Get the template reasons for the template.
+     */
+    public function templateReasons()
+    {
+        return $this->hasMany(TemplateReason::class, 'f_templateid', 'f_id');
+    }
 }

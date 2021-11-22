@@ -263,7 +263,7 @@
                     <i class="bi bi-tag" data-feather="dollar-sign"></i> <span class="align-middle">@lang('nav.payments.index')</span>
                 </a>
                 <ul id="payments" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.payments.payment_groups')</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('payment-groups.index') }}">@lang('nav.payments.payment_groups')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.payments.payments_in')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.payments.payments_out')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.payments.payment')</a></li>

@@ -18,6 +18,7 @@ use App\Models\Register4;
 use Illuminate\View\View;
 use App\Models\Register5;
 use App\Models\Department;
+use Illuminate\Support\Arr;
 use App\Models\MessageGroup;
 use App\Models\PartnerGroup;
 use App\Http\Controllers\Controller;
@@ -101,6 +102,10 @@ class PartnerController extends Controller
      */
     public function store(PartnerStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         $partner = Partner::create($request->validated());
 
         switch ($request->input('action')) {
@@ -108,7 +113,7 @@ class PartnerController extends Controller
                 return redirect()->route('bank-accounts.create' , $partner);
         }
 
-        return redirect()->route('partners.index')->withSuccess(trans('global.created_successfully'));
+        return $this->checkButtonAction($request, $partner, 'global.created_successfully');
     }
 
     /**
@@ -143,6 +148,7 @@ class PartnerController extends Controller
         $ediExportTypes = Partner::$ediExportTypes;
 
         $bankAccounts = $partner->bankAccounts;
+        $contacts = $partner->contacts;
 
         return view(
             'modules.partner.edit',
@@ -170,6 +176,7 @@ class PartnerController extends Controller
                 'sexTypes',
                 'ediExportTypes',
                 'bankAccounts',
+                'contacts',
             )
         );
     }
@@ -183,6 +190,10 @@ class PartnerController extends Controller
      */
     public function update(PartnerStoreUpdateRequest $request, Partner $partner)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $partner);
+        }
+
         try {
             $partner->update($request->validated());
 
@@ -191,10 +202,11 @@ class PartnerController extends Controller
                     return redirect()->route('bank-accounts.create' , $partner);
             }
 
-            return redirect()->route('partners.index')->withSuccess(trans('global.updated_successfully'));
         } catch (\Exception) {
             return redirect()->route('partners.index')->withError(trans('global.update_failed'));
         }
+
+        return $this->checkButtonAction($request, $partner, 'global.updated_successfully');
     }
 
     /**
@@ -212,5 +224,94 @@ class PartnerController extends Controller
         } catch (\Exception) {
             return redirect()->route('partners.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    private function checkButtonAction(PartnerStoreUpdateRequest $request, Partner $partner = null, string $message='global.empty')
+    {
+        $action = explode('|', $request->input('button-action'))[0];
+        switch ($action) {
+            case 'bank-account-create':
+                return redirect()->route('bank-accounts.create', $partner);
+
+            case 'contact-create':
+                return redirect()->route('contacts.create', $partner);
+        }
+
+        return redirect()->route('partners.index')->withSuccess(trans($message));
+    }
+
+    private function checkButtonActionWithoutValidation(PartnerStoreUpdateRequest $request, Partner $partner = null, string $message='global.empty')
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('partners.index');
+            case 'bank-account-edit':
+                $bankAccountId = $actionWithoutValidation[1];
+                return redirect()->route('bank-accounts.edit', [$partner, $bankAccountId]);
+
+            case 'contact-edit':
+                $contactId = $actionWithoutValidation[1];
+                return redirect()->route('contacts.edit', [$partner, $contactId]);
+
+            case 'select-partner-group':
+                dd('route to partner group.index', $actionWithoutValidation[1]);
+
+            case 'select-partner':
+                dd('route to partner.index', $actionWithoutValidation[1]);
+
+            case 'select-account-1':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-account-2':
+                dd('route to account.index', $actionWithoutValidation[1]);
+
+            case 'select-message-group':
+                dd('route to message group.index', $actionWithoutValidation[1]);
+
+            case 'select-currency':
+                dd('route to currency.index', $actionWithoutValidation[1]);
+
+            case 'select-vat':
+                dd('route to vat.index', $actionWithoutValidation[1]);
+
+            case 'select-register-1':
+                dd('route to register1.index', $actionWithoutValidation[1]);
+
+            case 'select-register-2':
+                dd('route to register2.index', $actionWithoutValidation[1]);
+
+            case 'select-register-3':
+                dd('route to register3.index', $actionWithoutValidation[1]);
+
+            case 'select-register-4':
+                dd('route to register4.index', $actionWithoutValidation[1]);
+
+            case 'select-register-5':
+                dd('route to register5.index', $actionWithoutValidation[1]);
+
+            case 'select-department':
+                dd('route to department.index', $actionWithoutValidation[1]);
+
+            case 'select-person':
+                dd('route to person.index', $actionWithoutValidation[1]);
+
+            case 'select-project':
+                dd('route to project.index', $actionWithoutValidation[1]);
+
+            case 'select-direct-debit-bank':
+                dd('route to bank.index', $actionWithoutValidation[1]);
+
+            case 'select-edi-store':
+                dd('route to store.index', $actionWithoutValidation[1]);
+
+            case 'select-template':
+                dd('route to template.index', $actionWithoutValidation[1]);
+
+            case 'select-template-2':
+                dd('route to template.index', $actionWithoutValidation[1]);
+        }
+
+        return redirect()->route('partners.index')->withSuccess(trans($message));
     }
 }

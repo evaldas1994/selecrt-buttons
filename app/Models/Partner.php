@@ -306,5 +306,13 @@ class Partner extends Model
     {
         return $this->hasMany(BankAccount::class, 'f_partnerid', 'f_id');
     }
+
+    /**
+     * Get the contacts for the partner.
+     */
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class, 'f_partnerid', 'f_id');
+    }
 }
 
