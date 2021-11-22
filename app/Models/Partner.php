@@ -308,11 +308,11 @@ class Partner extends Model
     }
 
     /**
-     * Get the prices for the partner.
+     * Get the contacts for the partner.
      */
-    public function prices()
+    public function contacts()
     {
-        return $this->hasMany(PricePartner::class, 'f_partnerid', 'f_id');
+        return $this->hasMany(Contact::class, 'f_partnerid', 'f_id');
     }
 }
 
