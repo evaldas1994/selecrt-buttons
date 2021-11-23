@@ -124,6 +124,15 @@ class Create extends Component
         $this-> setOldValue('f_printmessage');
         $this-> setOldValue('f_printtext');
     }
+    public function changeStock($value)
+    {
+        if ($value == null) {
+            $this->f_stockid = null;
+        }else {
+            $this->f_stockid = $value;
+        }
+    }
+
 
     public function render()
     {

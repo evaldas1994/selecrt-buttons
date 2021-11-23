@@ -191,9 +191,8 @@ class DiscounthController extends Controller
     {
         $action = explode('|', $request->input('button-action'))[0];
         switch ($action) {
-            case 'stock-create':
-//                return redirect()->route('production-cards.edit', $productionCard);
-                break;
+            case 'discount-store-create':
+                return redirect()->route('discount-stores.create', $discounth);
         }
 
         return redirect()->route('discountsh.index')->withSuccess(trans($message));

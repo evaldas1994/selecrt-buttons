@@ -99,6 +99,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('templates/{template}')->group(function () {
         Route::resource('template-reasons', \App\Http\Controllers\Modules\TemplateReasonController::class)->except('show', 'index');
     });
+
+    Route::prefix('discountsh/{discountsh}')->group(function () {
+        Route::resource('discount-stores', \App\Http\Controllers\Modules\DiscountStoreController::class)->except('show', 'index');
+    });
 });
 
 Route::domain('blog.' . 'dineta-crm.test')->group(function () {

@@ -275,17 +275,15 @@
                             </div>
                             <div class="tab-pane fade" id="tab-2" role="tabpanel">
                                 <div class="row">
-                                    <div class="col-12 col-md-6 col-xl-3">
-                                        1
-                                    </div>
-                                    <div class="col-12 col-md-6 col-xl-3">
-                                        2
-                                    </div>
-                                    <div class="col-12 col-md-6 col-xl-3">
-                                        3
-                                    </div>
-                                    <div class="col-12 col-md-6 col-xl-3">
-                                        4
+                                    <div class="col-auto">
+                                        <x-form-elements.button
+                                            form="discounth_create_form"
+                                            class="btn-primary"
+                                            name="button-action"
+                                            value="discount-store-create"
+                                            fontawesomeIcon="fas fa-plus"
+                                            text="global.btn_new"
+                                        />
                                     </div>
                                 </div>
                             </div>
