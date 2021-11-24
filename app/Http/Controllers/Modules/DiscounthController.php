@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Models\Stock;
-use App\Models\Discounth;
 use App\Models\Store;
+use App\Models\Barcode;
+use App\Models\Discountd;
+use App\Models\Discounth;
 use Illuminate\View\View;
 use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
@@ -101,6 +103,7 @@ class DiscounthController extends Controller
     {
         $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $stores = Store::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $barcodes = Barcode::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
         $buyStockTypes = Discounth::$buyStockTypes;
         $notBuyStockTypes = Discounth::$notBuyStockTypes;
@@ -119,13 +122,16 @@ class DiscounthController extends Controller
         $winLinesForBidDiscTypes = Discounth::$winLinesForBidDiscTypes;
         $printMessageTypes = Discounth::$printMessageTypes;
         $repeatTypes = Discounth::$repeatTypes;
+        $actionTypes = Discountd::$actionTypes;
 
         $discountStores = $discountsh->stores;
+        $allDiscountsd = $discountsh->discountsd;
 
         return view('modules.discounth.edit', compact(
             'discountsh',
             'stocks',
             'stores',
+            'barcodes',
             'buyStockTypes',
             'notBuyStockTypes',
             'winStockTypes',
@@ -143,7 +149,9 @@ class DiscounthController extends Controller
             'winLinesForBidDiscTypes',
             'printMessageTypes',
             'repeatTypes',
-            'discountStores'
+            'discountStores',
+            'actionTypes',
+            'allDiscountsd'
         ));
     }
 
@@ -199,6 +207,9 @@ class DiscounthController extends Controller
         switch ($action) {
             case 'discount-store-create':
                 return redirect()->route('discountsh.edit', $discounth);
+
+            case 'discountd-create':
+                return redirect()->route('discountsh.edit', $discounth);
         }
 
         return redirect()->route('discountsh.index')->withSuccess(trans($message));
@@ -218,7 +229,10 @@ class DiscounthController extends Controller
                 return redirect()->route('discountsh.index');
 
             case 'select-stock':
-                dd('route to stocks.index', $actionWithoutValidation[1]);
+                dd('route to stock.index', $actionWithoutValidation[1]);
+
+                case 'select-barcode':
+                dd('route to barcode.index', $actionWithoutValidation[1]);
         }
 
         return redirect()->route('production-cards.index')->withSuccess(trans($message));

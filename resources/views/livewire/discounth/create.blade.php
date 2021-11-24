@@ -294,19 +294,15 @@
                     </div>
 
                     <div class="row">
-{{--                        <div class="col-12">--}}
-{{--                            <h4>@lang('modules/productionCardComponent.h1')</h4>--}}
-{{--                        </div>--}}
-
                         <div class="col-auto">
-                            {{--                            <x-form-elements.button--}}
-                            {{--                                form="discounth_create_form"--}}
-                            {{--                                class="btn-primary"--}}
-                            {{--                                name="button-action"--}}
-                            {{--                                value="production-card-component-create"--}}
-                            {{--                                fontawesomeIcon="fas fa-plus"--}}
-                            {{--                                text="global.btn_new"--}}
-                            {{--                            />--}}
+                            <x-form-elements.button
+                                form="discounth_create_form"
+                                class="btn-primary"
+                                name="button-action"
+                                value="discountd-create"
+                                fontawesomeIcon="fas fa-plus"
+                                text="global.btn_new"
+                            />
                         </div>
                     </div>
                 </div>

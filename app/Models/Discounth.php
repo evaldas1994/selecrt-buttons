@@ -217,10 +217,18 @@ class Discounth extends Model
     }
 
     /**
-     * Get the components for the production card.
+     * Get the stores for the discounth.
      */
     public function stores()
     {
         return $this->hasMany(DiscountStore::class, 'f_hid', 'f_id');
+    }
+
+    /**
+     * Get the discountsd for the discounth.
+     */
+    public function discountsd()
+    {
+        return $this->hasMany(Discountd::class, 'f_hid', 'f_id');
     }
 }

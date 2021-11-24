@@ -2,17 +2,22 @@
 
 namespace App\Http\Livewire\Discounth;
 
-use App\Models\DiscountStore;
 use Livewire\Component;
+use App\Models\Discountd;
+use App\Models\DiscountStore;
 
 class Edit extends Component
 {
     public $currentTab = 1;
     public $showCreateStore;
     public $showEditStore;
+    public $showCreateDiscountd;
+    public $showEditDiscountd;
 
     public $stocks;
     public $stores;
+    public $barcodes;
+    public $actionTypes;
     public $buyStockTypes;
     public $notBuyStockTypes;
     public $winStockTypes;
@@ -31,8 +36,10 @@ class Edit extends Component
     public $printMessageTypes;
     public $repeatTypes;
     public $discountStores;
+    public $allDiscountsd;
 
     public $discountsh;
+    public $discountsd;
     public $f_stockid;
     public $f_valid_from;
     public $f_valid_till;
@@ -85,7 +92,10 @@ class Edit extends Component
         $winLinesForBidDiscTypes,
         $printMessageTypes,
         $repeatTypes,
-        $discountStore = null
+        $discountStore = null,
+        $barcodes,
+        $actionTypes,
+        $allDiscountsd
     )
     {
         $this->discountsh = $discountsh;
@@ -110,6 +120,9 @@ class Edit extends Component
         $this->printMessageTypes = $printMessageTypes;
         $this->repeatTypes = $repeatTypes;
         $this->discountStore = $discountStore;
+        $this->barcodes = $barcodes;
+        $this->actionTypes = $actionTypes;
+        $this->allDiscountsd = $allDiscountsd;
 
         $this->setOldValue('f_stockid', $this->discountsh->f_stockid);
         $this->setOldValue('f_valid_from', $this->discountsh->f_valid_from);
@@ -166,10 +179,21 @@ class Edit extends Component
         }
     }
 
+    public function showCreateDiscountd($value = true)
+    {
+        $this->showEditStore = false;
+        $this->showCreateStore = false;
+        $this->showEditDiscountd = false;
+        $this->showCreateDiscountd = $value;
+    }
+
     public function showCreateStore($value = true)
     {
-        $this->showCreateStore = $value;
+        $this->showCreateDiscountd = false;
+        $this->showEditDiscountd = false;
+
         $this->showEditStore = false;
+        $this->showCreateStore = $value;
     }
 
     public function showEditStore(bool $value = true, string $id = null)
@@ -180,10 +204,37 @@ class Edit extends Component
             $this->discountStore = $discountStore;
             $this->showCreateStore = false;
             $this->showEditStore = $value;
+
+            $this->showCreateDiscountd = false;
+            $this->showEditDiscountd = false;
         } else {
             $this->discountStore = null;
             $this->showCreateStore = false;
             $this->showEditStore = false;
+
+            $this->showCreateDiscountd = false;
+            $this->showEditDiscountd = false;
+        }
+    }
+
+    public function showEditDiscountd(bool $value = true, string $id = null)
+    {
+        $discountsd = Discountd::find($id);
+
+        if ($value == true && $discountsd !== null ) {
+            $this->discountsd = $discountsd;
+            $this->showCreateStore = false;
+            $this->showEditStore = false;
+
+            $this->showCreateDiscountd = false;
+            $this->showEditDiscountd = $value;
+        } else {
+            $this->discountsd = null;
+            $this->showCreateStore = false;
+            $this->showEditStore = false;
+
+            $this->showCreateDiscountd = false;
+            $this->showEditDiscountd = false;
         }
     }
 
@@ -194,6 +245,8 @@ class Edit extends Component
 
     public $listeners = [
         'showCreateStore' => 'showCreateStore',
-        'showEditStore' => 'showEditStore'
+        'showEditStore' => 'showEditStore',
+        'showCreateDiscountd' => 'showCreateDiscountd',
+        'showEditDiscountd' => 'showEditDiscountd'
     ];
 }
