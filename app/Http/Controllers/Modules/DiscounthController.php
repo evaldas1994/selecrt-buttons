@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules;
 
 use App\Models\Stock;
 use App\Models\Discounth;
+use App\Models\Store;
 use Illuminate\View\View;
 use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
@@ -99,6 +100,7 @@ class DiscounthController extends Controller
     public function edit(Discounth $discountsh)
     {
         $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $stores = Store::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
         $buyStockTypes = Discounth::$buyStockTypes;
         $notBuyStockTypes = Discounth::$notBuyStockTypes;
@@ -118,9 +120,12 @@ class DiscounthController extends Controller
         $printMessageTypes = Discounth::$printMessageTypes;
         $repeatTypes = Discounth::$repeatTypes;
 
+        $discountStores = $discountsh->stores;
+
         return view('modules.discounth.edit', compact(
             'discountsh',
             'stocks',
+            'stores',
             'buyStockTypes',
             'notBuyStockTypes',
             'winStockTypes',
@@ -138,6 +143,7 @@ class DiscounthController extends Controller
             'winLinesForBidDiscTypes',
             'printMessageTypes',
             'repeatTypes',
+            'discountStores'
         ));
     }
 
@@ -192,7 +198,7 @@ class DiscounthController extends Controller
         $action = explode('|', $request->input('button-action'))[0];
         switch ($action) {
             case 'discount-store-create':
-                return redirect()->route('discount-stores.create', $discounth);
+                return redirect()->route('discountsh.edit', $discounth);
         }
 
         return redirect()->route('discountsh.index')->withSuccess(trans($message));

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Modules;
 
+use App\Models\Stock;
 use App\Models\Store;
 use Illuminate\View\View;
 use App\Models\Discounth;
@@ -20,10 +21,9 @@ class DiscountStoreController extends Controller
      */
     public function create(Discounth $discountsh)
     {
-        dd('create');
-        $stores = Store::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $discountStores = $discountsh->stores;
 
-        return view('modules.discountStore.create', compact('discountsh','stores'));
+        return view('modules.discountStore.create', compact('discountsh','discountStores'));
     }
 
     /**
@@ -39,9 +39,9 @@ class DiscountStoreController extends Controller
             return $this->checkButtonActionWithoutValidation($request);
         }
 
-        $discountsh->components()->create($request->validated());
+        $discountsh->stores()->create($request->validated());
 
-        return redirect()->route('discount-stores.edit', $discountsh)->withSuccess(trans('global.created_successfully'));
+        return redirect()->route('discountsh.edit', $discountsh)->withSuccess(trans('global.created_successfully'));
     }
 
     /**
@@ -69,15 +69,15 @@ class DiscountStoreController extends Controller
     public function update(DiscountStoreStoreUpdateRequest $request, Discounth $discountsh, DiscountStore $discountStore)
     {
         if (Arr::exists($request->input(), 'button-action-without-validation')) {
-            return $this->checkButtonActionWithoutValidation($request);
+            return $this->checkButtonActionWithoutValidation($request, $discountsh);
         }
 
         try {
             $discountStore->update($request->validated());
 
-            return redirect()->route('discount-stores.edit', $discountsh)->withSuccess(trans('global.updated_successfully'));
+            return redirect()->route('discountsh.edit', $discountsh)->withSuccess(trans('global.updated_successfully'));
         } catch (\Exception) {
-            return redirect()->route('discount-stores.edit', $discountsh)->withError(trans('global.update_failed'));
+            return redirect()->route('discountsh.edit', $discountsh)->withError(trans('global.update_failed'));
         }
     }
 
@@ -93,9 +93,29 @@ class DiscountStoreController extends Controller
         try {
             $discountStore->delete();
 
-            return redirect()->route('discount-stores.edit', $discountsh)->withSuccess(trans('global.deleted_successfully'));
+            return redirect()->route('discountsh.edit', $discountsh)->withSuccess(trans('global.deleted_successfully'));
         } catch (\Exception) {
-            return redirect()->route('discount-stores.edit', $discountsh)->withError(trans('global.delete_failed'));
+            return redirect()->route('discountsh.edit', $discountsh)->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param DiscountStoreStoreUpdateRequest $request
+     * @param Discounth|null $discounth
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(DiscountStoreStoreUpdateRequest $request, Discounth $discounth = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('production-cards.index');
+
+            case 'select-store':
+                dd('route to store.index', $actionWithoutValidation[1]);
+        }
+
+        return redirect()->route('production-cards.index')->withSuccess(trans($message));
     }
 }

@@ -2,11 +2,17 @@
 
 namespace App\Http\Livewire\Discounth;
 
+use App\Models\DiscountStore;
 use Livewire\Component;
 
 class Edit extends Component
 {
+    public $currentTab = 1;
+    public $showCreateStore;
+    public $showEditStore;
+
     public $stocks;
+    public $stores;
     public $buyStockTypes;
     public $notBuyStockTypes;
     public $winStockTypes;
@@ -24,6 +30,7 @@ class Edit extends Component
     public $winLinesForBidDiscTypes;
     public $printMessageTypes;
     public $repeatTypes;
+    public $discountStores;
 
     public $discountsh;
     public $f_stockid;
@@ -57,8 +64,10 @@ class Edit extends Component
 
 
     public function mount(
+        $discountStores,
         $discountsh,
         $stocks,
+        $stores,
         $buyStockTypes,
         $notBuyStockTypes,
         $winStockTypes,
@@ -75,11 +84,14 @@ class Edit extends Component
         $buyLinesForBidDiscTypes,
         $winLinesForBidDiscTypes,
         $printMessageTypes,
-        $repeatTypes
+        $repeatTypes,
+        $discountStore = null
     )
     {
         $this->discountsh = $discountsh;
+        $this->discountStores = $discountStores;
         $this->stocks = $stocks;
+        $this->stores = $stores;
         $this->buyStockTypes = $buyStockTypes;
         $this->notBuyStockTypes = $notBuyStockTypes;
         $this->winStockTypes = $winStockTypes;
@@ -97,6 +109,7 @@ class Edit extends Component
         $this->winLinesForBidDiscTypes = $winLinesForBidDiscTypes;
         $this->printMessageTypes = $printMessageTypes;
         $this->repeatTypes = $repeatTypes;
+        $this->discountStore = $discountStore;
 
         $this->setOldValue('f_stockid', $this->discountsh->f_stockid);
         $this->setOldValue('f_valid_from', $this->discountsh->f_valid_from);
@@ -152,4 +165,35 @@ class Edit extends Component
             }
         }
     }
+
+    public function showCreateStore($value = true)
+    {
+        $this->showCreateStore = $value;
+        $this->showEditStore = false;
+    }
+
+    public function showEditStore(bool $value = true, string $id = null)
+    {
+        $discountStore = DiscountStore::find($id);
+
+        if ($value == true && $discountStore !== null ) {
+            $this->discountStore = $discountStore;
+            $this->showCreateStore = false;
+            $this->showEditStore = $value;
+        } else {
+            $this->discountStore = null;
+            $this->showCreateStore = false;
+            $this->showEditStore = false;
+        }
+    }
+
+    public function setCurrentTab($tabIndex)
+    {
+        $this->currentTab = $tabIndex;
+    }
+
+    public $listeners = [
+        'showCreateStore' => 'showCreateStore',
+        'showEditStore' => 'showEditStore'
+    ];
 }
