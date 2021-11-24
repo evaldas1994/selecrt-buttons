@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('custom-reasons', \App\Http\Controllers\Modules\CustomReasonController::class)->except('show');
     Route::resource('departments', \App\Http\Controllers\Modules\DepartmentController::class)->except('show');
     Route::resource('descriptions', \App\Http\Controllers\Modules\DescriptionController::class)->except('show');
+    Route::resource('discount-coupons', \App\Http\Controllers\Modules\DiscountCouponsController::class)->except('show');
     Route::resource('discountsh', \App\Http\Controllers\Modules\DischController::class)->except('show');
     Route::resource('employees', \App\Http\Controllers\Modules\EmployeeController::class)->except('show');
     Route::resource('interests', \App\Http\Controllers\Modules\InterestController::class)->except('show');

@@ -186,7 +186,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="#">
+                        <a class="sidebar-link" href="{{ route('discount-coupons.index') }}">
                             <span class="align-middle">@lang('nav.registers.discount_coupons')</span>
                         </a>
                     </li>
