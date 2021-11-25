@@ -314,5 +314,13 @@ class Partner extends Model
     {
         return $this->hasMany(Contact::class, 'f_partnerid', 'f_id');
     }
+
+    /**
+     * Get the discount card points for the partner.
+     */
+    public function discountCardPoints()
+    {
+        return $this->hasMany(DiscountCardPoint::class, 'f_partnerid', 'f_id');
+    }
 }
 
