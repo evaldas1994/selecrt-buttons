@@ -4,8 +4,9 @@ namespace App\Http\Requests;
 
 use App\Models\Salaryh;
 use App\Rules\FloatRule;
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class SalaryhStoreUpdateRequest extends FormRequest
 {
@@ -26,9 +27,13 @@ class SalaryhStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
+            return [];
+        }
+
         return [
             'f_docdate' => 'required|date',
-//            'f_docno' => 'required|string|max:20',
+            'f_adate' => 'required|date',
             'f_blankno' => 'nullable|string|max:50',
             'f_name' => 'string|max:100|nullable',
             'f_description' => 'string|max:100|nullable',

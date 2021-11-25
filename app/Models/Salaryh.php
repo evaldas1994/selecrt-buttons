@@ -6,7 +6,6 @@ use App\Traits\IdNextRecord;
 use App\Traits\IdToUppercase;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
-use Illuminate\Support\Facades\Auth;
 
 class Salaryh extends Model
 {
@@ -48,22 +47,21 @@ class Salaryh extends Model
         'f_templateid',
         'f_curid',
         'f_salary',
+        'f_adate',
         'f_period_year',
         'f_period_month',
         'f_departmentid',
+        'f_userid',
         'f_system1',
         'f_system2',
         'f_system3',
     ];
 
     protected $attributes = [
-        'f_op' => 'S',
-//        'f_opdate' => self::CREATED_AT,
-        'f_opdate' => '2020--10-10 23:24',
-        'f_userid' => self::CREATED_USERID,
         'f_confirmed_ledger' => '0',
-        'f_adate' => null,
+        'f_opdate' => null,
         'f_ano' => null,
+        'f_op' => 'S',
     ];
 
     /**

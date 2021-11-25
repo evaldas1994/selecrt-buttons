@@ -111,6 +111,20 @@
                                     selectValue="modules/salaryh.period_month"
                                     :defaultValue="$salariesh->f_period_month"
                                 />
+
+                                <x-form-elements.input
+                                    name="f_salary"
+                                    labelValue="modules/salaryh.f_salary"
+                                    maxLength="15"
+                                    :defaultValue="$salariesh->f_salary"
+                                    readonly="readonly"
+                                />
+
+                                <x-form-elements.input-date
+                                    name="f_adate"
+                                    labelValue="modules/salaryh.f_adate"
+                                    :defaultValue="$salariesh->f_adate"
+                                />
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input

@@ -12,7 +12,7 @@ return [
     'f_templateid' => 'DK šablonas',
     'f_curid' => 'Valiuta',
     'f_adate' => 'Mok. data',
-    'f_salary' => 'Suma',
+    'f_salary' => 'Suma su PVM',
     'f_ano' => 'Pap. nr.',
     'f_period_year' => 'Metai',
     'f_period_month' => 'Mėnuo',

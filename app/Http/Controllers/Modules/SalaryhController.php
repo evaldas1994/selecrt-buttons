@@ -61,6 +61,7 @@ class SalaryhController extends Controller
 
             $data = $request->validated();
             $data = Arr::add($data, 'f_docno', counter('S', '', ''));
+            $data = Arr::add($data, 'f_userid', auth()->id());
 
             Salaryh::create($data);
 
