@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use App\Traits\IdNextRecord;
 use App\Traits\IdToUppercase;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
 
-class Disch extends Model
+class DiscountStore extends Model
 {
-    use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
+    use IdToUppercase, UpdateCreatedModifiedUserIdColumns, IdNextRecord;
 
-    protected $table = 't_disch';
+    protected $table = 't_discount_stores';
 
     protected $perPage = 500;
 
@@ -21,10 +22,17 @@ class Disch extends Model
      */
     protected $fillable = [
         'f_id',
-        'f_name',
+        'f_hid',
+        'f_storeid',
         'f_system1',
         'f_system2',
         'f_system3',
+    ];
+
+    protected $attributes = [
+        'f_field1' => null,
+        'f_field2' => null,
+        'f_field3' => null,
     ];
 
     /**
@@ -63,10 +71,18 @@ class Disch extends Model
     const UPDATED_AT = 'f_modified_date';
 
     /**
-     * Get the joined stocks for the stock.
+     * Get the discount store's discounth.
      */
-    public function discd()
+    public function discounth()
     {
-        return $this->hasMany(Discd::class, 'f_hid', 'f_id');
+        return $this->hasOne(Discounth::class, 'f_id', 'f_hid');
+    }
+
+    /**
+     * Get the discount store's store.
+     */
+    public function store()
+    {
+        return $this->hasOne(Store::class, 'f_id', 'f_storeid');
     }
 }
