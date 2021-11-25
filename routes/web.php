@@ -102,6 +102,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::prefix('discountsh/{discountsh}')->group(function () {
+        Route::resource('discountsd', \App\Http\Controllers\Modules\DiscountdController::class)->except('show', 'index');
         Route::resource('discount-stores', \App\Http\Controllers\Modules\DiscountStoreController::class)->except('show', 'index');
     });
 });

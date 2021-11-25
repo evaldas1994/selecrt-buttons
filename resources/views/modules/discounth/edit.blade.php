@@ -23,5 +23,9 @@
         :winLinesForBidDiscTypes="$winLinesForBidDiscTypes"
         :printMessageTypes="$printMessageTypes"
         :repeatTypes="$repeatTypes"
+
+        :barcodes="$barcodes"
+        :actionTypes="$actionTypes"
+        :allDiscountsd="$allDiscountsd"
     />
 @endsection

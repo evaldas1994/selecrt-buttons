@@ -303,20 +303,48 @@
                             </div>
                         </div>
                     </div>
+
+                    @if($currentTab == 1)
+                    <div class="row">
+                        <div class="col-auto">
+                            <button wire:click="showCreateDiscountd"
+                                    class="btn btn-primary"
+                            ><i class="fas fa-plus"></i>
+                                @lang('global.btn_new')
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <x-modules.items-list
+                                form="discounth_edit_form"
+                                :items="$allDiscountsd"
+                                :parentRouteData="$discountsh"
+                                :langs="['modules/discountd.f_id', 'modules/discountd.f_actiontype', 'modules/discountd.f_actionid', 'modules/discountd.f_barcodeid', 'modules/discountd.f_discount_price']"
+                                :fields="['f_id', 'f_actiontype', 'f_actionid', 'f_barcodeid', 'f_discount_price']"
+                                deleteFormRoute="discountsd.destroy"
+                                name="discountd"
+                                wireEmmitUpName="showEditDiscountd"
+                                wireEmmitValue="true"
+                            />
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 
-    @if($showCreateStore)
+    @if($showCreateDiscountd)
         <div class="row">
-            <livewire:discount-store.create :discountsh="$discountsh" :stores="$stores"/>
+            <livewire:discountd.create :discountsh="$discountsh" :stocks="$stocks" :barcodes="$barcodes" :actionTypes="$actionTypes"/>
         </div>
     @endif
 
-    @if($showEditStore && $discountStore !== null)
+    @if($showEditDiscountd && $discountsd !== null)
         <div class="row">
-            <livewire:discount-store.edit :discountsh="$discountsh" :discountStore="$discountStore" :stores="$stores"/>
+            <livewire:discountd.edit :discountsh="$discountsh" :discountsd="$discountsd" :stocks="$stocks" :barcodes="$barcodes" :actionTypes="$actionTypes"/>
         </div>
     @endif
 </div>
