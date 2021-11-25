@@ -2,8 +2,10 @@
 
 @section('content')
     <livewire:discounth.edit
+        :discountStores="$discountStores"
         :discountsh="$discountsh"
         :stocks="$stocks"
+        :stores="$stores"
         :buyStockTypes="$buyStockTypes"
         :notBuyStockTypes="$notBuyStockTypes"
         :winStockTypes="$winStockTypes"

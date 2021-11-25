@@ -101,8 +101,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('template-reasons', \App\Http\Controllers\Modules\TemplateReasonController::class)->except('show', 'index');
     });
 
-    Route::prefix('disch/{disch}')->group(function () {
-        Route::resource('discd', \App\Http\Controllers\Modules\DiscdController::class)->except('show', 'index');
+    Route::prefix('discountsh/{discountsh}')->group(function () {
+        Route::resource('discount-stores', \App\Http\Controllers\Modules\DiscountStoreController::class)->except('show', 'index');
     });
 });
 

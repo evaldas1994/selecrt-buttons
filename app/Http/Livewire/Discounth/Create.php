@@ -6,6 +6,8 @@ use Livewire\Component;
 
 class Create extends Component
 {
+    public $currentTab = 1;
+
     public $stocks;
     public $buyStockTypes;
     public $notBuyStockTypes;
@@ -73,7 +75,7 @@ class Create extends Component
         $buyLinesForBidDiscTypes,
         $winLinesForBidDiscTypes,
         $printMessageTypes,
-        $repeatTypes,
+        $repeatTypes
     )
     {
         $this->stocks = $stocks;
@@ -124,6 +126,14 @@ class Create extends Component
         $this-> setOldValue('f_printmessage');
         $this-> setOldValue('f_printtext');
     }
+    public function changeStock($value)
+    {
+        if ($value == null) {
+            $this->f_stockid = null;
+        }else {
+            $this->f_stockid = $value;
+        }
+    }
 
     public function render()
     {
@@ -139,5 +149,10 @@ class Create extends Component
                 $this->$value = $default;
             }
         }
+    }
+
+    public function setCurrentTab($tabIndex)
+    {
+        $this->currentTab = $tabIndex;
     }
 }

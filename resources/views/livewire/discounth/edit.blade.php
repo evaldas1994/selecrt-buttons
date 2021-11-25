@@ -28,15 +28,15 @@
                         <x-modules.tabs-list
                             lang="modules/discounth.tab"
                             count="3"
+                            :currentTab="$currentTab"
                         />
                     </div>
 
                     <div class="row">
                         <div class="tab tab-content mt-2">
-                            <div class="tab-pane fade show active" id="tab-1" role="tabpanel">
+                            <div class="tab-pane fade {{ $currentTab == 1 ? 'show active' : '' }}" id="tab-1" role="tabpanel">
                                 <form class="m-0 p-0" id="discounth_edit_form"
-                                      action="{{ route('discountsh.update', $discountsh) }}" method="POST"
-                                      enctype=multipart/form-data laravel>
+                                      action="{{ route('discountsh.update', $discountsh) }}" method="POST">
                                     @csrf
                                     @method('PUT')
 
@@ -232,7 +232,7 @@
                                         </div>
                                     </div>
                             </div>
-                            <div class="tab-pane fade" id="tab-3" role="tabpanel">
+                            <div class="tab-pane fade {{ $currentTab == 3 ? 'show active' : '' }}" id="tab-3" role="tabpanel">
                                 <div class="row">
                                     <div class="col-12 col-md-6 col-xl-3">
                                         <x-form-elements.checkbox-boolean
@@ -274,43 +274,49 @@
                                 </div>
                                 </form>
                             </div>
-                            <div class="tab-pane fade" id="tab-2" role="tabpanel">
+                            <div class="tab-pane fade {{ $currentTab == 2 ? 'show active' : '' }}" id="tab-2" role="tabpanel">
                                 <div class="row">
-                                    <div class="col-12 col-md-6 col-xl-3">
-                                        1
+                                    <div class="col-auto">
+                                        <button wire:click="showCreateStore"
+                                                class="btn btn-primary"
+                                        ><i class="fas fa-plus"></i>
+                                            @lang('global.btn_new')
+                                        </button>
                                     </div>
-                                    <div class="col-12 col-md-6 col-xl-3">
-                                        2
-                                    </div>
-                                    <div class="col-12 col-md-6 col-xl-3">
-                                        3
-                                    </div>
-                                    <div class="col-12 col-md-6 col-xl-3">
-                                        4
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <x-modules.items-list
+                                            form="discounth_edit_form"
+                                            :items="$discountStores"
+                                            :parentRouteData="$discountsh"
+                                            :langs="['modules/discountStore.f_id', 'modules/discountStore.f_storeid', 'modules/discountStore.f_create_date']"
+                                            :fields="['f_id', 'f_storeid', 'f_create_date']"
+                                            deleteFormRoute="discount-stores.destroy"
+                                            name="discount-store"
+                                            wireEmmitUpName="showEditStore"
+                                            wireEmmitValue="true"
+                                        />
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-{{--                        <div class="col-12">--}}
-{{--                            <h4>@lang('modules/productionCardComponent.h1')</h4>--}}
-{{--                        </div>--}}
-
-                        <div class="col-auto">
-                            {{--                            <x-form-elements.button--}}
-                            {{--                                form="discounth_edit_form"--}}
-                            {{--                                class="btn-primary"--}}
-                            {{--                                name="button-action"--}}
-                            {{--                                value="production-card-component-create"--}}
-                            {{--                                fontawesomeIcon="fas fa-plus"--}}
-                            {{--                                text="global.btn_new"--}}
-                            {{--                            />--}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    @if($showCreateStore)
+        <div class="row">
+            <livewire:discount-store.create :discountsh="$discountsh" :stores="$stores"/>
+        </div>
+    @endif
+
+    @if($showEditStore && $discountStore !== null)
+        <div class="row">
+            <livewire:discount-store.edit :discountsh="$discountsh" :discountStore="$discountStore" :stores="$stores"/>
+        </div>
+    @endif
 </div>

@@ -28,12 +28,13 @@
                         <x-modules.tabs-list
                             lang="modules/discounth.tab"
                             count="3"
+                            :currentTab="$currentTab"
                         />
                     </div>
 
                     <div class="row">
                         <div class="tab tab-content mt-2">
-                            <div class="tab-pane fade show active" id="tab-1" role="tabpanel">
+                            <div class="tab-pane fade {{ $currentTab == 1 ? 'show active' : '' }}" id="tab-1" role="tabpanel">
                                 <form class="m-0 p-0" id="discounth_create_form"
                                       action="{{ route('discountsh.store') }}" method="POST"
                                       enctype=multipart/form-data laravel>
@@ -57,6 +58,7 @@
                                                 name="f_valid_from"
                                                 labelValue="modules/discounth.f_valid_from"
                                                 inputClass="not-empty"
+                                                wireModel="f_valid_from"
                                                 :defaultValue="$f_valid_from"
                                             />
 
@@ -64,6 +66,7 @@
                                                 name="f_valid_till"
                                                 labelValue="modules/discounth.f_valid_till"
                                                 inputClass="not-empty"
+                                                wireModel="f_valid_till"
                                                 :defaultValue="$f_valid_till"
                                             />
 
@@ -231,7 +234,7 @@
                                         </div>
                                     </div>
                             </div>
-                            <div class="tab-pane fade" id="tab-3" role="tabpanel">
+                            <div class="tab-pane fade {{ $currentTab == 3 ? 'show active' : '' }}" id="tab-3" role="tabpanel">
                                 <div class="row">
                                     <div class="col-12 col-md-6 col-xl-3">
                                         <x-form-elements.checkbox-boolean
@@ -273,19 +276,17 @@
                                 </div>
                                 </form>
                             </div>
-                            <div class="tab-pane fade" id="tab-2" role="tabpanel">
+                            <div class="tab-pane fade {{ $currentTab == 2 ? 'show active' : '' }}" id="tab-2" role="tabpanel">
                                 <div class="row">
-                                    <div class="col-12 col-md-6 col-xl-3">
-                                        1
-                                    </div>
-                                    <div class="col-12 col-md-6 col-xl-3">
-                                        2
-                                    </div>
-                                    <div class="col-12 col-md-6 col-xl-3">
-                                        3
-                                    </div>
-                                    <div class="col-12 col-md-6 col-xl-3">
-                                        4
+                                    <div class="col-auto">
+                                        <x-form-elements.button
+                                            form="discounth_create_form"
+                                            class="btn-primary"
+                                            name="button-action"
+                                            value="discount-store-create"
+                                            fontawesomeIcon="fas fa-plus"
+                                            text="global.btn_new"
+                                        />
                                     </div>
                                 </div>
                             </div>
