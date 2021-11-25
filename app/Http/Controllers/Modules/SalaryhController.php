@@ -139,7 +139,7 @@ class SalaryhController extends Controller
         $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
         switch ($actionWithoutValidation[0]) {
             case 'close':
-                return redirect()->route('stocks.index');
+                return redirect()->route('salariesh.index');
 
             case 'select-template':
                 dd('route to template.index', $actionWithoutValidation[1]);
