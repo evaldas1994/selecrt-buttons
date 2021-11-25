@@ -150,7 +150,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('discountsh.index') }}">
+                        <a class="sidebar-link" href="{{ route('disch.index') }}">
                             <span class="align-middle">@lang('nav.registers.discounts')</span>
                         </a>
                     </li>

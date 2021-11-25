@@ -34,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('custom-reasons', \App\Http\Controllers\Modules\CustomReasonController::class)->except('show');
     Route::resource('departments', \App\Http\Controllers\Modules\DepartmentController::class)->except('show');
     Route::resource('descriptions', \App\Http\Controllers\Modules\DescriptionController::class)->except('show');
-    Route::resource('discountsh', \App\Http\Controllers\Modules\DischController::class)->except('show');
+    Route::resource('disch', \App\Http\Controllers\Modules\DischController::class)->except('show');
     Route::resource('employees', \App\Http\Controllers\Modules\EmployeeController::class)->except('show');
     Route::resource('interests', \App\Http\Controllers\Modules\InterestController::class)->except('show');
     Route::resource('ledger-groups', \App\Http\Controllers\Modules\LedgerGroupController::class)->except('show');
@@ -97,6 +97,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::prefix('templates/{template}')->group(function () {
         Route::resource('template-reasons', \App\Http\Controllers\Modules\TemplateReasonController::class)->except('show', 'index');
+    });
+
+    Route::prefix('disch/{disch}')->group(function () {
+        Route::resource('discd', \App\Http\Controllers\Modules\DiscdController::class)->except('show', 'index');
     });
 });
 
