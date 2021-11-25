@@ -149,6 +149,7 @@ class PartnerController extends Controller
 
         $bankAccounts = $partner->bankAccounts;
         $contacts = $partner->contacts;
+        $discountCardPoints = $partner->discountCardPoints;
 
         return view(
             'modules.partner.edit',
@@ -177,6 +178,7 @@ class PartnerController extends Controller
                 'ediExportTypes',
                 'bankAccounts',
                 'contacts',
+                'discountCardPoints',
             )
         );
     }
@@ -235,6 +237,9 @@ class PartnerController extends Controller
 
             case 'contact-create':
                 return redirect()->route('contacts.create', $partner);
+
+            case 'discount-card-point-create':
+                return redirect()->route('discount-card-points.create', $partner);
         }
 
         return redirect()->route('partners.index')->withSuccess(trans($message));
@@ -253,6 +258,10 @@ class PartnerController extends Controller
             case 'contact-edit':
                 $contactId = $actionWithoutValidation[1];
                 return redirect()->route('contacts.edit', [$partner, $contactId]);
+
+            case 'discount-card-point-edit':
+                $discountCardPointId = $actionWithoutValidation[1];
+                return redirect()->route('discount-card-points.edit', [$partner, $discountCardPointId]);
 
             case 'select-partner-group':
                 dd('route to partner group.index', $actionWithoutValidation[1]);

@@ -190,9 +190,9 @@
                                 fontawesomeIcon="fas fa-plus"
                                 text="global.btn_new"
                             />
-                            </div>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>

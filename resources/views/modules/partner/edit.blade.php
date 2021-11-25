@@ -623,17 +623,29 @@
                             </div>
                             <div class="tab-pane fade" id="tab-5" role="tabpanel">
                                 <div class="row">
-                                    <div class="col-12 col-md-6 col-xl-3">
-                                        1
+                                    <div class="col-auto">
+                                        <x-form-elements.button
+                                            form="partner_edit_form"
+                                            class="btn-primary"
+                                            name="button-action"
+                                            value="discount-card-point-create"
+                                            fontawesomeIcon="fas fa-plus"
+                                            text="global.btn_new"
+                                        />
                                     </div>
-                                    <div class="col-12 col-md-6 col-xl-3">
-                                        2
-                                    </div>
-                                    <div class="col-12 col-md-6 col-xl-3">
-                                        3
-                                    </div>
-                                    <div class="col-12 col-md-6 col-xl-3">
-                                        4
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <x-modules.items-list
+                                            form="partner_edit_form"
+                                            name="discount-card-point"
+                                            deleteFormRoute="discount-card-points.destroy"
+                                            :items="$discountCardPoints"
+                                            :parentRouteData="$partner"
+                                            :langs="['modules/discountCardPoint.f_id', 'modules/discountCardPoint.f_partnerid', 'modules/discountCardPoint.f_points', 'modules/discountCardPoint.f_discount_card', 'modules/discountCardPoint.f_type', 'modules/discountCardPoint.f_poshid']"
+                                            :fields="['f_id', 'f_partnerid', 'f_points', 'f_discount_card', 'f_type' , 'f_poshid']"
+                                        />
                                     </div>
                                 </div>
                             </div>

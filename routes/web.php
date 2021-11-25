@@ -34,7 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('custom-reasons', \App\Http\Controllers\Modules\CustomReasonController::class)->except('show');
     Route::resource('departments', \App\Http\Controllers\Modules\DepartmentController::class)->except('show');
     Route::resource('descriptions', \App\Http\Controllers\Modules\DescriptionController::class)->except('show');
-    Route::resource('discountsh', \App\Http\Controllers\Modules\DischController::class)->except('show');
+    Route::resource('disch', \App\Http\Controllers\Modules\DischController::class)->except('show');
+    Route::resource('discountsh', \App\Http\Controllers\Modules\DiscounthController::class)->except('show');
     Route::resource('employees', \App\Http\Controllers\Modules\EmployeeController::class)->except('show');
     Route::resource('interests', \App\Http\Controllers\Modules\InterestController::class)->except('show');
     Route::resource('ledger-groups', \App\Http\Controllers\Modules\LedgerGroupController::class)->except('show');
@@ -90,6 +91,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('partners/{partner}')->group(function () {
         Route::resource('bank-accounts', \App\Http\Controllers\Modules\BankAccountController::class)->except('show', 'index');
         Route::resource('contacts', \App\Http\Controllers\Modules\ContactController::class)->except('show', 'index');
+        Route::resource('discount-card-points', \App\Http\Controllers\Modules\DiscountCardPointController::class)->except('show', 'index');
     });
 
     Route::prefix('production-cards/{production_card}')->group(function () {
@@ -98,6 +100,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::prefix('templates/{template}')->group(function () {
         Route::resource('template-reasons', \App\Http\Controllers\Modules\TemplateReasonController::class)->except('show', 'index');
+    });
+
+    Route::prefix('discountsh/{discountsh}')->group(function () {
+        Route::resource('discountsd', \App\Http\Controllers\Modules\DiscountdController::class)->except('show', 'index');
+        Route::resource('discount-stores', \App\Http\Controllers\Modules\DiscountStoreController::class)->except('show', 'index');
     });
 });
 
