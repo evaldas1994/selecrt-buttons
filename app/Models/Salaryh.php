@@ -58,7 +58,8 @@ class Salaryh extends Model
 
     protected $attributes = [
         'f_op' => 'S',
-        'f_opdate' => self::CREATED_AT,
+//        'f_opdate' => self::CREATED_AT,
+        'f_opdate' => '2020--10-10 23:24',
         'f_userid' => self::CREATED_USERID,
         'f_confirmed_ledger' => '0',
         'f_adate' => null,

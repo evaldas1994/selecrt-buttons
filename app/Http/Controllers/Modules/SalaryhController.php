@@ -22,9 +22,9 @@ class SalaryhController extends Controller
      */
     public function index()
     {
-        $salariesh = Salaryh::simplePaginate();
+        $allSalariesh = Salaryh::simplePaginate();
 
-        return view('modules.salaryh.index', compact('salariesh'));
+        return view('modules.salaryh.index', compact('allSalariesh'));
     }
 
     /**
@@ -38,9 +38,11 @@ class SalaryhController extends Controller
         $currencies = Currency::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $departments = Department::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
+        $months = Salaryh::$months;
+
         $todayDate = Carbon::today();
 
-        return view('modules.salaryh.create', compact('templates', 'currencies', 'departments', 'todayDate'));
+        return view('modules.salaryh.create', compact('templates', 'currencies', 'departments', 'months', 'todayDate'));
     }
 
     /**
@@ -55,9 +57,18 @@ class SalaryhController extends Controller
             return $this->checkButtonActionWithoutValidation($request);
         }
 
-        Salaryh::create($request->validated());
+        try {
 
-        return redirect()->route('salariesh.index')->withSuccess(trans('global.created_successfully'));
+            $data = $request->validated();
+            $data = Arr::add($data, 'f_docno', counter('S', '', ''));
+
+            Salaryh::create($data);
+
+            return redirect()->route('salariesh.index')->withSuccess(trans('global.created_successfully'));
+
+        } catch (\Exception) {
+            dd('something wrong with create');
+        }
     }
 
     /**
@@ -72,9 +83,9 @@ class SalaryhController extends Controller
         $currencies = Currency::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $departments = Department::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
 
-        $todayDate = Carbon::today();
+        $months = Salaryh::$months;
 
-        return view('modules.salaryh.edit', compact('salariesh', 'templates', 'currencies', 'departments', 'todayDate'));
+        return view('modules.salaryh.edit', compact('salariesh', 'templates', 'currencies', 'departments', 'months'));
     }
 
     /**
@@ -84,14 +95,15 @@ class SalaryhController extends Controller
      * @param Salaryh $salaryiesh
      * @return RedirectResponse
      */
-    public function update(SalaryhStoreUpdateRequest $request, Salaryh $salaryiesh)
+    public function update(SalaryhStoreUpdateRequest $request, Salaryh $salariesh)
     {
         if (Arr::exists($request->input(), 'button-action-without-validation')) {
-            return $this->checkButtonActionWithoutValidation($request, $salaryiesh);
+            return $this->checkButtonActionWithoutValidation($request, $salariesh);
         }
 
         try {
-            $salaryiesh->update($request->validated());
+            $salariesh->update($request->validated());
+
             return redirect()->route('salariesh.index')->withSuccess(trans('global.updated_successfully'));
         } catch (\Exception) {
             return redirect()->route('salariesh.index')->withError(trans('global.update_failed'));

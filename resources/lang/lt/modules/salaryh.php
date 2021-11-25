@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'h1' => 'Registras 8',
+    'h1' => 'Atlyginimai',
     'f_id' => 'Kodas',
     'f_op' => 'Operacija',
     'f_docdate' =>'Dok. data',

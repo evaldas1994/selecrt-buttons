@@ -28,12 +28,12 @@ class SalaryhStoreUpdateRequest extends FormRequest
     {
         return [
             'f_docdate' => 'required|date',
-            'f_docno' => 'required|string|max:20',
-            'f_blankno' => 'required|string|max:50',
+//            'f_docno' => 'required|string|max:20',
+            'f_blankno' => 'nullable|string|max:50',
             'f_name' => 'string|max:100|nullable',
             'f_description' => 'string|max:100|nullable',
-            'f_templateid' => 'nullable|exists:t_template,f_id',
-            'f_curid' => 'nullable|exists:t_cur,f_id',
+            'f_templateid' => 'required|exists:t_template,f_id',
+            'f_curid' => 'required|exists:t_cur,f_id',
             'f_salary' => ['nullable', 'numeric', new FloatRule(4)],
             'f_period_year' => 'required|integer|min:1900|max:2100',
             'f_period_month' => ['required', Rule::in(Salaryh::$months)],
