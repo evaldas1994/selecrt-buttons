@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Models\Disch;
 use Illuminate\View\View;
+use App\Models\Disch;
+use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\DischStoreUpdateRequest;
@@ -40,20 +41,26 @@ class DischController extends Controller
      */
     public function store(DischStoreUpdateRequest $request)
     {
-        Disch::create($request->validated());
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
 
-        return redirect()->route('discountsh.index')->withSuccess(trans('global.created_successfully'));
+        $disch = Disch::create($request->validated());
+
+        return $this->checkButtonAction($request, $disch, 'global.created_successfully');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Disch $discountsh
+     * @param Disch $disch
      * @return View
      */
-    public function edit(Disch $discountsh)
+    public function edit(Disch $disch)
     {
-        return view('modules.disch.edit', compact('discountsh'));
+        $allDiscd = $disch->discd;
+
+        return view('modules.disch.edit', compact('disch', 'allDiscd'));
     }
 
     /**
@@ -63,31 +70,57 @@ class DischController extends Controller
      * @param Disch $disch
      * @return RedirectResponse
      */
-    public function update(DischStoreUpdateRequest $request, Disch $discountsh)
+    public function update(DischStoreUpdateRequest $request, Disch $disch)
     {
-        try {
-            $discountsh->update($request->validated());
-
-            return redirect()->route('discountsh.index')->withSuccess(trans('global.updated_successfully'));
-        } catch (\Exception) {
-            return redirect()->route('discountsh.index')->withError(trans('global.update_failed'));
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $disch);
         }
+
+        try {
+            $disch->update($request->validated());
+        } catch (\Exception) {
+            return redirect()->route('disch.index')->withError(trans('global.update_failed'));
+        }
+
+        return $this->checkButtonAction($request, $disch, 'global.updated_successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Disch $discountsh
+     * @param Disch $disch
      * @return RedirectResponse
      */
-    public function destroy(Disch $discountsh)
+    public function destroy(Disch $disch)
     {
         try {
-            $discountsh->delete();
+            $disch->delete();
 
-            return redirect()->route('discountsh.index')->withSuccess(trans('global.deleted_successfully'));
+            return redirect()->route('disch.index')->withSuccess(trans('global.deleted_successfully'));
         } catch (\Exception) {
-            return redirect()->route('discountsh.index')->withError(trans('global.delete_failed'));
+            return redirect()->route('disch.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    private function checkButtonAction(DischStoreUpdateRequest $request, Disch $disch, string $message='global.empty')
+    {
+        $action = explode('|', $request->input('button-action'))[0];
+        switch ($action) {
+            case 'discd-create':
+                return redirect()->route('disch.edit', $disch);
+        }
+
+        return redirect()->route('disch.index')->withSuccess(trans($message));
+    }
+
+    private function checkButtonActionWithoutValidation(DischStoreUpdateRequest $request, Disch $disch = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('disch.index');
+        }
+
+        return redirect()->route('disch.index')->withSuccess(trans($message));
     }
 }
