@@ -8,7 +8,8 @@
                name="{{ $name }}"
                placeholder="@lang('global.select_date')"
                value="{{ old($name, $defaultValue ?? '')}}"
-            {{ $readonly ?? '' }}>
+               readonly
+            {{ $disabled ?? '' }}>
         @error($name) <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
     </div>
 </div>
