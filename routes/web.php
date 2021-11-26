@@ -51,6 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('periods', \App\Http\Controllers\Modules\PeriodController::class)->except('show');
     Route::resource('persons', \App\Http\Controllers\Modules\PersonController::class)->except('show');
     Route::resource('production-cards', \App\Http\Controllers\Modules\ProductionCardController::class)->except('show');
+    Route::resource('production-groups', \App\Http\Controllers\Modules\ProductionGroupController::class)->except('show');
     Route::resource('projects', \App\Http\Controllers\Modules\ProjectController::class)->except('show');
     Route::resource('registers1', \App\Http\Controllers\Modules\Register1Controller::class)->except('show');
     Route::resource('registers2', \App\Http\Controllers\Modules\Register2Controller::class)->except('show');
