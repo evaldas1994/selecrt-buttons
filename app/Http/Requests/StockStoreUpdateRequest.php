@@ -4,8 +4,8 @@ namespace App\Http\Requests;
 
 use App\Models\Stock;
 use App\Rules\FloatRule;
-use App\Rules\IdPatternRule;
 use Illuminate\Support\Arr;
+use App\Rules\IdPatternRule;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
