@@ -6,13 +6,13 @@
 
         <div class="col-auto ms-auto text-end mt-n1">
             <x-form-elements.button
-                form="productionh_create_form"
+                form="productionh_edit_form"
                 class="btn-primary"
                 text="global.btn_save"
             />
 
             <x-form-elements.button
-                form="productionh_create_form"
+                form="productionh_edit_form"
                 class="btn-dark"
                 name="button-action-without-validation"
                 value="close"
@@ -21,10 +21,11 @@
         </div>
     </div>
     <div class="row">
-        <form id="productionh_create_form"
-              name="productionh_create_form"
-              action="{{ route('productionsh.store') }}" method="POST">
+        <form id="productionh_edit_form"
+              name="productionh_edit_form"
+              action="{{ route('productionsh.update', $productionsh) }}" method="POST">
             @csrf
+            @method('PUT')
 
             <div class="card">
                 <div class="card-body">
@@ -163,13 +164,26 @@
                         </div>
 
                         <div class="col-auto">
-                            <x-form-elements.button
-                                form="productionh_create_form"
-                                class="btn-primary"
-                                name="button-action"
-                                value="productiond-create"
-                                fontawesomeIcon="fas fa-plus"
-                                text="global.btn_new"
+                            <button wire:click="showCreateProductiond"
+                                    class="btn btn-primary"
+                            ><i class="fas fa-plus"></i>
+                                @lang('global.btn_new')
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <x-modules.items-list
+                                form="productionh_edit_form"
+                                :items="$allProductionsd"
+                                :parentRouteData="$productionsh"
+                                :langs="['modules/productiond.f_id', 'modules/productiond.f_bomid', 'modules/productiond.f_quant', 'modules/productiond.f_description']"
+                                :fields="['f_id', 'f_bomid', 'f_quant', 'f_description']"
+                                deleteFormRoute="productionsd.destroy"
+                                name="productiond"
+                                wireEmmitUpName="showEditProductiond"
+                                wireEmmitValue="true"
                             />
                         </div>
                     </div>
@@ -177,4 +191,25 @@
             </div>
         </form>
     </div>
+
+    @if($showCreateProductiond)
+        <div class="row">
+            <livewire:productiond.create
+                :productionsh="$productionsh"
+                :productionCards="$productionCards"
+                :stores="$stores"
+                :registers1="$registers1"
+                :registers2="$registers2"
+                :registers3="$registers3"
+                :registers4="$registers4"
+                :registers5="$registers5"
+            />
+        </div>
+    @endif
+
+{{--    @if($showEdit && $productionCardComponent != null)--}}
+{{--        <div class="row">--}}
+{{--            <livewire:productiond.edit :productionCard="$productionCard" :stocks="$stocks" :types="$types" :productionCardComponent="$productionCardComponent"/>--}}
+{{--        </div>--}}
+{{--    @endif--}}
 </div>

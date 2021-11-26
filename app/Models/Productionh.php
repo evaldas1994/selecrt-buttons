@@ -124,4 +124,12 @@ class Productionh extends Model
     {
         return $this->hasOne(Store::class, 'f_id', 'f_storeid');
     }
+
+    /**
+     * Get the productionsd for the productionh.
+     */
+    public function productionsd()
+    {
+        return $this->hasMany(Productiond::class, 'f_hid', 'f_id');
+    }
 }

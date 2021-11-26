@@ -2,7 +2,8 @@
     @isset($labelValue)<label class="col-form-label col-6 col-xxl-5 text-sm">@lang($labelValue)</label>@endisset
     <div class="col-{{ !isset($labelValue) ? '12' : '6' }} col-xxl-{{ !isset($labelValue) ? '12' : '7' }}">
         <div class="input-group">
-            <select {{ isset($wireModel) ? 'wire:model.lazy='.$wireModel : '' }}
+            <select  {{ isset($form) ? 'form="'.$form.'"' : '' }}
+                {{ isset($wireModel) ? 'wire:model.lazy='.$wireModel : '' }}
                     {{ isset($wireChange) ? 'wire:change.lazy='.$wireChange : '' }}
                     class="form-select-sm form-control form-control-sm {{ $selectClass ?? '' }} @error($name) is-invalid @enderror"
                     name="{{ $name }}">

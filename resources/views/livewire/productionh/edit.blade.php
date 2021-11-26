@@ -57,6 +57,7 @@
                         </div>
                         <div class="col-12 col-md-6 col-xl-3">
                             <x-form-elements.select-with-button
+                                form="productionh_edit_form"
                                 :items="$stores"
                                 name="f_storeid"
                                 labelValue="modules/productionh.f_storeid"
@@ -157,8 +158,60 @@
                             />
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>@lang('modules/productiond.h1')</h4>
+                        </div>
+
+                        <div class="col-auto">
+                            <button wire:click="showCreateProductiond"
+                                    class="btn btn-primary"
+                                    type="button"
+                            ><i class="fas fa-plus"></i>
+                                @lang('global.btn_new')
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <x-modules.items-list
+                                form="productionh_edit_form"
+                                :items="$allProductionsd"
+                                :parentRouteData="$productionsh"
+                                :langs="['modules/productiond.f_id', 'modules/productiond.f_bomid', 'modules/productiond.f_quant', 'modules/productiond.f_description']"
+                                :fields="['f_id', 'f_bomid', 'f_quant', 'f_description']"
+                                deleteFormRoute="productionsd.destroy"
+                                name="productiond"
+                                wireEmmitUpName="showEditProductiond"
+                                wireEmmitValue="true"
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
     </div>
+
+    @if($showCreateProductiond)
+        <div class="row">
+            <livewire:productiond.create
+                :productionsh="$productionsh"
+                :productionCards="$productionCards"
+                :stores="$stores"
+                :registers1="$registers1"
+                :registers2="$registers2"
+                :registers3="$registers3"
+                :registers4="$registers4"
+                :registers5="$registers5"
+            />
+        </div>
+    @endif
+
+{{--    @if($showEdit && $productionCardComponent != null)--}}
+{{--        <div class="row">--}}
+{{--            <livewire:productiond.edit :productionCard="$productionCard" :stocks="$stocks" :types="$types" :productionCardComponent="$productionCardComponent"/>--}}
+{{--        </div>--}}
+{{--    @endif--}}
 </div>

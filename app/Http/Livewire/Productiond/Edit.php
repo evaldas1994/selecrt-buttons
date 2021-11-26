@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Productionh;
+namespace App\Http\Livewire\Productiond;
 
 use App\Models\Productiond;
 use Livewire\Component;
@@ -117,7 +117,7 @@ class Edit extends Component
 
     public function render()
     {
-        return view('livewire.productionh.edit');
+        return view('livewire.productiond.edit');
     }
 
     private function setOldValue($value, $default = null)
@@ -150,10 +150,5 @@ class Edit extends Component
             $this->showEditProductiond = false;
         }
     }
-
-    public $listeners = [
-        'showCreateProductiond' => 'showCreateProductiond',
-        'showEditProductiond' => 'showEditProductiond'
-    ];
 
 }
