@@ -227,7 +227,7 @@
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.resources.stock_out')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.resources.stock_move')</a></li>
                     <div class="dropdown-divider"></div>
-                    <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.resources.production_groups')</a></li>
+                    <li class="sidebar-item"><a class="sidebar-link" href="{{ route('production-groups.index') }}">@lang('nav.resources.production_groups')</a></li>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.resources.production')</a></li>
                     <div class="dropdown-divider"></div>
                     <li class="sidebar-item"><a class="sidebar-link" href="#">@lang('nav.resources.inventory')</a></li>
