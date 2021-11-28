@@ -1,7 +1,8 @@
 <div class="mb-2 row" {{ $hidden ?? '' }}>
     <label class="col-form-label col-6 col-xxl-5 text-sm">@lang($labelValue)</label>
     <div class="col-6 col-xxl-7">
-        <textarea {{ isset($wireModel) ? 'wire:model.lazy='.$wireModel : '' }}
+        <textarea {{ isset($form) ? 'form='.$form : '' }}
+                  {{ isset($wireModel) ? 'wire:model.lazy='.$wireModel : '' }}
                   {{ isset($wireChange) ? 'wire:change.lazy='.$wireChange : '' }}
                   class="form-control form-control-sm {{ $textareaClass ?? '' }} @error('f_ingredients') is-invalid @enderror"
                   name="{{ $name }}"

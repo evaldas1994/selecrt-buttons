@@ -65,7 +65,7 @@ class Edit extends Component
         $this->registers1 = $registers1;
         $this->registers2 = $registers2;
         $this->registers3 = $registers3;
-        $this->registers3 = $registers4;
+        $this->registers4 = $registers4;
         $this->registers5 = $registers5;
 
         $this->allProductionsd = $allProductionsd;

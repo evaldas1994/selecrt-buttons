@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Models\ProductionCard;
+use Carbon\Carbon;
+use App\Models\Store;
+use App\Models\Template;
 use App\Models\Register1;
 use App\Models\Register2;
 use App\Models\Register3;
 use App\Models\Register4;
 use App\Models\Register5;
-use App\Models\Store;
-use App\Models\Template;
-use Carbon\Carbon;
 use Illuminate\View\View;
 use Illuminate\Support\Arr;
 use App\Models\Productionh;
+use App\Models\ProductionCard;
 use App\Models\ProductionGroup;
 use App\Models\StockOperationGroup;
 use App\Http\Controllers\Controller;
@@ -105,14 +105,12 @@ class ProductionhController extends Controller
             'productionGroups',
             'stockOperationGroups',
             'productionsh',
-
             'productionCards',
             'registers1',
             'registers2',
             'registers3',
             'registers4',
             'registers5',
-
             'allProductionsd',
         ));
     }
@@ -175,7 +173,6 @@ class ProductionhController extends Controller
      */
     private function checkButtonActionWithoutValidation(ProductionhStoreUpdateRequest $request, Productionh $productionsh = null, string $message='global.empty'): RedirectResponse
     {
-        dd('hitt');
         $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
         switch ($actionWithoutValidation[0]) {
             case 'close':
