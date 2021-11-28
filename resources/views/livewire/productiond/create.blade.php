@@ -15,13 +15,6 @@
         </div>
     </div>
     <div class="row">
-        <form id="productiond_create_form"
-              name="productiond_create_form"
-              action="{{ route('productionsd.store', $productionsh) }}" method="POST">
-            @csrf
-
-        </form>
-
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -202,4 +195,12 @@
             </div>
         </div>
     </div>
+
+    {{--    Forms--}}
+    <x-form-elements.form
+        id="productiond_create_form"
+        route="productionsd.store"
+        :data="$productionsh"
+        method="POST"
+    />
 </div>

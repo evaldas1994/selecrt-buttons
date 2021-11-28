@@ -15,13 +15,6 @@
         </div>
     </div>
     <div class="row">
-        <x-form-elements.form
-            id="productiond_edit_form"
-            route="productionsd.update"
-            :data="[$productionsh, $productionsd]"
-            method="PUT"
-        />
-
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -202,4 +195,12 @@
             </div>
         </div>
     </div>
+
+    {{--    Forms--}}
+    <x-form-elements.form
+        id="productiond_edit_form"
+        route="productionsd.update"
+        :data="[$productionsh, $productionsd]"
+        method="PUT"
+    />
 </div>
