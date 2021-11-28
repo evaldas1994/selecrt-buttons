@@ -23,12 +23,10 @@
     <div class="row">
         <div class="card">
             <div class="card-body">
-                <form id="disch_create_form" name="disch_create_form" action="{{ route('disch.store') }}"
-                      method="POST">
-                    @csrf
                     <div class="row">
                         <div class="col-12 col-md-6 col-xl-3">
                             <x-form-elements.input-id
+                                form="disch_create_form"
                                 name="f_id"
                                 labelValue="modules/disch.f_id"
                                 inputClass="not-empty"
@@ -40,6 +38,7 @@
                         </div>
                         <div class="col-12 col-md-6 col-xl-3">
                             <x-form-elements.input
+                                form="disch_create_form"
                                 name="f_name"
                                 labelValue="modules/disch.f_name"
                                 maxLength="100"
@@ -48,10 +47,8 @@
                             />
                         </div>
                         <div class="col-12 col-md-6 col-xl-3">
-
-                        </div>
-                        <div class="col-12 col-md-6 col-xl-3">
                             <x-form-elements.input
+                                form="disch_create_form"
                                 name="f_system1"
                                 labelValue="modules/disch.f_system1"
                                 maxLength="100"
@@ -61,6 +58,7 @@
                             />
 
                             <x-form-elements.input
+                                form="disch_create_form"
                                 name="f_system2"
                                 labelValue="modules/disch.f_system2"
                                 maxLength="100"
@@ -70,6 +68,7 @@
                             />
 
                             <x-form-elements.input
+                                form="disch_create_form"
                                 name="f_system3"
                                 labelValue="modules/disch.f_system3"
                                 maxLength="100"
@@ -79,7 +78,6 @@
                             />
                         </div>
                     </div>
-                </form>
 
                 <div class="row mt-4">
                     <div class="col-12">
@@ -100,4 +98,11 @@
             </div>
         </div>
     </div>
+
+    {{--    Forms--}}
+    <x-form-elements.form
+        id="disch_create_form"
+        route="disch.store"
+        method="POST"
+    />
 </div>
