@@ -1,6 +1,7 @@
 <form id="{{ $id }}"
       name="{{ $id }}"
-      action="{{ route($route, $data) }}" method="POST">
+      @isset($data) action="{{ route($route, $data) }}" @else action="{{ route($route) }}" @endisset
+      method="POST">
     @csrf
     @method( $method )
 </form>
