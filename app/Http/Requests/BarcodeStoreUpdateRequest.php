@@ -27,8 +27,7 @@ class BarcodeStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
-//        dd($this->input());
-        if (Arr::exists($this->input(), 'button-action')) {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
             return [];
         }
 
