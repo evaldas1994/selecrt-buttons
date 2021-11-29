@@ -156,6 +156,23 @@
                             />
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>@lang('modules/productiond.h1')</h4>
+                        </div>
+
+                        <div class="col-auto">
+                            <x-form-elements.button
+                                form="productionh_create_form"
+                                class="btn-primary"
+                                name="button-action"
+                                value="productiond-create"
+                                fontawesomeIcon="fas fa-plus"
+                                text="global.btn_new"
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

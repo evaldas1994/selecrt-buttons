@@ -1,7 +1,8 @@
 <div class="mb-2 row" {{ $hidden ?? '' }}>
     @isset($labelValue)<label class="col-form-label col-6 col-xxl-5 text-sm">@lang($labelValue)</label>@endisset
     <div class="col-{{ !isset($labelValue) ? '12' : '6' }} col-xxl-{{ !isset($labelValue) ? '12' : '7' }}">
-    <input {{ isset($wireModel) ? 'wire:model='.$wireModel : '' }}
+    <input {{ isset($form) ? 'form='.$form : '' }}
+            {{ isset($wireModel) ? 'wire:model='.$wireModel : '' }}
            {{ isset($wireChange) ? 'wire:change.lazy='.$wireChange : '' }}
            type="text"
            class="form-control form-control-sm {{ $inputClass ?? '' }} @error($name) is-invalid @enderror"

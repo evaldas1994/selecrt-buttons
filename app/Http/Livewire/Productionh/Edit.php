@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Productionh;
 
+use App\Models\Productiond;
 use Livewire\Component;
 
 class Edit extends Component
@@ -25,14 +26,49 @@ class Edit extends Component
     public $templates;
     public $productionGroups;
     public $stockOperationGroups;
+    public $productionCards;
+    public $registers1;
+    public $registers2;
+    public $registers3;
+    public $registers4;
+    public $registers5;
+    public $allProductionsd;
 
-    public function mount($productionsh, $stores, $templates, $productionGroups, $stockOperationGroups)
+    public $productionsd;
+    public $showCreateProductiond = false;
+    public $showEditProductiond = false;
+
+    public function mount(
+        $productionsh,
+        $stores,
+        $templates,
+        $productionGroups,
+        $stockOperationGroups,
+
+        $productionCards,
+        $registers1,
+        $registers2,
+        $registers3,
+        $registers4,
+        $registers5,
+
+        $allProductionsd
+    )
     {
         $this->productionsh = $productionsh;
         $this->stores = $stores;
         $this->templates = $templates;
         $this->productionGroups = $productionGroups;
         $this->stockOperationGroups = $stockOperationGroups;
+
+        $this->productionCards = $productionCards;
+        $this->registers1 = $registers1;
+        $this->registers2 = $registers2;
+        $this->registers3 = $registers3;
+        $this->registers4 = $registers4;
+        $this->registers5 = $registers5;
+
+        $this->allProductionsd = $allProductionsd;
 
         $this->setOldValue('f_docdate', $productionsh->f_docdate);
         $this->setOldValue('f_docno', $productionsh->f_docno);
@@ -94,4 +130,30 @@ class Edit extends Component
             }
         }
     }
+
+    public function showCreateProductiond($value = true)
+    {
+        $this->showCreateProductiond = $value;
+        $this->showEditProductiond = false;
+    }
+    public function showEditProductiond(bool $value = true, string $id = null)
+    {
+        $productionsd = Productiond::find($id);
+
+        if ($value == true && $productionsd !== null ) {
+            $this->productionsd = $productionsd;
+            $this->showCreateProductiond = false;
+            $this->showEditProductiond = $value;
+        } else {
+            $this->productionsd = null;
+            $this->showCreateProductiond = false;
+            $this->showEditProductiond = false;
+        }
+    }
+
+    public $listeners = [
+        'showCreateProductiond' => 'showCreateProductiond',
+        'showEditProductiond' => 'showEditProductiond'
+    ];
+
 }

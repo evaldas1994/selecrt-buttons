@@ -109,6 +109,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('discountsd', \App\Http\Controllers\Modules\DiscountdController::class)->except('show', 'index');
         Route::resource('discount-stores', \App\Http\Controllers\Modules\DiscountStoreController::class)->except('show', 'index');
     });
+
+    Route::prefix('productionsh/{productionsh}')->group(function () {
+        Route::resource('productionsd', \App\Http\Controllers\Modules\ProductiondController::class)->except('show', 'index');
+    });
 });
 
 Route::domain('blog.' . 'dineta-crm.test')->group(function () {
