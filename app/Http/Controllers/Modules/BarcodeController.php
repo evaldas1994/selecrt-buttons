@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Modules;
 
 use App\Models\Stock;
 use App\Models\Barcode;
+use Illuminate\View\View;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\URL;
-use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\BarcodeStoreUpdateRequest;
@@ -45,6 +45,10 @@ class BarcodeController extends Controller
      */
     public function store(BarcodeStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         switch (Arr::get($request->input(), 'button-action')) {
             case 'select-stock':
                 // get data for session
@@ -98,6 +102,10 @@ class BarcodeController extends Controller
      */
     public function update(BarcodeStoreUpdateRequest $request, Barcode $barcode)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $barcode);
+        }
+
         try {
             $barcode->update($request->validated());
 
@@ -122,6 +130,23 @@ class BarcodeController extends Controller
         } catch (\Exception) {
             return redirect()->route('barcodes.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    private function checkButtonActionWithoutValidation(BarcodeStoreUpdateRequest $request, Barcode $barcode = null, string $message='global.empty')
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('barcodes.index');
+
+            case 'select-stock':
+                dd('route to stock.index', $actionWithoutValidation[1]);
+
+            case 'select-usad':
+                dd('route to usad.index', $actionWithoutValidation[1]);
+        }
+
+        return redirect()->route('barcodes.index')->withSuccess(trans($message));
     }
 
     private function getPrevRoute()
