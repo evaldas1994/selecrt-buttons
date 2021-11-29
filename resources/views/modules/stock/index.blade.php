@@ -12,9 +12,6 @@
                     <table class="table mb-0 table-sm table-bordered table-striped">
                         <thead>
                         <tr>
-                            @if(session()->has('queue_of_actions'))
-                                <th><button class="btn button-success"></button></th>
-                            @endif
                             <th scope="col">@lang('modules/stock.f_id')</th>
                             <th scope="col">@lang('modules/stock.f_name')</th>
                             <th scope="col">@lang('modules/stock.f_type')</th>
@@ -29,12 +26,12 @@
                             <tr>
 
                                 @if(session()->has('queue_of_actions'))
-                                    <td><button form="stock_selected_by_form" class="btn w-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_id }}</button></td>
-                                    <td><button form="stock_selected_by_form" class="btn w-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_name }}</button></td>
-                                    <td><button form="stock_selected_by_form" class="btn w-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_type }}</button></td>
-                                    <td><button form="stock_selected_by_form" class="btn w-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_groupid }}</button></td>
-                                    <td><button form="stock_selected_by_form" class="btn w-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_unitid }}</button></td>
-                                    <td><button form="stock_selected_by_form" class="btn w-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_price_sale1 }}</button></td>
+                                    <td><button style="outline: none; box-shadow: none;" form="stock_selected_by_form" class="btn w-100 h-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_id  != null  ? $stock->f_id : '-' }}</button></td>
+                                    <td><button style="outline: none; box-shadow: none;" form="stock_selected_by_form" class="btn w-100 h-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_name != null  ? $stock->f_name : '-' }}</button></td>
+                                    <td><button style="outline: none; box-shadow: none;" form="stock_selected_by_form" class="btn w-100 h-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_type != null  ? $stock->f_type : '-' }}</button></td>
+                                    <td><button style="outline: none; box-shadow: none;" form="stock_selected_by_form" class="btn w-100 h-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_groupid != null  ? $stock->f_groupid : '-'}}</button></td>
+                                    <td><button style="outline: none; box-shadow: none;" form="stock_selected_by_form" class="btn w-100 h-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_unitid != null  ? $stock->f_unitid : '-'}}</button></td>
+                                    <td><button style="outline: none; box-shadow: none;" form="stock_selected_by_form" class="btn w-100 h-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_price_sale1 != null  ? $stock->f_price_sale1 : '-'}}</button></td>
                                 @else
                                     <td>{{ $stock->f_id }}</td>
                                     <td>{{ $stock->f_name }}</td>
