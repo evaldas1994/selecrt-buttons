@@ -24,15 +24,12 @@
         </div>
         <div class="row">
             <div class="col-12">
-            <form id="joined_stock_create_form"
-                  action="{{ route('joined-stocks.store', $stock) }}" method="POST">
-                @csrf
-
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.select-with-button
+                                    form="joined_stock_create_form"
                                     :items="$stocks"
                                     name="f_joined_stockid"
                                     labelValue="modules/joinedStock.f_joined_stockid"
@@ -43,6 +40,7 @@
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input
+                                    form="joined_stock_create_form"
                                     name="f_quant"
                                     labelValue="modules/joinedStock.f_quant"
                                     maxLength="15"
@@ -50,6 +48,7 @@
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input
+                                    form="joined_stock_create_form"
                                     name="f_system1"
                                     labelValue="modules/joinedStock.f_system1"
                                     maxLength="100"
@@ -57,6 +56,7 @@
                                 />
 
                                 <x-form-elements.input
+                                    form="joined_stock_create_form"
                                     name="f_system2"
                                     labelValue="modules/joinedStock.f_system2"
                                     maxLength="100"
@@ -64,6 +64,7 @@
                                 />
 
                                 <x-form-elements.input
+                                    form="joined_stock_create_form"
                                     name="f_system3"
                                     labelValue="modules/joinedStock.f_system3"
                                     maxLength="100"
@@ -73,7 +74,14 @@
                         </div>
                     </div>
                 </div>
-            </form>
             </div>
+
+            {{--    Forms--}}
+            <x-form-elements.form
+                id="joined_stock_create_form"
+                route="joined-stocks.store"
+                :data="$stock"
+                method="POST"
+            />
         </div>
 @endsection

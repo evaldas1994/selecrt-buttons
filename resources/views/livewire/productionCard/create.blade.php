@@ -34,12 +34,10 @@
                     <div class="row">
                         <div class="tab tab-content mt-2">
                             <div class="tab-pane fade show active" id="tab-1" role="tabpanel">
-                                <form class="m-0 p-0" id="production_card_create_form" action="{{ route('production-cards.store') }}" method="POST"
-                                      enctype=multipart/form-data laravel>
-                                    @csrf
                                 <div class="row">
                                     <div class="col-12 col-md-6 col-xl-3">
                                         <x-form-elements.input-id
+                                            form="production_card_create_form"
                                             name="f_id"
                                             labelValue="modules/productionCard.f_id"
                                             inputClass="not-empty"
@@ -50,6 +48,7 @@
                                         />
 
                                         <x-form-elements.select-with-button
+                                            form="production_card_create_form"
                                             :items="$stocks"
                                             name="f_stockid"
                                             labelValue="modules/productionCard.f_stockid"
@@ -63,6 +62,7 @@
 
 
                                         <x-form-elements.input
+                                            form="production_card_create_form"
                                             name="f_stock_name"
                                             labelValue="modules/productionCard.f_stock_name"
                                             maxLength="20"
@@ -73,6 +73,7 @@
                                     </div>
                                     <div class="col-12 col-md-6 col-xl-3">
                                         <x-form-elements.input
+                                            form="production_card_create_form"
                                             name="f_name"
                                             labelValue="modules/productionCard.f_name"
                                             maxLength="100"
@@ -81,6 +82,7 @@
                                         />
 
                                         <x-form-elements.input
+                                            form="production_card_create_form"
                                             name="f_name2"
                                             labelValue="modules/productionCard.f_name2"
                                             maxLength="100"
@@ -90,6 +92,7 @@
                                     </div>
                                     <div class="col-12 col-md-6 col-xl-3">
                                         <x-form-elements.input
+                                            form="production_card_create_form"
                                             name="f_quant"
                                             labelValue="modules/productionCard.f_quant"
                                             maxLength="15"
@@ -98,6 +101,7 @@
                                         />
 
                                         <x-form-elements.input
+                                            form="production_card_create_form"
                                             name="f_unitid"
                                             labelValue="modules/productionCard.f_unitid"
                                             maxLength="20"
@@ -108,6 +112,7 @@
                                     </div>
                                     <div class="col-12 col-md-6 col-xl-3">
                                         <x-form-elements.textarea
+                                            form="production_card_create_form"
                                             name="f_description"
                                             labelValue="modules/productionCard.f_description"
                                             wireModel="f_description"
@@ -171,7 +176,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -196,4 +200,12 @@
             </div>
         </div>
     </div>
+
+    {{--    Forms--}}
+    <x-form-elements.form
+        id="production_card_create_form"
+        route="production-cards.store"
+        enctype="multipart/form-data"
+        method="POST"
+    />
 </div>

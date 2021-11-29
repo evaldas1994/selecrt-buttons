@@ -110,6 +110,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('discount-stores', \App\Http\Controllers\Modules\DiscountStoreController::class)->except('show', 'index');
     });
 
+    Route::prefix('disch/{disch}')->group(function () {
+        Route::resource('discd', \App\Http\Controllers\Modules\DiscdController::class)->except('show', 'index');
+    });
+
     Route::prefix('productionsh/{productionsh}')->group(function () {
         Route::resource('productionsd', \App\Http\Controllers\Modules\ProductiondController::class)->except('show', 'index');
     });

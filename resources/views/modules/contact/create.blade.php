@@ -24,16 +24,12 @@
         </div>
         <div class="row">
             <div class="col-12">
-            <form id="contact_create_form"
-                  name="contact_create_form"
-                  action="{{ route('contacts.store', $partner) }}" method="POST">
-                @csrf
-
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input
+                                    form="contact_create_form"
                                     name="f_fullname"
                                     labelValue="modules/contact.f_fullname"
                                     inputClass="not-empty"
@@ -41,6 +37,7 @@
                                 />
 
                                 <x-form-elements.input
+                                    form="contact_create_form"
                                     name="f_post"
                                     labelValue="modules/contact.f_post"
                                     maxLength="100"
@@ -48,6 +45,7 @@
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input
+                                    form="contact_create_form"
                                     name="f_phone"
                                     labelValue="modules/contact.f_phone"
                                     inputClass="not-empty"
@@ -55,6 +53,7 @@
                                 />
 
                                 <x-form-elements.input
+                                    form="contact_create_form"
                                     name="f_email"
                                     labelValue="modules/contact.f_email"
                                     maxLength="100"
@@ -62,12 +61,14 @@
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.textarea
+                                    form="contact_create_form"
                                     name="f_address"
                                     labelValue="modules/contact.f_address"
                                 />
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.select-array
+                                    form="contact_create_form"
                                     :items="$purposeTypes"
                                     name="f_purpose"
                                     labelValue="modules/contact.f_purpose"
@@ -77,7 +78,14 @@
                         </div>
                     </div>
                 </div>
-            </form>
             </div>
+
+            {{--    Forms--}}
+            <x-form-elements.form
+                id="contact_create_form"
+                route="contacts.store"
+                :data="$partner"
+                method="POST"
+            />
         </div>
 @endsection

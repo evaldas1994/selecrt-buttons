@@ -34,89 +34,91 @@
                     <div class="row">
                         <div class="tab tab-content mt-2">
                             <div class="tab-pane fade show active" id="tab-1" role="tabpanel">
-                                <form class="m-0 p-0" id="production_card_edit_form" name="production_card_edit_form"
-                                      action="{{ route('production-cards.update', $productionCard) }}" method="POST"
-                                      enctype=multipart/form-data laravel>
-                                    @csrf
-                                    @method('PUT')
+                                <div class="row">
+                                    <div class="col-12 col-md-6 col-xl-3">
+                                        <x-form-elements.input-id
+                                            form="production_card_edit_form"
+                                            name="f_id"
+                                            labelValue="modules/productionCard.f_id"
+                                            maxLength="20"
+                                            wireModel="f_id"
+                                            wireChange="changeId($event.target.value)"
+                                            inputClass="not-empty"
+                                            :defaultValue="$f_id"
+                                        />
 
-                                    <div class="row">
-                                        <div class="col-12 col-md-6 col-xl-3">
-                                            <x-form-elements.input-id
-                                                name="f_id"
-                                                labelValue="modules/productionCard.f_id"
-                                                maxLength="20"
-                                                wireModel="f_id"
-                                                wireChange="changeId($event.target.value)"
-                                                inputClass="not-empty"
-                                                :defaultValue="$f_id"
-                                            />
+                                        <x-form-elements.select-with-button
+                                            form="production_card_edit_form"
+                                            :items="$stocks"
+                                            name="f_stockid"
+                                            labelValue="modules/productionCard.f_stockid"
+                                            selectClass="not-empty"
+                                            buttonName="button-action-without-validation"
+                                            buttonValue="select-stock|f_stockid"
+                                            wireModel="f_stockid"
+                                            wireChange="changeStock($event.target.value)"
+                                            defaultValue="f_stockid"
+                                        />
 
-                                            <x-form-elements.select-with-button
-                                                :items="$stocks"
-                                                name="f_stockid"
-                                                labelValue="modules/productionCard.f_stockid"
-                                                selectClass="not-empty"
-                                                buttonName="button-action-without-validation"
-                                                buttonValue="select-stock|f_stockid"
-                                                wireModel="f_stockid"
-                                                wireChange="changeStock($event.target.value)"
-                                                defaultValue="f_stockid"
-                                            />
-
-                                            <x-form-elements.input
-                                                name="f_stock_name"
-                                                labelValue="modules/productionCard.f_stock_name"
-                                                maxLength="20"
-                                                wireModel="f_stock_name"
-                                                readonly="readonly"
-                                                :defaultValue="$f_stock_name"
-                                            />
-                                        </div>
-                                        <div class="col-12 col-md-6 col-xl-3">
-                                            <x-form-elements.input
-                                                name="f_name"
-                                                labelValue="modules/productionCard.f_name"
-                                                maxLength="100"
-                                                wireModel="f_name"
-                                                :defaultValue="$f_name"
-                                            />
-
-                                            <x-form-elements.input
-                                                name="f_name2"
-                                                labelValue="modules/productionCard.f_name2"
-                                                maxLength="100"
-                                                wireModel="f_name2"
-                                                :defaultValue="$f_name2"
-                                            />
-                                        </div>
-                                        <div class="col-12 col-md-6 col-xl-3">
-                                            <x-form-elements.input
-                                                name="f_quant"
-                                                labelValue="modules/productionCard.f_quant"
-                                                maxLength="15"
-                                                wireModel="f_quant"
-                                                :defaultValue="$f_quant"
-                                            />
-
-                                            <x-form-elements.input
-                                                name="f_unitid"
-                                                labelValue="modules/productionCard.f_unitid"
-                                                maxLength="20"
-                                                wireModel="f_unitid"
-                                                readonly="readonly"
-                                                :defaultValue="$f_unitid"
-                                            />
-                                        </div>
-                                        <div class="col-12 col-md-6 col-xl-3">
-                                            <x-form-elements.textarea
-                                                name="f_description"
-                                                labelValue="modules/productionCard.f_description"
-                                                wireModel="f_description"
-                                                :defaultValue="$f_description"
-                                            />
-                                        </div>
+                                        <x-form-elements.input
+                                            form="production_card_edit_form"
+                                            name="f_stock_name"
+                                            labelValue="modules/productionCard.f_stock_name"
+                                            maxLength="20"
+                                            wireModel="f_stock_name"
+                                            readonly="readonly"
+                                            :defaultValue="$f_stock_name"
+                                        />
                                     </div>
+                                    <div class="col-12 col-md-6 col-xl-3">
+                                        <x-form-elements.input
+                                            form="production_card_edit_form"
+                                            name="f_name"
+                                            labelValue="modules/productionCard.f_name"
+                                            maxLength="100"
+                                            wireModel="f_name"
+                                            :defaultValue="$f_name"
+                                        />
+
+                                        <x-form-elements.input
+                                            form="production_card_edit_form"
+                                            name="f_name2"
+                                            labelValue="modules/productionCard.f_name2"
+                                            maxLength="100"
+                                            wireModel="f_name2"
+                                            :defaultValue="$f_name2"
+                                        />
+                                    </div>
+                                    <div class="col-12 col-md-6 col-xl-3">
+                                        <x-form-elements.input
+                                            form="production_card_edit_form"
+                                            name="f_quant"
+                                            labelValue="modules/productionCard.f_quant"
+                                            maxLength="15"
+                                            wireModel="f_quant"
+                                            :defaultValue="$f_quant"
+                                        />
+
+                                        <x-form-elements.input
+                                            form="production_card_edit_form"
+                                            name="f_unitid"
+                                            labelValue="modules/productionCard.f_unitid"
+                                            maxLength="20"
+                                            wireModel="f_unitid"
+                                            readonly="readonly"
+                                            :defaultValue="$f_unitid"
+                                        />
+                                    </div>
+                                    <div class="col-12 col-md-6 col-xl-3">
+                                        <x-form-elements.textarea
+                                            form="production_card_edit_form"
+                                            name="f_description"
+                                            labelValue="modules/productionCard.f_description"
+                                            wireModel="f_description"
+                                            :defaultValue="$f_description"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="tab-2" role="tabpanel">
                                 <div class="row">
@@ -173,7 +175,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -185,7 +187,7 @@
 
                         <div class="col-auto">
                             <button wire:click="showCreate"
-                                class="btn btn-primary"
+                                    class="btn btn-primary"
                             ><i class="fas fa-plus"></i>
                                 @lang('global.btn_new')
                             </button>
@@ -213,14 +215,30 @@
     </div>
 
     @if($showCreate)
-    <div class="row">
-        <livewire:production-card-component.create :productionCard="$productionCard" :stocks="$stocks" :types="$types"/>
-    </div>
+        <div class="row">
+            <livewire:production-card-component.create
+                :productionCard="$productionCard"
+                :stocks="$stocks"
+                :types="$types"/>
+        </div>
     @endif
 
     @if($showEdit && $productionCardComponent != null)
-    <div class="row">
-        <livewire:production-card-component.edit :productionCard="$productionCard" :stocks="$stocks" :types="$types" :productionCardComponent="$productionCardComponent"/>
-    </div>
+        <div class="row">
+            <livewire:production-card-component.edit
+                :productionCard="$productionCard"
+                :stocks="$stocks"
+                :types="$types"
+                :productionCardComponent="$productionCardComponent"/>
+        </div>
     @endif
+
+    {{--    Forms--}}
+    <x-form-elements.form
+        id="production_card_edit_form"
+        route="production-cards.update"
+        :data="$productionCard"
+        enctype="multipart/form-data"
+        method="PUT"
+    />
 </div>

@@ -122,7 +122,7 @@ class TemplateController extends Controller
                 return redirect()->route('template-reasons.create', $template);
         }
 
-        return redirect()->route('stocks.index')->withSuccess(trans($message));
+        return redirect()->route('templates.index')->withSuccess(trans($message));
     }
 
     private function checkButtonActionWithoutValidation(TemplateStoreUpdateRequest $request, Template $template = null, string $message='global.empty')
@@ -278,6 +278,6 @@ class TemplateController extends Controller
                 dd('route to account.index', $actionWithoutValidation[1]);
         }
 
-        return redirect()->route('template-reasons.index')->withSuccess(trans($message));
+        return redirect()->route('templates.index')->withSuccess(trans($message));
     }
 }
