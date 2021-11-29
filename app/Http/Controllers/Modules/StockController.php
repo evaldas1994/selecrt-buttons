@@ -297,9 +297,7 @@ class StockController extends Controller
                         return redirect()->route($prevRoute)->withInput($prevData);
                     }
                 }
-
-                dd('selected by', $stockId);
-                return redirect()->route('joined-stocks.edit', [$stock, $joinedStockId]);
+                return redirect()->route('stocks.index');
 
             case 'select-stock-group':
                 dd('route to stock group.index', $actionWithoutValidation[1]);
