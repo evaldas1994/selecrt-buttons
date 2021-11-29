@@ -39,7 +39,8 @@ class StockController extends Controller
      */
     public function index()
     {
-        $stocks = Stock::simplePaginate();
+//        $stocks = Stock::simplePaginate();
+        $stocks = Stock::orderBy('f_create_date', 'desc')->simplePaginate();
 
         return view('modules.stock.index', compact('stocks'));
     }
@@ -114,22 +115,22 @@ class StockController extends Controller
 
         $stock = Stock::create($request->validated());
 
-//        if (session()->exists('queue_of_actions')) {
-//            $lastOfQueue = Arr::last(session('queue_of_actions'));
-//
-//            $prevRoute = Arr::get($lastOfQueue, 'route-prev.route');
-//            $prevData = Arr::get($lastOfQueue, 'route-prev.data');
-//            $targetField = Arr::get($lastOfQueue, 'route-prev.target_field');
-//
-//            // collect data
-//            $prevData = Arr::set($prevData, $targetField, $stock->f_id);
-//
-//            //remove session
-//            session()->forget('queue_of_actions');
-//
-//            //redirect
-//            return redirect()->route($prevRoute)->withInput($prevData);
-//        }
+        if (session()->exists('queue_of_actions')) {
+            $lastOfQueue = Arr::last(session('queue_of_actions'));
+
+            $prevRoute = Arr::get($lastOfQueue, 'route-prev.route');
+            $prevData = Arr::get($lastOfQueue, 'route-prev.data');
+            $targetField = Arr::get($lastOfQueue, 'route-prev.target_field');
+
+            // collect data
+            $prevData = Arr::set($prevData, $targetField, $stock->f_id);
+
+            //remove session
+            session()->forget('queue_of_actions');
+
+            //redirect
+            return redirect()->route($prevRoute)->withInput($prevData);
+        }
         return $this->checkButtonAction($request, $stock);
     }
 
@@ -269,6 +270,30 @@ class StockController extends Controller
 
             case 'joined-stock-edit':
                 $joinedStockId = $actionWithoutValidation[1];
+                return redirect()->route('joined-stocks.edit', [$stock, $joinedStockId]);
+
+            case 'selected-by':
+                $stockId = $actionWithoutValidation[1];
+
+                if (session()->exists('queue_of_actions')) {
+                    $lastOfQueue = Arr::last(session('queue_of_actions'));
+
+                    $prevRoute = Arr::get($lastOfQueue, 'route-prev.route');
+                    $prevData = Arr::get($lastOfQueue, 'route-prev.data');
+                    $targetField = Arr::get($lastOfQueue, 'route-prev.target_field');
+
+                    // collect data
+                    $prevData = Arr::set($prevData, $targetField, $stockId);
+
+                    //remove session
+                    session()->forget('queue_of_actions');
+
+                    //redirect
+                    return redirect()->route($prevRoute)->withInput($prevData);
+                }
+
+
+                dd('selected by', $stockId);
                 return redirect()->route('joined-stocks.edit', [$stock, $joinedStockId]);
 
             case 'select-stock-group':

@@ -12,6 +12,9 @@
                     <table class="table mb-0 table-sm table-bordered table-striped">
                         <thead>
                         <tr>
+                            @if(session()->has('queue_of_actions'))
+                                <th><button class="btn button-success"></button></th>
+                            @endif
                             <th scope="col">@lang('modules/stock.f_id')</th>
                             <th scope="col">@lang('modules/stock.f_name')</th>
                             <th scope="col">@lang('modules/stock.f_type')</th>
@@ -24,12 +27,22 @@
                         <tbody>
                         @foreach($stocks as $stock)
                             <tr>
-                                <td>{{ $stock->f_id }}</td>
-                                <td>{{ $stock->f_name }}</td>
-                                <td>{{ $stock->f_type }}</td>
-                                <td>{{ $stock->f_groupid }}</td>
-                                <td>{{ $stock->f_unitid }}</td>
-                                <td>{{ $stock->f_price_sale1 }}</td>
+
+                                @if(session()->has('queue_of_actions'))
+                                    <td><button form="stock_selected_by_form" class="btn w-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_id }}</button></td>
+                                    <td><button form="stock_selected_by_form" class="btn w-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_name }}</button></td>
+                                    <td><button form="stock_selected_by_form" class="btn w-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_type }}</button></td>
+                                    <td><button form="stock_selected_by_form" class="btn w-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_groupid }}</button></td>
+                                    <td><button form="stock_selected_by_form" class="btn w-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_unitid }}</button></td>
+                                    <td><button form="stock_selected_by_form" class="btn w-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $stock->f_id }}" >{{ $stock->f_price_sale1 }}</button></td>
+                                @else
+                                    <td>{{ $stock->f_id }}</td>
+                                    <td>{{ $stock->f_name }}</td>
+                                    <td>{{ $stock->f_type }}</td>
+                                    <td>{{ $stock->f_groupid }}</td>
+                                    <td>{{ $stock->f_unitid }}</td>
+                                    <td>{{ $stock->f_price_sale1 }}</td>
+                                @endif
                                 <td class="table-action">
                                     <a href="{{ route('stocks.edit', $stock) }}"><i class="align-middle" data-feather="edit-2"></i></a>
                                     <a href="#" onclick="event.preventDefault();document.getElementById('delete-form-{{ $stock->f_id }}').submit();">
@@ -48,6 +61,13 @@
             </div>
             {{ $stocks->links() }}
         </div>
+
+        {{--    Forms--}}
+        <x-form-elements.form
+            id="stock_selected_by_form"
+            route="stocks.store"
+            method="POST"
+        />
     </div>
 @endsection
 

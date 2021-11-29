@@ -20,6 +20,8 @@ class BarcodeController extends Controller
      */
     public function index()
     {
+        session()->forget('queue_of_actions');
+
         $barcodes = Barcode::simplePaginate();
 
         return view('modules.barcode.index', compact('barcodes'));
@@ -49,30 +51,30 @@ class BarcodeController extends Controller
             return $this->checkButtonActionWithoutValidation($request);
         }
 
-        switch (Arr::get($request->input(), 'button-action')) {
-            case 'select-stock':
-                // get data for session
-                $data = $this->getQueueOfActionsSessionData($this->getPrevRoute(), $request->input(), 'stocks.index', [], 'f_stockid');
-
-                // push session
-                session()->push('queue_of_actions', $data);
-
-                // redirect
-                return redirect()->route(Arr::get($data,'route-next.route'), Arr::get($data,'route-next.data'));
-
-            case 'select-usad':
-                // get data for session
-                $data = $this->getQueueOfActionsSessionData($this->getPrevRoute(), $request->input(), 'stocks.index', [], 'f_usadid');
-
-                // push session
-                session()->push('queue_of_actions', $data);
-
-                // redirect
-                return redirect()->route(Arr::get($data,'route-next.route'), Arr::get($data,'route-next.data'));
-
-            case 'close':
-                return redirect()->route('barcodes.index');
-        }
+//        switch (Arr::get($request->input(), 'button-action')) {
+//            case 'select-stock':
+//                // get data for session
+//                $data = $this->getQueueOfActionsSessionData($this->getPrevRoute(), $request->input(), 'stocks.index', [], 'f_stockid');
+//
+//                // push session
+//                session()->push('queue_of_actions', $data);
+//
+//                // redirect
+//                return redirect()->route(Arr::get($data,'route-next.route'), Arr::get($data,'route-next.data'));
+//
+//            case 'select-usad':
+//                // get data for session
+//                $data = $this->getQueueOfActionsSessionData($this->getPrevRoute(), $request->input(), 'stocks.index', [], 'f_usadid');
+//
+//                // push session
+//                session()->push('queue_of_actions', $data);
+//
+//                // redirect
+//                return redirect()->route(Arr::get($data,'route-next.route'), Arr::get($data,'route-next.data'));
+//
+//            case 'close':
+//                return redirect()->route('barcodes.index');
+//        }
 
 //        dd($request->validated());
         Barcode::create($request->validated());
@@ -134,13 +136,24 @@ class BarcodeController extends Controller
 
     private function checkButtonActionWithoutValidation(BarcodeStoreUpdateRequest $request, Barcode $barcode = null, string $message='global.empty')
     {
+        session()->forget('queue_of_actions');
+
         $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
         switch ($actionWithoutValidation[0]) {
             case 'close':
                 return redirect()->route('barcodes.index');
 
             case 'select-stock':
-                dd('route to stock.index', $actionWithoutValidation[1]);
+                // get data for session
+                $data = $this->getQueueOfActionsSessionData($this->getPrevRoute(), $request->input(), 'stocks.index', [], 'f_stockid');
+//                dd($data);
+
+                // push session
+                session()->push('queue_of_actions', $data);
+
+                // redirect
+//                dd('route to stock.index', $actionWithoutValidation[1]);
+                return redirect()->route(Arr::get($data,'route-next.route'), Arr::get($data,'route-next.data'));
 
             case 'select-usad':
                 dd('route to usad.index', $actionWithoutValidation[1]);
