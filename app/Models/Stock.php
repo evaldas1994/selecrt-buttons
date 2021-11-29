@@ -12,7 +12,7 @@ class Stock extends Model
 
     protected $table = 't_stock';
 
-    protected $perPage = 500;
+    protected $perPage = 10;
 
     public static $defaultUnit = 'VNT';
 
