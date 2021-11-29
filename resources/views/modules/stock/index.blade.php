@@ -60,11 +60,13 @@
         </div>
 
         {{--    Forms--}}
-        <x-form-elements.form
-            id="stock_selected_by_form"
-            route="stocks.store"
-            method="POST"
-        />
+        @if(session()->has('queue_of_actions'))
+            <x-form-elements.form
+                id="stock_selected_by_form"
+                route="stocks.store"
+                method="POST"
+            />
+        @endif
     </div>
 @endsection
 
