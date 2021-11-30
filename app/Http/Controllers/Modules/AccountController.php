@@ -85,9 +85,13 @@ class AccountController extends Controller
             return $this->checkButtonActionWithoutValidation($request, $account);
         }
 
-        $account->update($request->validated());
+        try {
+            $account->update($request->validated());
 
-        return redirect()->route('accounts.index')->withSuccess(trans('global.updated_successfully'));
+            return redirect()->route('accounts.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('accounts.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
