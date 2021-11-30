@@ -2,7 +2,7 @@
 
 @section('content')
     <div>
-        <div class="row mb-2 mb-xl-3">
+        <div class="row mb-2">
             <div class="col-auto">
                 <h1>@lang('modules/accountGroup.h1')</h1>
             </div>

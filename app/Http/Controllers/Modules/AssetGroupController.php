@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\AssetGroupStoreUpdateRequest;
-use App\Models\AssetGroup;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Models\AssetGroup;
+use Illuminate\Support\Arr;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\AssetGroupStoreUpdateRequest;
 
 class AssetGroupController extends Controller
 {
@@ -41,6 +41,10 @@ class AssetGroupController extends Controller
      */
     public function store(AssetGroupStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         AssetGroup::create($request->validated());
 
         return redirect()->route('asset-groups.index')->withSuccess(trans('global.created_successfully'));
@@ -66,6 +70,10 @@ class AssetGroupController extends Controller
      */
     public function update(AssetGroupStoreUpdateRequest $request, AssetGroup $assetGroup)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $assetGroup);
+        }
+
         try {
             $assetGroup->update($request->validated());
 
@@ -90,5 +98,22 @@ class AssetGroupController extends Controller
         } catch (\Exception) {
             return redirect()->route('asset-groups.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param AssetGroupStoreUpdateRequest $request
+     * @param AssetGroup|null $assetGroup
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(AssetGroupStoreUpdateRequest $request, AssetGroup $assetGroup = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('asset-groups.index');
+        }
+
+        return redirect()->route('asset-groups.index')->withSuccess(trans($message));
     }
 }
