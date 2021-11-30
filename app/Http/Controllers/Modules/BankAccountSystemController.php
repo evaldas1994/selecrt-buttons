@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules;
 
 use App\Models\Bank;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
 use App\Models\BankAccountSystem;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -43,6 +44,10 @@ class BankAccountSystemController extends Controller
      */
     public function store(BankAccountSystemStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         BankAccountSystem::create($request->validated());
 
         return redirect()->route('bank-account-systems.index')->withSuccess(trans('global.created_successfully'));
@@ -70,9 +75,17 @@ class BankAccountSystemController extends Controller
      */
     public function update(BankAccountSystemStoreUpdateRequest $request, BankAccountSystem $bankAccountSystem)
     {
-        $bankAccountSystem->update($request->validated());
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $bankAccountSystem);
+        }
 
-        return redirect()->route('bank-account-systems.index')->withSuccess(trans('global.updated_successfully'));
+        try {
+            $bankAccountSystem->update($request->validated());
+
+            return redirect()->route('bank-account-systems.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('bank-account-systems.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
@@ -90,5 +103,25 @@ class BankAccountSystemController extends Controller
         } catch (\Exception) {
             return redirect()->route('bank-account-systems.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param BankAccountSystemStoreUpdateRequest $request
+     * @param BankAccountSystem|null $bankAccountSystem
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(BankAccountSystemStoreUpdateRequest $request, BankAccountSystem $bankAccountSystem = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('bank-account-systems.index');
+
+            case 'select-bank':
+                dd('route to bank.index', $actionWithoutValidation[1]);
+        }
+
+        return redirect()->route('bank-account-systems.index')->withSuccess(trans($message));
     }
 }

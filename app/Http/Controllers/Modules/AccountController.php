@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules;
 
 use App\Models\Account;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
 use App\Models\AccountGroup;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -32,7 +33,10 @@ class AccountController extends Controller
     {
         $accountGroups = AccountGroup::select('f_id', 'f_name')->orderBy('f_name')->get();
 
-        return view('modules.account.create', compact('accountGroups'));
+        $types = Account::$types;
+        $purposeTypes = Account::$purposeTypes;
+
+        return view('modules.account.create', compact('accountGroups', 'types', 'purposeTypes'));
     }
 
     /**
@@ -43,6 +47,10 @@ class AccountController extends Controller
      */
     public function store(AccountStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         Account::create($request->validated());
 
         return redirect()->route('accounts.index')->withSuccess(trans('global.created_successfully'));
@@ -58,7 +66,10 @@ class AccountController extends Controller
     {
         $accountGroups = AccountGroup::select('f_id', 'f_name')->orderBy('f_name')->get();
 
-        return view('modules.account.edit', compact('account', 'accountGroups'));
+        $types = Account::$types;
+        $purposeTypes = Account::$purposeTypes;
+
+        return view('modules.account.edit', compact('account', 'accountGroups', 'types', 'purposeTypes'));
     }
 
     /**
@@ -70,9 +81,17 @@ class AccountController extends Controller
      */
     public function update(AccountStoreUpdateRequest $request, Account $account)
     {
-        $account->update($request->validated());
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $account);
+        }
 
-        return redirect()->route('accounts.index')->withSuccess(trans('global.updated_successfully'));
+        try {
+            $account->update($request->validated());
+
+            return redirect()->route('accounts.index')->withSuccess(trans('global.updated_successfully'));
+        } catch (\Exception) {
+            return redirect()->route('accounts.index')->withError(trans('global.update_failed'));
+        }
     }
 
     /**
@@ -90,5 +109,25 @@ class AccountController extends Controller
         } catch (\Exception) {
             return redirect()->route('accounts.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param AccountStoreUpdateRequest $request
+     * @param Account|null $account
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(AccountStoreUpdateRequest $request, Account $account = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('accounts.index');
+
+            case 'select-account-group':
+                dd('route to account group.index', $actionWithoutValidation[1]);
+        }
+
+        return redirect()->route('accounts.index')->withSuccess(trans($message));
     }
 }

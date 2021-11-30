@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Modules;
 
+use App\Http\Requests\AccountStoreUpdateRequest;
+use App\Models\Account;
+use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use App\Models\AccountGroup;
 use App\Http\Controllers\Controller;
@@ -40,6 +43,10 @@ class AccountGroupController extends Controller
      */
     public function store(AccountGroupStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         AccountGroup::create($request->validated());
 
         return redirect()->route('account-groups.index')->withSuccess(trans('global.created_successfully'));;
@@ -65,6 +72,10 @@ class AccountGroupController extends Controller
      */
     public function update(AccountGroupStoreUpdateRequest $request, AccountGroup $accountGroup)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $accountGroup);
+        }
+
         try {
             $accountGroup->update($request->validated());
 
@@ -89,5 +100,22 @@ class AccountGroupController extends Controller
         } catch (\Exception) {
             return redirect()->route('account-groups.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param AccountGroupStoreUpdateRequest $request
+     * @param AccountGroup|null $accountGroup
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(AccountGroupStoreUpdateRequest $request, AccountGroup $accountGroup = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('account-groups.index');
+        }
+
+        return redirect()->route('account-groups.index')->withSuccess(trans($message));
     }
 }
