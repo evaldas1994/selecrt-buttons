@@ -129,7 +129,14 @@ class StockController extends Controller
             session()->forget('queue_of_actions');
 
             //redirect
-            return redirect()->route($prevRoute)->withInput($prevData);
+            if ($prevData['_method'] == 'PUT' || $prevData['_method'] == 'PATCH')
+            {
+                $id = Arr::get($prevData, 'f_id');
+//                dd($prevRoute, $id);
+                return redirect()->route($prevRoute, $id)->withInput($prevData);
+            } else {
+                return redirect()->route($prevRoute)->withInput($prevData);
+            }
         }
         return $this->checkButtonAction($request, $stock);
     }
