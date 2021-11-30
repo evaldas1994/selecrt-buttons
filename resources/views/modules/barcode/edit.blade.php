@@ -29,7 +29,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12 col-xl-3">
+                    <div class="col-12 col-md-6 col-xl-3">
                         <x-form-elements.input-id
                             form="barcode_edit_form"
                             name="f_id"
@@ -57,7 +57,7 @@
                             :defaultValue="$barcode->f_default"
                         />
                     </div>
-                    <div class="col-12 col-xl-3">
+                    <div class="col-12 col-md-6 col-xl-3">
                         <x-form-elements.input
                             form="barcode_edit_form"
                             name="f_ratio"
@@ -77,7 +77,7 @@
                             :defaultValue="$barcode->f_usadid"
                         />
                     </div>
-                    <div class="col-12 col-xl-3">
+                    <div class="col-12 col-md-6 col-xl-3">
                         <x-form-elements.input
                             form="barcode_edit_form"
                             name="f_neto"
@@ -105,7 +105,7 @@
                             :defaultValue="$barcode->f_paper"
                         />
                     </div>
-                    <div class="col-12 col-xl-3">
+                    <div class="col-12 col-md-6 col-xl-3">
                         <x-form-elements.input
                             form="barcode_edit_form"
                             name="f_glass"
@@ -142,7 +142,7 @@
                             :defaultValue="$barcode->f_pap2"
                         />
                     </div>
-                    <div class="col-12 col-xl-3">
+                    <div class="col-12 col-md-6 col-xl-3">
                         <x-form-elements.input
                             form="barcode_edit_form"
                             name="f_system1"

@@ -29,7 +29,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12 col-xl-3">
+                    <div class="col-12 col-md-6 col-xl-3">
                         <x-form-elements.input-id
                             form="barcode_create_form"
                             name="f_id"
@@ -54,7 +54,7 @@
                             labelValue="modules/barcode.f_default"
                         />
                     </div>
-                    <div class="col-12 col-xl-3">
+                    <div class="col-12 col-md-6 col-xl-3">
                         <x-form-elements.input
                             form="barcode_create_form"
                             name="f_ratio"
@@ -73,7 +73,7 @@
                             buttonValue="select-usad|f_usadid"
                         />
                     </div>
-                    <div class="col-12 col-xl-3">
+                    <div class="col-12 col-md-6 col-xl-3">
                         <x-form-elements.input
                             form="barcode_create_form"
                             name="f_neto"
@@ -101,7 +101,7 @@
                             defaultValue="0.0000"
                         />
                     </div>
-                    <div class="col-12 col-xl-3">
+                    <div class="col-12 col-md-6 col-xl-3">
                         <x-form-elements.input
                             form="barcode_create_form"
                             name="f_glass"
@@ -138,7 +138,7 @@
                             defaultValue="0.0000"
                         />
                     </div>
-                    <div class="col-12 col-xl-3">
+                    <div class="col-12 col-md-6 col-xl-3">
                         <x-form-elements.input
                             form="barcode_create_form"
                             name="f_system1"
