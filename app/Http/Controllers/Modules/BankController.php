@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules;
 
 use App\Models\Bank;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\BankStoreUpdateRequest;
@@ -40,6 +41,10 @@ class BankController extends Controller
      */
     public function store(BankStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         Bank::create($request->validated());
 
         return redirect()->route('banks.index')->withSuccess(trans('global.created_successfully'));
@@ -65,6 +70,10 @@ class BankController extends Controller
      */
     public function update(BankStoreUpdateRequest $request, Bank $bank)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $bank);
+        }
+
         try {
             $bank->update($request->validated());
 
@@ -89,5 +98,22 @@ class BankController extends Controller
         } catch (\Exception) {
             return redirect()->route('banks.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param BankStoreUpdateRequest $request
+     * @param Bank|null $bank
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(BankStoreUpdateRequest $request, Bank $bank = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('banks.index');
+        }
+
+        return redirect()->route('banks.index')->withSuccess(trans($message));
     }
 }
