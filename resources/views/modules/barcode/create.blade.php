@@ -43,6 +43,7 @@
                             :items="$stocks"
                             name="f_stockid"
                             labelValue="modules/barcode.f_stockid"
+                            selectClass="not-empty"
                             buttonName="button-action-without-validation"
                             buttonValue="select-stock|f_stockid"
                         />
