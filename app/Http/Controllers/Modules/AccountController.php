@@ -107,7 +107,13 @@ class AccountController extends Controller
         }
     }
 
-    private function checkButtonActionWithoutValidation(AccountStoreUpdateRequest $request, Account $account = null, string $message='global.empty')
+    /**
+     * @param AccountStoreUpdateRequest $request
+     * @param Account|null $account
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(AccountStoreUpdateRequest $request, Account $account = null, string $message='global.empty'): RedirectResponse
     {
         $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
         switch ($actionWithoutValidation[0]) {
