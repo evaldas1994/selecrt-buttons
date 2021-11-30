@@ -14,6 +14,19 @@ class Account extends Model
 
     protected $perPage = 500;
 
+    public static $types = [
+        'D',
+        'S'
+    ];
+
+    public static $purposeTypes = [
+        'B',
+        'D',
+        'P',
+        'A',
+        'S',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

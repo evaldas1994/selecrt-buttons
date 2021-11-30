@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by
- * User: Nerijus Bartoševičius
- * Date: 2021-10-11
- */
 
 return [
     'h1' => 'Sąskaitų planas',
@@ -21,4 +16,12 @@ return [
     'f_modified_userid' => 'Redagavo vartotojas',
     'f_modified_date' => 'Redagavimo data',
 
+    'typeD' => 'D - Detalinė',
+    'typeS' => 'S - Suminė',
+
+    'purpose_typeB' => 'B - Bendra',
+    'purpose_typeD' => 'D - Detalizuota',
+    'purpose_typeP' => 'P - Pinigai',
+    'purpose_typeA' => 'A - Atsiskaitymai',
+    'purpose_typeS' => 'S - Atlyginimai',
 ];
