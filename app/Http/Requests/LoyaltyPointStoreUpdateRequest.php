@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Arr;
 use App\Models\LoyaltyPoints;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -25,6 +26,10 @@ class LoyaltyPointStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
+            return [];
+        }
+
         return [
             'f_partner_groupid' => 'nullable|exists:t_partnergroup,f_id',
             'f_discount_card' => 'string|max:20|nullable',

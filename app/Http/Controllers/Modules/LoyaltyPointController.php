@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules;
 
 use Carbon\Carbon;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
 use App\Models\PartnerGroup;
 use App\Models\LoyaltyPoints;
 use App\Http\Controllers\Controller;
@@ -48,6 +49,10 @@ class LoyaltyPointController extends Controller
      */
     public function store(LoyaltyPointStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         LoyaltyPoints::create($request->validated());
 
         return redirect()->route('loyalty-points.index')->withSuccess(trans('global.created_successfully'));
@@ -79,6 +84,10 @@ class LoyaltyPointController extends Controller
      */
     public function update(LoyaltyPointStoreUpdateRequest $request, LoyaltyPoints $loyaltyPoint)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $loyaltyPoint);
+        }
+
         try {
             $loyaltyPoint->update($request->validated());
 
@@ -103,5 +112,25 @@ class LoyaltyPointController extends Controller
         } catch (\Exception) {
             return redirect()->route('loyalty-points.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param LoyaltyPointStoreUpdateRequest $request
+     * @param LoyaltyPoints|null $loyaltyPoints
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(LoyaltyPointStoreUpdateRequest $request, LoyaltyPoints $loyaltyPoints = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('loyalty-points.index');
+
+            case 'select-partner-group':
+                dd('route to partner group.index', $actionWithoutValidation[1]);
+        }
+
+        return redirect()->route('loyalty-points.index')->withSuccess(trans($message));
     }
 }

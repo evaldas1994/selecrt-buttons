@@ -17,7 +17,7 @@ return [
     'f_modified_userid' => 'Redagavo vartotojas',
     'f_modified_date' => 'Redagavimo data',
 
-    'operatorType' => 'Nenurodytas',
-    'operatorTypein' => 'Lygu',
-    'operatorTypenot_in' => 'Nelygu',
+    'operator_type' => 'Nenurodytas',
+    'operator_typein' => 'Lygu',
+    'operator_typenot_in' => 'Nelygu',
 ];
