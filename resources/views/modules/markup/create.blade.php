@@ -1,179 +1,170 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row mb-2 mb-xl-3">
-        <div class="col-auto">
-            <h1>@lang('modules/markup.h1')</h1>
+    <div>
+        <div class="row mb-2 mb-xl-3">
+            <div class="col-auto">
+                <h1>@lang('modules/markup.h1')</h1>
+            </div>
+
+            <div class="col-auto ms-auto text-end mt-n1">
+                <x-form-elements.button
+                    form="markup_create_form"
+                    class="btn-primary"
+                    text="global.btn_save"
+                />
+
+                <x-form-elements.button
+                    form="markup_create_form"
+                    class="btn-dark"
+                    name="button-action-without-validation"
+                    value="close"
+                    text="global.btn_close"
+                />
+            </div>
         </div>
 
-        <div class="col-auto ms-auto text-end mt-n1">
-            <a href="#" class="btn btn-primary"
-               onclick="event.preventDefault();document.getElementById('markup-form').submit();">@lang('global.btn_save')</a>
-            <a href="{{ route('markups.index') }}" class="btn btn-dark">@lang('global.btn_close')</a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="card">
-            <div class="col-12 col-xl-4">
-                <div class="card-body">
-                    <form id="markup-form" action="{{ route('markups.store') }}" method="POST">
-                        @csrf
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.select-with-button
+                                    form="markup_create_form"
+                                    :items="$stocks"
+                                    name="f_stockid"
+                                    labelValue="modules/markup.f_stockid"
+                                    buttonName="button-action-without-validation"
+                                    buttonValue="select-stock|f_stockid"
+                                />
 
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/markup.f_stockid')</label>
-                            <select class="form-control form-control-sm @error('f_stockid') is-invalid @enderror" name="f_stockid">
-                                <option value selected>---</option>
-                                @foreach($stocks as $stock)
-                                    <option value="{{ $stock->f_id }}" {{ selected('f_stockid', $stock->f_id) }}>{{ $stock->f_id }}</option>
-                                @endforeach
-                            </select>
-                            @error('f_stockid') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                <x-form-elements.select-with-button
+                                    form="markup_create_form"
+                                    :items="$stockGroups"
+                                    name="f_groupid"
+                                    labelValue="modules/markup.f_groupid"
+                                    buttonName="button-action-without-validation"
+                                    buttonValue="select-stock-group|f_groupid"
+                                />
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.select-with-button
+                                    form="markup_create_form"
+                                    :items="$partners"
+                                    name="f_partnerid"
+                                    labelValue="modules/markup.f_partnerid"
+                                    buttonName="button-action-without-validation"
+                                    buttonValue="select-partner|f_partnerid"
+                                />
+
+                                <x-form-elements.select-with-button
+                                    form="markup_create_form"
+                                    :items="$stores"
+                                    name="f_storeid"
+                                    labelValue="modules/markup.f_storeid"
+                                    buttonName="button-action-without-validation"
+                                    buttonValue="select-store|f_storeid"
+                                />
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.input
+                                    form="markup_create_form"
+                                    name="f_markup_perc"
+                                    labelValue="modules/markup.f_markup_perc"
+                                    maxLength="15"
+                                    defaultValue="0.00"
+                                />
+
+                                <x-form-elements.checkbox-boolean
+                                    form="markup_create_form"
+                                    name="f_include_vat"
+                                    labelValue="modules/markup.f_include_vat"
+                                    defaultValue="1"
+                                />
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.select-with-button
+                                    form="markup_create_form"
+                                    :items="$registers1"
+                                    name="f_r1id"
+                                    labelValue="modules/markup.f_r1id"
+                                    buttonName="button-action-without-validation"
+                                    buttonValue="select-register-1|f_r1id"
+                                />
+
+                                <x-form-elements.select-with-button
+                                    form="markup_create_form"
+                                    :items="$registers2"
+                                    name="f_r2id"
+                                    labelValue="modules/markup.f_r2id"
+                                    buttonName="button-action-without-validation"
+                                    buttonValue="select-register-2|f_r2id"
+                                />
+
+                                <x-form-elements.select-with-button
+                                    form="markup_create_form"
+                                    :items="$registers3"
+                                    name="f_r3id"
+                                    labelValue="modules/markup.f_r3id"
+                                    buttonName="button-action-without-validation"
+                                    buttonValue="select-register-3|f_r3id"
+                                />
+
+                                <x-form-elements.select-with-button
+                                    form="markup_create_form"
+                                    :items="$registers4"
+                                    name="f_r4id"
+                                    labelValue="modules/markup.f_r4id"
+                                    buttonName="button-action-without-validation"
+                                    buttonValue="select-register-4|f_r4id"
+                                />
+
+                                <x-form-elements.select-with-button
+                                    form="markup_create_form"
+                                    :items="$registers5"
+                                    name="f_r5id"
+                                    labelValue="modules/markup.f_r5id"
+                                    buttonName="button-action-without-validation"
+                                    buttonValue="select-register-5|f_r5id"
+                                />
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.input
+                                    form="markup_create_form"
+                                    name="f_system1"
+                                    labelValue="modules/markup.f_system1"
+                                    maxLength="100"
+                                    hidden="hidden"
+                                />
+
+                                <x-form-elements.input
+                                    form="markup_create_form"
+                                    name="f_system2"
+                                    labelValue="modules/markup.f_system2"
+                                    maxLength="100"
+                                    hidden="hidden"
+                                />
+
+                                <x-form-elements.input
+                                    form="markup_create_form"
+                                    name="f_system3"
+                                    labelValue="modules/markup.f_system3"
+                                    maxLength="100"
+                                    hidden="hidden"
+                                />
+                            </div>
                         </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/markup.f_partnerid')</label>
-                            <select class="form-control form-control-sm @error('f_partnerid') is-invalid @enderror" name="f_partnerid">
-                                <option value selected>---</option>
-                                @foreach($partners as $partner)
-                                    <option value="{{ $partner->f_id }}" {{ selected('f_partnerid', $partner->f_id) }}>{{ $partner->f_id }}</option>
-                                @endforeach
-                            </select>
-                            @error('f_partnerid') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/markup.f_groupid')</label>
-                            <select class="form-control form-control-sm @error('f_groupid') is-invalid @enderror" name="f_groupid">
-                                <option value selected>---</option>
-                                @foreach($stockGroups as $group)
-                                    <option value="{{ $group->f_id }}" {{ selected('f_groupid', $group->f_id) }}>{{ $group->f_id }}</option>
-                                @endforeach
-                            </select>
-                            @error('f_groupid') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/markup.f_storeid')</label>
-                            <select class="form-control form-control-sm @error('f_storeid') is-invalid @enderror" name="f_storeid">
-                                <option value selected>---</option>
-                                @foreach($stores as $store)
-                                    <option value="{{ $store->f_id }}" {{ selected('f_storeid', $store->f_id) }}>{{ $store->f_id }}</option>
-                                @endforeach
-                            </select>
-                            @error('f_storeid') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/markup.f_r1id')</label>
-                            <select class="form-control form-control-sm @error('f_r1id') is-invalid @enderror" name="f_r1id">
-                                <option value selected>---</option>
-                                @foreach($registers1 as $register)
-                                    <option value="{{ $register->f_id }}" {{ selected('f_r1id', $register->f_id) }}>{{ $register->f_id }}</option>
-                                @endforeach
-                            </select>
-                            @error('f_r1id') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/markup.f_r2id')</label>
-                            <select class="form-control form-control-sm @error('f_r2id') is-invalid @enderror" name="f_r2id">
-                                <option value selected>---</option>
-                                @foreach($registers2 as $register)
-                                    <option value="{{ $register->f_id }}" {{ selected('f_r2id', $register->f_id) }}>{{ $register->f_id }}</option>
-                                @endforeach
-                            </select>
-                            @error('f_r2id') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/markup.f_r3id')</label>
-                            <select class="form-control form-control-sm @error('f_r3id') is-invalid @enderror" name="f_r3id">
-                                <option value selected>---</option>
-                                @foreach($registers3 as $register)
-                                    <option value="{{ $register->f_id }}" {{ selected('f_r3id', $register->f_id) }}>{{ $register->f_id }}</option>
-                                @endforeach
-                            </select>
-                            @error('f_r3id') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/markup.f_r4id')</label>
-                            <select class="form-control form-control-sm @error('f_r4id') is-invalid @enderror" name="f_r4id">
-                                <option value selected>---</option>
-                                @foreach($registers4 as $register)
-                                    <option value="{{ $register->f_id }}" {{ selected('f_r4id', $register->f_id) }}>{{ $register->f_id }}</option>
-                                @endforeach
-                            </select>
-                            @error('f_r4id') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/markup.f_r5id')</label>
-                            <select class="form-control form-control-sm @error('f_r5id') is-invalid @enderror" name="f_r5id">
-                                <option value selected>---</option>
-                                @foreach($registers5 as $register)
-                                    <option value="{{ $register->f_id }}" {{ selected('f_r5id', $register->f_id) }}>{{ $register->f_id }}</option>
-                                @endforeach
-                            </select>
-                            @error('f_r5id') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/markup.f_markup_perc')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_markup_perc') is-invalid @enderror"
-                                   name="f_markup_perc"
-                                   placeholder="@lang('modules/markup.f_markup_perc')"
-                                   maxlength="100"
-                                   value="{{ old('f_markup_perc', '0.00')}}">
-                            @error('f_markup_perc') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-check m-0">
-                                <span class="form-check-label">@lang('modules/markup.f_include_vat')</span>
-                                <input type="hidden" name="f_include_vat" value="0">
-                                <input type="checkbox" name="f_include_vat" class="form-check-input @error('f_include_vat') is-invalid @enderror" value="{{ old('f_include_vat', 1) }}"  {{ old('f_include_vat') == 1 ? 'checked' : '' }}>
-                            </label>
-                            @error('f_include_vat') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2" hidden>
-                            <label class="form-label">@lang('modules/markup.f_system1')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_system1') is-invalid @enderror"
-                                   name="f_system1"
-                                   placeholder="@lang('modules/markup.f_system1')"
-                                   maxlength="100"
-                                   value="{{ old('f_system1') }}">
-                            @error('f_system1') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2" hidden>
-                            <label class="form-label">@lang('modules/markup.f_system2')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_system2') is-invalid @enderror"
-                                   name="f_system2"
-                                   placeholder="@lang('modules/markup.f_system2')"
-                                   maxlength="100"
-                                   value="{{ old('f_system2') }}">
-                            @error('f_system2') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2" hidden>
-                            <label class="form-label">@lang('modules/markup.f_system3')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_system3') is-invalid @enderror"
-                                   name="f_system3"
-                                   placeholder="@lang('modules/markup.f_system3')"
-                                   maxlength="100"
-                                   value="{{ old('f_system3') }}">
-                            @error('f_system3') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
+        
+        {{--    Forms--}}
+        <x-form-elements.form
+            id="markup_create_form"
+            route="markups.store"
+            method="POST"
+        />
     </div>
 @endsection

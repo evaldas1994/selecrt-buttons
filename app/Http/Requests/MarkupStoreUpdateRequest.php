@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Rules\FloatRule;
+use Illuminate\Support\Arr;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MarkupStoreUpdateRequest extends FormRequest
@@ -24,6 +25,10 @@ class MarkupStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
+            return [];
+        }
+
         return [
             'f_partnerid' => 'nullable|exists:t_partner,f_id',
             'f_groupid' => 'nullable|exists:t_stockgroup,f_id',
