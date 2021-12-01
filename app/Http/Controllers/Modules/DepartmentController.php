@@ -6,6 +6,7 @@ use App\Models\Account;
 use App\Models\Employee;
 use Illuminate\View\View;
 use App\Models\Department;
+use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\DepartmentStoreUpdateRequest;
@@ -46,6 +47,10 @@ class DepartmentController extends Controller
      */
     public function store(DepartmentStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         Department::create($request->validated());
 
         return redirect()->route('departments.index')->withSuccess(trans('global.created_successfully'));
@@ -75,6 +80,10 @@ class DepartmentController extends Controller
      */
     public function update(DepartmentStoreUpdateRequest $request, Department $department)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $department);
+        }
+
         try {
             $department->update($request->validated());
 
@@ -99,5 +108,34 @@ class DepartmentController extends Controller
         } catch (\Exception) {
             return redirect()->route('departments.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param DepartmentStoreUpdateRequest $request
+     * @param Department|null $department
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(DepartmentStoreUpdateRequest $request, Department $department = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('departments.index');
+
+            case 'select-account-1':
+                dd('route to account 1.index', $actionWithoutValidation[1]);
+
+            case 'select-account-2':
+                dd('route to account 2.index', $actionWithoutValidation[1]);
+
+            case 'select-employee':
+                dd('route to employee.index', $actionWithoutValidation[1]);
+
+            case 'select-department':
+                dd('route to department.index', $actionWithoutValidation[1]);
+        }
+
+        return redirect()->route('departments.index')->withSuccess(trans($message));
     }
 }
