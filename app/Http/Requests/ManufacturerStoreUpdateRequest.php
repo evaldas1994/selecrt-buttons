@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Arr;
 use App\Rules\IdPatternRule;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -25,6 +26,10 @@ class ManufacturerStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
+            return [];
+        }
+
         $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_manufacturer')->ignore($this->manufacturer) : 'unique:t_manufacturer';
         return [
             'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],
