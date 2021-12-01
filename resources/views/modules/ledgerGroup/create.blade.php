@@ -1,95 +1,97 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row mb-2 mb-xl-3">
-        <div class="col-auto">
-            <h1>@lang('modules/ledgerGroup.h1')</h1>
+    <div>
+        <div class="row mb-2">
+            <div class="col-auto">
+                <h1>@lang('modules/ledgerGroup.h1')</h1>
+            </div>
+
+            <div class="col-auto ms-auto text-end mt-n1">
+                <x-form-elements.button
+                    form="ledger_group_create_form"
+                    class="btn-primary"
+                    text="global.btn_save"
+                />
+
+                <x-form-elements.button
+                    form="ledger_group_create_form"
+                    class="btn-dark"
+                    name="button-action-without-validation"
+                    value="close"
+                    text="global.btn_close"
+                />
+            </div>
         </div>
 
-        <div class="col-auto ms-auto text-end mt-n1">
-            <a href="#" class="btn btn-primary"
-               onclick="event.preventDefault();document.getElementById('ledger-group-form').submit();">@lang('global.btn_save')</a>
-            <a href="{{ route('ledger-groups.index') }}" class="btn btn-dark">@lang('global.btn_close')</a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="card">
-            <div class="col-12 col-xl-4">
-                <div class="card-body">
-                    <form id="ledger-group-form" action="{{ route('ledger-groups.store') }}" method="POST">
-                        @csrf
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.input-id
+                                    form="ledger_group_create_form"
+                                    name="f_id"
+                                    labelValue="modules/ledgerGroup.f_id"
+                                    maxLength="20"
+                                    inputClass="not-empty"
+                                />
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.input
+                                    form="ledger_group_create_form"
+                                    name="f_name"
+                                    labelValue="modules/ledgerGroup.f_name"
+                                    maxLength="100"
+                                />
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.select-with-button
+                                    form="ledger_group_create_form"
+                                    :items="$accounts"
+                                    name="f_accountid"
+                                    labelValue="modules/ledgerGroup.f_accountid"
+                                    buttonName="button-action-without-validation"
+                                    buttonValue="select-account|f_accountid"
+                                />
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.input
+                                    form="ledger_group_create_form"
+                                    name="f_system1"
+                                    labelValue="modules/ledgerGroup.f_system1"
+                                    maxLength="100"
+                                    hidden="hidden"
+                                />
 
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/ledgerGroup.f_id')</label>
-                            <input type="text"
-                                   class="not-empty form-control form-control-sm @error('f_id') is-invalid @enderror"
-                                   name="f_id"
-                                   id-pattern
-                                   placeholder="@lang('modules/ledgerGroup.f_id')"
-                                   required
-                                   maxlength="40"
-                                   value="{{ old('f_id')}}">
-                            @error('f_id') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                <x-form-elements.input
+                                    form="ledger_group_create_form"
+                                    name="f_system2"
+                                    labelValue="modules/ledgerGroup.f_system2"
+                                    maxLength="100"
+                                    hidden="hidden"
+                                />
+
+                                <x-form-elements.input
+                                    form="ledger_group_create_form"
+                                    name="f_system3"
+                                    labelValue="modules/ledgerGroup.f_system3"
+                                    maxLength="100"
+                                    hidden="hidden"
+                                />
+                            </div>
                         </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/ledgerGroup.f_name')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_name') is-invalid @enderror"
-                                   name="f_name"
-                                   placeholder="@lang('modules/ledgerGroup.f_name')"
-                                   maxlength="100"
-                                   value="{{ old('f_name')}}">
-                            @error('f_name') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/ledgerGroup.f_accountid')</label>
-                            <select class="form-control form-control-sm @error('f_accountid') is-invalid @enderror" name="f_accountid">
-                                <option value selected>---</option>
-                                @foreach($accounts as $account)
-                                    <option value="{{ $account->f_id }}" {{ selected('f_accountid', $account->f_id) }}>{{ $account->f_name }}</option>
-                                @endforeach
-                            </select>
-                            @error('f_accountid') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2" hidden>
-                            <label class="form-label">@lang('modules/ledgerGroup.f_system1')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_system1') is-invalid @enderror"
-                                   name="f_system1"
-                                   placeholder="@lang('modules/ledgerGroup.f_system1')"
-                                   maxlength="100"
-                                   value="{{ old('f_system1') }}">
-                            @error('f_system1') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2" hidden>
-                            <label class="form-label">@lang('modules/ledgerGroup.f_system2')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_system2') is-invalid @enderror"
-                                   name="f_system2"
-                                   placeholder="@lang('modules/ledgerGroup.f_system2')"
-                                   maxlength="100"
-                                   value="{{ old('f_system2') }}">
-                            @error('f_system2') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2" hidden>
-                            <label class="form-label">@lang('modules/ledgerGroup.f_system3')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_system3') is-invalid @enderror"
-                                   name="f_system3"
-                                   placeholder="@lang('modules/ledgerGroup.f_system3')"
-                                   maxlength="100"
-                                   value="{{ old('f_system3') }}">
-                            @error('f_system3') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
+
+        {{--    Forms--}}
+        <x-form-elements.form
+            id="ledger_group_create_form"
+            route="ledger-groups.store"
+            method="POST"
+        />
     </div>
 @endsection
