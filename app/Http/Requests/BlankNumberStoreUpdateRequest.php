@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\BlankNumber;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,6 +26,10 @@ class BlankNumberStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
+            return [];
+        }
+
         return [
             'f_counterid' => 'string|max:20|exists:t_counter,f_id',
             'f_op' => ['required', Rule::in(BlankNumber::$opTypes)],
