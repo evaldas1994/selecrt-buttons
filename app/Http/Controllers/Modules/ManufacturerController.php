@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Modules;
 
+use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use App\Models\Manufacturer;
 use App\Http\Controllers\Controller;
@@ -40,6 +41,10 @@ class ManufacturerController extends Controller
      */
     public function store(ManufacturerStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         Manufacturer::create($request->validated());
 
         return redirect()->route('manufacturers.index')->withSuccess(trans('global.created_successfully'));
@@ -65,6 +70,10 @@ class ManufacturerController extends Controller
      */
     public function update(ManufacturerStoreUpdateRequest $request, Manufacturer $manufacturer)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $manufacturer);
+        }
+
         try {
             $manufacturer->update($request->validated());
 
@@ -89,5 +98,22 @@ class ManufacturerController extends Controller
         } catch (\Exception) {
             return redirect()->route('manufacturers.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param ManufacturerStoreUpdateRequest $request
+     * @param Manufacturer|null $manufacturer
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(ManufacturerStoreUpdateRequest $request, Manufacturer $manufacturer = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('manufacturers.index');
+        }
+
+        return redirect()->route('manufacturers.index')->withSuccess(trans($message));
     }
 }
