@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Http\Requests\AccountStoreUpdateRequest;
-use App\Models\Account;
 use App\Models\Stock;
 use App\Models\Store;
 use App\Models\Markup;
 use App\Models\Partner;
-use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use App\Models\Register1;
 use App\Models\Register2;
@@ -16,6 +13,7 @@ use App\Models\Register3;
 use App\Models\Register4;
 use App\Models\Register5;
 use App\Models\StockGroup;
+use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\MarkupStoreUpdateRequest;
