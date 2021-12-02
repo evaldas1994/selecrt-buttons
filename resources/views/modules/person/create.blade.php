@@ -60,6 +60,7 @@
                                     name="f_coef"
                                     labelValue="modules/person.f_coef"
                                     maxLength="15"
+                                    defaultValue="0.0000"
                                 />
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">
