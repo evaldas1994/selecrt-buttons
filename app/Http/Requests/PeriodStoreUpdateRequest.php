@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Arr;
 use App\Rules\IdPatternRule;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class PeriodStoreUpdateRequest extends FormRequest
 {
@@ -25,6 +26,10 @@ class PeriodStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
+            return [];
+        }
+
         $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_period')->ignore($this->period) : 'unique:t_period';
         return [
             'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],
