@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Models\Register6;
+use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -40,6 +41,10 @@ class Register6Controller extends Controller
      */
     public function store(Register6StoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         Register6::create($request->validated());
 
         return redirect()->route('registers6.index')->withSuccess(trans('global.created_successfully'));
@@ -65,6 +70,10 @@ class Register6Controller extends Controller
      */
     public function update(Register6StoreUpdateRequest $request, Register6 $registers6)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $registers6);
+        }
+
         try {
             $registers6->update($request->validated());
 
@@ -89,5 +98,22 @@ class Register6Controller extends Controller
         } catch (\Exception) {
             return redirect()->route('registers6.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param Register6StoreUpdateRequest $request
+     * @param Register6|null $registers6
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(Register6StoreUpdateRequest $request, Register6 $registers6 = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('registers6.index');
+        }
+
+        return redirect()->route('registers6.index')->withSuccess(trans($message));
     }
 }

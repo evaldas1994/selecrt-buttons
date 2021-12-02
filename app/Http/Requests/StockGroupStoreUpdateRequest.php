@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Arr;
 use App\Rules\IdPatternRule;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -25,6 +26,10 @@ class StockGroupStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
+            return [];
+        }
+
         $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_stockgroup')->ignore($this->stock_group) : 'unique:t_stockgroup';
         return [
             'f_id' => [$unique, 'required', 'max:40', new IdPatternRule],

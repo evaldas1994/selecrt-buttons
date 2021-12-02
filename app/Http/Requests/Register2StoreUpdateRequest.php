@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Arr;
 use App\Rules\IdPatternRule;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
 class Register2StoreUpdateRequest extends FormRequest
 {
@@ -25,6 +26,10 @@ class Register2StoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
+            return [];
+        }
+
         $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_r2')->ignore($this->registers2) : 'unique:t_r2';
         return [
             'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],

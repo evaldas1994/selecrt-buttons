@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Rules\IdPatternRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 
 class Register6StoreUpdateRequest extends FormRequest
@@ -25,6 +26,10 @@ class Register6StoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
+            return [];
+        }
+
         $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_r6')->ignore($this->registers6) : 'unique:t_r6';
         return [
             'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],

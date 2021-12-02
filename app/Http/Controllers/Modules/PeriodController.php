@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules;
 
 use App\Models\Period;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\PeriodStoreUpdateRequest;
@@ -40,6 +41,10 @@ class PeriodController extends Controller
      */
     public function store(PeriodStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         Period::create($request->validated());
 
         return redirect()->route('periods.index')->withSuccess(trans('global.created_successfully'));
@@ -65,6 +70,10 @@ class PeriodController extends Controller
      */
     public function update(PeriodStoreUpdateRequest $request, Period $period)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $period);
+        }
+
         try {
             $period->update($request->validated());
 
@@ -89,5 +98,22 @@ class PeriodController extends Controller
         } catch (\Exception) {
             return redirect()->route('periods.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param PeriodStoreUpdateRequest $request
+     * @param Period|null $period
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(PeriodStoreUpdateRequest $request, Period $period = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('periods.index');
+        }
+
+        return redirect()->route('periods.index')->withSuccess(trans($message));
     }
 }

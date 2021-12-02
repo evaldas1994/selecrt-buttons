@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules;
 
 use App\Models\Project;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ProjectStoreUpdateRequest;
@@ -40,6 +41,10 @@ class ProjectController extends Controller
      */
     public function store(ProjectStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         Project::create($request->validated());
 
         return redirect()->route('projects.index')->withSuccess(trans('global.created_successfully'));
@@ -65,6 +70,10 @@ class ProjectController extends Controller
      */
     public function update(ProjectStoreUpdateRequest $request, Project $project)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $project);
+        }
+
         try {
             $project->update($request->validated());
 
@@ -89,5 +98,22 @@ class ProjectController extends Controller
         } catch (\Exception) {
             return redirect()->route('projects.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param ProjectStoreUpdateRequest $request
+     * @param Project|null $project
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(ProjectStoreUpdateRequest $request, Project $project = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('projects.index');
+        }
+
+        return redirect()->route('projects.index')->withSuccess(trans($message));
     }
 }
