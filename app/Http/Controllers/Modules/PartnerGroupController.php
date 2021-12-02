@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Modules;
 
+use App\Http\Requests\AccountStoreUpdateRequest;
+use App\Models\Account;
+use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use App\Models\PartnerGroup;
 use App\Http\Controllers\Controller;
@@ -13,7 +16,7 @@ class PartnerGroupController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function index()
     {
@@ -40,6 +43,10 @@ class PartnerGroupController extends Controller
      */
     public function store(PartnerGroupStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         PartnerGroup::create($request->validated());
 
         return redirect()->route('partner-groups.index')->withSuccess(trans('global.created_successfully'));
@@ -65,6 +72,10 @@ class PartnerGroupController extends Controller
      */
     public function update(PartnerGroupStoreUpdateRequest $request, PartnerGroup $partnerGroup)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $partnerGroup);
+        }
+
         try {
             $partnerGroup->update($request->validated());
 
@@ -89,5 +100,22 @@ class PartnerGroupController extends Controller
         } catch (\Exception) {
             return redirect()->route('partner-groups.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param PartnerGroupStoreUpdateRequest $request
+     * @param PartnerGroup|null $partnerGroup
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(PartnerGroupStoreUpdateRequest $request, PartnerGroup $partnerGroup = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('partner-groups.index');
+        }
+
+        return redirect()->route('partner-groups.index')->withSuccess(trans($message));
     }
 }
