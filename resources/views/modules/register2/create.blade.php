@@ -37,6 +37,13 @@
                                     maxLength="20"
                                     inputClass="not-empty"
                                 />
+
+                                <x-form-elements.input
+                                    form="register2_create_form"
+                                    name="f_coefficient"
+                                    labelValue="modules/register2.f_coefficient"
+                                    maxLength="20"
+                                />
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input
@@ -60,14 +67,6 @@
                                     name="f_name3"
                                     labelValue="modules/register2.f_name3"
                                     maxLength="100"
-                                />
-                            </div>
-                            <div class="col-12 col-md-6 col-xl-3">
-                                <x-form-elements.input
-                                    form="register2_create_form"
-                                    name="f_coefficient"
-                                    labelValue="modules/register2.f_coefficient"
-                                    maxLength="20"
                                 />
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">

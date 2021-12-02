@@ -71,7 +71,7 @@ class Register2Controller extends Controller
     public function update(Register2StoreUpdateRequest $request, Register2 $registers2)
     {
         if (Arr::exists($request->input(), 'button-action-without-validation')) {
-            return $this->checkButtonActionWithoutValidation($request, $registers1);
+            return $this->checkButtonActionWithoutValidation($request, $registers2);
         }
 
         try {

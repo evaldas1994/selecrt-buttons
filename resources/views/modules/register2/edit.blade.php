@@ -38,6 +38,14 @@
                                     inputClass="not-empty"
                                     :defaultValue="$registers2->f_id"
                                 />
+
+                                <x-form-elements.input
+                                    form="register2_edit_form"
+                                    name="f_coefficient"
+                                    labelValue="modules/register2.f_coefficient"
+                                    maxLength="20"
+                                    :defaultValue="$registers2->f_coefficient"
+                                />
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input
@@ -64,15 +72,6 @@
                                     labelValue="modules/register2.f_name3"
                                     maxLength="100"
                                     :defaultValue="$registers2->f_name3"
-                                />
-                            </div>
-                            <div class="col-12 col-md-6 col-xl-3">
-                                <x-form-elements.input
-                                    form="register2_edit_form"
-                                    name="f_coefficient"
-                                    labelValue="modules/register2.f_coefficient"
-                                    maxLength="20"
-                                    :defaultValue="$registers2->f_coefficient"
                                 />
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">
