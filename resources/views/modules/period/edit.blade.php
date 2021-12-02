@@ -2,7 +2,7 @@
 
 @section('content')
     <div>
-        <div class="row mb-2 mb-xl-3">
+        <div class="row mb-2">
             <div class="col-auto">
                 <h1>@lang('modules/period.h1')</h1>
             </div>
@@ -38,7 +38,8 @@
                                     inputClass="not-empty"
                                     :defaultValue="$period->f_id"
                                 />
-
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input
                                     form="period_edit_form"
                                     name="f_name"
@@ -46,7 +47,8 @@
                                     maxLength="100"
                                     :defaultValue="$period->f_name"
                                 />
-
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input-date
                                     form="period_edit_form"
                                     name="f_begin"
@@ -60,7 +62,8 @@
                                     labelValue="modules/period.f_end"
                                     :defaultValue="$period->f_end"
                                 />
-
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.checkbox-boolean
                                     form="period_edit_form"
                                     name="f_closed"
@@ -106,7 +109,7 @@
         <x-form-elements.form
             id="period_edit_form"
             route="periods.update"
-            $data="$period"
+            :data="$period"
             method="PUT"
         />
     </div>

@@ -36,7 +36,7 @@
                                     labelValue="modules/partnerGroup.f_id"
                                     maxLength="20"
                                     inputClass="not-empty"
-                                    :defaultValue="$partnerGroup->"
+                                    :defaultValue="$partnerGroup->f_id"
                                 />
                             </div>
                             <div class="col-12 col-md-6 col-xl-3">
