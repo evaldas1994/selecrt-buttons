@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules;
 
 use App\Models\Message;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
 use App\Models\MessageGroup;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -43,6 +44,10 @@ class MessageController extends Controller
      */
     public function store(MessageStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         Message::create($request->validated());
 
         return redirect()->route('messages.index')->withSuccess(trans('global.created_successfully'));
@@ -70,6 +75,10 @@ class MessageController extends Controller
      */
     public function update(MessageStoreUpdateRequest $request, Message $message)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $message);
+        }
+
         try {
             $message->update($request->validated());
 
@@ -94,5 +103,25 @@ class MessageController extends Controller
         } catch (\Exception) {
             return redirect()->route('messages.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param MessageStoreUpdateRequest $request
+     * @param Message|null $message
+     * @param string $routeMessage
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(MessageStoreUpdateRequest $request, Message $message = null, string $routeMessage='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('messages.index');
+
+            case 'select-message-group':
+                dd('route to message group.index', $actionWithoutValidation[1]);
+        }
+
+        return redirect()->route('messages.index')->withSuccess(trans($routeMessage));
     }
 }

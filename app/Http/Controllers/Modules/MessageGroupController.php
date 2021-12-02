@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Modules;
 
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
 use App\Models\MessageGroup;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -40,6 +41,10 @@ class MessageGroupController extends Controller
      */
     public function store(MessageGroupStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         MessageGroup::create($request->validated());
 
         return redirect()->route('message-groups.index')->withSuccess(trans('global.created_successfully'));
@@ -65,6 +70,10 @@ class MessageGroupController extends Controller
      */
     public function update(MessageGroupStoreUpdateRequest $request, MessageGroup $messageGroup)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $messageGroup);
+        }
+
         try {
             $messageGroup->update($request->validated());
 
@@ -89,5 +98,22 @@ class MessageGroupController extends Controller
         } catch (\Exception) {
             return redirect()->route('message-groups.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param MessageGroupStoreUpdateRequest $request
+     * @param MessageGroup|null $messageGroup
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(MessageGroupStoreUpdateRequest $request, MessageGroup $messageGroup = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('message-groups.index');
+        }
+
+        return redirect()->route('message-groups.index')->withSuccess(trans($message));
     }
 }

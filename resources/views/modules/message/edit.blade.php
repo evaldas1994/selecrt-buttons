@@ -1,139 +1,136 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row mb-2 mb-xl-3">
-        <div class="col-auto">
-            <h1>@lang('modules/message.h1')</h1>
+    <div>
+        <div class="row mb-2 mb-xl-3">
+            <div class="col-auto">
+                <h1>@lang('modules/message.h1')</h1>
+            </div>
+
+            <div class="col-auto ms-auto text-end mt-n1">
+                <x-form-elements.button
+                    form="message_edit_form"
+                    class="btn-primary"
+                    text="global.btn_save"
+                />
+
+                <x-form-elements.button
+                    form="message_edit_form"
+                    class="btn-dark"
+                    name="button-action-without-validation"
+                    value="close"
+                    text="global.btn_close"
+                />
+            </div>
         </div>
 
-        <div class="col-auto ms-auto text-end mt-n1">
-            <a href="#" class="btn btn-primary"
-               onclick="event.preventDefault();document.getElementById('message-form').submit();">@lang('global.btn_save')</a>
-            <a href="{{ route('messages.index') }}" class="btn btn-dark">@lang('global.btn_close')</a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="card">
-            <div class="col-12 col-xl-4">
-                <div class="card-body">
-                    <form id="message-form" action="{{ route('messages.update', $message) }}" method="POST">
-                        @csrf
-                        @method('PUT')
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.input-id
+                                    form="message_edit_form"
+                                    name="f_id"
+                                    labelValue="modules/message.f_id"
+                                    maxLength="20"
+                                    inputClass="not-empty"
+                                    :defaultValue="$message->f_id"
+                                />
 
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/message.f_id')</label>
-                            <input type="text"
-                                   class="not-empty form-control form-control-sm @error('f_id') is-invalid @enderror"
-                                   name="f_id"
-                                   id-pattern
-                                   placeholder="@lang('modules/message.f_id')"
-                                   required
-                                   maxlength="20"
-                                   value="{{ old('f_id', $message->f_id)}}">
-                            @error('f_id') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                <x-form-elements.input
+                                    form="message_edit_form"
+                                    name="f_name"
+                                    labelValue="modules/message.f_name"
+                                    maxLength="10"
+                                    :defaultValue="$message->f_name"
+                                />
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.select-with-button
+                                    form="message_edit_form"
+                                    :items="$messageGroups"
+                                    name="f_groupid"
+                                    labelValue="modules/message.f_groupid"
+                                    buttonName="button-action-without-validation"
+                                    buttonValue="select-message-group|f_groupid"
+                                    :defaultValue="$message->f_groupid"
+                                />
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.input
+                                    form="message_edit_form"
+                                    name="f_days"
+                                    labelValue="modules/message.f_days"
+                                    maxLength="15"
+                                    :defaultValue="$message->f_days"
+                                />
+
+                                <x-form-elements.input
+                                    form="message_edit_form"
+                                    name="f_min_sum"
+                                    labelValue="modules/message.f_min_sum"
+                                    maxLength="15"
+                                    :defaultValue="$message->f_min_sum"
+                                />
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.input
+                                    form="message_edit_form"
+                                    name="f_subject"
+                                    labelValue="modules/message.f_subject"
+                                    maxLength="15"
+                                    :defaultValue="$message->f_subject"
+                                />
+
+                                <x-form-elements.textarea
+                                    form="message_edit_form"
+                                    name="f_message"
+                                    labelValue="modules/message.f_message"
+                                    :defaultValue="$message->f_message"
+                                />
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.input
+                                    form="message_edit_form"
+                                    name="f_system1"
+                                    labelValue="modules/message.f_system1"
+                                    maxLength="100"
+                                    hidden="hidden"
+                                    :defaultValue="$message->f_system1"
+                                />
+
+                                <x-form-elements.input
+                                    form="message_edit_form"
+                                    name="f_system2"
+                                    labelValue="modules/message.f_system2"
+                                    maxLength="100"
+                                    hidden="hidden"
+                                    :defaultValue="$message->f_system2"
+                                />
+
+                                <x-form-elements.input
+                                    form="message_edit_form"
+                                    name="f_system3"
+                                    labelValue="modules/message.f_system3"
+                                    maxLength="100"
+                                    hidden="hidden"
+                                    :defaultValue="$message->f_system3"
+                                />
+                            </div>
                         </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/message.f_name')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_name') is-invalid @enderror"
-                                   name="f_name"
-                                   placeholder="@lang('modules/message.f_name')"
-                                   maxlength="100"
-                                   value="{{ old('f_name', $message->f_name)}}">
-                            @error('f_name') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/message.f_groupid')</label>
-                            <select class="not-empty form-control form-control-sm @error('f_groupid') is-invalid @enderror" name="f_groupid" value="{{ old('f_groupid') }}">
-                                <option value selected>---</option>
-                                @foreach($messageGroups as $group)
-                                    <option value="{{ $group->f_id }}" {{ selected('f_groupid', $group->f_id, $message->f_groupid) }}>{{ $group->f_id }}</option>
-                                @endforeach
-                            </select>
-                            @error('f_groupid') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/message.f_days')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_days') is-invalid @enderror"
-                                   name="f_days"
-                                   placeholder="@lang('modules/message.f_days')"
-                                   maxlength="15"
-                                   value="{{ old('f_days', $message->f_days)}}">
-                            @error('f_days') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/message.f_min_sum')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_min_sum') is-invalid @enderror"
-                                   name="f_min_sum"
-                                   placeholder="@lang('modules/message.f_min_sum')"
-                                   maxlength="15"
-                                   value="{{ old('f_min_sum', $message->f_min_sum)}}">
-                            @error('f_min_sum') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/message.f_subject')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_subject') is-invalid @enderror"
-                                   name="f_subject"
-                                   placeholder="@lang('modules/message.f_subject')"
-                                   maxlength="15"
-                                   value="{{ old('f_subject', $message->f_subject)}}">
-                            @error('f_subject') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/message.f_message')</label>
-                            <textarea
-                                class="form-control form-control-sm @error('f_message') is-invalid @enderror"
-                                name="f_message"
-                                rows="4"
-                                cols="50">{{ old('f_message', $message->f_message)}}</textarea>
-                            @error('f_message') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2" hidden>
-                            <label class="form-label">@lang('modules/message.f_system1')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_system1') is-invalid @enderror"
-                                   name="f_system1"
-                                   placeholder="@lang('modules/message.f_system1')"
-                                   maxlength="100"
-                                   value="{{ old('f_system1', $message->system1) }}">
-                            @error('f_system1') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2" hidden>
-                            <label class="form-label">@lang('modules/message.f_system2')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_system2') is-invalid @enderror"
-                                   name="f_system2"
-                                   placeholder="@lang('modules/message.f_system2')"
-                                   maxlength="100"
-                                   value="{{ old('f_system2', $message->system2) }}">
-                            @error('f_system2') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2" hidden>
-                            <label class="form-label">@lang('modules/message.f_system3')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_system3') is-invalid @enderror"
-                                   name="f_system3"
-                                   placeholder="@lang('modules/message.f_system3')"
-                                   maxlength="100"
-                                   value="{{ old('f_system3', $message->system3) }}">
-                            @error('f_system3') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
+
+        {{--    Forms--}}
+        <x-form-elements.form
+            id="message_edit_form"
+            route="messages.update"
+            :data="$message"
+            method="PUT"
+        />
     </div>
 @endsection
