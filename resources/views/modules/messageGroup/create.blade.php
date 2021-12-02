@@ -37,14 +37,16 @@
                                     maxLength="20"
                                     inputClass="not-empty"
                                 />
-
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input
                                     form="message_group_create_form"
                                     name="f_name"
                                     labelValue="modules/messageGroup.f_name"
                                     maxLength="100"
                                 />
-
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input
                                     form="message_group_create_form"
                                     name="f_name2"

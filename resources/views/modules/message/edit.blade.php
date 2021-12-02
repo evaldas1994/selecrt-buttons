@@ -46,7 +46,8 @@
                                     maxLength="10"
                                     :defaultValue="$message->f_name"
                                 />
-
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.select-with-button
                                     form="message_edit_form"
                                     :items="$messageGroups"
@@ -56,7 +57,8 @@
                                     buttonValue="select-message-group|f_groupid"
                                     :defaultValue="$message->f_groupid"
                                 />
-
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input
                                     form="message_edit_form"
                                     name="f_days"
@@ -72,7 +74,8 @@
                                     maxLength="15"
                                     :defaultValue="$message->f_min_sum"
                                 />
-
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input
                                     form="message_edit_form"
                                     name="f_subject"

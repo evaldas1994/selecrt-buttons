@@ -44,16 +44,19 @@
                                     labelValue="modules/message.f_name"
                                     maxLength="10"
                                 />
-
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.select-with-button
                                     form="message_create_form"
                                     :items="$messageGroups"
                                     name="f_groupid"
                                     labelValue="modules/message.f_groupid"
+                                    selectClass="not-empty"
                                     buttonName="button-action-without-validation"
                                     buttonValue="select-message-group|f_groupid"
                                 />
-
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input
                                     form="message_create_form"
                                     name="f_days"
@@ -69,7 +72,8 @@
                                     maxLength="15"
                                     defaultValue="0.00"
                                 />
-
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input
                                     form="message_create_form"
                                     name="f_subject"

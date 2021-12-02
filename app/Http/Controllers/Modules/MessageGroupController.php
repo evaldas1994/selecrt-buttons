@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Modules;
 
-use Illuminate\Support\Arr;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
 use App\Models\MessageGroup;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;

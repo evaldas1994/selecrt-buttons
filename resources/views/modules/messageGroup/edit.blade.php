@@ -38,7 +38,8 @@
                                     inputClass="not-empty"
                                     :defaultValue="$messageGroup->f_id"
                                 />
-
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input
                                     form="message_group_edit_form"
                                     name="f_name"
@@ -46,7 +47,8 @@
                                     maxLength="100"
                                     :defaultValue="$messageGroup->f_name"
                                 />
-
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
                                 <x-form-elements.input
                                     form="message_group_edit_form"
                                     name="f_name2"
