@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Modules;
 
+use App\Http\Requests\AccountStoreUpdateRequest;
+use App\Models\Account;
 use App\Models\Person;
+use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -40,6 +43,10 @@ class PersonController extends Controller
      */
     public function store(PersonStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         Person::create($request->validated());
 
         return redirect()->route('persons.index')->withSuccess(trans('global.created_successfully'));
@@ -65,6 +72,10 @@ class PersonController extends Controller
      */
     public function update(PersonStoreUpdateRequest $request, Person $person)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $person);
+        }
+
         try {
             $person->update($request->validated());
 
@@ -89,5 +100,22 @@ class PersonController extends Controller
         } catch (\Exception) {
             return redirect()->route('persons.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param PersonStoreUpdateRequest $request
+     * @param Person|null $person
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(PersonStoreUpdateRequest $request, Person $person = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('persons.index');
+        }
+
+        return redirect()->route('persons.index')->withSuccess(trans($message));
     }
 }

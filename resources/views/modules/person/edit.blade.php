@@ -1,107 +1,111 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row mb-2 mb-xl-3">
-        <div class="col-auto">
-            <h1>@lang('modules/person.h1')</h1>
+    <div>
+        <div class="row mb-2">
+            <div class="col-auto">
+                <h1>@lang('modules/person.h1')</h1>
+            </div>
+
+            <div class="col-auto ms-auto text-end mt-n1">
+                <x-form-elements.button
+                    form="person_edit_form"
+                    class="btn-primary"
+                    text="global.btn_save"
+                />
+
+                <x-form-elements.button
+                    form="person_edit_form"
+                    class="btn-dark"
+                    name="button-action-without-validation"
+                    value="close"
+                    text="global.btn_close"
+                />
+            </div>
         </div>
 
-        <div class="col-auto ms-auto text-end mt-n1">
-            <a href="#" class="btn btn-primary"
-               onclick="event.preventDefault();document.getElementById('person-form').submit();">@lang('global.btn_save')</a>
-            <a href="{{ route('persons.index') }}" class="btn btn-dark">@lang('global.btn_close')</a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="card">
-            <div class="col-12 col-xl-4">
-                <div class="card-body">
-                    <form id="person-form" action="{{ route('persons.update', $person) }}" method="POST">
-                        @csrf
-                        @method('PUT')
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.input-id
+                                    form="person_edit_form"
+                                    name="f_id"
+                                    labelValue="modules/person.f_id"
+                                    maxLength="20"
+                                    inputClass="not-empty"
+                                    :defaultValue="$person->f_id"
+                                />
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.input
+                                    form="person_edit_form"
+                                    name="f_name"
+                                    labelValue="modules/person.f_name"
+                                    maxLength="100"
+                                    :defaultValue="$person->f_name"
+                                />
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.input
+                                    form="person_edit_form"
+                                    name="f_name2"
+                                    labelValue="modules/person.f_name2"
+                                    maxLength="100"
+                                    :defaultValue="$person->f_name2"
+                                />
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.input
+                                    form="person_edit_form"
+                                    name="f_coef"
+                                    labelValue="modules/person.f_coef"
+                                    maxLength="15"
+                                    :defaultValue="$person->f_coef"
+                                />
+                            </div>
+                            <div class="col-12 col-md-6 col-xl-3">
+                                <x-form-elements.input
+                                    form="person_edit_form"
+                                    name="f_system1"
+                                    labelValue="modules/person.f_system1"
+                                    maxLength="100"
+                                    hidden="hidden"
+                                    :defaultValue="$person->f_system1"
+                                />
 
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/person.f_id')</label>
-                            <input type="text"
-                                   class="not-empty form-control form-control-sm @error('f_id') is-invalid @enderror"
-                                   name="f_id"
-                                   id-pattern
-                                   placeholder="@lang('modules/person.f_id')"
-                                   required
-                                   maxlength="20"
-                                   value="{{ old('f_id', $person->f_id) }}">
-                            @error('f_id') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+                                <x-form-elements.input
+                                    form="person_edit_form"
+                                    name="f_system2"
+                                    labelValue="modules/person.f_system2"
+                                    maxLength="100"
+                                    hidden="hidden"
+                                    :defaultValue="$person->f_system2"
+                                />
+
+                                <x-form-elements.input
+                                    form="person_edit_form"
+                                    name="f_system3"
+                                    labelValue="modules/person.f_system3"
+                                    maxLength="100"
+                                    hidden="hidden"
+                                    :defaultValue="$person->f_system3"
+                                />
+                            </div>
                         </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/person.f_name')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_name') is-invalid @enderror"
-                                   name="f_name"
-                                   placeholder="@lang('modules/person.f_name')"
-                                   maxlength="100"
-                                   value="{{ old('f_name', $person->f_name) }}">
-                            @error('f_name') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/person.f_name2')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_name2') is-invalid @enderror"
-                                   name="f_name2"
-                                   placeholder="@lang('modules/person.f_name2')"
-                                   maxlength="100"
-                                   value="{{ old('f_name2', $person->f_name2) }}">
-                            @error('f_name2') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2">
-                            <label class="form-label">@lang('modules/person.f_coef')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_coef') is-invalid @enderror"
-                                   name="f_coef"
-                                   placeholder="@lang('modules/person.f_coef')"
-                                   maxlength="100"
-                                   value="{{ old('f_coef', $person->f_coef) }}">
-                            @error('f_coef') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2" hidden>
-                            <label class="form-label">@lang('modules/person.f_system1')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_system1') is-invalid @enderror"
-                                   name="f_system1"
-                                   placeholder="@lang('modules/person.f_system1')"
-                                   maxlength="100"
-                                   value="{{ old('f_system1', $person->f_system1) }}">
-                            @error('f_system1') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2" hidden>
-                            <label class="form-label">@lang('modules/person.f_system2')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_system2') is-invalid @enderror"
-                                   name="f_system2"
-                                   placeholder="@lang('modules/person.f_system2')"
-                                   maxlength="100"
-                                   value="{{ old('f_system2', $person->f_system2) }}">
-                            @error('f_system2') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                        <div class="mb-2" hidden>
-                            <label class="form-label">@lang('modules/person.f_system3')</label>
-                            <input type="text"
-                                   class="form-control form-control-sm @error('f_system3') is-invalid @enderror"
-                                   name="f_system3"
-                                   placeholder="@lang('modules/person.f_system3')"
-                                   maxlength="100"
-                                   value="{{ old('f_system3', $person->f_system3) }}">
-                            @error('f_system3') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
-                        </div>
-
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
+
+        {{--    Forms--}}
+        <x-form-elements.form
+            id="person_edit_form"
+            route="persons.update"
+            :data="$person"
+            method="PUT"
+        />
     </div>
 @endsection
