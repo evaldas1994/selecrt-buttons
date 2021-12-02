@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules;
 
 use App\Models\Register3;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Register3StoreUpdateRequest;
@@ -40,6 +41,10 @@ class Register3Controller extends Controller
      */
     public function store(Register3StoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         Register3::create($request->validated());
 
         return redirect()->route('registers3.index')->withSuccess(trans('global.created_successfully'));
@@ -65,6 +70,10 @@ class Register3Controller extends Controller
      */
     public function update(Register3StoreUpdateRequest $request, Register3 $registers3)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $registers3);
+        }
+
         try {
             $registers3->update($request->validated());
 
@@ -89,5 +98,22 @@ class Register3Controller extends Controller
         } catch (\Exception) {
             return redirect()->route('registers3.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param Register3StoreUpdateRequest $request
+     * @param Register3|null $registers3
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(Register3StoreUpdateRequest $request, Register3 $registers3 = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('registers3.index');
+        }
+
+        return redirect()->route('registers3.index')->withSuccess(trans($message));
     }
 }
