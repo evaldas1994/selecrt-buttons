@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Models\Register1;
-use Illuminate\Support\Arr;
 use Illuminate\View\View;
+use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Register1StoreUpdateRequest;
