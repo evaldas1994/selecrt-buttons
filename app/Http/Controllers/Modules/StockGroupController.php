@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Modules;
 
 use Illuminate\View\View;
 use App\Models\StockGroup;
+use Illuminate\Support\Arr;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StockGroupStoreUpdateRequest;
@@ -42,6 +43,10 @@ class StockGroupController extends Controller
      */
     public function store(StockGroupStoreUpdateRequest $request)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
         StockGroup::create($request->validated());
 
         return redirect()->route('stock-groups.index')->withSuccess(trans('global.created_successfully'));
@@ -69,6 +74,10 @@ class StockGroupController extends Controller
      */
     public function update(StockGroupStoreUpdateRequest $request, StockGroup $stockGroup)
     {
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request, $stockGroup);
+        }
+
         try {
             $stockGroup->update($request->validated());
 
@@ -93,5 +102,25 @@ class StockGroupController extends Controller
         } catch (\Exception) {
             return redirect()->route('stock-groups.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    /**
+     * @param StockGroupStoreUpdateRequest $request
+     * @param StockGroup|null $stockGroup
+     * @param string $message
+     * @return RedirectResponse
+     */
+    private function checkButtonActionWithoutValidation(StockGroupStoreUpdateRequest $request, StockGroup $stockGroup = null, string $message='global.empty'): RedirectResponse
+    {
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+        switch ($actionWithoutValidation[0]) {
+            case 'close':
+                return redirect()->route('stock-groups.index');
+
+            case 'select-stock-group':
+                dd('route to stock group.index', $actionWithoutValidation[1]);
+        }
+
+        return redirect()->route('stock-groups.index')->withSuccess(trans($message));
     }
 }

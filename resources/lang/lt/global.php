@@ -19,6 +19,7 @@ return [
     'delete_failed' => 'Įrašo ištrinti negalima!',
     'update_failed' => 'Įrašo atnaujinti negalima!',
     'select_date' => 'Pasirinkite datą',
+    'select_time' => 'Pasirinkite laiką',
     'checkbox0' => 'Ne',
     'checkbox1' => 'Taip',
 ];
