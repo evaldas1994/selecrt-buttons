@@ -12,7 +12,31 @@ class ProductionCard extends Model
 
     protected $table = 't_bom';
 
-    protected $perPage = 500;
+    protected $perPage = 10;
+
+    public static $gridColumns = [
+        'f_id',
+        'f_name',
+        'f_name2',
+        'f_stockid',
+        'f_unitid',
+        'f_quant',
+        'f_description',
+        'f_create_date',
+        'f_create_userid',
+        'f_modified_date',
+        'f_modified_userid',
+
+        'stock_name',
+    ];
+
+    public static $defaultGridColumns = [
+        'f_id',
+        'f_name',
+        'f_stockid',
+        'f_unitid',
+        'f_quant',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -93,5 +117,14 @@ class ProductionCard extends Model
     public function components()
     {
         return $this->hasMany(ProductionCardComponent::class, 'f_hid', 'f_id');
+    }
+
+    /**
+     * @return string
+     * Create stockName
+     */
+    function getStockNameAttribute(): string
+    {
+        return $this->stock->f_name;
     }
 }

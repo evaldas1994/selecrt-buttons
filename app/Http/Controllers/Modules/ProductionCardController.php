@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Modules;
 
+use App\Models\Grid;
+use App\Models\ProductionCard as ProductionCardModel;
 use App\Models\Stock;
+use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 use Illuminate\Support\Arr;
 use App\Models\ProductionCard;
@@ -20,9 +23,11 @@ class ProductionCardController extends Controller
      */
     public function index()
     {
-        $productionCards = ProductionCard::simplePaginate();
+        $productionCards = ProductionCard::with('stock')->simplePaginate();
 
-        return view('modules.productionCard.index', compact('productionCards'));
+        $gridColumns = $this->getGridColumns();
+
+        return view('modules.productionCard.index', compact('productionCards', 'gridColumns'));
     }
 
     /**
@@ -76,7 +81,10 @@ class ProductionCardController extends Controller
 
         $types = ProductionCardComponent::$types;
 
-        return view('modules.productionCard.edit', compact('productionCard', 'stocks', 'productionCardComponents', 'types'));
+        return view(
+            'modules.productionCard.edit',
+            compact('productionCard', 'stocks', 'productionCardComponents', 'types')
+        );
     }
 
     /**
@@ -134,8 +142,11 @@ class ProductionCardController extends Controller
         return $data;
     }
 
-    private function checkButtonAction(ProductionCardStoreUpdateRequest $request, ProductionCard $productionCard, string $message='global.empty')
-    {
+    private function checkButtonAction(
+        ProductionCardStoreUpdateRequest $request,
+        ProductionCard $productionCard,
+        string $message = 'global.empty'
+    ) {
         $action = explode('|', $request->input('button-action'))[0];
         switch ($action) {
             case 'production-card-component-create':
@@ -151,8 +162,11 @@ class ProductionCardController extends Controller
      * @param string $message
      * @return RedirectResponse
      */
-    private function checkButtonActionWithoutValidation(ProductionCardStoreUpdateRequest $request, ProductionCard $productionCard = null, string $message='global.empty'): RedirectResponse
-    {
+    private function checkButtonActionWithoutValidation(
+        ProductionCardStoreUpdateRequest $request,
+        ProductionCard $productionCard = null,
+        string $message = 'global.empty'
+    ): RedirectResponse {
         $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
         switch ($actionWithoutValidation[0]) {
             case 'close':
@@ -167,5 +181,44 @@ class ProductionCardController extends Controller
         }
 
         return redirect()->route('production-cards.index')->withSuccess(trans($message));
+    }
+
+    private function setItems($list, $defaultArray): array
+    {
+        $gridColumnsArray = [];
+        $i = -1;
+
+        foreach ($defaultArray as $defaultItem) {
+            $i++;
+            foreach ($list as $key => $listItem) {
+                if ($listItem === $defaultItem) {
+                    $gridColumnsArray = Arr::add($gridColumnsArray, $i . '.name', $listItem);
+                    $gridColumnsArray = Arr::add($gridColumnsArray, $i . '.active', true);
+                    Arr::forget($list, $key);
+                }
+            }
+        }
+
+        foreach ($list as $listItem) {
+            $i++;
+            $gridColumnsArray = Arr::add($gridColumnsArray, $i . '.name', $listItem);
+            $gridColumnsArray = Arr::add($gridColumnsArray, $i . '.active', false);
+        }
+
+        return $gridColumnsArray;
+    }
+
+    private function getGridColumns(): array
+    {
+        $gridColumns = ProductionCardModel::$gridColumns;
+        $defaultGridColumns = ProductionCardModel::$defaultGridColumns;
+
+        $grid = Grid::whereFUserid(auth()->user()->f_id)
+            ->whereFForm(URL::current())
+            ->first();
+
+        return $grid === null || $grid->f_col_sel === null
+            ? $this->setItems($gridColumns, $defaultGridColumns)
+            : $this->setItems($gridColumns, json_decode($grid->f_col_sel));
     }
 }

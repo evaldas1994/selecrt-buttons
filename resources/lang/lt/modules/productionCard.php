@@ -25,4 +25,6 @@ return [
     'tab1' => 'Pagrindinis',
     'tab2' => 'Nuotraukos',
     'tab3' => 'Komponentai',
+
+    'stock_name' => 'Prek. Pav.'
 ];

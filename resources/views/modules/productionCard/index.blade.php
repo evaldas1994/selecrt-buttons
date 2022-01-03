@@ -1,7 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-    <a href="{{ route('production-cards.create') }}" class="btn btn-primary float-end mt-n1"><i class="fas fa-plus"></i> @lang('global.btn_new')</a>
+    <div>
+        <a href="{{ route('production-cards.create') }}" class="btn btn-primary float-end mt-n1"><i
+                class="fas fa-plus"></i> @lang('global.btn_new')</a>
+        <button
+            selection-of-grid-collumns="production-cards.index"
+            class="btn btn-primary float-end mt-n1 mx-1"
+            data-bs-toggle="modal" data-bs-target="#selection-of-grid-collumns"
+        >
+            <i class="fas fa-hashtag"></i>
+        </button>
+    </div>
+
     <div class="mb-3">
         <h1>@lang('modules/productionCard.h1')</h1>
     </div>
@@ -12,28 +23,33 @@
                     <table class="table mb-0 table-sm table-bordered">
                         <thead>
                         <tr>
-                            <th scope="col">@lang('modules/productionCard.f_id')</th>
-                            <th scope="col">@lang('modules/productionCard.f_name')</th>
-                            <th scope="col">@lang('modules/productionCard.f_name2')</th>
-                            <th scope="col">@lang('modules/productionCard.f_stockid')</th>
-                            <th scope="col">@lang('modules/productionCard.f_stock_name')</th>
+                            @foreach($gridColumns as $column)
+                                @if($column['active'])
+                                    <th scope="col">@lang('modules/productionCard.' . $column['name'])</th>
+                                @endif
+                            @endforeach
+
                             <th scope="col">@lang('global.actions')</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($productionCards as $card)
                             <tr>
-                                <td>{{ $card->f_id }}</td>
-                                <td>{{ $card->f_name }}</td>
-                                <td>{{ $card->f_name2 }}</td>
-                                <td>{{ $card->f_stockid }}</td>
-                                <td>{{ $card->f_stock_name }}</td>
+                                @foreach($gridColumns as $column)
+                                    @if($column['active'])
+                                        <td>{{ $card[$column['name']] }}</td>
+                                    @endif
+                                @endforeach
+
                                 <td class="table-action">
-                                    <a href="{{ route('production-cards.edit', $card) }}"><i class="align-middle" data-feather="edit-2"></i></a>
-                                    <a href="#" onclick="event.preventDefault();document.getElementById('delete-form-{{ $card->f_id }}').submit();">
+                                    <a href="{{ route('production-cards.edit', $card) }}"><i class="align-middle"
+                                                                                             data-feather="edit-2"></i></a>
+                                    <a href="#"
+                                       onclick="event.preventDefault();document.getElementById('delete-form-{{ $card->f_id }}').submit();">
                                         <i class="align-middle" data-feather="trash-2"></i>
                                     </a>
-                                    <form action="{{ route('production-cards.destroy', $card) }}" method="POST" class="d-none" id="delete-form-{{ $card->f_id }}">
+                                    <form action="{{ route('production-cards.destroy', $card) }}" method="POST"
+                                          class="d-none" id="delete-form-{{ $card->f_id }}">
                                         @csrf
                                         @method('DELETE')
                                     </form>
@@ -46,6 +62,11 @@
             </div>
             {{ $productionCards->links() }}
         </div>
+
+        <!-- Modal -->
+        <x-modals.selection-of-grid-columns
+            :gridColumns="$gridColumns"
+        />
     </div>
 @endsection
 
