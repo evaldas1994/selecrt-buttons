@@ -17,7 +17,7 @@ class VatController extends Controller
      */
     public function index()
     {
-        $vats = Vat::simplePaginate();
+        $vats = Vat::sortable()->simplePaginate();
         return view('modules.vat.index', compact('vats'));
     }
 

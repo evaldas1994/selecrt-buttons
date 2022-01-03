@@ -8,20 +8,20 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-
-                <div class="table-responsive">
+                <div class="table">
                     <table class="table mb-0 table-sm table-bordered table-hover data" data-rtc-resizable-table="vat.index">
                         <thead>
                         <tr>
-                            <th data-rtc-resizable="f_id">@lang('modules/vat.f_id')</th>
-                            <th data-rtc-resizable="f_name">@lang('modules/vat.f_name')</th>
-                            <th data-rtc-resizable="f_vat_perc">@lang('modules/vat.f_vat_perc')</th>
-                            <th data-rtc-resizable="f_default_vat2_id">@lang('modules/vat.f_default_vat2_id')</th>
-                            <th data-rtc-resizable="f_priority_in_integrations">@lang('modules/vat.f_priority_in_integrations')</th>
-                            <th data-rtc-resizable="f_create_userid">@lang('modules/vat.f_create_userid')</th>
-                            <th data-rtc-resizable="f_create_date">@lang('modules/vat.f_create_date')</th>
-                            <th data-rtc-resizable="f_modified_userid">@lang('modules/vat.f_modified_userid')</th>
-                            <th data-rtc-resizable="f_modified_date">@lang('modules/vat.f_modified_date')</th>
+                            <th data-rtc-resizable="f_id">@sortablelink('f_id',trans('modules/vat.f_id'))</th>
+                            <th data-rtc-resizable="f_name">@sortablelink('f_name',trans('modules/vat.f_name'))</th>
+                            <th data-rtc-resizable="f_vat_perc">@sortablelink('f_vat_perc',trans('modules/vat.f_vat_perc'))</th>
+                            <th data-rtc-resizable="f_default_vat2_id">@sortablelink('f_default_vat2_id',trans('modules/vat.f_default_vat2_id'))</th>
+                            <th data-rtc-resizable="f_default_vat2_id_name">@sortablelink('vat2.f_name','f_default_vat2_id_name')</th>
+                            <th data-rtc-resizable="f_priority_in_integrations">@sortablelink('f_priority_in_integrations',trans('modules/vat.f_priority_in_integrations'))</th>
+                            <th data-rtc-resizable="f_create_userid">@sortablelink('f_create_userid',trans('modules/vat.f_create_userid'))</th>
+                            <th data-rtc-resizable="f_create_date">@sortablelink('f_create_date',trans('modules/vat.f_create_date'))</th>
+                            <th data-rtc-resizable="f_modified_userid">@sortablelink('f_modified_userid',trans('modules/vat.f_modified_userid'))</th>
+                            <th data-rtc-resizable="f_modified_date">@sortablelink('f_modified_date',trans('modules/vat.f_modified_date'))</th>
                             <th scope="col">@lang('global.actions')</th>
                         </tr>
                         </thead>
@@ -32,6 +32,7 @@
                                     <td class="">@limit($vat->f_name)</td>
                                     <td>{{ $vat->f_vat_perc }}</td>
                                     <td>{{ $vat->f_default_vat2_id }}</td>
+                                    <td>{{ optional($vat->vat2)->f_name }}</td>
                                     <td>@lang('global.checkbox'.$vat->f_priority_in_integrations)</td>
                                     <td>{{ $vat->f_create_userid }}</td>
                                     <td>{{ $vat->f_create_date }}</td>
@@ -50,7 +51,7 @@
                     </table>
                 </div>
             </div>
-            {{ $vats->links() }}
+            {{ $vats->appends(\Request::except('page'))->render() }}
         </div>
     </div>
 @endsection
