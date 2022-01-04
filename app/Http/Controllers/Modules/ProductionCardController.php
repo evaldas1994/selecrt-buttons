@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Models\Grid;
-use App\Models\ProductionCard as ProductionCardModel;
 use App\Models\Stock;
-use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 use Illuminate\Support\Arr;
 use App\Models\ProductionCard;
+use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Models\ProductionCardComponent;
+use App\Models\ProductionCard as ProductionCardModel;
 use App\Http\Requests\ProductionCardStoreUpdateRequest;
 
 class ProductionCardController extends Controller
@@ -23,7 +23,7 @@ class ProductionCardController extends Controller
      */
     public function index()
     {
-        $productionCards = ProductionCard::with('stock')->simplePaginate();
+        $productionCards = ProductionCard::simplePaginate();
 
         $gridColumns = $this->getGridColumns();
 
@@ -186,10 +186,9 @@ class ProductionCardController extends Controller
     private function setItems($list, $defaultArray): array
     {
         $gridColumnsArray = [];
-        $i = -1;
+        $i = 0;
 
         foreach ($defaultArray as $defaultItem) {
-            $i++;
             foreach ($list as $key => $listItem) {
                 if ($listItem === $defaultItem) {
                     $gridColumnsArray = Arr::add($gridColumnsArray, $i . '.name', $listItem);
@@ -197,12 +196,15 @@ class ProductionCardController extends Controller
                     Arr::forget($list, $key);
                 }
             }
+
+            $i++;
         }
 
         foreach ($list as $listItem) {
-            $i++;
             $gridColumnsArray = Arr::add($gridColumnsArray, $i . '.name', $listItem);
             $gridColumnsArray = Arr::add($gridColumnsArray, $i . '.active', false);
+
+            $i++;
         }
 
         return $gridColumnsArray;
@@ -217,7 +219,7 @@ class ProductionCardController extends Controller
             ->whereFForm(URL::current())
             ->first();
 
-        return $grid === null || $grid->f_col_sel === null
+        return $grid === null || $grid->f_col_sel === null || json_decode($grid->f_col_sel) === []
             ? $this->setItems($gridColumns, $defaultGridColumns)
             : $this->setItems($gridColumns, json_decode($grid->f_col_sel));
     }

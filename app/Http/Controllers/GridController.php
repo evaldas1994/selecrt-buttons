@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grid;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use App\Models\ProductionCard;
 use Illuminate\Support\Facades\URL;
 
 class GridController extends Controller
@@ -49,9 +51,30 @@ class GridController extends Controller
         return [
             'f_userid' => auth()->user()->f_id,
             'f_form' => URL::previous(),
-            'f_col_sel' => $request === null || $request->get('columns') === null
-                ? null
-                : $request->get('columns')
+            'f_col_sel' => $this->cleaned($request)
         ];
+    }
+
+    private function cleaned($request)
+    {
+        $gridColumns = ProductionCard::$gridColumns;
+        $defaultGridColumns = ProductionCard::$defaultGridColumns;
+
+        $columns = json_decode($request->input('columns'));
+//        $columns = Arr::add($columns, count($columns), 'bam');
+
+        if($columns !== null && $columns !== []) {
+            foreach ($columns as $key => $column) {
+                if(array_search($column, $gridColumns) === false) {
+                    Arr::forget($columns, $key);
+                }
+            }
+        }
+
+        if (json_encode($columns) === null || $columns === null) {
+            return json_encode($defaultGridColumns);
+        }
+
+        return json_encode($columns);
     }
 }

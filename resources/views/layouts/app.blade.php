@@ -134,10 +134,10 @@
             event.target.classList.remove('fa-eye-slash')
             event.target.classList.add('fa-eye')
         } else {
-            if (event.target.parentElement.parentElement.getElementsByClassName('fa-eye').length > 1) {
+            // if (event.target.parentElement.parentElement.getElementsByClassName('fa-eye').length > 1) {
                 event.target.classList.add('fa-eye-slash')
                 event.target.classList.remove('fa-eye')
-            }
+            // }
         }
         getActiveArr();
     }, false);

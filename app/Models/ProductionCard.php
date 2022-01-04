@@ -67,6 +67,8 @@ class ProductionCard extends Model
      */
     protected $primaryKey = 'f_id';
 
+    protected $with = ['stock'];
+
     /**
      * The "type" of the primary key ID.
      *

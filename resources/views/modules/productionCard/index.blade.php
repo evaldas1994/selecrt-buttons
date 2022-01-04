@@ -5,9 +5,9 @@
         <a href="{{ route('production-cards.create') }}" class="btn btn-primary float-end mt-n1"><i
                 class="fas fa-plus"></i> @lang('global.btn_new')</a>
         <button
-            selection-of-grid-collumns="production-cards.index"
             class="btn btn-primary float-end mt-n1 mx-1"
-            data-bs-toggle="modal" data-bs-target="#selection-of-grid-collumns"
+            data-bs-toggle="modal"
+            data-bs-target="#selection-of-grid-collumns"
         >
             <i class="fas fa-hashtag"></i>
         </button>

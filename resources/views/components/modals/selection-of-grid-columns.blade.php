@@ -8,15 +8,15 @@
             <div class="modal-body">
                 <div>
                     <div class="d-flex justify-content-center mt-3">
-                        <div class="bg-white rounded">
+                        <div class="bg-white rounded w-100">
                             <div>
                                 <h1 class="text-center">Pasirinkti</h1>
                             </div>
-                            <div selection-of-grid-collumns-container class="d-flex justify-content-center flex-column align-items-between">
+                            <div selection-of-grid-collumns-container class="d-flex justify-content-start flex-column align-items-center"  style="max-height: 50vh; overflow-y: scroll;">
                                 @foreach($gridColumns as $column)
                                     <div
                                         selection-of-grid-collumn="{{ $column['name'] }}"
-                                        class="draggable d-flex justify-content-between align-items-center cursor-grab py-1 px-3 my-1 bg-primary-light rounded"
+                                        class="draggable d-flex justify-content-between align-items-center cursor-grab py-1 px-3 my-1 bg-primary-light rounded w-50"
                                         draggable="true"
                                     >
                                         {{ $column['name'] }}
@@ -28,9 +28,10 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
+            @error('columns') <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span> @enderror
+
+            <div class="modal-footer">
                 <input id="columns" name="columns" type="hidden" form="save_active_column_form">
 
                 <x-form-elements.button
@@ -46,6 +47,8 @@
                     text="global.btn_reset"
                     id="submit"
                 />
+
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
