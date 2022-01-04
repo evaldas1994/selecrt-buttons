@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Modules;
 
+use App\Helpers\Classes\Grid;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VatStoreUpdateRequest;
 use App\Models\Vat;
@@ -10,6 +11,8 @@ use App\Models\Vat2;
 class VatController extends Controller
 {
 
+    protected $gridFormName = 'vat.index';
+
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +20,11 @@ class VatController extends Controller
      */
     public function index()
     {
-        $vats = Vat::sortable()->simplePaginate();
-        return view('modules.vat.index', compact('vats'));
+        $grid = new Grid($this->gridFormName);
+
+        $vats = Vat::sortable($grid->getSortableDefaultColumn())->simplePaginate();
+
+        return view('modules.vat.index', compact('vats'))->withForm($this->gridFormName);
     }
 
     /**
