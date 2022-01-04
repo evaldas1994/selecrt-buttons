@@ -50,7 +50,7 @@ class GridController extends Controller
         return [
             'f_userid' => auth()->user()->f_id,
             'f_form' => URL::previous(),
-            'f_col_sel' => $request->get('columns') === null || json_decode($request->input('columns') === null)
+            'f_col_sel' => $request === null || $request->get('columns') === null || json_decode($request->input('columns') === null)
                     ? null
                     : json_decode($request->input('columns'))
         ];
