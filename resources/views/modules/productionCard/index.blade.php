@@ -2,13 +2,10 @@
 
 @section('content')
     <div>
-        <a href="{{ route('production-cards.create') }}" class="btn btn-primary float-end mt-n1"><i
-                class="fas fa-plus"></i> @lang('global.btn_new')</a>
-        <button
-            class="btn btn-primary float-end mt-n1 mx-1"
-            data-bs-toggle="modal"
-            data-bs-target="#selection-of-grid-collumns"
-        >
+        <a href="{{ route('production-cards.create') }}" class="btn btn-primary float-end mt-n1">
+            <i class="fas fa-plus"></i> @lang('global.btn_new')
+        </a>
+        <button class="btn btn-primary float-end mt-n1 mx-1" data-bs-toggle="modal" data-bs-target="#selection-of-grid-collumns">
             <i class="fas fa-hashtag"></i>
         </button>
     </div>
@@ -26,20 +23,15 @@
                         <tr class="text-primary">
                             @foreach($gridColumns as $column)
                                 @if($column['active'])
-                                    @if($column['sortable'])
                                     <th data-rtc-resizable="{{ $column['name'] }}">
-                                        @sortablelink($column['name'],trans('modules/productionCard.'.$column['name']),
-                                        ['form' => $form])
-                                    </th>
-
-                                    @else
-                                        <th data-rtc-resizable="{{ $column['name'] }}">
+                                        @if($column['sortable'])
+                                            @sortablelink($column['sortable'],trans('modules/productionCard.'.$column['name']),['form' => $form])
+                                        @else
                                             {{ $column['name'] }}
-                                        </th>
-                                    @endif
+                                        @endif
+                                    </th>
                                 @endif
                             @endforeach
-
                             <th scope="col">@lang('global.actions')</th>
                         </tr>
                         </thead>

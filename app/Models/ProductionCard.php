@@ -15,11 +15,12 @@ class ProductionCard extends Model
 
     protected $perPage = 10;
 
-    public static $gridColumns = [
+    public static $sortable = [
         'f_id',
         'f_name',
         'f_name2',
         'f_stockid',
+        'stock.f_name' => 'stock_name', // Order by relation
         'f_unitid',
         'f_quant',
         'f_description',
@@ -27,8 +28,21 @@ class ProductionCard extends Model
         'f_create_userid',
         'f_modified_date',
         'f_modified_userid',
+    ];
 
+    public static $gridColumns = [
+        'f_id',
+        'f_name',
+        'f_name2',
+        'f_stockid',
         'stock_name',
+        'f_unitid',
+        'f_quant',
+        'f_description',
+        'f_create_date',
+        'f_create_userid',
+        'f_modified_date',
+        'f_modified_userid',
     ];
 
     public static $defaultGridColumns = [
@@ -59,19 +73,6 @@ class ProductionCard extends Model
         'f_system1',
         'f_system2',
         'f_system3',
-    ];
-
-    public static $sortable = [
-        'f_name',
-        'f_name2',
-        'f_quant',
-        'f_description',
-        'f_create_date',
-        'f_create_userid',
-        'f_modified_date',
-        'f_modified_userid',
-
-        'stock_name',
     ];
 
     /**
@@ -136,18 +137,12 @@ class ProductionCard extends Model
     }
 
     /**
-     * @return string
+     * @return string|null Create stockName
      * Create stockName
      */
-    function getStockNameAttribute(): string
+    function getStockNameAttribute(): ?string
     {
         return $this->stock->f_name;
     }
 
-    public function addressSortable($query, $direction)
-    {
-        return $query->join('t_stock', 't_bom.f_id', '=', 't_stock.f_id')
-            ->orderBy('t_stock.f_name', $direction)
-            ->select('t_bom.*');
-    }
 }

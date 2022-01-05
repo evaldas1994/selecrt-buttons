@@ -65,10 +65,19 @@ class Grid
         $i = 0;
 
         foreach ($defaultArray as $defaultItem) {
+
             if (in_array($defaultItem, $list)) {
+                $relation = array_search($defaultItem, $sortableGridColumns);
+                if(!is_numeric($relation) && in_array($defaultItem, $sortableGridColumns)){
+                    $sortable = $relation;
+                }elseif (in_array($defaultItem, $sortableGridColumns)){
+                    $sortable = $defaultItem;
+                }else{
+                    $sortable = null;
+                }
                 $gridColumnsArray = Arr::add($gridColumnsArray, $i . '.name', $defaultItem);
                 $gridColumnsArray = Arr::add($gridColumnsArray, $i . '.active', in_array($defaultItem, $list));
-                $gridColumnsArray = Arr::add( $gridColumnsArray, $i . '.sortable', in_array($defaultItem, $sortableGridColumns));
+                $gridColumnsArray = Arr::add( $gridColumnsArray, $i . '.sortable', $sortable);
                 Arr::forget($list, array_search($defaultItem, $list));
             }
             $i++;
