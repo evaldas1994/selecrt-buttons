@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Models\Grid;
 use App\Models\Stock;
 use Illuminate\View\View;
 use Illuminate\Support\Arr;
 use App\Models\ProductionCard;
-use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use App\Models\ProductionCardComponent;
-use App\Models\ProductionCard as ProductionCardModel;
 use App\Http\Requests\ProductionCardStoreUpdateRequest;
 
 class ProductionCardController extends Controller
 {
+    protected $gridFormName = 'productionCard.index';
+
     /**
      * Display a listing of the resource.
      *
@@ -23,11 +22,12 @@ class ProductionCardController extends Controller
      */
     public function index()
     {
-        $productionCards = ProductionCard::simplePaginate();
+        $grid = new \App\Helpers\Classes\Grid($this->gridFormName);
 
-        $gridColumns = $this->getGridColumns();
+        $productionCards = ProductionCard::sortable($grid->getSortableDefaultColumn())->simplePaginate();
+        $gridColumns = $grid->getGridColumns('App\Models\ProductionCard');
 
-        return view('modules.productionCard.index', compact('productionCards', 'gridColumns'));
+        return view('modules.productionCard.index', compact('productionCards', 'gridColumns'))->withForm($this->gridFormName);
     }
 
     /**
@@ -183,44 +183,5 @@ class ProductionCardController extends Controller
         return redirect()->route('production-cards.index')->withSuccess(trans($message));
     }
 
-    private function setItems($list, $defaultArray): array
-    {
-        $gridColumnsArray = [];
-        $i = 0;
 
-        foreach ($defaultArray as $defaultItem) {
-            foreach ($list as $key => $listItem) {
-                if ($listItem === $defaultItem) {
-                    $gridColumnsArray = Arr::add($gridColumnsArray, $i . '.name', $listItem);
-                    $gridColumnsArray = Arr::add($gridColumnsArray, $i . '.active', true);
-                    Arr::forget($list, $key);
-                }
-            }
-
-            $i++;
-        }
-
-        foreach ($list as $listItem) {
-            $gridColumnsArray = Arr::add($gridColumnsArray, $i . '.name', $listItem);
-            $gridColumnsArray = Arr::add($gridColumnsArray, $i . '.active', false);
-
-            $i++;
-        }
-
-        return $gridColumnsArray;
-    }
-
-    private function getGridColumns(): array
-    {
-        $gridColumns = ProductionCardModel::$gridColumns;
-        $defaultGridColumns = ProductionCardModel::$defaultGridColumns;
-
-        $grid = Grid::whereFUserid(auth()->user()->f_id)
-            ->whereFForm(URL::current())
-            ->first();
-
-        return $grid === null || $grid->f_col_sel === null || json_decode($grid->f_col_sel) === []
-            ? $this->setItems($gridColumns, $defaultGridColumns)
-            : $this->setItems($gridColumns, json_decode($grid->f_col_sel));
-    }
 }

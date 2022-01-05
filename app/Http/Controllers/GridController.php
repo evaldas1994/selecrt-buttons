@@ -39,20 +39,17 @@ class GridController extends Controller
 
     private function save($data): void
     {
-        Grid::updateOrCreate([
-            'f_userid' => auth()->user()->f_id,
-            'f_form' => URL::previous()
-        ], $data);
+        \App\Helpers\Classes\Grid::updateOrCreate(request()->get('form'),$data);
     }
 
     private function getData(Request $request = null): array
     {
         return [
             'f_userid' => auth()->user()->f_id,
-            'f_form' => URL::previous(),
+            'f_form' => request()->get('form'),
             'f_col_sel' => $request === null || $request->get('columns') === null || json_decode($request->input('columns') === null)
                     ? null
-                    : json_decode($request->input('columns'))
+                    : $request->input('columns')
         ];
     }
 }

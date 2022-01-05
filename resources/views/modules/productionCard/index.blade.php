@@ -19,13 +19,24 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="table-responsive">
-                    <table class="table mb-0 table-sm table-bordered">
+                <div class="table">
+                    <table class="table mb-0 table-sm table-bordered table-hover data"
+                           data-rtc-resizable-table="productionCard.index">
                         <thead>
-                        <tr>
+                        <tr class="text-primary">
                             @foreach($gridColumns as $column)
                                 @if($column['active'])
-                                    <th scope="col">@lang('modules/productionCard.' . $column['name'])</th>
+                                    @if($column['sortable'])
+                                    <th data-rtc-resizable="{{ $column['name'] }}">
+                                        @sortablelink($column['name'],trans('modules/productionCard.'.$column['name']),
+                                        ['form' => $form])
+                                    </th>
+
+                                    @else
+                                        <th data-rtc-resizable="{{ $column['name'] }}">
+                                            {{ $column['name'] }}
+                                        </th>
+                                    @endif
                                 @endif
                             @endforeach
 
@@ -41,18 +52,13 @@
                                     @endif
                                 @endforeach
 
-                                <td class="table-action">
-                                    <a href="{{ route('production-cards.edit', $card) }}"><i class="align-middle"
-                                                                                             data-feather="edit-2"></i></a>
-                                    <a href="#"
-                                       onclick="event.preventDefault();document.getElementById('delete-form-{{ $card->f_id }}').submit();">
-                                        <i class="align-middle" data-feather="trash-2"></i>
-                                    </a>
-                                    <form action="{{ route('production-cards.destroy', $card) }}" method="POST"
-                                          class="d-none" id="delete-form-{{ $card->f_id }}">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
+                                <td class="table-action text-center">
+                                    <a href="{{ route('production-cards.edit', $card) }}"><i
+                                            class="align-middle text-primary" data-feather="edit-2"></i></a>
+                                    <x-buttons.delete>
+                                        <x-slot name="route">{{ route('production-cards.destroy', $card) }}</x-slot>
+                                        <x-slot name="id">{{ $card->f_id }}</x-slot>
+                                    </x-buttons.delete>
                                 </td>
                             </tr>
                         @endforeach
@@ -66,6 +72,7 @@
         <!-- Modal -->
         <x-modals.selection-of-grid-columns
             :gridColumns="$gridColumns"
+            :form="$form"
         />
     </div>
 @endsection

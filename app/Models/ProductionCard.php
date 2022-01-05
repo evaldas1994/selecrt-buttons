@@ -5,10 +5,11 @@ namespace App\Models;
 use App\Traits\IdToUppercase;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UpdateCreatedModifiedUserIdColumns;
+use Kyslik\ColumnSortable\Sortable;
 
 class ProductionCard extends Model
 {
-    use IdToUppercase, UpdateCreatedModifiedUserIdColumns;
+    use IdToUppercase, UpdateCreatedModifiedUserIdColumns, Sortable;
 
     protected $table = 't_bom';
 
@@ -58,6 +59,19 @@ class ProductionCard extends Model
         'f_system1',
         'f_system2',
         'f_system3',
+    ];
+
+    public static $sortable = [
+        'f_name',
+        'f_name2',
+        'f_quant',
+        'f_description',
+        'f_create_date',
+        'f_create_userid',
+        'f_modified_date',
+        'f_modified_userid',
+
+        'stock_name',
     ];
 
     /**
@@ -128,5 +142,12 @@ class ProductionCard extends Model
     function getStockNameAttribute(): string
     {
         return $this->stock->f_name;
+    }
+
+    public function addressSortable($query, $direction)
+    {
+        return $query->join('t_stock', 't_bom.f_id', '=', 't_stock.f_id')
+            ->orderBy('t_stock.f_name', $direction)
+            ->select('t_bom.*');
     }
 }
