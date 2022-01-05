@@ -9,10 +9,13 @@ use Psr\Container\ContainerExceptionInterface;
 class GridController extends Controller
 {
     /**
+     * @param Request $request
+     *
+     * @return mixed
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): mixed
     {
         $messageType = 'withSuccess';
         $message = 'grid.saved_successfully';
@@ -20,7 +23,7 @@ class GridController extends Controller
 
         try {
             $this->save($data);
-        } catch (\Throwable $exception) {
+        } catch (\Throwable) {
             $messageType = 'withError';
             $message = 'grid.save_failed';
         }
@@ -30,6 +33,7 @@ class GridController extends Controller
 
     /**
      * @param $data
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * save data (only for drag and drop functionality)
@@ -41,6 +45,7 @@ class GridController extends Controller
 
     /**
      * @param Request|null $request
+     *
      * @return array
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
@@ -51,9 +56,9 @@ class GridController extends Controller
         return [
             'f_userid' => auth()->user()->f_id,
             'f_form' => request()->get('form'),
-            'f_col_sel' => $request === null || $request->get('columns') === null || json_decode($request->input('columns') === null)
-                    ? null
-                    : $request->input('columns')
+            'f_col_sel' => $request === null || $request->get('columns') === null || json_decode( $request->input('columns') === null)
+                ? null
+                : $request->input('columns')
         ];
     }
 }
