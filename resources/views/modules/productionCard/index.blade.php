@@ -1,42 +1,64 @@
 @extends('layouts.app')
 
 @section('content')
-    <a href="{{ route('production-cards.create') }}" class="btn btn-primary float-end mt-n1"><i class="fas fa-plus"></i> @lang('global.btn_new')</a>
+    <div>
+        <a href="{{ route('production-cards.create') }}" class="btn btn-primary float-end mt-n1"><i
+                class="fas fa-plus"></i> @lang('global.btn_new')</a>
+        <button
+            class="btn btn-primary float-end mt-n1 mx-1"
+            data-bs-toggle="modal"
+            data-bs-target="#selection-of-grid-collumns"
+        >
+            <i class="fas fa-hashtag"></i>
+        </button>
+    </div>
+
     <div class="mb-3">
         <h1>@lang('modules/productionCard.h1')</h1>
     </div>
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="table-responsive">
-                    <table class="table mb-0 table-sm table-bordered">
+                <div class="table">
+                    <table class="table mb-0 table-sm table-bordered table-hover data"
+                           data-rtc-resizable-table="productionCard.index">
                         <thead>
-                        <tr>
-                            <th scope="col">@lang('modules/productionCard.f_id')</th>
-                            <th scope="col">@lang('modules/productionCard.f_name')</th>
-                            <th scope="col">@lang('modules/productionCard.f_name2')</th>
-                            <th scope="col">@lang('modules/productionCard.f_stockid')</th>
-                            <th scope="col">@lang('modules/productionCard.f_stock_name')</th>
+                        <tr class="text-primary">
+                            @foreach($gridColumns as $column)
+                                @if($column['active'])
+                                    @if($column['sortable'])
+                                    <th data-rtc-resizable="{{ $column['name'] }}">
+                                        @sortablelink($column['name'],trans('modules/productionCard.'.$column['name']),
+                                        ['form' => $form])
+                                    </th>
+
+                                    @else
+                                        <th data-rtc-resizable="{{ $column['name'] }}">
+                                            {{ $column['name'] }}
+                                        </th>
+                                    @endif
+                                @endif
+                            @endforeach
+
                             <th scope="col">@lang('global.actions')</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($productionCards as $card)
                             <tr>
-                                <td>{{ $card->f_id }}</td>
-                                <td>{{ $card->f_name }}</td>
-                                <td>{{ $card->f_name2 }}</td>
-                                <td>{{ $card->f_stockid }}</td>
-                                <td>{{ $card->f_stock_name }}</td>
-                                <td class="table-action">
-                                    <a href="{{ route('production-cards.edit', $card) }}"><i class="align-middle" data-feather="edit-2"></i></a>
-                                    <a href="#" onclick="event.preventDefault();document.getElementById('delete-form-{{ $card->f_id }}').submit();">
-                                        <i class="align-middle" data-feather="trash-2"></i>
-                                    </a>
-                                    <form action="{{ route('production-cards.destroy', $card) }}" method="POST" class="d-none" id="delete-form-{{ $card->f_id }}">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
+                                @foreach($gridColumns as $column)
+                                    @if($column['active'])
+                                        <td>{{ $card[$column['name']] }}</td>
+                                    @endif
+                                @endforeach
+
+                                <td class="table-action text-center">
+                                    <a href="{{ route('production-cards.edit', $card) }}"><i
+                                            class="align-middle text-primary" data-feather="edit-2"></i></a>
+                                    <x-buttons.delete>
+                                        <x-slot name="route">{{ route('production-cards.destroy', $card) }}</x-slot>
+                                        <x-slot name="id">{{ $card->f_id }}</x-slot>
+                                    </x-buttons.delete>
                                 </td>
                             </tr>
                         @endforeach
@@ -46,6 +68,12 @@
             </div>
             {{ $productionCards->links() }}
         </div>
+
+        <!-- Modal -->
+        <x-modals.selection-of-grid-columns
+            :gridColumns="$gridColumns"     {{--  list of columns             required      (array(keys: name, active, sortable))   --}}
+            :form="$form"                   {{--  form name from controller   required      (string)                                --}}
+        />
     </div>
 @endsection
 

@@ -13,6 +13,8 @@ use App\Http\Requests\ProductionCardStoreUpdateRequest;
 
 class ProductionCardController extends Controller
 {
+    protected $gridFormName = 'productionCard.index';
+
     /**
      * Display a listing of the resource.
      *
@@ -20,9 +22,12 @@ class ProductionCardController extends Controller
      */
     public function index()
     {
-        $productionCards = ProductionCard::simplePaginate();
+        $grid = new \App\Helpers\Classes\Grid($this->gridFormName);
 
-        return view('modules.productionCard.index', compact('productionCards'));
+        $productionCards = ProductionCard::sortable($grid->getSortableDefaultColumn())->simplePaginate();
+        $gridColumns = $grid->getGridColumns('App\Models\ProductionCard');
+
+        return view('modules.productionCard.index', compact('productionCards', 'gridColumns'))->withForm($this->gridFormName);
     }
 
     /**
@@ -76,7 +81,10 @@ class ProductionCardController extends Controller
 
         $types = ProductionCardComponent::$types;
 
-        return view('modules.productionCard.edit', compact('productionCard', 'stocks', 'productionCardComponents', 'types'));
+        return view(
+            'modules.productionCard.edit',
+            compact('productionCard', 'stocks', 'productionCardComponents', 'types')
+        );
     }
 
     /**
@@ -134,8 +142,11 @@ class ProductionCardController extends Controller
         return $data;
     }
 
-    private function checkButtonAction(ProductionCardStoreUpdateRequest $request, ProductionCard $productionCard, string $message='global.empty')
-    {
+    private function checkButtonAction(
+        ProductionCardStoreUpdateRequest $request,
+        ProductionCard $productionCard,
+        string $message = 'global.empty'
+    ) {
         $action = explode('|', $request->input('button-action'))[0];
         switch ($action) {
             case 'production-card-component-create':
@@ -151,8 +162,11 @@ class ProductionCardController extends Controller
      * @param string $message
      * @return RedirectResponse
      */
-    private function checkButtonActionWithoutValidation(ProductionCardStoreUpdateRequest $request, ProductionCard $productionCard = null, string $message='global.empty'): RedirectResponse
-    {
+    private function checkButtonActionWithoutValidation(
+        ProductionCardStoreUpdateRequest $request,
+        ProductionCard $productionCard = null,
+        string $message = 'global.empty'
+    ): RedirectResponse {
         $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
         switch ($actionWithoutValidation[0]) {
             case 'close':
@@ -168,4 +182,6 @@ class ProductionCardController extends Controller
 
         return redirect()->route('production-cards.index')->withSuccess(trans($message));
     }
+
+
 }
