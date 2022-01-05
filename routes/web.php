@@ -39,7 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('discountsh', \App\Http\Controllers\Modules\DiscounthController::class)->except('show');
     Route::resource('employees', \App\Http\Controllers\Modules\EmployeeController::class)->except('show');
     Route::post('grid/save-active-columns', '\App\Http\Controllers\GridController@saveActiveColumns') ->name('grid.saveActiveColumns');
-    Route::get('grid/reset-active-columns', '\App\Http\Controllers\GridController@resetActiveColumns') ->name('grid.resetActiveColumns');
+    Route::post('grid/reset-active-columns', '\App\Http\Controllers\GridController@resetActiveColumns') ->name('grid.resetActiveColumns');
     Route::resource('interests', \App\Http\Controllers\Modules\InterestController::class)->except('show');
     Route::resource('ledger-groups', \App\Http\Controllers\Modules\LedgerGroupController::class)->except('show');
     Route::resource('loyalty-points', \App\Http\Controllers\Modules\LoyaltyPointController::class)->except('show');

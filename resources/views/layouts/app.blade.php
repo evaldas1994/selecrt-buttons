@@ -83,7 +83,24 @@
 <script>
     const draggables = document.querySelectorAll('.draggable')
     const containers = document.querySelectorAll('[selection-of-grid-collumns-container]')
-    getActiveArr();
+
+    const save_active_column_form = document.getElementById('save_active_column_form');
+    save_active_column_form.addEventListener('submit', submit_save_active_column_form);
+
+    const reset_active_column_form = document.getElementById('reset_active_column_form');
+    reset_active_column_form.addEventListener('submit', submit_reset_active_column_form);
+
+    function submit_save_active_column_form()
+    {
+        getActiveArr('save');
+    }
+
+    function submit_reset_active_column_form()
+    {
+        getActiveArr('reset');
+    }
+
+
 
     draggables.forEach(draggable => {
         draggable.addEventListener('dragstart', () => {
@@ -107,7 +124,7 @@
             containers[0].insertBefore(draggable, afterElement)
         }
 
-        getActiveArr();
+        getActiveArr('save');
     })
 
     function getDragAfterElement(container, y) {
@@ -138,10 +155,10 @@
                 event.target.classList.remove('fa-eye')
             }
         }
-        getActiveArr();
+        getActiveArr('save');
     }, false);
 
-    function getActiveArr() {
+    function getActiveArr(type) {
 
         let activeArr = [];
 
@@ -151,7 +168,11 @@
             }
         });
 
-        document.getElementById('columns').value = JSON.stringify(activeArr)
+        if (type === 'save') {
+            document.getElementById('columns').value = JSON.stringify(activeArr)
+        } else if(type === 'reset') {
+            document.getElementById('columns').value = JSON.stringify(null)
+        }
 
         return JSON.stringify(activeArr)
     }

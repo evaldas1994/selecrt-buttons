@@ -8,3 +8,12 @@
 3) Create .env file
 4) Run php artisan key:generate
 5) Add database credentials to .env file
+
+
+## Blade components
+
+### modals
+- selection-of-grid-columns
+  - :gridColumns    (list of columns)(required)
+  - :form (form name from controller for db)(required)
+

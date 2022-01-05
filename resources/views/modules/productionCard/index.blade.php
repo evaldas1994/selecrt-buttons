@@ -71,8 +71,8 @@
 
         <!-- Modal -->
         <x-modals.selection-of-grid-columns
-            :gridColumns="$gridColumns"
-            :form="$form"
+            :gridColumns="$gridColumns"     {{--  list of columns             required      (array(keys: name, active, sortable))   --}}
+            :form="$form"                   {{--  form name from controller   required      (string)                                --}}
         />
     </div>
 @endsection

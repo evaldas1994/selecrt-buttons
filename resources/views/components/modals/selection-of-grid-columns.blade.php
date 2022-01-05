@@ -34,6 +34,7 @@
             <div class="modal-footer">
                 <input id="columns" name="columns" type="hidden" form="save_active_column_form">
                 <input id="form" name="form" type="hidden" form="save_active_column_form" value="{{ $form }}">
+                <input id="form" name="form" type="hidden" form="reset_active_column_form" value="{{ $form }}">
 
                 <x-form-elements.button
                     form="save_active_column_form"
@@ -63,8 +64,8 @@
 
     <x-form-elements.form
         id="reset_active_column_form"
-        route="grid.resetActiveColumns"
-        method="GET"
+        route="grid.saveActiveColumns"
+        method="POST"
     />
 </div>
 

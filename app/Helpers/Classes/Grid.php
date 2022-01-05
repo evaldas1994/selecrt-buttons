@@ -8,9 +8,7 @@
 
 namespace App\Helpers\Classes;
 
-use App\Models\ProductionCard;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\URL;
 
 class Grid
 {
@@ -43,13 +41,25 @@ class Grid
         return optional($this->gridObeject)->{$column};
     }
 
+    /**
+     * @param $form
+     * @param array $data
+     * @return mixed
+     */
     public static function updateOrCreate($form, $data = array())
     {
         return \App\Models\Grid::updateOrCreate(['f_userid' => auth()->user()->f_id, 'f_form' => $form,], $data);
     }
 
 
-    private function setItems($list, $defaultArray, $sortableGridColumns): array
+    /**
+     * @param array $list
+     * @param array $defaultArray
+     * @param array $sortableGridColumns
+     * @return array
+     * sets the order of the columns
+     */
+    private function setItems(array $list, array $defaultArray, array $sortableGridColumns): array
     {
         $gridColumnsArray = [];
         $i = 0;
@@ -74,6 +84,11 @@ class Grid
         return $gridColumnsArray;
     }
 
+    /**
+     * @param $model
+     * @return array
+     * constructs an array for blade
+     */
     public function getGridColumns($model): array
     {
         $gridColumns = $model::$gridColumns;
