@@ -12,7 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .react()
+    .vue()
     .copyDirectory('resources/theme','public/theme')
     .js('resources/js/main.js','public/js')
     .copyDirectory('resources/js/resizable-table-columns','public/js/resizable-table-columns')

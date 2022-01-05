@@ -24,7 +24,7 @@
 
     @include('layouts.main')
 @endif
-@livewireScripts
+
 <script src="{{ asset('js/resizable-table-columns/index.min.js') }}"></script>
 <script src="{{ asset('js/resizable-table-columns/store.js') }}"></script>
 <script src="{{ asset('theme/js/app.js') }}"></script>
@@ -177,6 +177,7 @@
         return JSON.stringify(activeArr)
     }
 </script>
+
 
 </body>
 </html>
