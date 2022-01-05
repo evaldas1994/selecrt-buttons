@@ -12,7 +12,7 @@ class GridController extends Controller
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function saveActiveColumns(Request $request)
+    public function __invoke(Request $request)
     {
         $messageType = 'withSuccess';
         $message = 'grid.saved_successfully';

@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('disch', \App\Http\Controllers\Modules\DischController::class)->except('show');
     Route::resource('discountsh', \App\Http\Controllers\Modules\DiscounthController::class)->except('show');
     Route::resource('employees', \App\Http\Controllers\Modules\EmployeeController::class)->except('show');
-    Route::post('grid/save-active-columns', '\App\Http\Controllers\GridController@saveActiveColumns') ->name('grid.saveActiveColumns');
+    Route::post('grid/save-active-columns', \App\Http\Controllers\GridController::class) ->name('grid.saveActiveColumns');
     Route::resource('interests', \App\Http\Controllers\Modules\InterestController::class)->except('show');
     Route::resource('ledger-groups', \App\Http\Controllers\Modules\LedgerGroupController::class)->except('show');
     Route::resource('loyalty-points', \App\Http\Controllers\Modules\LoyaltyPointController::class)->except('show');
