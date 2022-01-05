@@ -33,6 +33,15 @@ class Stock extends Model
         '5',
     ];
 
+    public $sortable = [
+        'f_id',
+        'f_name',
+        'f_create_userid',
+        'f_create_date',
+        'f_modified_userid',
+        'f_modified_date',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
