@@ -108,7 +108,7 @@ class BarcodeController extends Controller
         }
     }
 
-    private function checkButtonActionWithoutValidation(BarcodeStoreUpdateRequest $request, Barcode $barcode = null, string $message='global.empty')
+    private function checkButtonActionWithoutValidation(BarcodeStoreUpdateRequest $request, Barcode $barcode = null, string $message='global.empty'): RedirectResponse
     {
         session()->forget('queue_of_actions');
 

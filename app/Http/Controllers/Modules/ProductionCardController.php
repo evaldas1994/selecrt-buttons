@@ -56,11 +56,6 @@ class ProductionCardController extends Controller
 
         $data = $request->validated();
 
-        $data = $this->setImage($request, $data, 'f_image1');
-        $data = $this->setImage($request, $data, 'f_image2');
-        $data = $this->setImage($request, $data, 'f_image3');
-        $data = $this->setImage($request, $data, 'f_image4');
-
         $productionCard = ProductionCard::create($data);
 
         return $this->checkButtonAction($request, $productionCard, 'global.created_successfully');
@@ -74,7 +69,6 @@ class ProductionCardController extends Controller
      */
     public function edit(ProductionCard $productionCard)
     {
-//        dd(base64_encode(pg_unescape_bytea(pg_escape_bytea(stream_get_contents($productionCard->f_image1)))));
         $stocks = Stock::all();
 
         $productionCardComponents = $productionCard->components;
@@ -101,13 +95,7 @@ class ProductionCardController extends Controller
         }
 
         try {
-            $data = $request->validated();
-            $data = $this->setImage($request, $data, 'f_image1');
-            $data = $this->setImage($request, $data, 'f_image2');
-            $data = $this->setImage($request, $data, 'f_image3');
-            $data = $this->setImage($request, $data, 'f_image4');
-
-            $productionCard->update($data);
+            $productionCard->update($request->validated());
         } catch (\Exception) {
             return redirect()->route('production-cards.index')->withError(trans('global.update_failed'));
         }
@@ -129,17 +117,6 @@ class ProductionCardController extends Controller
         } catch (\Exception) {
             return redirect()->route('production-cards.index')->withError(trans('global.delete_failed'));
         }
-    }
-
-    private function setImage(ProductionCardStoreUpdateRequest $request, array $data, string $field)
-    {
-        if ($request->file($field)) {
-            $image_file = pg_escape_bytea(file_get_contents($request->file($field)));
-
-            return Arr::set($data, $field, $image_file);
-        }
-
-        return $data;
     }
 
     private function checkButtonAction(
@@ -182,6 +159,4 @@ class ProductionCardController extends Controller
 
         return redirect()->route('production-cards.index')->withSuccess(trans($message));
     }
-
-
 }
