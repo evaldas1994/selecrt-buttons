@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Rules\IdPatternRule;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,6 +26,10 @@ class UnitStoreUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
+            return [];
+        }
+
         $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_unit')->ignore($this->unit) : 'unique:t_unit';
         return [
             'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],

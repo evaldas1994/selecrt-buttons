@@ -14,6 +14,7 @@ use App\Models\Partner;
 use App\Models\Account;
 use App\Models\Project;
 use App\Models\Currency;
+use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 use App\Models\Register1;
 use App\Models\Register2;
@@ -53,7 +54,7 @@ class StockController extends Controller
     public function create()
     {
         $stockGroups = StockGroup::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
-        $units = Unit::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $units = Unit::select('f_id', 'f_name')->orderBy('f_name')->get();
         $manufacturers = Manufacturer::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $discountsh = Disch::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $vats = Vat::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
@@ -116,7 +117,14 @@ class StockController extends Controller
         $stock = Stock::create($request->validated());
 
         if (session()->exists('queue_of_actions')) {
-            $lastOfQueue = Arr::last(session('queue_of_actions'));
+            $arr = session('queue_of_actions');
+
+            $lastOfQueue = Arr::pull($arr, key(array_slice($arr, -1, 1, true)));
+            if ($arr === []) {
+                session()->forget('queue_of_actions');
+            }else {
+                session(['queue_of_actions' => $arr]);
+            }
 
             $prevRoute = Arr::get($lastOfQueue, 'route-prev.route');
             $prevData = Arr::get($lastOfQueue, 'route-prev.data');
@@ -124,9 +132,6 @@ class StockController extends Controller
 
             // collect data
             $prevData = Arr::set($prevData, $targetField, $stock->f_id);
-
-            //remove session
-            session()->forget('queue_of_actions');
 
             //redirect
             if ($prevData['_method'] == 'PUT' || $prevData['_method'] == 'PATCH')
@@ -310,7 +315,14 @@ class StockController extends Controller
                 dd('route to stock group.index', $actionWithoutValidation[1]);
 
             case 'select-unit':
-                dd('route to unit.index', $actionWithoutValidation[1]);
+                // get data for session
+                $data = $this->getQueueOfActionsSessionData($this->getPrevRoute(), $request->input(), 'units.index', [], 'f_unitid');
+
+                // push session
+                session()->push('queue_of_actions', $data);
+
+                // redirect
+                return redirect()->route(Arr::get($data,'route-next.route'), Arr::get($data,'route-next.data'));
 
             case 'select-pack-unit':
                 dd('route to unit.index', $actionWithoutValidation[1]);
@@ -365,5 +377,21 @@ class StockController extends Controller
         }
 
         return redirect()->route('stocks.index')->withSuccess(trans($message));
+    }
+
+    private function getPrevRoute(): string
+    {
+        return app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName();
+    }
+
+    private function getQueueOfActionsSessionData($prevRoute, $prevData, $nextRoute, $nextData, $field): array
+    {
+        $data = Arr::add([], 'route-prev.route', $prevRoute);
+        $data = Arr::add($data, 'route-prev.data', $prevData);
+        $data = Arr::add($data, 'route-next.route', $nextRoute);
+        $data = Arr::add($data, 'route-next.data', $nextData);
+        $data = Arr::add($data, 'route-prev.target_field', $field);
+
+        return $data;
     }
 }

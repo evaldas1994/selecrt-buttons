@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Modules;
 
 use App\Models\Stock;
+use Illuminate\Support\Facades\URL;
 use Illuminate\View\View;
 use Illuminate\Support\Arr;
 use App\Models\ProductionCard;
@@ -144,19 +145,47 @@ class ProductionCardController extends Controller
         ProductionCard $productionCard = null,
         string $message = 'global.empty'
     ): RedirectResponse {
+//        session()->forget('queue_of_actions');
         $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
-        switch ($actionWithoutValidation[0]) {
+
+        switch (Arr::first($actionWithoutValidation)) {
             case 'close':
                 return redirect()->route('production-cards.index');
 
             case 'select-stock':
-                dd('route to stocks.index', $actionWithoutValidation[1]);
+                //check is session exists
+//                if (session('queue_of_actions') === null) {
+//                    dd('sesija neegzistuoja');
+//                }
 
-            case 'production-card-component-edit':
-                $componentId = $actionWithoutValidation[1];
-                return redirect()->route('production-card-components.edit', [$productionCard, $componentId]);
+                // get data for session
+                $data = $this->getQueueOfActionsSessionData($this->getPrevRoute(), $request->input(), 'stocks.index', [], 'f_stockid');
+
+                // push session
+                session()->push('queue_of_actions', $data);
+//                dd(Arr::last(session('queue_of_actions')));
+//                session()->forget('queue_of_actions');
+
+                // redirect
+                return redirect()->route(Arr::get($data,'route-next.route'), Arr::get($data,'route-next.data'));
         }
 
         return redirect()->route('production-cards.index')->withSuccess(trans($message));
+    }
+
+    private function getPrevRoute(): string
+    {
+        return app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName();
+    }
+
+    private function getQueueOfActionsSessionData($prevRoute, $prevData, $nextRoute, $nextData, $field): array
+    {
+        $data = Arr::add([], 'route-prev.route', $prevRoute);
+        $data = Arr::add($data, 'route-prev.data', $prevData);
+        $data = Arr::add($data, 'route-next.route', $nextRoute);
+        $data = Arr::add($data, 'route-next.data', $nextData);
+        $data = Arr::add($data, 'route-prev.target_field', $field);
+
+        return $data;
     }
 }
