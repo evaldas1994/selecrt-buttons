@@ -28,16 +28,21 @@
                         <tbody>
                             @foreach($vats as $vat)
                                 <tr>
-                                    <td>{{ $vat->f_id }}</td>
-                                    <td class="">@limit($vat->f_name)</td>
-                                    <td>{{ $vat->f_vat_perc }}</td>
-                                    <td>{{ $vat->f_default_vat2_id }}</td>
-                                    <td>{{ optional($vat->vat2)->f_name }}</td>
-                                    <td>@lang('global.checkbox'.$vat->f_priority_in_integrations)</td>
-                                    <td>{{ $vat->f_create_userid }}</td>
-                                    <td>{{ $vat->f_create_date }}</td>
-                                    <td>{{ $vat->f_modified_userid }}</td>
-                                    <td>{{ $vat->f_modified_date }}</td>
+                                    @if(session()->has('queue_of_actions'))
+                                        <td><button style="outline: none; box-shadow: none;" form="vat_selected_by_form" class="btn w-100 h-100 text-start p-0" name="button-action-without-validation" value="selected-by|{{ $vat->f_id }}" >{{ $vat->f_id !== null ? $vat->f_id : '-'}}</button></td>
+                                    @else
+                                        <td>{{ $vat->f_id }}</td>
+                                        <td class="">@limit($vat->f_name)</td>
+                                        <td>{{ $vat->f_vat_perc }}</td>
+                                        <td>{{ $vat->f_default_vat2_id }}</td>
+                                        <td>{{ optional($vat->vat2)->f_name }}</td>
+                                        <td>@lang('global.checkbox'.$vat->f_priority_in_integrations)</td>
+                                        <td>{{ $vat->f_create_userid }}</td>
+                                        <td>{{ $vat->f_create_date }}</td>
+                                        <td>{{ $vat->f_modified_userid }}</td>
+                                        <td>{{ $vat->f_modified_date }}</td>
+                                    @endif
+
                                     <td class="table-action text-center">
                                         <a href="{{ route('vats.edit',$vat) }}"><i class="align-middle text-primary" data-feather="edit-2"></i></a>
                                         <x-buttons.delete>
@@ -53,5 +58,14 @@
             </div>
             {{ $vats->appends(\Request::except('page'))->render() }}
         </div>
+
+        {{--    Forms--}}
+        @if(session()->has('queue_of_actions'))
+            <x-form-elements.form
+                id="vat_selected_by_form"
+                route="vats.store"
+                method="POST"
+            />
+        @endif
     </div>
 @endsection

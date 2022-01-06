@@ -145,7 +145,6 @@ class ProductionCardController extends Controller
         ProductionCard $productionCard = null,
         string $message = 'global.empty'
     ): RedirectResponse {
-//        session()->forget('queue_of_actions');
         $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
 
         switch (Arr::first($actionWithoutValidation)) {
@@ -153,18 +152,10 @@ class ProductionCardController extends Controller
                 return redirect()->route('production-cards.index');
 
             case 'select-stock':
-                //check is session exists
-//                if (session('queue_of_actions') === null) {
-//                    dd('sesija neegzistuoja');
-//                }
-
-                // get data for session
                 $data = $this->getQueueOfActionsSessionData($this->getPrevRoute(), $request->input(), 'stocks.index', [], 'f_stockid');
 
                 // push session
                 session()->push('queue_of_actions', $data);
-//                dd(Arr::last(session('queue_of_actions')));
-//                session()->forget('queue_of_actions');
 
                 // redirect
                 return redirect()->route(Arr::get($data,'route-next.route'), Arr::get($data,'route-next.data'));

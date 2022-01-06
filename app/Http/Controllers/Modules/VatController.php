@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Modules;
 
-use App\Helpers\Classes\Grid;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\VatStoreUpdateRequest;
 use App\Models\Vat;
 use App\Models\Vat2;
+use Illuminate\Support\Arr;
+use App\Helpers\Classes\Grid;
+use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\VatStoreUpdateRequest;
 
 class VatController extends Controller
 {
@@ -44,11 +47,43 @@ class VatController extends Controller
      *
      * @param VatStoreUpdateRequest $request
      *
-     * @return \Illuminate\Http\Response
+     *
      */
     public function store(VatStoreUpdateRequest $request)
     {
-        Vat::create($request->validated());
+        if (Arr::exists($request->input(), 'button-action-without-validation')) {
+            return $this->checkButtonActionWithoutValidation($request);
+        }
+
+        $vat = Vat::create($request->validated());
+
+        if (session()->exists('queue_of_actions')) {
+            $arr = session('queue_of_actions');
+
+            $lastOfQueue = Arr::pull($arr, key(array_slice($arr, -1, 1, true)));
+            if ($arr === []) {
+                session()->forget('queue_of_actions');
+            }else {
+                session(['queue_of_actions' => $arr]);
+            }
+
+            $prevRoute = Arr::get($lastOfQueue, 'route-prev.route');
+            $prevData = Arr::get($lastOfQueue, 'route-prev.data');
+            $targetField = Arr::get($lastOfQueue, 'route-prev.target_field');
+
+            // collect data
+            $prevData = Arr::set($prevData, $targetField, $vat->f_id);
+
+            //redirect
+            if ($prevData['_method'] == 'PUT' || $prevData['_method'] == 'PATCH')
+            {
+                $id = Arr::get($prevData, 'f_id');
+//                dd($prevRoute, $id);
+                return redirect()->route($prevRoute, $id)->withInput($prevData);
+            } else {
+                return redirect()->route($prevRoute)->withInput($prevData);
+            }
+        }
 
         return redirect()->route('vats.index')->withSuccess(trans('global.created_successfully'));
     }
@@ -107,5 +142,67 @@ class VatController extends Controller
         } catch (\Exception) {
             return redirect()->route('vats.index')->withError(trans('global.delete_failed'));
         }
+    }
+
+    private function checkButtonActionWithoutValidation(
+        VatStoreUpdateRequest $request,
+        Vat $vat = null,
+        string $message = 'global.empty'
+    ): RedirectResponse {
+//        session()->forget('queue_of_actions');
+        $actionWithoutValidation = explode('|', $request->input('button-action-without-validation'));
+
+        switch (Arr::first($actionWithoutValidation)) {
+            case 'close':
+                return redirect()->route('vats.index');
+
+            case 'selected-by':
+                $unitId = $actionWithoutValidation[1];
+                if (session()->exists('queue_of_actions')) {
+                    $arr = session('queue_of_actions');
+
+                    $lastOfQueue = Arr::pull($arr, key(array_slice($arr, -1, 1, true)));
+                    if ($arr === []) {
+                        session()->forget('queue_of_actions');
+                    }else {
+                        session(['queue_of_actions' => $arr]);
+                    }
+
+                    $prevRoute = Arr::get($lastOfQueue, 'route-prev.route');
+                    $prevData = Arr::get($lastOfQueue, 'route-prev.data');
+                    $targetField = Arr::get($lastOfQueue, 'route-prev.target_field');
+
+                    // collect data
+                    $prevData = Arr::set($prevData, $targetField, $unitId);
+
+                    //redirect
+                    if ($prevData['_method'] == 'PUT' || $prevData['_method'] == 'PATCH')
+                    {
+                        $id = Arr::get($prevData, 'f_id');
+                        return redirect()->route($prevRoute, $id)->withInput($prevData);
+                    } else {
+                        return redirect()->route($prevRoute)->withInput($prevData);
+                    }
+                }
+                return redirect()->route('vats.index');
+        }
+
+        return redirect()->route('vats.index')->withSuccess(trans($message));
+    }
+
+    private function getPrevRoute(): string
+    {
+        return app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName();
+    }
+
+    private function getQueueOfActionsSessionData($prevRoute, $prevData, $nextRoute, $nextData, $field): array
+    {
+        $data = Arr::add([], 'route-prev.route', $prevRoute);
+        $data = Arr::add($data, 'route-prev.data', $prevData);
+        $data = Arr::add($data, 'route-next.route', $nextRoute);
+        $data = Arr::add($data, 'route-next.data', $nextData);
+        $data = Arr::add($data, 'route-prev.target_field', $field);
+
+        return $data;
     }
 }

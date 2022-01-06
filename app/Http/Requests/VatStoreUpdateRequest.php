@@ -7,6 +7,7 @@ use App\Rules\AlNumRule;
 use App\Rules\FloatRule;
 use App\Rules\IdPatternRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 
 class VatStoreUpdateRequest extends FormRequest
@@ -28,6 +29,10 @@ class VatStoreUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if (Arr::exists($this->input(), 'button-action-without-validation')) {
+            return [];
+        }
+
         $unique = in_array($this->method(), ['PUT', 'PATCH']) ? Rule::unique('t_vat')->ignore($this->vat) : 'unique:t_vat';
         return [
             'f_id' => [$unique, 'required', 'max:20', new IdPatternRule],

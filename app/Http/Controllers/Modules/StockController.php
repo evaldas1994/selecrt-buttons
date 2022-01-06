@@ -57,7 +57,7 @@ class StockController extends Controller
         $units = Unit::select('f_id', 'f_name')->orderBy('f_name')->get();
         $manufacturers = Manufacturer::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $discountsh = Disch::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
-        $vats = Vat::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $vats = Vat::select('f_id', 'f_name')->orderBy('f_name')->get();
         $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $currencies = Currency::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
         $partners = Partner::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
@@ -334,7 +334,15 @@ class StockController extends Controller
                 dd('route to discount.index', $actionWithoutValidation[1]);
 
             case 'select-vat':
-                dd('route to vat.index', $actionWithoutValidation[1]);
+                // get data for session
+                $data = $this->getQueueOfActionsSessionData($this->getPrevRoute(), $request->input(), 'vats.index', [], 'f_vatid');
+
+                // push session
+                session()->push('queue_of_actions', $data);
+
+                // redirect
+                return redirect()->route(Arr::get($data,'route-next.route'), Arr::get($data,'route-next.data'));
+
 
             case 'select-alternative-group':
                 dd('route to stock group.index', $actionWithoutValidation[1]);
