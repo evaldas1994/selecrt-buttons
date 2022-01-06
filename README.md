@@ -14,6 +14,11 @@
 
 ### modals
 - selection-of-grid-columns
-  - :gridColumns    (list of columns)(required)
+  - :gridColumns (list of columns)(required)
   - :form (form name from controller for db)(required)
+
+### modules
+- tab-list
+    - :count (number of tabs)(required)
+    - :lang (translations are stores in)(required)
 
