@@ -37,7 +37,7 @@ class ProductionCardController extends Controller
      */
     public function create()
     {
-        $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $stocks = Stock::all();
 
         return view('modules.productionCard.create', compact('stocks'));
     }
@@ -75,7 +75,7 @@ class ProductionCardController extends Controller
     public function edit(ProductionCard $productionCard)
     {
 //        dd(base64_encode(pg_unescape_bytea(pg_escape_bytea(stream_get_contents($productionCard->f_image1)))));
-        $stocks = Stock::select('f_id', 'f_name')->orderBy('f_name')->limit(10)->get();
+        $stocks = Stock::all();
 
         $productionCardComponents = $productionCard->components;
 
